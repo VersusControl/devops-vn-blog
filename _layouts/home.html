@@ -1,0 +1,105 @@
+---
+layout: base
+---
+<div class="home">
+  <header class="home-masthead">
+    <h1 class="masthead-title">DevOps VN</h1>
+    <p class="masthead-desc">DevOps VN is a website that shares knowledge about DevOps and Cloud Computing.</p>
+  </header>
+
+  <a class="vikki-featured" href="{{ '/vikki-banking-infrastructure-on-cloud' | relative_url }}">
+    <span class="vikki-eyebrow">Featured Series</span>
+    <h2 class="vikki-title">Vikki — Banking Infrastructure on Cloud</h2>
+    <p class="vikki-desc">A deep-dive series on architecting a digital bank's infrastructure on AWS — multi-account management, networking, Kubernetes at scale, GitOps, and chaos engineering.</p>
+    <span class="vikki-cta">Explore the series →</span>
+  </a>
+
+  <section class="feed">
+    <div class="feed-head">
+      <h2 class="feed-heading">Latest</h2>
+    </div>
+    <div class="post-list">
+      {% for post in site.data.new_posts %}
+      <a class="post-row" href="{% if post.url contains '://' %}{{ post.url }}{% else %}{{ post.url | relative_url }}{% endif %}"{% if post.url contains '://' %} target="_blank" rel="noopener"{% endif %}>
+        <div class="post-row-body">
+          {% if post.category %}<span class="post-row-cat">{{ post.category }}</span>{% endif %}
+          <h3 class="post-row-title">{{ post.title }}</h3>
+          <div class="post-row-meta">Quan Huynh</div>
+        </div>
+        {% if post.image %}
+        <div class="post-row-thumb">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+        </div>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="feed">
+    <div class="feed-head">
+      <h2 class="feed-heading">Featured</h2>
+    </div>
+    <div class="featured-grid">
+      {% for post in site.data.featured_posts %}
+      {% assign full = site.articles | where: "url", post.url | first %}
+      <a class="featured-card" href="{% if post.url contains '://' %}{{ post.url }}{% else %}{{ post.url | relative_url }}{% endif %}"{% if post.url contains '://' %} target="_blank" rel="noopener"{% endif %}>
+        {% if post.image %}
+        <div class="featured-card-image">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+        </div>
+        {% endif %}
+        <div class="featured-card-body">
+          {% if post.category %}<span class="featured-card-cat">{{ post.category }}</span>{% endif %}
+          <h3 class="featured-card-title">{{ post.title }}</h3>
+          {% if full.subtitle %}<p class="featured-card-sub">{{ full.subtitle }}</p>{% endif %}
+          <div class="featured-card-meta">Quan Huynh{% if full.date %} · {{ full.date | date: "%b %d, %Y" }}{% endif %}</div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="feed">
+    <div class="feed-head">
+      <h2 class="feed-heading">Explore by topic</h2>
+      <a class="section-link" href="{{ '/topics' | relative_url }}">All topics →</a>
+    </div>
+    <div class="topic-links">
+      <a href="{{ '/topics' | relative_url }}#terraform">Terraform</a>
+      <a href="{{ '/topics' | relative_url }}#kubernetes">Kubernetes</a>
+      <a href="{{ '/topics' | relative_url }}#aws">AWS</a>
+      <a href="{{ '/topics' | relative_url }}#azure">Azure</a>
+      <a href="{{ '/topics' | relative_url }}#prometheus">Prometheus</a>
+      <a href="{{ '/topics' | relative_url }}#service-mesh">Service Mesh</a>
+      <a href="{{ '/topics' | relative_url }}#networking">Networking</a>
+      <a href="{{ '/topics' | relative_url }}#linux">Linux Tips</a>
+      <a href="{{ '/topics' | relative_url }}#devops">DevOps</a>
+    </div>
+  </section>
+
+  <section class="feed">
+    <a class="book-callout" href="https://leanpub.com/the-aiops-book" target="_blank" rel="noopener">
+      <div class="book-callout-body">
+        <span class="book-eyebrow">First AI Journey for DevOps</span>
+        <h3>The AIOps Book</h3>
+        <p>A practical guide to bringing AI into your DevOps workflow.</p>
+      </div>
+      <span class="book-btn">Read on Leanpub →</span>
+    </a>
+  </section>
+
+  <section class="feed feed--last">
+    <div class="author-card">
+      <img src="{{ '/assets/images/quan-huynh.jpg' | relative_url }}" alt="Quan Huynh">
+      <div>
+        <div class="author-name">Quan Huynh</div>
+        <div class="author-role">Founder @ Versus Incident | DevOps VN</div>
+        <p class="author-bio">Sharing knowledge is one of the things I enjoy most, so I created DevOps VN to pass on what I learn to everyone. Let's share knowledge.</p>
+        <a class="section-link" href="{{ '/quan-huynh' | relative_url }}">More about me →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+{{ content }}

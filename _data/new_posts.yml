@@ -1,0 +1,26 @@
+# Latest posts shown on the home page. All entries link to translated
+# English posts. Update as new folders are translated.
+- title: "ArgoCD 1 — Getting Started"
+  category: Kubernetes
+  image: /assets/images/posts/argocd-01-getting-started/bookinfo.png
+  url: /argocd-01-getting-started/
+- title: "Networking for DevOps — The OSI Model"
+  category: Networking
+  image: /assets/images/posts/networking-osi-model/cover.png
+  url: /networking-osi-model/
+- title: "Practicing AWS Without Creating an Account"
+  category: AWS
+  image: /assets/images/posts/aws-practice-without-account/cover.png
+  url: /aws-practice-without-account/
+- title: "Kubernetes Basics — What Is Kubernetes?"
+  category: Kubernetes
+  image: /assets/images/posts/kubernetes-01-what-is-kubernetes/cover.png
+  url: /kubernetes-01-what-is-kubernetes/
+- title: "AWS CDK 0 — Infrastructure as Code and the AWS CDK"
+  category: AWS
+  image: /assets/images/posts/aws-cdk-00-iac-and-cdk/cover.png
+  url: /aws-cdk-00-iac-and-cdk/
+- title: "Remove All Exited Docker Containers"
+  category: Linux
+  image: /assets/images/posts/linux-remove-exited-containers/cover.png
+  url: /linux-remove-exited-containers/

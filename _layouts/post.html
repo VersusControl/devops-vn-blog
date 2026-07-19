@@ -1,0 +1,84 @@
+---
+layout: base
+---
+<article class="post-page">
+  <div class="post-container">
+    <header class="post-header">
+      {% if page.series %}
+      <nav class="post-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="{{ page.series_url | relative_url }}">{{ page.series }}</a>
+        {% if page.part %}
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Chapter {{ page.part }}</span>
+        {% endif %}
+      </nav>
+      {% endif %}
+
+      <h1 class="post-title">{{ page.title }}</h1>
+
+      {% if page.subtitle %}
+      <p class="post-subtitle">{{ page.subtitle }}</p>
+      {% elsif page.description %}
+      <p class="post-subtitle">{{ page.description }}</p>
+      {% endif %}
+
+      <div class="post-byline">
+        <img class="post-avatar" src="{{ '/assets/images/quan-huynh.jpg' | relative_url }}" alt="{{ page.author }}">
+        <div class="post-byline-meta">
+          <span class="post-author-name">{{ page.author | default: site.author.name }}</span>
+          <span class="post-byline-sub">
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %d, %Y" }}</time>
+            {% assign words = content | number_of_words %}
+            {% assign minutes = words | divided_by: 200 | plus: 1 %}
+            · {{ minutes }} min read
+          </span>
+        </div>
+      </div>
+
+      {% if page.tags.size > 0 %}
+      <div class="post-tags">
+        {% for tag in page.tags %}<a class="post-tag" href="{{ '/tags/' | relative_url }}#{{ tag }}">{{ tag }}</a>{% endfor %}
+      </div>
+      {% endif %}
+    </header>
+
+    <hr class="post-divider">
+
+    {% if page.image %}
+    <figure class="post-hero">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+    </figure>
+    {% endif %}
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    {% assign primary = page.tags | first %}
+    {% if primary %}
+      {% assign related = site.articles | where_exp: "p", "p.tags contains primary" | where_exp: "p", "p.url != page.url" | sort: "date" | reverse %}
+      {% if related.size > 0 %}
+      <section class="post-related">
+        <h2 class="post-related-heading">More in {{ primary | capitalize }}</h2>
+        <div class="topic-cards">
+          {% for post in related limit: 6 %}
+          <a class="topic-card" href="{{ post.url | relative_url }}">
+            {% if post.image %}<div class="topic-card-image"><img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy"></div>{% else %}<div class="topic-card-image topic-card-placeholder"></div>{% endif %}
+            <div class="topic-card-body">
+              <time class="topic-card-date">{{ post.date | date: "%b %d, %Y" }}</time>
+              <h3 class="topic-card-title">{{ post.title }}</h3>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    {% endif %}
+
+    <footer class="post-footer">
+      <a href="{{ '/' | relative_url }}" class="back-link">← Back to all posts</a>
+    </footer>
+  </div>
+</article>

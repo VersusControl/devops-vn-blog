@@ -1,0 +1,43 @@
+title: DevOps VN
+description: >-
+  DevOps VN is a website that shares knowledge about DevOps and Cloud
+  Computing.
+url: "https://devopsvn.tech"
+baseurl: ""
+
+permalink: /:title/
+
+# Collections
+collections:
+  articles:
+    output: true
+    permalink: /:title/
+    sort_by: date
+
+# Author defaults
+author:
+  name: Quan Huynh
+  email: ""
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - vendor
+  - ExportBlock-5101a870-1b7a-49c5-8759-a4abffb1f541-Part-1
+
+defaults:
+  - scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "post"
+      author: "Quan Huynh"

@@ -1,0 +1,18 @@
+# Featured posts shown on the home page. All entries link to translated
+# English posts.
+- title: "Creating and Authorizing Users on Kubernetes"
+  category: Kubernetes
+  image: /assets/images/posts/kubernetes-create-and-authorize-users/cover.png
+  url: /kubernetes-create-and-authorize-users/
+- title: "PipeCD — GitOps on AWS"
+  category: AWS
+  image: /assets/images/posts/pipecd-gitops-on-aws/cover.png
+  url: /pipecd-gitops-on-aws/
+- title: "Types of Databases on AWS"
+  category: AWS
+  image: /assets/images/posts/aws-database-types/cover.png
+  url: /aws-database-types/
+- title: "ArgoCD 4 — Architecture"
+  category: Kubernetes
+  image: /assets/images/posts/argocd-04-architecture/cover.png
+  url: /argocd-04-architecture/

@@ -1,0 +1,8 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+.bundle/
+Gemfile.lock
+ExportBlock-5101a870-1b7a-49c5-8759-a4abffb1f541-Part-1
