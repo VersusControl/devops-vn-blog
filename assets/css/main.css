@@ -401,52 +401,40 @@ main {
   background: var(--brand-bg);
 }
 
-/* Featured series card (home) — Substack-style */
+/* Featured series (home) — image left / content right, equal width */
 .vikki-featured {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: center;
   margin: 28px 0 8px;
-  border-radius: 16px;
-  background: #fff;
-  border: 1px solid var(--border-color);
   text-decoration: none;
-  overflow: hidden;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-}
-
-.vikki-featured:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--brand-light);
 }
 
 .vikki-featured-media {
+  border-radius: 12px;
   overflow: hidden;
   background: var(--brand-bg);
 }
 
 .vikki-featured-media img {
+  display: block;
   width: 100%;
-  height: 100%;
-  min-height: 220px;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
 .vikki-featured:hover .vikki-featured-media img {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 .vikki-featured-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 30px 34px;
+  text-align: center;
 }
 
 .vikki-eyebrow {
   display: inline-block;
-  align-self: flex-start;
   font-family: var(--font-family);
   font-size: 0.72rem;
   font-weight: 700;
@@ -458,20 +446,25 @@ main {
 
 .vikki-title {
   font-family: var(--font-family);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: #1a1a1a;
   margin-bottom: 10px;
+  transition: color var(--transition);
+}
+
+.vikki-featured:hover .vikki-title {
+  color: var(--brand);
 }
 
 .vikki-desc {
-  font-family: var(--font-serif);
-  font-size: 1.02rem;
-  line-height: 1.6;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  line-height: 1.55;
   color: #575757;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .vikki-cta {
@@ -484,6 +477,15 @@ main {
 
 .vikki-featured:hover .vikki-cta {
   color: var(--brand-dark);
+}
+
+.vikki-meta {
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8a8a8a;
 }
 
 /* ============================================
@@ -1528,11 +1530,11 @@ main {
 
   .vikki-featured {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
 
-  .vikki-featured-media img {
-    min-height: 180px;
-    max-height: 200px;
+  .vikki-title {
+    font-size: 1.6rem;
   }
 
   .post-row-title {
