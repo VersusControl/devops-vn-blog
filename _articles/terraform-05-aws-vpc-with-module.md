@@ -25,10 +25,12 @@ Create a file named `main.tf`.
 
 ```hcl
 terraform {
+  required_version = ">= 1.9"
+
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "4.45.0"
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
     }
   }
 }
@@ -258,7 +260,7 @@ We use Terraform's `aws_nat_gateway` resource to create the NAT.
 ```hcl
 ...
 resource "aws_eip" "nat" {
-  vpc = true
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "public" {
@@ -281,8 +283,8 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.public.id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.public.id
   }
 
   tags = {
@@ -376,7 +378,7 @@ resource "aws_route_table_association" "public_association" {
 }
 
 resource "aws_eip" "nat" {
-  vpc = true
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "public" {
@@ -394,8 +396,8 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.public.id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.public.id
   }
 
   tags = {
@@ -572,7 +574,7 @@ resource "aws_route_table_association" "public_association" {
 }
 
 resource "aws_eip" "nat" {
-  vpc = true
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "public" {
@@ -590,8 +592,8 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.public.id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.public.id
   }
 
   tags = {
@@ -690,7 +692,7 @@ They provide us with many cases. For example, creating a VPC for AWS Kubernetes 
 ```hcl
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   name = var.cluster_name
   cidr = "10.0.0.0/16"
@@ -705,19 +707,18 @@ module "vpc" {
   one_nat_gateway_per_az = false
   enable_dns_hostnames   = true
 
-  // Create db subnet group and enable public access to RDS instances
-  create_database_subnet_group           = true
-  create_database_subnet_route_table     = true
-  create_database_internet_gateway_route = true
+  # Create a dedicated subnet group / route table for RDS.
+  create_database_subnet_group       = true
+  create_database_subnet_route_table = true
 
+  # For modern EKS, subnet tags no longer need the cluster name — the
+  # role tags below are enough for the AWS Load Balancer Controller.
   public_subnet_tags = {
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/elb"                    = 1
+    "kubernetes.io/role/elb" = 1
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"           = 1
+    "kubernetes.io/role/internal-elb" = 1
   }
 
   tags = local.tags

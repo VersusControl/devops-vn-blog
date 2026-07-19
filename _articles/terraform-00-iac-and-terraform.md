@@ -44,7 +44,13 @@ Four advantages of Terraform over other tools:
 
 Next, let's do a small example to understand it better. In this series I'll use Terraform to provision infrastructure on AWS (since I haven't used other clouds yet).
 
-To do this you need an AWS account and an IAM User with Admin permissions. Follow the steps here: [AWS CLI Configure Quickstart](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html). After getting your `Access Key`, create a file named `~/.aws/credentials` with the following content:
+To do this you need an AWS account and an IAM User (or, better, an IAM Identity Center / SSO user) with Admin permissions. The simplest way to configure credentials is the AWS CLI:
+
+```bash
+aws configure
+```
+
+This writes your `Access Key` and `Secret Access Key` to `~/.aws/credentials`:
 
 ```ini
 [default]
@@ -52,7 +58,9 @@ aws_access_key_id=<your-key>
 aws_secret_access_key=<your-key>
 ```
 
-Then install Terraform from this link: [Terraform Installation](https://learn.hashicorp.com/tutorials/terraform/install-cli). OK, next we start writing code.
+> In real projects prefer short-lived credentials over long-lived access keys — for example `aws sso login` with IAM Identity Center, or an IAM role. Terraform picks up whatever the AWS CLI is configured to use.
+
+Then install Terraform by following the official guide: [Install Terraform](https://developer.hashicorp.com/terraform/install). This series uses **Terraform 1.9+** and the **AWS provider v6**. OK, next we start writing code.
 
 ## "Hello Terraform!"
 
@@ -70,31 +78,57 @@ The steps we perform are:
 
 ![Terraform workflow steps](/assets/images/posts/terraform-00-iac-and-terraform/05.png)
 
-Create a file named `main.tf`:
+Create a file named `main.tf`. We start with a `terraform` block that pins the versions we depend on, then configure the AWS provider:
 
 ```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
 ```
 
-We specify that we use the `provider` named `aws`, and our `resource` will be created in the `us-west-2` region. Then we add the code to create an EC2:
+The `required_providers` block tells Terraform exactly which provider to download and which version range is acceptable (`~> 6.0` means any 6.x release). Pinning versions is a best practice — it keeps your team and CI reproducible. The `provider` block says our `resource`s will be created in the `us-west-2` region.
+
+Then we add the code to create an EC2. Instead of hard-coding an AMI ID (which is region-specific and goes stale as new images are released), we look up the latest Amazon Linux 2023 image with a `data` source:
 
 ```hcl
-provider "aws" {
-  region = "us-west-2"
+# Look up the latest Amazon Linux 2023 AMI owned by Amazon.
+data "aws_ami" "al2023" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 resource "aws_instance" "hello" {
-  ami           = "ami-09dd2e08d601bff67"
-  instance_type = "t2.micro"
+  ami           = data.aws_ami.al2023.id
+  instance_type = "t3.micro"
+
   tags = {
     Name = "HelloWorld"
   }
 }
 ```
 
-Above we use a `block` named `resource` — this is the most important block in Terraform; we use it to create our resources. After `resource` comes another value, the `resource type` we want to create (this depends on what resource types our provider offers), for example `aws_instance` above, and the final value is the name of that resource, which we can set to anything.
+Above we use a `block` named `resource` — this is the most important block in Terraform; we use it to create our resources. After `resource` comes another value, the `resource type` we want to create (this depends on what resource types our provider offers), for example `aws_instance` above, and the final value is the name of that resource, which we can set to anything. We also switched to a current-generation instance type, `t3.micro`.
 
 ![Resource block syntax](/assets/images/posts/terraform-00-iac-and-terraform/06.png)
 
@@ -124,9 +158,9 @@ terraform init
 Initializing the backend...
 
 Initializing provider plugins...
-- Finding latest version of hashicorp/aws...
-- Installing hashicorp/aws v3.66.0...
-- Installed hashicorp/aws v3.66.0 (signed by HashiCorp)
+- Finding hashicorp/aws versions matching "~> 6.0"...
+- Installing hashicorp/aws v6.55.0...
+- Installed hashicorp/aws v6.55.0 (signed by HashiCorp)
 
 Terraform has created a lock file .terraform.lock.hcl to record the provider
 selections it made above. Include this file in your version control repository

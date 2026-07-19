@@ -1,0 +1,42 @@
+stages:
+  - plan
+  - apply
+
+# Pin the image so pipelines are reproducible.
+image:
+  name: hashicorp/terraform:1.11
+  entrypoint:
+    - "/usr/bin/env"
+    - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+cache:
+  paths:
+    - .terraform.lock.hcl
+    - terraform.tfstate.d/*
+
+before_script:
+  - terraform init
+  # -or-create makes the pipeline idempotent for a fresh workspace.
+  - terraform workspace select -or-create "$CI_COMMIT_REF_NAME"
+
+plan:
+  stage: plan
+  script:
+    - terraform plan -var-file=env/$CI_COMMIT_REF_NAME.tfvars -out "planfile"
+  artifacts:
+    paths:
+      - planfile
+  only:
+    - dev
+    - pro
+
+apply:
+  stage: apply
+  script:
+    - terraform apply -input=false "planfile"
+  dependencies:
+    - plan
+  when: manual
+  only:
+    - dev
+    - pro

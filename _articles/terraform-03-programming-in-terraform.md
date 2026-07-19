@@ -20,28 +20,38 @@ Terraform lets us program in a *functional programming* style.
 We'll use an EC2 example to learn programming concepts in Terraform. Create a file named `main.tf`:
 
 ```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "hello" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
 }
 ```
 
-Run `terraform init` and `terraform apply`, then on AWS we'll see our EC2. With the code above, our EC2 always has `instance_type` = `t2.micro`. What if we want to recreate the EC2 with a different `instance_type`? Edit the code in the Terraform file? That's not very flexible; instead we'll use variables (called `variable` in programming) for this.
+Run `terraform init` and `terraform apply`, then on AWS we'll see our EC2. With the code above, our EC2 always has `instance_type` = `t3.micro`. What if we want to recreate the EC2 with a different `instance_type`? Edit the code in the Terraform file? That's not very flexible; instead we'll use variables (called `variable` in programming) for this.
 
 ## Declaring input variables
 
@@ -74,13 +84,12 @@ provider "aws" {
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "hello" {
@@ -96,7 +105,7 @@ For the `instance_type` attribute, instead of hard-coding it we now use the vari
 To assign a value to a variable, we create a file named `terraform.tfvars`.
 
 ```bash
-instance_type = "t2.micro"
+instance_type = "t3.micro"
 ```
 
 When we run `terraform apply`, Terraform uses the `terraform.tfvars` file to load default values for variables. If we don't want to use the defaults, we add the `-var-file` attribute when running `apply`. Create a file named `production.tfvars`.
@@ -119,20 +128,20 @@ We can also define a variable so it can only be assigned values we allow by usin
 
 ```hcl
 variable "instance_type" {
-  type = string
+  type        = string
   description = "Instance type of the EC2"
 
   validation {
-    condition = contains(["t2.micro", "t3.small"], var.instance_type)
-    error_message = "Value not allow."
+    condition     = contains(["t3.micro", "t3.small"], var.instance_type)
+    error_message = "instance_type must be one of: t3.micro, t3.small."
   }
 }
 ```
 
-In the file above we use the *contains* function to check that the value of the `instance_type` variable is only within the array we allow; otherwise, when we run `apply` we'll see the error in the `error_message` field. Edit the `terraform.tfvars` file.
+In the file above we use the *contains* function to check that the value of the `instance_type` variable is only within the array we allow; otherwise, when we run `apply` we'll see the error in the `error_message` field. Edit the `terraform.tfvars` file to a disallowed (previous-generation) type.
 
 ```bash
-instance_type = "t3.micro"
+instance_type = "t2.micro"
 ```
 
 Run `apply`.
@@ -148,7 +157,7 @@ terraform apply
 │   on variable.tf line 1:
 │    1: variable "instance_type" {
 │
-│ Value not allow.
+│ instance_type must be one of: t3.micro, t3.small.
 │
 │ This was checked by the validation rule at variable.tf:5,3-13.
 ╵
@@ -201,13 +210,12 @@ provider "aws" {
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "hello1" {
@@ -241,13 +249,12 @@ provider "aws" {
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "hello" {
@@ -269,6 +276,8 @@ output "ec2" {
 
 Now when we run `apply`, Terraform creates 5 EC2s for us. Notice that in the output, to access a resource we use `[]` and the resource's index value. Normally to access a resource we use the syntax `<RESOURCE TYPE>.<NAME>`, but when we use count we access the resource with the syntax `<RESOURCE TYPE>.<NAME>[index]`.
 
+> `count` is great for identical copies, but because resources are tracked by index (`[0]`, `[1]`, …), removing an item in the middle shifts every later resource and can trigger avoidable replacements. When each instance has a stable identity (a name, an AZ, a map key), prefer the **`for_each`** meta-argument, which keys resources by a string instead of a positional index.
+
 Now we've solved copying resources when we need to create many of them, but in the `output` section we still have to write out each resource individually. We'll solve that using the for expression.
 
 ## The for expression
@@ -282,7 +291,7 @@ for <value> in <list> : <return value>
 Examples using for:
 
 - Create a new array whose values are uppercased: `[for s in var.words : upper(s)]`
-- Create a new object whose values are uppercased: `{ for k, v in var.words : k => upper(s) }`
+- Create a new object whose values are uppercased: `{ for k, v in var.words : k => upper(v) }`
 
 We'll use for to shorten the EC2 `output`. Update `main.tf`:
 

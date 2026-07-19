@@ -30,6 +30,17 @@ Every Terraform `resource type` *implements* a *CRUD interface*. This CRUD inter
 Now we'll write a Terraform file to create an S3 bucket and walk through each of the functions above. Create a workspace named `s3`, then create a file named `main.tf` with the following code:
 
 ```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
@@ -38,7 +49,7 @@ resource "aws_s3_bucket" "terraform-bucket" {
   bucket = "terraform-series-bucket"
 
   tags = {
-    Name        = "Terraform Series"
+    Name = "Terraform Series"
   }
 }
 ```
@@ -240,7 +251,6 @@ Terraform will perform the following actions:
 
  # aws_s3_bucket.terraform-bucket will be destroyed
  - resource "aws_s3_bucket" "terraform-bucket" {
-     - acl                         = "private" -> null
      - arn                         = "arn:aws:s3:::terraform-series-bucket-update" -> null
      ...
    }

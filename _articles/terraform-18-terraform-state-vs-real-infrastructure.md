@@ -21,20 +21,30 @@ Let's do a small example creating an EC2 and a Security Group allowing access to
 
 Create a file named `main.tf` with the following code.
 
-```
+```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_security_group" "allow_ssh" {
@@ -78,7 +88,7 @@ resource "aws_instance" "server" {
   }
 }
 
-output "ec2" {
+output "instance_id" {
   value = aws_instance.server.id
 }
 ```
@@ -295,7 +305,7 @@ vpc_security_group_ids = [
 
 Running `plan`, we see the Terraform State now correctly reflects the current infrastructure. But right now we've set `vpc_security_group_ids` to the literal value `sg-026401f9c4e93a37a`. Is there a way to turn this into a resource in the configuration file?
 
-The answer is yes, and **currently there's no tool that perfectly converts all our infrastructure into Terraform configuration files — everything has to be done by hand**.
+The answer is yes. Note that the old claim that *everything has to be done by hand* no longer fully holds: since Terraform **1.5** there is **config-driven import** (the `import` block), and `terraform plan -generate-config-out=<file>` can even scaffold the resource configuration for you.
 
 ## Terraform import
 
@@ -345,6 +355,17 @@ aws_security_group.allow_http: Refreshing state... [id=sg-026401f9c4e93a37a]
 Import successful!
 ```
 
+> **Modern alternative (Terraform 1.5+): the `import` block.** Instead of the imperative CLI command, you can declare the import in code, which is reviewable in version control and applied on the next `terraform apply`:
+>
+> ```hcl
+> import {
+>   to = aws_security_group.allow_http
+>   id = "sg-026401f9c4e93a37a"
+> }
+> ```
+>
+> If you haven't written the resource block yet, run `terraform plan -generate-config-out=generated.tf` and Terraform scaffolds it for you. Remove the `import` block once the import is done.
+
 **To see how to import different resources, check the AWS provider docs.**
 
 Next we update the `vpc_security_group_ids` of `aws_instance.server` so we no longer need to hard-code the value.
@@ -362,21 +383,30 @@ Next we update the `vpc_security_group_ids` of `aws_instance.server` so we no lo
 
 The complete code.
 
-```
+```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
-  region  = "us-west-2"
-  profile = "kala"
+  region = "us-west-2"
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_security_group" "allow_ssh" {

@@ -118,9 +118,3 @@ about.md                    # About page
 topics.md                   # Topics / series overview
 .github/workflows/deploy.yml # GitHub Pages deployment
 ```
-
-## Deployment
-
-The site is automatically built and deployed to GitHub Pages via GitHub Actions
-on every push to the `main` branch. Enable GitHub Pages in your repository
-settings with the source set to **GitHub Actions**.

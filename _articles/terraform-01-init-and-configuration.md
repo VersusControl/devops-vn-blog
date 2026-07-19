@@ -20,20 +20,31 @@ Continuing the simple example, we'll create an EC2 on AWS Cloud. To create new i
 First we create a workspace, which is simply a directory. Create a directory named `ec2`, then create a file named `main.tf` (you can name it anything) inside the directory. Paste in the following code:
 
 ```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
 
 resource "aws_instance" "hello" {
   ami           = "ami-09dd2e08d601bff67"
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   tags = {
     Name = "HelloWorld"
   }
 }
 ```
 
-Next we run `terraform init` to download the `aws provider` into the current directory so Terraform can use these providers and call the AWS API to create resources for us. For the syntax and meaning of the Terraform configuration syntax above, see the previous part.
+The `terraform` block pins the Terraform and provider versions so the project is reproducible for everyone on the team and in CI. Next we run `terraform init` to download the `aws provider` into the current directory so Terraform can use these providers and call the AWS API to create resources for us. For the syntax and meaning of the Terraform configuration syntax above, see the previous part.
 
 ## Initializing the workspace
 
@@ -45,9 +56,9 @@ terraform init
 Initializing the backend...
 
 Initializing provider plugins...
-- Finding latest version of hashicorp/aws...
-- Installing hashicorp/aws v3.68.0...
-- Installed hashicorp/aws v3.68.0 (signed by HashiCorp)
+- Finding hashicorp/aws versions matching "~> 6.0"...
+- Installing hashicorp/aws v6.55.0...
+- Installed hashicorp/aws v6.55.0 (signed by HashiCorp)
 
 Terraform has created a lock file .terraform.lock.hcl to record the provider
 selections it made above. Include this file in your version control repository
@@ -64,9 +75,9 @@ After you run `init`, you'll see a directory named `.terraform` is created — t
 │       └── registry.terraform.io
 │           └── hashicorp
 │               └── aws
-│                   └── 3.68.0
-│                       └── linux_amd64
-│                           └── terraform-provider-aws_v3.68.0_x5
+│                   └── 6.55.0
+│                       └── darwin_arm64
+│                           └── terraform-provider-aws_v6.55.0_x5
 ├── .terraform.lock.hcl
 └── main.tf
 ```
@@ -195,9 +206,9 @@ When it finishes, you'll see a new file created: `terraform.tfstate`.
 │       └── registry.terraform.io
 │           └── hashicorp
 │               └── aws
-│                   └── 3.68.0
-│                       └── linux_amd64
-│                           └── terraform-provider-aws_v3.68.0_x5
+│                   └── 6.55.0
+│                       └── darwin_arm64
+│                           └── terraform-provider-aws_v6.55.0_x5
 ├── .terraform.lock.hcl
 ├── main.tf
 └── terraform.tfstate
@@ -208,7 +219,7 @@ This is the file Terraform uses to record the state of all our resources, so it 
 ```json
 {
   "version": 4,
-  "terraform_version": "1.0.0",
+  "terraform_version": "1.11.3",
   "serial": 1,
   "lineage": "fa28c290-92d6-987f-c49d-bc546b296c2b",
   "outputs": {},
@@ -232,7 +243,7 @@ We've finished creating an EC2 on AWS. To delete the resource, run `terraform de
 ```json
 {
   "version": 4,
-  "terraform_version": "1.0.0",
+  "terraform_version": "1.11.3",
   "serial": 3,
   "lineage": "fa28c290-92d6-987f-c49d-bc546b296c2b",
   "outputs": {},
@@ -253,25 +264,29 @@ provider "aws" {
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+  owners      = ["099720109477"] # Canonical's AWS account id
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
 
-  owners = ["099720109477"] # Canonical Ubuntu AWS account id
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 resource "aws_instance" "hello" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   tags = {
     Name = "HelloWorld"
   }
 }
 ```
 
-In the configuration above, we use the `data` block to call the API to AWS Cloud and retrieve information about the AMI (Amazon Machine Images), then in the `resource` block below we change the `ami` field to the id value we obtained from the block above. The syntax of the `data` block:
+In the configuration above, we use the `data` block to call the API to AWS Cloud and retrieve information about the AMI (Amazon Machine Images) — here the latest Ubuntu 24.04 LTS (Noble) image — then in the `resource` block below we change the `ami` field to the id value we obtained from the block above. The syntax of the `data` block:
 
 ![Data block syntax](/assets/images/posts/terraform-01-init-and-configuration/02.png)
 

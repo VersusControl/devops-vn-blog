@@ -28,10 +28,10 @@ The first thing that can leak security information is logs. When you run `terraf
 
 ### Sensitive Variable
 
-If, while Terraform runs `apply`, we print sensitive information, it will be leaked if anyone accesses your machine. For example, if we use `local-exec` as follows:
+If, while Terraform runs `apply`, we print sensitive information, it will be leaked if anyone accesses your machine. For example, if we use `local-exec` as follows (`terraform_data` is the built-in replacement for the old `null_resource`, so no external provider is needed):
 
-```
-resource "null_resource" "print" {
+```hcl
+resource "terraform_data" "print" {
   provisioner "local-exec" {
     command = <<-EOF
       echo "username = ${var.postgres_username}"
@@ -53,18 +53,18 @@ null_resource.uh_oh: Creation complete after 0s [id=5973892021553480485]
 
 Our secure information is saved into the logs, so when we use a `variable` in Terraform, for variables containing sensitive information we should add a `sensitive` field, for example:
 
-```
+```hcl
 variable "postgres_username" {
-  type = string
+  type      = string
   sensitive = true
 }
 
 variable "postgres_password" {
-  type = string
+  type      = string
   sensitive = true
 }
 
-resource "null_resource" "print" {
+resource "terraform_data" "print" {
   provisioner "local-exec" {
     command = <<-EOF
       echo "username = ${var.postgres_username}"
@@ -152,12 +152,12 @@ terraform apply -var="access_key=ABCXYZ" -var="secret_key=ABCXYZ"
 
 But for blocks that store data in the state, such as resources, even if we use environment variables it's still saved into the state, for example.
 
-```
+```hcl
 resource "aws_rds_cluster" "postgres" {
   cluster_identifier = "postgres"
   engine             = "aurora-postgresql"
   engine_mode        = "provisioned"
-  engine_version     = "13.6"
+  engine_version     = "16.4"
   database_name      = "terraform"
   master_username    = var.username
   master_password    = var.password
@@ -211,7 +211,9 @@ Encryption at rest is a way to encrypt data and turn it into a form humans can't
 
 ![Encryption at rest](/assets/images/posts/terraform-17-securing-logs-and-state-file/03.png)
 
-Most kinds of Terraform Backend have Encryption at Rest — for example, S3 provides us with quite a few methods for encryption.
+Most kinds of Terraform Backend have Encryption at Rest — for example, S3 provides us with quite a few methods for encryption (turn it on with `encrypt = true`, and ideally a customer-managed KMS key, as we did in the [S3 Backend part](/terraform-08-s3-standard-backend/)).
+
+> Terraform itself still can't encrypt the *contents* of the state client-side. If you need that, **OpenTofu** (the open-source fork of Terraform) added **client-side state encryption** in 1.7 — the state is encrypted before it ever reaches the backend.
 
 ## Conclusion
 

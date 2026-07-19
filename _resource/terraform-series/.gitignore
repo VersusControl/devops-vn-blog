@@ -1,0 +1,18 @@
+# Terraform working files — never commit these.
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+plan.out
+plan.json
+
+# NOTE: *.tfvars is intentionally NOT ignored here — the .tfvars files in these
+# chapters are example teaching artifacts and contain no secrets. In a real
+# project you would ignore *.tfvars / *.auto.tfvars to avoid committing secrets.

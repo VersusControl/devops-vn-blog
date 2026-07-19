@@ -75,13 +75,12 @@ terraform apply -auto-approve
 When Terraform finishes, the S3 backend values are displayed.
 
 ```
-Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
 
 Outputs:
 
 config = {
   "bucket" = "terraform-series-s3-backend"
-  "dynamodb_table" = "terraform-series-s3-backend"
   "region" = "us-west-2"
   "role_arn" = "arn:aws:iam::112337013333:role/Terraform-SeriesS3BackendRole"
 }
@@ -111,15 +110,24 @@ Next we build the CI/CD flow.
 
 Create a file named `main.tf`.
 
-```
+```hcl
 terraform {
+  required_version = ">= 1.10"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+
   backend "s3" {
-    bucket         = "terraform-series-s3-backend"
-    key            = "terraform-jenkins"
-    region         = "us-west-2"
-    encrypt        = true
-    role_arn       = "arn:aws:iam::<ACCOUNT_ID>:role/Terraform-SeriesS3BackendRole"
-    dynamodb_table = "terraform-series-s3-backend"
+    bucket       = "terraform-series-s3-backend"
+    key          = "terraform-jenkins"
+    region       = "us-west-2"
+    encrypt      = true
+    role_arn     = "arn:aws:iam::<ACCOUNT_ID>:role/Terraform-SeriesS3BackendRole"
+    use_lockfile = true
   }
 }
 
@@ -129,13 +137,12 @@ provider "aws" {
 
 data "aws_ami" "ami" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "server" {
@@ -156,17 +163,17 @@ output "public_ip" {
 }
 ```
 
-Configure the S3 backend as follows:
+Configure the S3 backend as follows (using `use_lockfile` for S3-native locking instead of a DynamoDB table):
 
-```
+```hcl
 terraform {
   backend "s3" {
-    bucket         = "terraform-series-s3-backend"
-    key            = "terraform-jenkins"
-    region         = "us-west-2"
-    encrypt        = true
-    role_arn       = "arn:aws:iam::<ACCOUNT_ID>:role/Terraform-SeriesS3BackendRole"
-    dynamodb_table = "terraform-series-s3-backend"
+    bucket       = "terraform-series-s3-backend"
+    key          = "terraform-jenkins"
+    region       = "us-west-2"
+    encrypt      = true
+    role_arn     = "arn:aws:iam::<ACCOUNT_ID>:role/Terraform-SeriesS3BackendRole"
+    use_lockfile = true
   }
 }
 ```
@@ -194,7 +201,7 @@ pipeline {
     }
     stage('Plan Resources') {
       steps {
-        sh 'terraform plan'
+        sh 'terraform plan -out planfile'
       }
     }
     stage('Apply Resources') {
@@ -202,7 +209,7 @@ pipeline {
         message "Do you want to proceed for production deployment?"
       }
       steps {
-        sh 'terraform apply -auto-approve'
+        sh 'terraform apply -input=false planfile'
       }
     }
   }

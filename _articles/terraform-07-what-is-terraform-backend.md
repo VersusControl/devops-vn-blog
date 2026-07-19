@@ -63,23 +63,19 @@ For example, when we use the S3 Standard Backend we configure it like so.
 
 ```hcl
 terraform {
+  required_version = ">= 1.10"
+
   backend "s3" {
-    bucket         = "state-bucket"
-    key            = "team/rocket"
-    region         = "us-west-2"
-    encrypt        = true
-    role_arn       = "arn:aws:iam::<ACCOUNT_ID>:role/state-bucket-assume-role"
-    dynamodb_table = "state-assume-lock"
-  }
-  required_version = ">= 0.15"
-  required_providers {
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 3.0"
-    }
+    bucket       = "state-bucket"
+    key          = "team/rocket"
+    region       = "us-west-2"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 ```
+
+> **What changed since 2022?** State locking used to require a separate DynamoDB table (`dynamodb_table = "..."`). Since **Terraform 1.10** the S3 backend supports **native locking** with `use_lockfile = true`, which writes a small `.tflock` object next to the state — no DynamoDB table to create or pay for. The old `dynamodb_table` argument still works but is now legacy.
 
 But we still run into another problem: the configuration required for us to run Terraform must still be stored on `local`. For example, when we run Terraform to create infrastructure on AWS, we need to configure a `secret key` on our `local` machine, and for convenience most people create an account with full AWS permissions and then store that account's `secret key` on the `local` machine — not secure.
 
@@ -95,12 +91,11 @@ Now both the Terraform configuration and the state file are stored on the Remote
 
 ![Remote backend locking](/assets/images/posts/terraform-07-what-is-terraform-backend/07.png)
 
-For example, when we use the Remote Backend we configure it like so.
+For example, when we use the Remote Backend we configure it like so. The modern form is the `cloud` block (it replaced the older `backend "remote"` block):
 
 ```hcl
 terraform {
-  backend "remote" {
-    hostname = "app.terraform.io"
+  cloud {
     organization = "hpi"
 
     workspaces {
@@ -112,19 +107,19 @@ terraform {
 
 We use the Remote Backend when working with a team, and with it we can centralize all configuration in one place.
 
-Besides choosing a backend for Terraform, in practice we often have to build CI/CD for a Terraform project. Building CI/CD for Terraform takes a fair amount of time, so to save time we can use an existing Terraform platform: Terraform Cloud.
+Besides choosing a backend for Terraform, in practice we often have to build CI/CD for a Terraform project. Building CI/CD for Terraform takes a fair amount of time, so to save time we can use an existing Terraform platform: HCP Terraform.
 
-## Terraform Cloud
+## HCP Terraform
 
-This is a platform built by HashiCorp (the company that develops Terraform). It helps us use Terraform very easily.
+This is a platform built by HashiCorp (the company that develops Terraform). It helps us use Terraform very easily. (It was called **Terraform Cloud** until 2023, when it was renamed **HCP Terraform** — you'll still see both names around.)
 
 ![Terraform Cloud](/assets/images/posts/terraform-07-what-is-terraform-backend/08.png)
 
-When using Terraform Cloud, what we need to do is very simple: just write code and push it to GitHub, and Terraform Cloud pulls the code down and runs it for us.
+When using HCP Terraform, what we need to do is very simple: just write code and push it to GitHub, and HCP Terraform pulls the code down and runs it for us.
 
 ![Terraform Cloud flow](/assets/images/posts/terraform-07-what-is-terraform-backend/09.png)
 
-I'll cover how to use Terraform Cloud in another part.
+I'll cover how to use HCP Terraform in another part.
 
 ## Conclusion
 

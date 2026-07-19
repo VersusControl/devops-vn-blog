@@ -13,6 +13,8 @@ image: /assets/images/posts/terraform-10-cicd-terraform-cloud-zero-downtime/01.p
 
 In the previous part we learned about the Remote Backend with Terraform Cloud. In this part we'll learn how to use Terraform Cloud to build CI/CD for infrastructure. Then we'll learn about a Terraform attribute that helps us perform zero-downtime deployment.
 
+> Terraform Cloud was renamed **HCP Terraform** in 2023. It's the same product — the screenshots below still say "Terraform Cloud," but the workflow is identical.
+
 ## CI/CD with Terraform Cloud
 
 As we said in the previous part, when we create a workspace on Terraform Cloud there are three ways:
@@ -59,38 +61,39 @@ So we've created the workspace. Now we just write code and push it to GitHub. Te
 
 Add the following 3 files to the repository.
 
-```
+```hcl
 terraform {
+  required_version = ">= 1.9"
+
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "~> 4.0"
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
     }
   }
 }
 ```
 
-```
+```hcl
 variable "region" {
-  type = string
+  type    = string
   default = "us-west-2"
 }
 ```
 
-```
+```hcl
 provider "aws" {
   region = var.region
 }
 
 data "aws_ami" "ami" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "ansible_server" {

@@ -37,20 +37,35 @@ variable "instance_type" {
 }
 ```
 
-```
+```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = var.region
 }
 
 data "aws_ami" "ami" {
   most_recent = true
+  owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-2.0.*-x86_64-gp2"]
+    values = ["al2023-ami-2023.*-x86_64"]
   }
 
-  owners = ["amazon"]
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 resource "aws_instance" "server" {
@@ -71,7 +86,7 @@ stages:
   - apply
 
 image:
-  name: hashicorp/terraform
+  name: hashicorp/terraform:1.11
   entrypoint:
     - "/usr/bin/env"
     - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -101,7 +116,7 @@ apply:
   when: manual
 ```
 
-I'll explain some important parts of the `.gitlab-ci.yml` file above. For more, see [GitLab CI](https://docs.gitlab.com/ee/ci/yaml).
+I'll explain some important parts of the `.gitlab-ci.yml` file above. For more, see [GitLab CI](https://docs.gitlab.com/ee/ci/yaml). Note that we pin the image to `hashicorp/terraform:1.11` instead of the floating `latest` tag so the pipeline is reproducible.
 
 **GitLab Stages**
 
@@ -177,7 +192,7 @@ cache:
     - terraform.tfstate
 ```
 
-**Note: in practice you should use an S3 backend to store the Terraform State.** See the S3 Backend part to understand better: [Part 8 - Using the S3 Standard Backend in a Project](/terraform-08-s3-standard-backend/).
+**Note: in practice you should use an S3 backend to store the Terraform State** (with `use_lockfile = true` for S3-native locking, so concurrent pipeline runs can't corrupt state). See the S3 Backend part to understand better: [Part 8 - Using the S3 Standard Backend in a Project](/terraform-08-s3-standard-backend/).
 
 ## Executing GitLab CI
 
@@ -359,7 +374,7 @@ stages:
   - apply
 
 image:
-  name: hashicorp/terraform
+  name: hashicorp/terraform:1.11
   entrypoint:
     - "/usr/bin/env"
     - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -371,7 +386,7 @@ cache:
 
 before_script:
   - terraform init
-  - terraform workspace select $CI_COMMIT_REF_NAME
+  - terraform workspace select -or-create "$CI_COMMIT_REF_NAME"
 
 plan:
   stage: plan

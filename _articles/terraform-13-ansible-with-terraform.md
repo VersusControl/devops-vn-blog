@@ -23,6 +23,8 @@ To solve that problem, Terraform provides a feature called **Provisioners**.
 
 ## Provisioners
 
+> A heads-up: HashiCorp considers provisioners a **last resort**. Prefer cloud-native options first — `user_data` / cloud-init for bootstrapping, or a pre-baked image built with Packer. Provisioners are still the right tool when you specifically need Terraform to block until a remote configuration step succeeds, which is what we demonstrate here.
+
 Provisioners are a feature that lets us execute a script on the local machine or run a script on a remote resource. They're usually used to configure infrastructure after it's created. There are two kinds of provisioner:
 
 - **local-exec**: used to run a script on the local machine where Terraform is running — **we'll use this to run Ansible**.
@@ -30,7 +32,22 @@ Provisioners are a feature that lets us execute a script on the local machine or
 
 For example, we'll use remote-exec to install Apache HTTP Server on the EC2; create a file named `main.tf`.
 
-```
+```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
@@ -90,7 +107,7 @@ data "aws_ami" "ami" {
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-2.0.*-x86_64-gp2"]
+    values = ["al2023-ami-2023.*-x86_64"]
   }
 
   owners = ["amazon"]
@@ -120,8 +137,8 @@ resource "aws_instance" "ansible_server" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo yum update -y",
-      "sudo yum install -y httpd.x86_64",
+      "sudo dnf update -y",
+      "sudo dnf install -y httpd",
       "sudo systemctl start httpd",
       "sudo systemctl enable httpd"
     ]
@@ -160,8 +177,8 @@ The inline block contains the commands we need to execute on the remote machine 
 ```
 provisioner "remote-exec" {
     inline = [
-      "sudo yum update -y",
-      "sudo yum install -y httpd.x86_64",
+      "sudo dnf update -y",
+      "sudo dnf install -y httpd",
       "sudo systemctl start httpd",
       "sudo systemctl enable httpd"
     ]
@@ -259,7 +276,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
 
   owners = ["099720109477"]
@@ -336,7 +353,7 @@ resource "aws_instance" "ansible_server" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file ansible.pem -T 300 -i '${self.public_ip},', playbook.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file ansible.pem -T 300 -i '${self.public_ip},' playbook.yaml"
   }
 
   tags = {
@@ -349,7 +366,7 @@ This is the part where we execute Ansible.
 
 ```
 provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file ansible.pem -T 300 -i '${self.public_ip},', playbook.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file ansible.pem -T 300 -i '${self.public_ip},' playbook.yaml"
 }
 ```
 

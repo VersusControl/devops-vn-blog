@@ -15,6 +15,8 @@ In the previous part we learned about Zero-downtime Deployment, but we only lear
 
 This part is based on the book *Terraform in Action*; you should give it a read because it's excellent.
 
+> The book used a ready-made `terraform-in-action/aws/bluegreen` module. That module is no longer maintained and doesn't work with the current AWS provider, so the code below uses a small, self-contained equivalent built from today's modules: a **base** module (VPC + ALB + two target groups + a weighted listener) and an **autoscaling** module (one ASG per color). The full working code is in the series' `_resource/terraform-series/11-blue-green-deployment` folder.
+
 ## Blue/Green Deployment
 
 Blue/Green Deployment is a method that helps us achieve zero-downtime when deploying a new version of an application. It's the oldest method but also the most widely used; more advanced variants of Blue/Green Deployment are Rolling Blue/Green or Canary Deployment.
@@ -53,9 +55,9 @@ For example, we have an Auto Scaling Group version 1.0 and assign it as Green. T
 
 Next we switch routing for requests from Green to Blue manually (this kind of switch is called a **cutover**). Create a file named `main.tf` with the following code.
 
-```jsx
+```hcl
 provider "aws" {
-  region  = "us-west-2"
+  region = "us-west-2"
 }
 
 variable "production" {
@@ -63,15 +65,17 @@ variable "production" {
 }
 
 module "base" {
-  source     = "terraform-in-action/aws/bluegreen//modules/base"
+  source     = "./modules/base"
   production = var.production
 }
 
 module "green" {
-  source      = "terraform-in-action/aws/bluegreen//modules/autoscaling"
-  app_version = "v1.0"
-  label       = "green"
-  base        = module.base
+  source            = "./modules/autoscaling"
+  label             = "green"
+  app_version       = "v1.0"
+  private_subnets   = module.base.private_subnets
+  security_group_id = module.base.web_security_group_id
+  target_group_arn  = module.base.target_group_arns["green"]
 }
 
 output "lb_dns_name" {
@@ -79,7 +83,7 @@ output "lb_dns_name" {
 }
 ```
 
-Above we use the `terraform-in-action/aws/bluegreen` module for this example. In it, the Base is the VPC and ALB from the `modules/base` submodule, and the Application is the Auto Scaling Group from the `modules/autoscaling` submodule.
+Here the Base is the VPC + ALB + target groups from the `./modules/base` submodule, and the Application is the Auto Scaling Group from the `./modules/autoscaling` submodule. The base's listener splits traffic by weight between the two color target groups; whichever color equals `var.production` gets 100%.
 
 Our application version 1.0 is deployed using the `terraform-in-action/aws/bluegreen//modules/autoscaling` submodule, and we name it Green. Deploy version 1.0.
 
@@ -101,20 +105,24 @@ When Terraform finishes, it prints the ALB's URL; we visit it.
 
 Next we'll deploy version 2.0 of the application and name it Blue.
 
-```jsx
+```hcl
 ...
 module "green" {
-  source      = "terraform-in-action/aws/bluegreen//modules/autoscaling"
-  app_version = "v1.0"
-  label       = "green"
-  base        = module.base
+  source            = "./modules/autoscaling"
+  label             = "green"
+  app_version       = "v1.0"
+  private_subnets   = module.base.private_subnets
+  security_group_id = module.base.web_security_group_id
+  target_group_arn  = module.base.target_group_arns["green"]
 }
 
 module "blue" {
-  source      = "terraform-in-action/aws/bluegreen//modules/autoscaling"
-  app_version = "v2.0"
-  label       = "blue"
-  base        = module.base
+  source            = "./modules/autoscaling"
+  label             = "blue"
+  app_version       = "v2.0"
+  private_subnets   = module.base.private_subnets
+  security_group_id = module.base.web_security_group_id
+  target_group_arn  = module.base.target_group_arns["blue"]
 }
 ...
 ```
@@ -151,9 +159,9 @@ variable "production" {
 
 To `blue`.
 
-```jsx
+```hcl
 provider "aws" {
-  region  = "us-west-2"
+  region = "us-west-2"
 }
 
 variable "production" {
@@ -161,22 +169,26 @@ variable "production" {
 }
 
 module "base" {
-  source     = "terraform-in-action/aws/bluegreen//modules/base"
+  source     = "./modules/base"
   production = var.production
 }
 
 module "green" {
-  source      = "terraform-in-action/aws/bluegreen//modules/autoscaling"
-  app_version = "v1.0"
-  label       = "green"
-  base        = module.base
+  source            = "./modules/autoscaling"
+  label             = "green"
+  app_version       = "v1.0"
+  private_subnets   = module.base.private_subnets
+  security_group_id = module.base.web_security_group_id
+  target_group_arn  = module.base.target_group_arns["green"]
 }
 
 module "blue" {
-  source      = "terraform-in-action/aws/bluegreen//modules/autoscaling"
-  app_version = "v2.0"
-  label       = "blue"
-  base        = module.base
+  source            = "./modules/autoscaling"
+  label             = "blue"
+  app_version       = "v2.0"
+  private_subnets   = module.base.private_subnets
+  security_group_id = module.base.web_security_group_id
+  target_group_arn  = module.base.target_group_arns["blue"]
 }
 
 output "lb_dns_name" {

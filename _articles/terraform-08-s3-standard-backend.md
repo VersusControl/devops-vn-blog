@@ -21,19 +21,19 @@ An illustration of the S3 Standard Backend.
 
 ### Architecture
 
-Before using an S3 backend we need to create it first. The structure of an S3 backend consists of these components:
+Before using an S3 backend we need to create it first. With modern Terraform (1.10+) the S3 backend can lock state **natively** — an object in the same bucket — so we no longer need a DynamoDB table. The structure of an S3 backend then consists of these components:
 
 - IAM
-- DynamoDB
 - S3 bucket – KMS
 
 ![S3 backend components](/assets/images/posts/terraform-08-s3-standard-backend/03.png)
 
 Each component above is used as follows:
 
-- **IAM** is used for Terraform to *Assume Role*, granting Terraform permission to write to the DynamoDB table and `fetch`/`store` state in S3.
-- **DynamoDB** is used by Terraform to write a process's `Lock Key`.
-- **S3 Bucket** is used to store state after Terraform finishes; KMS is used by S3 to encrypt the state data when it's stored in S3.
+- **IAM** is used for Terraform to *Assume Role*, granting Terraform permission to `fetch`/`store` (and lock) state in S3.
+- **S3 Bucket** is used to store state after Terraform finishes; KMS is used by S3 to encrypt the state data when it's stored in S3. The lock file also lives in this bucket.
+
+> Before Terraform 1.10 you also needed a **DynamoDB table** for locking (`dynamodb_table = "..."` in the backend config). That still works and is now considered legacy — this chapter uses the newer `use_lockfile` approach instead.
 
 ### Deployment
 
@@ -68,46 +68,30 @@ variable "principal_arns" {
 }
 ```
 
-```
+```hcl
 terraform {
+  required_version = ">= 1.10"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 6.0"
     }
   }
 }
 ```
 
-Then run `terraform init`. OK, the preparation is done; next we create the `dynamodb.tf` file.
+Then run `terraform init`. OK, the preparation is done. Because we're using S3-native locking, there's **no `dynamodb.tf` file to create** — we go straight to the `iam.tf` file containing the IAM resources.
 
-```
-resource "aws_dynamodb_table" "dynamodb_table" {
-  name         = "${var.project}-s3-backend"
-
-  hash_key     = "LockID"
-  billing_mode = "PAY_PER_REQUEST"
-
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-
-  tags = local.tags
-}
-```
-
-This is the DynamoDB table Terraform uses to store the lock state. We define this table to have one field, **LockID with data type String** — this is the required configuration Terraform mandates for the table used to store lock state.
-
-Next we create the `iam.tf` file containing the IAM resources.
-
-```
+```hcl
 data "aws_caller_identity" "current" {}
 
 locals {
   principal_arns = var.principal_arns != null ? var.principal_arns : [data.aws_caller_identity.current.arn]
 }
 
+# With S3-native locking the lock is just an object in the bucket, so the role
+# only needs S3 permissions — no DynamoDB permissions.
 data "aws_iam_policy_document" "policy_doc" {
   statement {
     actions   = ["s3:ListBucket"]
@@ -118,11 +102,6 @@ data "aws_iam_policy_document" "policy_doc" {
     actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
     resources = ["${aws_s3_bucket.s3_bucket.arn}/*"]
   }
-
-  statement {
-    actions   = ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem"]
-    resources = [aws_dynamodb_table.dynamodb_table.arn]
-  }
 }
 ```
 
@@ -130,9 +109,9 @@ The `aws_caller_identity` data source is used to get information about the AWS a
 
 From the comparison expression `var.principal_arns != null ? var.principal_arns : [data.aws_caller_identity.current.arn]` above — if we don't pass this variable when running Terraform, it only allows the account we use to run Terraform to have Assume Role permission.
 
-The `aws_iam_policy_document` resource is used to define our policies. The policy document above defines the permissions we need to perform actions on DynamoDB, S3, and KMS. Next we attach this policy document to a policy and a role.
+The `aws_iam_policy_document` resource is used to define our policies. The policy document above defines the permissions we need to perform actions on the state bucket (S3). Next we attach this policy document to a policy and a role.
 
-```
+```hcl
 ...
 resource "aws_iam_policy" "policy" {
   name   = "${title(var.project)}S3BackendPolicy"
@@ -140,23 +119,21 @@ resource "aws_iam_policy" "policy" {
   policy = data.aws_iam_policy_document.policy_doc.json
 }
 
-resource "aws_iam_role" "iam_role" {
-  name = "${title(var.project)}S3BackendRole"
+data "aws_iam_policy_document" "assume_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
 
-  assume_role_policy = <<-EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Action": "sts:AssumeRole",
-        "Principal": {
-        "AWS": ${jsonencode(local.principal_arns)}
-      },
-      "Effect": "Allow"
-      }
-    ]
+    principals {
+      type        = "AWS"
+      identifiers = local.principal_arns
+    }
   }
-  EOF
+}
+
+resource "aws_iam_role" "iam_role" {
+  name               = "${title(var.project)}S3BackendRole"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 
   tags = local.tags
 }
@@ -169,7 +146,7 @@ resource "aws_iam_role_policy_attachment" "policy_attach" {
 
 Then we create the `s3.tf` file.
 
-```
+```hcl
 resource "aws_s3_bucket" "s3_bucket" {
   bucket        = "${var.project}-s3-backend"
   force_destroy = false
@@ -177,9 +154,13 @@ resource "aws_s3_bucket" "s3_bucket" {
   tags = local.tags
 }
 
-resource "aws_s3_bucket_acl" "s3_bucket" {
+resource "aws_s3_bucket_public_access_block" "s3_bucket" {
   bucket = aws_s3_bucket.s3_bucket.id
-  acl    = "private"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_versioning" "s3_bucket" {
@@ -191,6 +172,9 @@ resource "aws_s3_bucket_versioning" "s3_bucket" {
 }
 
 resource "aws_kms_key" "kms_key" {
+  description         = "KMS key for the ${var.project} Terraform state bucket"
+  enable_key_rotation = true
+
   tags = local.tags
 }
 
@@ -206,13 +190,13 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "s3_bucket" {
 }
 ```
 
-`aws_s3_bucket` defines the S3 bucket, and `aws_s3_bucket_acl` defines the S3 Access Control List — we should set the value to `private`.
+`aws_s3_bucket` defines the S3 bucket. New buckets are **private by default** (ACLs are disabled on modern S3), so we no longer need an `aws_s3_bucket_acl` resource — instead we add an `aws_s3_bucket_public_access_block` to be sure nothing is ever exposed publicly.
 
-Next, and importantly, for S3 to be usable for storing state we must enable `versioning`, which we do with the `aws_s3_bucket_versioning` resource. Finally, we enable SSE (Server Side Encryption) for our bucket with the `aws_s3_bucket_server_side_encryption_configuration` resource.
+Next, and importantly, for S3 to be usable for storing state we must enable `versioning`, which we do with the `aws_s3_bucket_versioning` resource. Finally, we enable SSE (Server Side Encryption) for our bucket with the `aws_s3_bucket_server_side_encryption_configuration` resource, backed by a KMS key with automatic rotation.
 
 We've prepared enough resources for the S3 backend. Next we update the `main.tf` file so it outputs the S3 backend values we'll need for other Terraform projects.
 
-```
+```hcl
 ...
 locals {
   tags = {
@@ -244,10 +228,9 @@ resource "aws_resourcegroups_group" "resourcegroups_group" {
 
 output "config" {
   value = {
-    bucket         = aws_s3_bucket.s3_bucket.bucket
-    region         = data.aws_region.current.name
-    role_arn       = aws_iam_role.iam_role.arn
-    dynamodb_table = aws_dynamodb_table.dynamodb_table.name
+    bucket   = aws_s3_bucket.s3_bucket.bucket
+    region   = data.aws_region.current.region
+    role_arn = aws_iam_role.iam_role.arn
   }
 }
 ```
@@ -259,9 +242,8 @@ Run `terraform plan` to create the S3 backend, and after it finishes we'll see t
 ```
 config = {
   "bucket" = "terraform-series-s3-backend"
-  "dynamodb_table" = "terraform-series-s3-backend"
   "region" = "us-west-2"
-  "role_arn" = "arn:aws:iam::<ACCOUNT_ID>:role/HpiS3BackendRole"
+  "role_arn" = "arn:aws:iam::<ACCOUNT_ID>:role/TerraformSeriesS3BackendRole"
 }
 ```
 
@@ -275,15 +257,15 @@ Click it and we'll see the details of each S3 backend resource. Next we'll use t
 
 To use the S3 backend for a project, we configure it as follows.
 
-```
+```hcl
 terraform {
   backend "s3" {
-    bucket         = <bucket-name>
-    key            = <path>
-    region         = <region>
-    encrypt        = true
-    role_arn       = <arn-role>
-    dynamodb_table = <dynamodb-table-name>
+    bucket       = <bucket-name>
+    key          = <path>
+    region       = <region>
+    encrypt      = true
+    role_arn     = <arn-role>
+    use_lockfile = true
   }
 }
 ```
@@ -293,19 +275,28 @@ We declare a `block` named `terraform` with the S3 backend and the following val
 - `bucket`: the name of the S3 bucket.
 - `key`: the path where we store state in the bucket.
 - `role_arn`: the IAM role with the necessary permissions.
-- `dynamodb_table`: the table used to store the lock state.
+- `use_lockfile`: enables S3-native state locking (the modern replacement for `dynamodb_table`).
 
 Now we'll do an example creating an EC2 that uses the S3 backend. Create a directory and a `main.tf` file.
 
-```
+```hcl
 terraform {
+  required_version = ">= 1.10"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+
   backend "s3" {
-    bucket         = "terraform-series-s3-backend"
-    key            = "test-project"
-    region         = "us-west-2"
-    encrypt        = true
-    role_arn       = "arn:aws:iam::<ACCOUNT_ID>:role/HpiS3BackendRole"
-    dynamodb_table = "terraform-series-s3-backend"
+    bucket       = "terraform-series-s3-backend"
+    key          = "test-project"
+    region       = "us-west-2"
+    encrypt      = true
+    role_arn     = "arn:aws:iam::<ACCOUNT_ID>:role/TerraformSeriesS3BackendRole"
+    use_lockfile = true
   }
 }
 
@@ -315,13 +306,12 @@ provider "aws" {
 
 data "aws_ami" "ami" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "server" {

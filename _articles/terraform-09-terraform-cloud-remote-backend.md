@@ -19,9 +19,9 @@ Read the [Terraform Backend](/terraform-07-what-is-terraform-backend/) part to b
 
 To use the Remote Backend, we need to create an account and log into Terraform Cloud.
 
-### Terraform Cloud
+### Terraform Cloud (now HCP Terraform)
 
-Terraform Cloud is a HashiCorp service that helps us manage resources more easily and securely. It also makes building CI/CD for provisioning infrastructure very simple.
+HCP Terraform — called **Terraform Cloud** until 2023 — is a HashiCorp service that helps us manage resources more easily and securely. It also makes building CI/CD for provisioning infrastructure very simple. (You'll still see the "Terraform Cloud" name in older docs and screenshots; it's the same product.)
 
 ![Terraform Cloud](/assets/images/posts/terraform-09-terraform-cloud-remote-backend/02.png)
 
@@ -71,20 +71,30 @@ Scrolling down we'll see the configuration and usage section.
 
 First we create a directory and a `main.tf` file with this code.
 
-```
+```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
 
 data "aws_ami" "ami" {
   most_recent = true
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
-
-  owners = ["099720109477"]
 }
 
 resource "aws_instance" "server" {
@@ -164,21 +174,21 @@ terraform init
 ```
 
 ```clojure
-Initializing Terraform Cloud...
+Initializing HCP Terraform...
 
 Initializing provider plugins...
-- Finding latest version of hashicorp/aws...
-- Installing hashicorp/aws v4.8.0...
-- Installed hashicorp/aws v4.8.0 (signed by HashiCorp)
+- Finding hashicorp/aws versions matching "~> 6.0"...
+- Installing hashicorp/aws v6.55.0...
+- Installed hashicorp/aws v6.55.0 (signed by HashiCorp)
 
 Terraform has created a lock file .terraform.lock.hcl to record the provider
 selections it made above. Include this file in your version control repository
 so that Terraform can guarantee to make the same selections by default when
 you run "terraform init" in the future.
 
-Terraform Cloud has been successfully initialized!
+HCP Terraform has been successfully initialized!
 
-You may now begin working with Terraform Cloud. Try running "terraform plan" to
+You may now begin working with HCP Terraform. Try running "terraform plan" to
 see any changes that are required for your infrastructure.
 
 If you ever set or change modules or Terraform Settings, run "terraform init"
@@ -202,7 +212,7 @@ https://app.terraform.io/app/HPI/terraform-series-remote-backend/runs/run-7R7giQ
 
 Waiting for the plan to start...
 
-Terraform v1.1.7
+Terraform v1.11.3
 on linux_amd64
 Configuring remote state backend...
 Initializing Terraform configuration...
@@ -231,6 +241,8 @@ Do the same for `AWS_SECRET_ACCESS_KEY`.
 Click save.
 
 ![Save](/assets/images/posts/terraform-09-terraform-cloud-remote-backend/18.png)
+
+> **Modern alternative:** static `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` still work, but the recommended way today is **dynamic provider credentials** — HCP Terraform authenticates to AWS over OIDC and assumes an IAM role for each run, so there are no long-lived keys to store or rotate. You set a few `TFC_AWS_*` variables and an IAM OIDC provider instead. See HashiCorp's "Dynamic Credentials with the AWS Provider" docs.
 
 Now we run `terraform plan` again.
 

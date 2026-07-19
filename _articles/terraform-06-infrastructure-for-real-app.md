@@ -56,6 +56,21 @@ Now we'll write code. We create the following directory structure.
 In the Root's `main.tf` file, we add the following code.
 
 ```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.6"
+    }
+  }
+}
+
 locals {
   project = "terraform-series"
 }
@@ -110,13 +125,17 @@ variable "database_subnets" {
 Next, update the module's `main.tf` file.
 
 ```hcl
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.12.0"
+  version = "~> 5.0"
 
-  name    = "${var.project}-vpc"
-  cidr    = var.vpc_cidr
-  azs     = data.aws_availability_zones.available.names
+  name = "${var.project}-vpc"
+  cidr = var.vpc_cidr
+  azs  = slice(data.aws_availability_zones.available.names, 0, 3)
 
   private_subnets  = var.private_subnets
   public_subnets   = var.public_subnets
@@ -128,7 +147,7 @@ module "vpc" {
 }
 ```
 
-This is a Remote Module that we'll download with `terraform init`; it creates the VPC for us. With the values above, our VPC when created looks like this.
+This is a Remote Module that we'll download with `terraform init`; it creates the VPC for us. We look up the Availability Zones with the `aws_availability_zones` data source and take the first three. With the values above, our VPC when created looks like this.
 
 ![The created VPC](/assets/images/posts/terraform-06-infrastructure-for-real-app/06.png)
 
@@ -138,41 +157,62 @@ Next we'll create Security Groups for our VPC. Our security groups must allow th
 2. Allow access to the EC2s' port 80 from the ALB
 3. Allow access to the RDS's port 5432 from the EC2s
 
-We add the SG rules.
+We add the SG rules. We use the maintained `terraform-aws-modules/security-group/aws` module (the book's `terraform-in-action/sg/aws` module is no longer maintained).
 
 ```hcl
 ...
 module "alb_sg" {
-  source = "terraform-in-action/sg/aws"
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 5.0"
+
+  name   = "${var.project}-alb-sg"
   vpc_id = module.vpc.vpc_id
-  ingress_rules = [
+
+  ingress_with_cidr_blocks = [
     {
-      port        = 80
-      cidr_blocks = ["0.0.0.0/0"]
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
     }
   ]
+  egress_rules = ["all-all"]
 }
 
 module "web_sg" {
-  source = "terraform-in-action/sg/aws"
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 5.0"
+
+  name   = "${var.project}-web-sg"
   vpc_id = module.vpc.vpc_id
-  ingress_rules = [
+
+  ingress_with_source_security_group_id = [
     {
-      port        = 80
-      security_groups = [module.lb_sg.security_group.id]
+      from_port                = 80
+      to_port                  = 80
+      protocol                 = "tcp"
+      source_security_group_id = module.alb_sg.security_group_id
     }
   ]
+  egress_rules = ["all-all"]
 }
 
 module "db_sg" {
-  source = "terraform-in-action/sg/aws"
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 5.0"
+
+  name   = "${var.project}-db-sg"
   vpc_id = module.vpc.vpc_id
-  ingress_rules = [
+
+  ingress_with_source_security_group_id = [
     {
-      port            = 5432
-      security_groups = [module.web_sg.security_group.id]
+      from_port                = 5432
+      to_port                  = 5432
+      protocol                 = "tcp"
+      source_security_group_id = module.web_sg.security_group_id
     }
   ]
+  egress_rules = ["all-all"]
 }
 ```
 
@@ -185,9 +225,9 @@ output "vpc" {
 
 output "sg" {
   value = {
-    lb = module.lb_sg.security_group.id
-    web = module.web_sg.security_group.id
-    db = module.db_sg.security_group.id
+    lb  = module.alb_sg.security_group_id
+    web = module.web_sg.security_group_id
+    db  = module.db_sg.security_group_id
   }
 }
 ```
@@ -289,27 +329,28 @@ variable "sg" {
 
 The `main.tf` file.
 
-```
+```hcl
 resource "aws_db_instance" "database" {
   allocated_storage      = 20
-  engine                 = "postgresql"
-  engine_version         = "12.7"
-  instance_class         = "db.t2.micro"
+  engine                 = "postgres"
+  engine_version         = "16"
+  instance_class         = "db.t4g.micro"
   identifier             = "${var.project}-db-instance"
-  name                   = "terraform"
+  db_name                = "terraform"
   username               = "admin"
   password               = "admin"
   db_subnet_group_name   = var.vpc.database_subnet_group
   vpc_security_group_ids = [var.sg.db]
   skip_final_snapshot    = true
+  storage_encrypted      = true
 }
 ```
 
-To create an RDS on AWS we use the `aws_db_instance` resource. Above, we specify the RDS engine we'll use is PostgreSQL 12.7, with 20GB of storage, and we get the RDS's subnet group value from the VPC variable. Everything looks OK, but notice that in the `password` field we're currently hard-coding the value. What if we don't want to hard-code it but want this value to be dynamic?
+To create an RDS on AWS we use the `aws_db_instance` resource. Above, we specify the RDS engine we'll use is PostgreSQL 16, with 20GB of encrypted storage, and we get the RDS's subnet group value from the VPC variable. (Two things that trip people up on newer providers: the engine name is `postgres`, **not** `postgresql`, and `name` was renamed to `db_name`.) Everything looks OK, but notice that in the `password` field we're currently hard-coding the value. What if we don't want to hard-code it but want this value to be dynamic?
 
 We'll use another resource in Terraform that helps us generate a dynamic password, then pass this password into the database. Update the code.
 
-```
+```hcl
 resource "random_password" "password" {
   length           = 16
   special          = true
@@ -318,9 +359,9 @@ resource "random_password" "password" {
 
 resource "aws_db_instance" "database" {
   allocated_storage      = 20
-  engine                 = "postgresql"
-  engine_version         = "12.7"
-  instance_class         = "db.t2.micro"
+  engine                 = "postgres"
+  engine_version         = "16"
+  instance_class         = "db.t4g.micro"
   identifier             = "${var.project}-db-instance"
   db_name                = "series"
   username               = "series"
@@ -328,6 +369,7 @@ resource "aws_db_instance" "database" {
   db_subnet_group_name   = var.vpc.database_subnet_group
   vpc_security_group_ids = [var.sg.db]
   skip_final_snapshot    = true
+  storage_encrypted      = true
 }
 ```
 
@@ -335,15 +377,16 @@ resource "aws_db_instance" "database" {
 
 We output the RDS values so they can be accessed externally.
 
-```
+```hcl
 output "config" {
   value = {
     user     = aws_db_instance.database.username
     password = aws_db_instance.database.password
-    database = aws_db_instance.database.name
+    database = aws_db_instance.database.db_name
     hostname = aws_db_instance.database.address
     port     = aws_db_instance.database.port
   }
+  sensitive = true
 }
 ```
 
@@ -428,7 +471,7 @@ variable "db_config" {
       password = string
       database = string
       hostname = string
-      port     = string
+      port     = number
     }
   )
 }
@@ -443,19 +486,23 @@ To create a Launch Template we use the `aws_launch_template` resource; update th
 ```hcl
 data "aws_ami" "ami" {
   most_recent = true
+  owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-2.0.*-x86_64-gp2"]
+    values = ["al2023-ami-2023.*-x86_64"]
   }
 
-  owners = ["amazon"]
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 resource "aws_launch_template" "web" {
   name_prefix   = "web-"
   image_id      = data.aws_ami.ami.id
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
 
   vpc_security_group_ids = [var.sg.web]
 
@@ -463,18 +510,18 @@ resource "aws_launch_template" "web" {
 }
 ```
 
-The `run.sh` file.
+The `run.sh` file (Amazon Linux 2023 uses `dnf`).
 
 ```bash
 #!/bin/bash
-yum update -y
-yum install -y httpd.x86_64
+dnf update -y
+dnf install -y httpd
 systemctl start httpd
-systemctl enable http
-echo "$(curl http://169.254.169.254/latest/meta-data/local-ipv4)" > /var/www/html/index.html
+systemctl enable httpd
+echo "$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)" > /var/www/html/index.html
 ```
 
-Above we use `aws_ami` to filter out the Image ID of the `amazon-linux-2` OS, then assign this ID to the Launch Template; the `user_data` attribute defines the code that runs when our EC2 is created. Next we attach it to the Autoscaling Group.
+Above we use `aws_ami` to filter out the Image ID of the Amazon Linux 2023 OS, then assign this ID to the Launch Template; the `user_data` attribute defines the code that runs when our EC2 is created. Next we attach it to the Autoscaling Group.
 
 ```hcl
 ...
@@ -496,31 +543,67 @@ Next, because our RDS is created in Private mode, for the EC2 to access the DB w
 ```hcl
 data "aws_ami" "ami" {
   most_recent = true
+  owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-2.0.*-x86_64-gp2"]
+    values = ["al2023-ami-2023.*-x86_64"]
   }
 
-  owners = ["amazon"]
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
-module "iam_instance_profile" {
-  source  = "terraform-in-action/iip/aws"
-  actions = ["logs:*", "rds:*"]
+data "aws_iam_policy_document" "assume" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "web" {
+  name               = "${var.project}-web-role"
+  assume_role_policy = data.aws_iam_policy_document.assume.json
+}
+
+resource "aws_iam_role_policy" "web" {
+  name = "${var.project}-web-policy"
+  role = aws_iam_role.web.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["logs:*", "rds:*"]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_instance_profile" "web" {
+  name = "${var.project}-web-profile"
+  role = aws_iam_role.web.name
 }
 
 resource "aws_launch_template" "web" {
   name_prefix   = "web-"
   image_id      = data.aws_ami.ami.id
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
 
   vpc_security_group_ids = [var.sg.web]
 
   user_data = filebase64("${path.module}/run.sh")
 
   iam_instance_profile {
-    name = module.iam_instance_profile.name
+    name = aws_iam_instance_profile.web.name
   }
 }
 
@@ -537,33 +620,40 @@ resource "aws_autoscaling_group" "web" {
 }
 ```
 
-We use the `terraform-in-action/iip/aws` module to create a `role` with full access to `logs` and RDS, then attach it to `aws_launch_template`. The next resource we need to declare is the Load Balancer, to let users access our ASG. We'll use `terraform-aws-modules/alb/aws`; add the LB code to `main.tf`.
+We build an IAM role with access to `logs` and RDS and wrap it in an `aws_iam_instance_profile`, then attach it to `aws_launch_template` (the book's `terraform-in-action/iip/aws` module no longer exists, so we use plain resources — and in production you'd scope those actions down). The next resource we need to declare is the Load Balancer, to let users access our ASG. We'll use `terraform-aws-modules/alb/aws`; add the LB code to `main.tf`.
 
 ```hcl
 ...
 module "alb" {
-  source             = "terraform-aws-modules/alb/aws"
-  version            = "~> 6.0"
-  name               = var.project
-  load_balancer_type = "application"
-  vpc_id             = var.vpc.vpc_id
-  subnets            = var.vpc.public_subnets
-  security_groups    = [var.sg.lb]
-  http_tcp_listeners = [
-    {
-      port               = 80,
-      protocol           = "HTTP"
-      target_group_index = 0
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 9.0"
+
+  name    = var.project
+  vpc_id  = var.vpc.vpc_id
+  subnets = var.vpc.public_subnets
+
+  create_security_group = false
+  security_groups       = [var.sg.lb]
+
+  listeners = {
+    http = {
+      port     = 80
+      protocol = "HTTP"
+      forward = {
+        target_group_key = "web"
+      }
     }
-  ]
-  target_groups = [
-    {
-      name_prefix      = "web",
-      backend_protocol = "HTTP",
-      backend_port     = 80
-      target_type      = "instance"
+  }
+
+  target_groups = {
+    web = {
+      name_prefix       = "web-"
+      protocol          = "HTTP"
+      port              = 80
+      target_type       = "instance"
+      create_attachment = false
     }
-  ]
+  }
 }
 
 resource "aws_autoscaling_group" "web" {
@@ -571,7 +661,7 @@ resource "aws_autoscaling_group" "web" {
   min_size            = 1
   max_size            = 3
   vpc_zone_identifier = var.vpc.private_subnets
-  target_group_arns   = module.alb.target_group_arns
+  target_group_arns   = [module.alb.target_groups["web"].arn]
 
   launch_template {
     id      = aws_launch_template.web.id
@@ -580,11 +670,11 @@ resource "aws_autoscaling_group" "web" {
 }
 ```
 
-After declaring the LB, we update the `target_group_arns` attribute of `aws_autoscaling_group` with the `target_group_arns` value taken from the LB module. Update the module's output values.
+The ALB module changed a lot in v9: `http_tcp_listeners` and the list-style `target_groups` were replaced by `listeners` and a keyed `target_groups` map. After declaring the LB, we wire the `target_group_arns` attribute of `aws_autoscaling_group` to the target group created by the module. Update the module's output values.
 
 ```hcl
 output "lb_dns" {
-  value = module.alb.lb_dns_name
+  value = module.alb.dns_name
 }
 ```
 

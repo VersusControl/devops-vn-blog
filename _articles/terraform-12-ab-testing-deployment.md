@@ -50,7 +50,22 @@ Our system will be as follows.
 
 I'll explain each part in detail. First we create CloudFront and the S3 Bucket Pro; create 3 files: `main.tf`, `s3.tf`, `cloudfront.tf`.
 
-```
+```hcl
+terraform {
+  required_version = ">= 1.9"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "~> 2.4"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
 }
@@ -60,21 +75,25 @@ output "dns" {
 }
 ```
 
-The S3 code.
+The S3 code. Modern S3 disables ACLs, so instead of `aws_s3_bucket_acl` we keep the bucket private and block all public access; CloudFront reaches it through the Origin Access Identity.
 
-```
+```hcl
 resource "aws_s3_bucket" "s3_pro" {
   bucket        = "terraform-serries-s3-pro"
   force_destroy = true
 }
 
-resource "aws_s3_bucket_acl" "s3_pro" {
+resource "aws_s3_bucket_public_access_block" "s3_pro" {
   bucket = aws_s3_bucket.s3_pro.id
-  acl    = "private"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_website_configuration" "s3_pro" {
-  bucket = aws_s3_bucket.s3_pro.bucket
+  bucket = aws_s3_bucket.s3_pro.id
 
   index_document {
     suffix = "index.html"
@@ -91,10 +110,8 @@ data "aws_iam_policy_document" "s3_pro" {
     resources = ["${aws_s3_bucket.s3_pro.arn}/*"]
 
     principals {
-      type = "AWS"
-      identifiers = [
-        aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn
-      ]
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
     }
   }
 }
@@ -208,19 +225,23 @@ Now visit the CloudFront URL `https://d2qm7woq264bw9.cloudfront.net/`.
 
 Next we'll create the S3 Bucket Pre Pro; create a file named `s3_pre_pro.tf`.
 
-```
+```hcl
 resource "aws_s3_bucket" "s3_pre_pro" {
   bucket        = "terraform-serries-s3-pre-pro"
   force_destroy = true
 }
 
-resource "aws_s3_bucket_acl" "s3_pre_pro" {
+resource "aws_s3_bucket_public_access_block" "s3_pre_pro" {
   bucket = aws_s3_bucket.s3_pre_pro.id
-  acl    = "private"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_website_configuration" "s3_pre_pro" {
-  bucket = aws_s3_bucket.s3_pre_pro.bucket
+  bucket = aws_s3_bucket.s3_pre_pro.id
 
   index_document {
     suffix = "index.html"
@@ -237,10 +258,8 @@ data "aws_iam_policy_document" "s3_pre_pro" {
     resources = ["${aws_s3_bucket.s3_pre_pro.arn}/*"]
 
     principals {
-      type = "AWS"
-      identifiers = [
-        aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn
-      ]
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
     }
   }
 }
@@ -445,7 +464,7 @@ exports.handler = (event, context, callback) => {
 
 Now we'll use Terraform to create the Lambda functions and configure Lambda@Edge for CloudFront; create two files named `iam_role.tf` and `lambda.tf`.
 
-```
+```hcl
 resource "aws_iam_role" "lambda_edge" {
   name = "AWSLambdaEdgeRole"
   path = "/service-role/"
@@ -464,27 +483,27 @@ resource "aws_iam_role" "lambda_edge" {
       }
     ]
   })
+}
 
-  inline_policy {
-    name = "AWSLambdaEdgeInlinePolicy"
+# The inline_policy block on aws_iam_role is deprecated; use a separate resource.
+resource "aws_iam_role_policy" "lambda_edge" {
+  name = "AWSLambdaEdgeInlinePolicy"
+  role = aws_iam_role.lambda_edge.id
 
-    policy = jsonencode({
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Effect : "Allow",
-          Action : [
-            "logs:CreateLogGroup",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents"
-          ],
-          Resource : [
-            "arn:aws:logs:*:*:*"
-          ]
-        }
-      ]
-    })
-  }
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = ["arn:aws:logs:*:*:*"]
+      }
+    ]
+  })
 }
 ```
 
@@ -553,59 +572,59 @@ Now we'll see 3 Zip files for the 3 functions.
 
 Next we create the Lambda functions; update the `lambda.tf` file.
 
-```
+```hcl
 ...
 provider "aws" {
-  region  = "us-east-1"
-  alias   = "us-east-1"
+  region = "us-east-1"
+  alias  = "us_east_1"
 }
 
 resource "aws_lambda_function" "viewer_request_function" {
+  provider = aws.us_east_1
+
   function_name = "viewer-request-ab-testing"
   role          = aws_iam_role.lambda_edge.arn
   publish       = true
 
   handler          = "viewer-request.handler"
-  runtime          = "nodejs14.x"
-  filename         = "function/viewer-request.zip"
-  source_code_hash = filebase64sha256("function/viewer-request.zip")
-
-  provider = aws.us-east-1
+  runtime          = "nodejs20.x"
+  filename         = data.archive_file.zip_file_for_lambda_viewer_request.output_path
+  source_code_hash = data.archive_file.zip_file_for_lambda_viewer_request.output_base64sha256
 }
 
 resource "aws_lambda_function" "origin_request_function" {
+  provider = aws.us_east_1
+
   function_name = "origin-request-ab-testing"
   role          = aws_iam_role.lambda_edge.arn
   publish       = true
 
   handler          = "origin-request.handler"
-  runtime          = "nodejs14.x"
-  filename         = "function/origin-request.zip"
-  source_code_hash = filebase64sha256("function/origin-request.zip")
-
-  provider = aws.us-east-1
+  runtime          = "nodejs20.x"
+  filename         = data.archive_file.zip_file_for_lambda_origin_request.output_path
+  source_code_hash = data.archive_file.zip_file_for_lambda_origin_request.output_base64sha256
 }
 
 resource "aws_lambda_function" "origin_response_function" {
+  provider = aws.us_east_1
+
   function_name = "origin-response-ab-testing"
   role          = aws_iam_role.lambda_edge.arn
   publish       = true
 
   handler          = "origin-response.handler"
-  runtime          = "nodejs14.x"
-  filename         = "function/origin-response.zip"
-  source_code_hash = filebase64sha256("function/origin-response.zip")
-
-  provider = aws.us-east-1
+  runtime          = "nodejs20.x"
+  filename         = data.archive_file.zip_file_for_lambda_origin_response.output_path
+  source_code_hash = data.archive_file.zip_file_for_lambda_origin_response.output_base64sha256
 }
 ```
 
-Currently AWS only supports Lambdas created in the `us-east-1` region being deployed as Lambda@Edge, so we must create the Lambdas in `us-east-1`. In Terraform, if we want to create a resource in a different region, we add the `provider` field to that resource, with the `provider` configured with an accompanying `alias` field — for example, above we declare an AWS Provider for `us-east-1`.
+We use `nodejs20.x` here — Node.js 14 is long past end-of-life, and Lambda no longer accepts it. Currently AWS only supports Lambdas created in the `us-east-1` region being deployed as Lambda@Edge, so we must create the Lambdas in `us-east-1`. In Terraform, if we want to create a resource in a different region, we add the `provider` field to that resource, with the `provider` configured with an accompanying `alias` field (alias names must be valid identifiers, so use `us_east_1`, not `us-east-1`) — for example, above we declare an AWS Provider for `us-east-1`.
 
-```
+```hcl
 provider "aws" {
-  region  = "us-east-1"
-  alias   = "us-east-1"
+  region = "us-east-1"
+  alias  = "us_east_1"
 }
 ```
 

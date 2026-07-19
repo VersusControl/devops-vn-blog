@@ -19,10 +19,12 @@ Create a new directory and a file named `main.tf`:
 
 ```hcl
 terraform {
+  required_version = ">= 1.9"
+
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "4.44.0"
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
     }
   }
 }
@@ -35,16 +37,24 @@ resource "aws_s3_bucket" "static" {
   bucket        = "terraform-series-bai3"
   force_destroy = true
 
-  tags = local.tags
+  tags = {
+    Project = "Terraform Series"
+  }
 }
 
-resource "aws_s3_bucket_acl" "static" {
+# S3 blocks public access by default. To serve a public static site we allow a
+# public *bucket policy* (ACLs stay disabled — modern S3 discourages ACLs).
+resource "aws_s3_bucket_public_access_block" "static" {
   bucket = aws_s3_bucket.static.id
-  acl    = "public-read"
+
+  block_public_acls       = true
+  block_public_policy     = false
+  ignore_public_acls      = true
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_website_configuration" "static" {
-  bucket = aws_s3_bucket.static.bucket
+  bucket = aws_s3_bucket.static.id
 
   index_document {
     suffix = "index.html"
@@ -57,11 +67,12 @@ resource "aws_s3_bucket_website_configuration" "static" {
 
 data "aws_iam_policy_document" "static" {
   statement {
+    sid       = "PublicReadGetObject"
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.static.arn}/*"]
 
     principals {
-      type = "*"
+      type        = "*"
       identifiers = ["*"]
     }
   }
@@ -70,8 +81,12 @@ data "aws_iam_policy_document" "static" {
 resource "aws_s3_bucket_policy" "static" {
   bucket = aws_s3_bucket.static.id
   policy = data.aws_iam_policy_document.static.json
+
+  depends_on = [aws_s3_bucket_public_access_block.static]
 }
 ```
+
+> **What changed since 2022?** The original code used `aws_s3_bucket_acl { acl = "public-read" }`. AWS now sets *Object Ownership* to **BucketOwnerEnforced** on new buckets, which **disables ACLs entirely**, so that resource fails. The modern approach is to keep ACLs off and grant public read with a bucket policy, as above. For a production site you'd go one step further and put **CloudFront + Origin Access Control** in front of a private bucket — but this chapter focuses on the S3 website endpoint.
 
 Run `terraform init` and `terraform apply`, then you'll see our S3 bucket on AWS.
 
@@ -106,10 +121,12 @@ Update `main.tf`.
 
 ```hcl
 terraform {
+  required_version = ">= 1.9"
+
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "4.44.0"
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
     }
   }
 }
@@ -122,16 +139,22 @@ resource "aws_s3_bucket" "static" {
   bucket        = "terraform-series-bai3"
   force_destroy = true
 
-  tags = local.tags
+  tags = {
+    Project = "Terraform Series"
+  }
 }
 
-resource "aws_s3_bucket_acl" "static" {
+resource "aws_s3_bucket_public_access_block" "static" {
   bucket = aws_s3_bucket.static.id
-  acl    = "public-read"
+
+  block_public_acls       = true
+  block_public_policy     = false
+  ignore_public_acls      = true
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_website_configuration" "static" {
-  bucket = aws_s3_bucket.static.bucket
+  bucket = aws_s3_bucket.static.id
 
   index_document {
     suffix = "index.html"
@@ -145,6 +168,8 @@ resource "aws_s3_bucket_website_configuration" "static" {
 resource "aws_s3_bucket_policy" "static" {
   bucket = aws_s3_bucket.static.id
   policy = file("s3_static_policy.json")
+
+  depends_on = [aws_s3_bucket_public_access_block.static]
 }
 ```
 
@@ -195,10 +220,12 @@ To upload files to S3, we use the `aws_s3_object` resource. Update the `main.tf`
 
 ```hcl
 terraform {
+  required_version = ">= 1.9"
+
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "4.44.0"
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
     }
   }
 }
@@ -211,16 +238,22 @@ resource "aws_s3_bucket" "static" {
   bucket        = "terraform-series-bai3"
   force_destroy = true
 
-  tags = local.tags
+  tags = {
+    Project = "Terraform Series"
+  }
 }
 
-resource "aws_s3_bucket_acl" "static" {
+resource "aws_s3_bucket_public_access_block" "static" {
   bucket = aws_s3_bucket.static.id
-  acl    = "public-read"
+
+  block_public_acls       = true
+  block_public_policy     = false
+  ignore_public_acls      = true
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_website_configuration" "static" {
-  bucket = aws_s3_bucket.static.bucket
+  bucket = aws_s3_bucket.static.id
 
   index_document {
     suffix = "index.html"
@@ -234,6 +267,8 @@ resource "aws_s3_bucket_website_configuration" "static" {
 resource "aws_s3_bucket_policy" "static" {
   bucket = aws_s3_bucket.static.id
   policy = file("s3_static_policy.json")
+
+  depends_on = [aws_s3_bucket_public_access_block.static]
 }
 
 locals {
@@ -255,11 +290,12 @@ locals {
 
 resource "aws_s3_object" "object" {
   for_each = fileset(path.module, "static-web/**/*")
-  bucket = aws_s3_bucket.static.id
-  key    = replace(each.value, "static-web", "")
-  source = each.value
-  etag         = filemd5("${each.value}")
-  content_type = lookup(local.mime_types, split(".", each.value)[length(split(".", each.value)) - 1])
+
+  bucket       = aws_s3_bucket.static.id
+  key          = replace(each.value, "static-web/", "")
+  source       = "${path.module}/${each.value}"
+  etag         = filemd5("${path.module}/${each.value}")
+  content_type = lookup(local.mime_types, element(split(".", each.value), length(split(".", each.value)) - 1), "application/octet-stream")
 }
 ```
 
