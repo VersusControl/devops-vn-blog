@@ -1,0 +1,44 @@
+# Ordered list of series shown on the /series/ index page.
+# `key` must match the `series` front matter value used by the articles so the
+# chapters can be pulled dynamically. `url` points to the series landing page.
+- title: "Mastering Terraform"
+  key: "Terraform Series"
+  url: /terraform-series/
+  category: "Infrastructure as Code"
+  blurb: "A hands-on journey through Terraform — from IaC basics to modules, backends, CI/CD, deployment strategies, multi-cloud, security, and state management. Every part uses practical AWS examples."
+
+- title: "AWS CDK"
+  key: "AWS CDK"
+  url: /aws-cdk-series/
+  category: "Infrastructure as Code"
+  blurb: "Define cloud infrastructure in real programming languages with the AWS Cloud Development Kit — from the basics to constructs, stacks, and building infrastructure for a real application."
+
+- title: "ArgoCD"
+  key: "ArgoCD"
+  url: /argocd-series/
+  category: "GitOps · Kubernetes"
+  blurb: "Continuous delivery on Kubernetes with Argo CD — deploying and managing the Book Info microservices application the GitOps way."
+
+- title: "Kubernetes Basics"
+  key: "Kubernetes Basics"
+  url: /kubernetes-basics-series/
+  category: "Kubernetes"
+  blurb: "A beginner-friendly tour of Kubernetes fundamentals — from what Kubernetes is to Pods, labels, replication controllers, ReplicaSets, and DaemonSets."
+
+- title: "Networking for DevOps"
+  key: "Networking for DevOps"
+  url: /networking-series/
+  category: "Networking"
+  blurb: "The essential networking concepts DevOps engineers use day to day — the OSI model and protocols through subnetting, routing, DNS, VPNs, and Linux networking tools."
+
+- title: "Cloud Computing"
+  key: "Cloud Computing"
+  url: /cloud-computing-series/
+  category: "Cloud Fundamentals"
+  blurb: "An introduction to cloud computing — what the cloud is, its components and characteristics, and the organizations that define cloud standards."
+
+- title: "Vikki — Banking Infrastructure on Cloud"
+  key: "Banking Infrastructure on Cloud"
+  url: /vikki-banking-infrastructure-on-cloud/
+  category: "Case Study · AWS"
+  blurb: "The infrastructure architecture of a banking system on AWS, drawn from lessons learned building the Vikki digital bank — account management, networking, and Kubernetes at scale."

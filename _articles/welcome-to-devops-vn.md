@@ -9,13 +9,9 @@ tags: [announcement, devops]
 Welcome to **DevOps VN** — a website that shares knowledge about DevOps and
 Cloud Computing.
 
-DevOps VN began as a Vietnamese site on Notion and at devopsvn.tech. I'm now
-rebuilding it here on GitHub Pages and rewriting the content in English so that
-engineers everywhere can follow along.
-
 ## Why This Blog Exists
 
-I'm a Cloud Engineer, and sharing knowledge is one of the things I enjoy most.
+I'm want to sharing knowledge is one of the things I enjoy most.
 Over the years I've written a lot about the tools and practices I use every day.
 My goal is simple: help you build reliable infrastructure faster by sharing what
 worked for me — and what didn't.

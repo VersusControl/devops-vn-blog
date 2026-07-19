@@ -2,10 +2,6 @@
 layout: base
 ---
 <div class="home">
-  <header class="home-masthead">
-    <h1 class="masthead-title">DevOps VN</h1>
-    <p class="masthead-desc">DevOps VN is a website that shares knowledge about DevOps and Cloud Computing.</p>
-  </header>
 
   <a class="vikki-featured" href="{{ '/vikki-banking-infrastructure-on-cloud' | relative_url }}">
     <div class="vikki-featured-media">
@@ -13,11 +9,16 @@ layout: base
     </div>
     <div class="vikki-featured-body">
       <span class="vikki-eyebrow">Featured Series</span>
-      <h2 class="vikki-title">Vikki — Banking Infrastructure on Cloud</h2>
+      <h2 class="vikki-title">Banking Infrastructure on Cloud</h2>
       <p class="vikki-desc">A deep-dive series on architecting a digital bank's infrastructure on AWS — multi-account management, networking, Kubernetes at scale, GitOps, and chaos engineering.</p>
       <span class="vikki-cta">Explore the series →</span>
     </div>
   </a>
+
+  <header class="home-masthead">
+    <h1 class="masthead-title">DevOps VN</h1>
+    <p class="masthead-desc">DevOps VN is a website that shares knowledge about DevOps and Cloud Computing.</p>
+  </header>
 
   <section class="feed">
     <div class="feed-head">
@@ -80,6 +81,32 @@ layout: base
       <a href="{{ '/topics' | relative_url }}#networking">Networking</a>
       <a href="{{ '/topics' | relative_url }}#linux">Linux Tips</a>
       <a href="{{ '/topics' | relative_url }}#devops">DevOps</a>
+    </div>
+  </section>
+
+  <section class="feed">
+    <div class="feed-head">
+      <h2 class="feed-heading">Golden Sponsor</h2>
+    </div>
+    <div class="sponsor-grid">
+      <a class="sponsor-card" href="https://versusincident.com/" target="_blank" rel="noopener">
+        <div class="sponsor-logo">
+          <img src="{{ '/assets/images/versus-logo.png' | relative_url }}" alt="Versus Incident">
+        </div>
+        <div class="sponsor-info">
+          <span class="sponsor-name">Versus Incident</span>
+          <span class="sponsor-role">Content Contribute</span>
+        </div>
+      </a>
+      <a class="sponsor-card" href="https://www.cloudflare.com/" target="_blank" rel="noopener">
+        <div class="sponsor-logo">
+          <img src="{{ '/assets/images/cloudflare-logo.png' | relative_url }}" alt="Cloudflare">
+        </div>
+        <div class="sponsor-info">
+          <span class="sponsor-name">Cloudflare</span>
+          <span class="sponsor-role">Cloudspace Sponsor</span>
+        </div>
+      </a>
     </div>
   </section>
 

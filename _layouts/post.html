@@ -52,9 +52,54 @@ layout: base
     </figure>
     {% endif %}
 
+    <aside class="post-toc" aria-label="Table of contents">
+      <div class="post-toc-inner">
+        <p class="post-toc-title">On this page</p>
+        <nav class="post-toc-nav" id="postTocNav"></nav>
+      </div>
+    </aside>
+
     <div class="post-content">
       {{ content }}
     </div>
+
+    {% if page.series %}
+      {% assign chapters = site.articles | where: "series", page.series | sort: "part" %}
+      {% assign found = false %}
+      {% assign prev_set = false %}
+      {% assign next_set = false %}
+      {% for c in chapters %}
+        {% if found and next_set == false %}
+          {% assign next_chapter = c %}
+          {% assign next_set = true %}
+        {% endif %}
+        {% if c.url == page.url %}
+          {% assign found = true %}
+        {% elsif found == false %}
+          {% assign prev_chapter = c %}
+          {% assign prev_set = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if prev_set or next_set %}
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        {% if prev_set %}
+        <a class="chapter-nav-link chapter-nav-prev" href="{{ prev_chapter.url | relative_url }}" rel="prev">
+          <span class="chapter-nav-dir">← Previous</span>
+          <span class="chapter-nav-title">{% if prev_chapter.part %}Chapter {{ prev_chapter.part }}: {% endif %}{{ prev_chapter.title }}</span>
+        </a>
+        {% else %}
+        <span class="chapter-nav-link chapter-nav-empty" aria-hidden="true"></span>
+        {% endif %}
+        {% if next_set %}
+        <a class="chapter-nav-link chapter-nav-next" href="{{ next_chapter.url | relative_url }}" rel="next">
+          <span class="chapter-nav-dir">Next →</span>
+          <span class="chapter-nav-title">{% if next_chapter.part %}Chapter {{ next_chapter.part }}: {% endif %}{{ next_chapter.title }}</span>
+        </a>
+        {% endif %}
+      </nav>
+      {% endif %}
+    {% endif %}
 
     {% assign primary = page.tags | first %}
     {% if primary %}
@@ -82,3 +127,48 @@ layout: base
     </footer>
   </div>
 </article>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var content = document.querySelector('.post-content');
+  var toc = document.querySelector('.post-toc');
+  var nav = document.getElementById('postTocNav');
+  if (!content || !toc || !nav) return;
+
+  var headings = content.querySelectorAll('h2, h3');
+  if (headings.length < 2) { toc.remove(); return; }
+
+  var list = document.createElement('ul');
+  list.className = 'post-toc-list';
+  var used = {};
+
+  headings.forEach(function (h) {
+    if (!h.id) {
+      var base = h.textContent.trim().toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '') || 'section';
+      if (used[base]) { used[base]++; h.id = base + '-' + used[base]; } else { used[base] = 1; h.id = base; }
+    }
+    var li = document.createElement('li');
+    li.className = 'post-toc-' + h.tagName.toLowerCase();
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+  nav.appendChild(list);
+
+  var links = {};
+  nav.querySelectorAll('a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var current = null;
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        if (current) current.classList.remove('active');
+        current = links[e.target.id];
+        if (current) current.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-90px 0px -70% 0px', threshold: 0 });
+  headings.forEach(function (h) { spy.observe(h); });
+});
+</script>
