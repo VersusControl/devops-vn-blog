@@ -1029,6 +1029,71 @@ main {
   font-size: 0.8rem;
 }
 
+/* "Code for this chapter" repo callout (Terraform series posts) */
+.post-repo-callout {
+  display: flex;
+  gap: 14px;
+  margin: 28px 0 8px;
+  padding: 18px 20px;
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--brand);
+  border-radius: 12px;
+  background: var(--brand-bg);
+}
+
+.post-repo-icon {
+  flex: 0 0 auto;
+  color: var(--brand);
+  margin-top: 2px;
+}
+
+.post-repo-text {
+  min-width: 0;
+}
+
+.post-repo-text strong {
+  display: block;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.post-repo-text p {
+  font-family: var(--font-family);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0 0 10px;
+}
+
+.post-repo-text a {
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.post-repo-text a:hover {
+  text-decoration: underline;
+}
+
+.post-repo-text code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.85em;
+}
+
+.post-repo-clone {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+}
+
 .post-header {
   padding: 24px 0 0;
 }

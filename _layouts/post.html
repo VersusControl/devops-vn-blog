@@ -52,6 +52,18 @@ layout: base
     </figure>
     {% endif %}
 
+    {% if page.series == "Terraform Series" %}
+    {% assign tf_dir = page.slug | remove_first: 'terraform-' %}
+    <div class="post-repo-callout">
+      <svg class="post-repo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      <div class="post-repo-text">
+        <strong>Code for this chapter</strong>
+        <p>All the Terraform used in this part lives in the series repo under <a href="https://github.com/VersusControl/devops-vn-blog/tree/main/_resource/terraform-series/{{ tf_dir }}" target="_blank" rel="noopener"><code>_resource/terraform-series/{{ tf_dir }}</code></a>. Clone it and follow along:</p>
+        <code class="post-repo-clone">git clone https://github.com/VersusControl/devops-vn-blog.git</code>
+      </div>
+    </div>
+    {% endif %}
+
     <aside class="post-toc" aria-label="Table of contents">
       <div class="post-toc-inner">
         <p class="post-toc-title">On this page</p>
