@@ -26,15 +26,17 @@ layout: base
     </div>
     <div class="post-list">
       {% for post in site.data.new_posts %}
+      {% assign full = site.articles | where: "url", post.url | first %}
+      {% assign thumb = full.image | default: post.image %}
       <a class="post-row" href="{% if post.url contains '://' %}{{ post.url }}{% else %}{{ post.url | relative_url }}{% endif %}"{% if post.url contains '://' %} target="_blank" rel="noopener"{% endif %}>
         <div class="post-row-body">
           {% if post.category %}<span class="post-row-cat">{{ post.category }}</span>{% endif %}
           <h3 class="post-row-title">{{ post.title }}</h3>
           <div class="post-row-meta">Quan Huynh</div>
         </div>
-        {% if post.image %}
+        {% if thumb %}
         <div class="post-row-thumb">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          <img src="{{ thumb | relative_url }}" alt="{{ post.title }}" loading="lazy">
         </div>
         {% endif %}
       </a>
@@ -49,10 +51,11 @@ layout: base
     <div class="featured-grid">
       {% for post in site.data.featured_posts %}
       {% assign full = site.articles | where: "url", post.url | first %}
+      {% assign thumb = full.image | default: post.image %}
       <a class="featured-card" href="{% if post.url contains '://' %}{{ post.url }}{% else %}{{ post.url | relative_url }}{% endif %}"{% if post.url contains '://' %} target="_blank" rel="noopener"{% endif %}>
-        {% if post.image %}
+        {% if thumb %}
         <div class="featured-card-image">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          <img src="{{ thumb | relative_url }}" alt="{{ post.title }}" loading="lazy">
         </div>
         {% endif %}
         <div class="featured-card-body">
