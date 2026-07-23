@@ -7,15 +7,17 @@ part: 8
 date: 2024-05-01
 author: Quan Huynh
 tags: [networking, devops, linux]
-image: /assets/images/posts/networking-linux-tools/cover.png
+image: /assets/images/posts/networking-linux-tools/cover.svg
 ---
 
-Some important networking tools that DevOps engineers need to know.
+Everything we've covered so far — layers, protocols, ports, routing, DNS — comes
+together when you're staring at a broken connection and need to find out *why*. These
+are the command-line tools DevOps engineers reach for to test and debug networks. For
+each one, the trick is knowing **what to look for** in the output.
 
-**Ping**
+## Ping — is the host reachable?
 
-Used to check whether the machine running the `ping` command can connect to a host
-using the Internet Protocol (IP). For example:
+`ping` checks whether your machine can reach another host, and how long it takes.
 
 ```
 ping google.com
@@ -27,19 +29,26 @@ PING google.com (142.250.207.78) 56(84) bytes of data.
 2 packets transmitted, 2 received, 0% packet loss, time 1002ms
 ```
 
-**Telnet**
+**Look at:** `0% packet loss` (good) and the `time` (latency). No reply at all usually
+means the host is down, the network is blocked, or a firewall is dropping ICMP.
 
-Checks connectivity to a port on a server. For example, checking connectivity to
-port 3306 of a server:
+## Telnet / nc — is a specific port open?
+
+`ping` only tells you the host is up — not whether the *service* is listening. To test a
+port, use `telnet` (or the more modern `nc`, netcat):
 
 ```
 telnet 151.101.65.124 3306
+nc -vz 151.101.65.124 3306
 ```
 
-**Traceroute**
+**Look at:** a "Connected" / "succeeded" message means the port is open; "Connection
+refused" or a hang means it's closed or firewalled. This is the fastest way to check
+"can my app actually reach the database?"
 
-Displays the route and measures the transit delay of packets across an IP network.
-For example:
+## Traceroute / mtr — where does traffic go (or stop)?
+
+`traceroute` shows every hop a packet passes through on its way to the destination.
 
 ```
 traceroute google.com
@@ -48,51 +57,85 @@ traceroute to google.com (172.217.24.110), 30 hops max, 60 byte packets
 ...
 ```
 
-**Netstat**
+**Look at:** the hop where replies stop or times spike — that's often where the problem
+is. `mtr` combines ping and traceroute into a live, continuously updating view and is
+usually the better tool for spotting where packets are being lost.
 
-Displays active network connections on a machine, often used to check whether a
-service is running. For example, checking whether Postgres is running on port 5432:
+## ss / netstat — what's listening on this machine?
+
+`ss` is the modern replacement for `netstat`; both show active connections and listening
+ports. Handy for confirming a service actually came up on the port you expect:
 
 ```
-netstat -ltnp | grep 5432
+ss -ltnp | grep 5432      # modern
+netstat -ltnp | grep 5432 # older, still common
 ```
 
-**Nmap**
+**Look at:** a `LISTEN` line on the port means the service is up. Nothing means it never
+started or bound to a different address.
 
-Often used to scan which ports are open on a host. For example:
+## nmap — which ports are open on a host?
+
+`nmap` scans a host to see which ports are open — great for verifying firewall rules
+(scan only systems you're allowed to).
 
 ```
 nmap -p 1-1000 151.101.65.124
 
-Starting Nmap 7.80 ( https://nmap.org ) at 2024-05-01 15:22 +07
+Starting Nmap 7.80 ( https://nmap.org )
 Nmap scan report for 151.101.65.124
 Host is up (0.040s latency).
-Not shown: 998 filtered ports
 PORT    STATE SERVICE
 80/tcp  open  http
 443/tcp open  https
 ```
 
-**Tcpdump**
+**Look at:** the `open` ports. Unexpected open ports are a security red flag; missing
+ones mean a firewall or the service is blocking access.
 
-Used to capture and analyze network traffic. For example:
+## tcpdump — what's actually on the wire?
 
-```
-tcpdump -i eth0
-
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
-...
-```
-
-**Nslookup**
-
-Used to look up information about a domain, such as its DNS name server or server
-IP.
+When you need to see the raw traffic, `tcpdump` captures and prints packets.
 
 ```
+tcpdump -i eth0 port 443
+```
+
+**Look at:** whether packets are flowing in both directions. It's the tool of last resort
+when nothing else explains the behaviour.
+
+## dig / nslookup — resolve a domain
+
+To check what a domain name resolves to, use `dig` (preferred by DevOps for its detailed
+output) or the simpler `nslookup`:
+
+```
+dig devopsvn.tech +short
 nslookup devopsvn.tech
-
-Server:         172.29.128.1
-Address:        172.29.128.1#53
 ```
+
+**Look at:** the returned IP and which DNS server answered. If a site is unreachable but
+resolves to the wrong (or no) address, the problem is DNS, not the server.
+
+## curl — test an HTTP endpoint (Layer 7)
+
+`curl` checks a service at the application layer — is the API actually responding?
+
+```
+curl -I https://devopsvn.tech
+```
+
+**Look at:** the HTTP status code (`200` good, `5xx` server error) and TLS/redirect
+behaviour.
+
+> A quick note on modern vs. legacy: `ss`, `ip`, `dig`, and `mtr` are the current tools;
+> `netstat`, `route`/`ifconfig`, and `nslookup` are older but still everywhere, so it's
+> worth knowing both.
+
+## Wrapping up the series
+
+That completes our **Networking for DevOps** series. We started at the OSI model and
+worked down through protocols, ports, subnetting, routing, DNS, and VPNs — and finished
+with the tools to test them all. You don't need to be a network engineer to be a great
+DevOps engineer, but knowing *which layer a problem lives at* and *which tool answers the
+question* will save you countless hours of debugging.

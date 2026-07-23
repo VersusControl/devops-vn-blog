@@ -7,71 +7,87 @@ part: 4
 date: 2024-02-19
 author: Quan Huynh
 tags: [networking, devops]
-image: /assets/images/posts/networking-subnetting/cover.png
+image: /assets/images/posts/networking-subnetting/cover.svg
 ---
 
-The important concepts DevOps needs to grasp are IP, subnetting, and CIDR notation.
+When you design a network on the cloud — a VPC on AWS, for example — you have to
+decide how IP addresses are laid out. The three ideas that make that possible are
+**IP**, **subnetting**, and **CIDR notation**. Let's build them up one at a time.
 
-**IP (Internet Protocol)** comes in two versions, IPv4 and IPv6:
+## IP addresses
 
-- IPv4 uses 32 binary bits, divided into 4 groups of 8 bits, as the address — for
-  example, `192.0.2.126` is an IPv4 address. With 32 bits, IPv4 has a maximum of
-  about 4 billion IP addresses.
-- IPv6 is the newest version of the Internet Protocol, developed to upgrade and
-  replace IPv4. IPv6 uses 128-bit addresses, for a maximum of 340 undecillion IP
-  addresses.
+**IP (Internet Protocol)** addresses come in two versions:
 
-Today, IPv4 is more commonly used. IPv4 is divided into two main parts: the network
-part (Network ID) and the host part (Host ID). The network part identifies the
-network's address, and the host part identifies a device's address within the
-network.
+- **IPv4** uses 32 bits, written as four numbers 0–255 separated by dots — for example
+  `192.0.2.126`. That gives about **4 billion** possible addresses. It's still the most
+  common version you'll work with.
+- **IPv6** is the newer version, built because we're running out of IPv4 addresses. It
+  uses 128-bit addresses, for a practically unlimited supply.
 
-IPv4 has ranges reserved for private networks:
+An IPv4 address has two parts: the **network part (Network ID)**, which says *which
+network* you're on, and the **host part (Host ID)**, which says *which device* you are
+on that network. Think of it like a phone number: the area code is the network, the rest
+is the specific line.
 
-- 10.0.0.0 to 10.255.255.255
-- 172.16.0.0 to 172.31.255.255
-- 192.168.0.0 to 192.168.255.255
+Some IPv4 ranges are reserved for **private networks** — you'll use these for internal
+cloud networks all the time:
 
-We usually use the ranges above when designing internal networks.
+- `10.0.0.0` – `10.255.255.255`
+- `172.16.0.0` – `172.31.255.255`
+- `192.168.0.0` – `192.168.255.255`
 
-**Subnetting**
+## Subnetting
 
-Subnetting is the process of dividing a network into smaller subnetworks (subnets)
-to optimize IP address usage and provide better management and security for the
-network.
+**Subnetting** is the process of splitting one network into smaller sub-networks
+(*subnets*). We do it to use addresses efficiently, and to keep things organized and
+secure — for example, putting public web servers in one subnet and private databases in
+another.
 
-Subnetting lets you split an IPv4 address into new network and host parts, helping
-create subnets with their own IP addresses for each subnet.
+Subnetting works by "borrowing" bits from the host part to create more network parts.
+For example, the big range `172.16.0.0` – `172.16.255.255` can be split into smaller
+blocks that are easier to manage:
 
-When designing a network, we usually divide it into smaller parts. For example,
-with the range 172.16.0.0 to 172.31.255.255, we split it into smaller networks for
-easier management:
+- `172.16.0.0` – `172.16.15.255`
+- `172.16.16.0` – `172.16.31.255`
+- …and so on.
 
-- 172.16.0.0 to 172.16.15.255
-- 172.16.16.0 to 172.16.31.255
-- …
+How big each block is comes down to **CIDR notation**.
 
-We use CIDR notation to define how the network is divided.
+## CIDR notation
 
-**CIDR notation**
+**CIDR (Classless Inter-Domain Routing)** notation is a short way to write "how big is
+this network?". It's an IP address followed by a slash and a number — for example
+`192.168.1.0/24`.
 
-CIDR (Classless Inter-Domain Routing) notation is a method for representing IP
-addresses. CIDR notation consists of an IP address followed by a slash and a
-decimal number — for example `192.168.1.0/24`, where `192.168.1.0` is the IP
-address and `/24` is the slash notation that determines how many device addresses
-are in that subnet: 192.168.1.0/24 ⇒ 192.168.1.0 to 192.168.1.255. For the detailed
-calculation, see [CIDR](https://www.geeksforgeeks.org/classless-inter-domain-routing-cidr/).
+The number after the slash is how many bits belong to the **network** part. The
+remaining bits are for **hosts**. Since IPv4 has 32 bits total:
 
-At work, we use a tool to calculate it — see this page:
-[CIDR to IPv4 Conversion](https://www.ipaddressguide.com/cidr).
+- `/24` → 24 network bits, 8 host bits → 2⁸ = **256 addresses**
+  (`192.168.1.0` to `192.168.1.255`).
+- `/16` → 16 host bits → **65,536 addresses**.
+- `/28` → 4 host bits → **16 addresses**.
+
+A smaller slash number means a *bigger* network. (Two addresses in each block are
+reserved: the first is the network address and the last is the broadcast address, so a
+`/24` gives you 254 usable IPs.)
+
+You don't have to do the binary math by hand — a calculator like
+[CIDR to IPv4 Conversion](https://www.ipaddressguide.com/cidr) does it instantly, and
+[this guide](https://www.geeksforgeeks.org/classless-inter-domain-routing-cidr/) explains
+the calculation in detail.
 
 ![CIDR notation](/assets/images/posts/networking-subnetting/cidr.png)
 
-For DevOps, when designing a network we need to determine which network ranges we
-need and how to divide subnets to accommodate the number of IPs for the services
-in our system. For example:
+## Why this matters for DevOps
+
+When you design a network, you pick the address ranges up front and divide them into
+subnets sized for the services that will live there:
 
 ![Subnet design](/assets/images/posts/networking-subnetting/subnet-design.png)
 
-Too many and you waste addresses; too few and you run short. So dividing subnets
-at the initial step is very important.
+Make a subnet too big and you waste addresses; too small and you run out of room to grow.
+Resizing a subnet later is painful, so **getting the layout right at the start is one of
+the most important networking decisions you'll make.**
+
+In the next post, we'll see how traffic actually finds its way between these networks —
+that's **routing**.

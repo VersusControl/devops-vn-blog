@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d2e2b"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <circle cx="1360" cy="180" r="330" fill="#2dd4bf" opacity="0.12"/>
+  <circle cx="1420" cy="610" r="210" fill="#14B8A6" opacity="0.10"/>
+  <g stroke="#5eead4" stroke-opacity="0.30" stroke-width="6" stroke-linecap="round">
+    <line x1="1250" y1="250" x2="1450" y2="250"/>
+    <line x1="1450" y1="250" x2="1350" y2="440"/>
+    <line x1="1250" y1="250" x2="1350" y2="440"/>
+    <line x1="1350" y1="440" x2="1470" y2="470"/>
+  </g>
+  <g fill="#5eead4" fill-opacity="0.30">
+    <circle cx="1250" cy="250" r="26"/>
+    <circle cx="1450" cy="250" r="26"/>
+    <circle cx="1350" cy="440" r="26"/>
+    <circle cx="1470" cy="470" r="26"/>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#2dd4bf"/>
+  <text x="192" y="163" font-size="26" fill="#5eead4" font-weight="700" letter-spacing="4">NETWORKING FOR DEVOPS · CHAPTER 07</text>
+  <text x="118" y="430" font-size="130" fill="#ffffff" font-weight="800">VPN</text>
+  <text x="120" y="606" font-size="30" fill="#a7d8d0" font-weight="500">Virtual Private Networks · for DevOps</text>
+  <text x="120" y="652" font-size="24" fill="#5f8a83" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

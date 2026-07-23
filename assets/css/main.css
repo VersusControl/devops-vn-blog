@@ -1619,6 +1619,38 @@ main {
   margin: 2.5rem 0;
 }
 
+/* Tables in article content */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.6rem 0 2rem;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.post-content thead th {
+  background: var(--brand-bg);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.post-content th,
+.post-content td {
+  text-align: left;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+.post-content tbody tr:nth-child(even) {
+  background: #fafbfc;
+}
+
+.post-content table code {
+  white-space: nowrap;
+}
+
 .post-footer {
   padding: 40px 0 72px;
   margin-top: 40px;

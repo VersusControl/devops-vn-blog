@@ -7,48 +7,51 @@ part: 7
 date: 2024-04-28
 author: Quan Huynh
 tags: [networking, devops]
-image: /assets/images/posts/networking-vpn/cover.png
+image: /assets/images/posts/networking-vpn/cover.svg
 ---
 
-A Virtual Private Network (VPN) is an internet security service that lets users
-access the internet as if they were connected to a private network. It encrypts
-internet communications and provides a high level of anonymity.
+A **VPN (Virtual Private Network)** lets you use the internet as if you were plugged
+directly into a private network — even when you're actually on public WiFi in a café. It
+does this by wrapping your traffic in an **encrypted tunnel**, which also hides your real
+location. Think of it as an armored, sealed pipe running through the public internet:
+data goes in one end and out the other, and nobody in between can peek inside.
 
-Some of the most common reasons people use a VPN are to protect against snooping on
-public WiFi, to bypass internet censorship, or to connect to a company's internal
-network for remote work.
+People reach for a VPN for three main reasons: to stay safe on untrusted public WiFi, to
+get around internet censorship, and — the one that matters most for DevOps — to connect
+securely to a **company's private network** while working remotely.
 
 ![Common VPN uses](/assets/images/posts/networking-vpn/vpn-uses.png)
 
-Normally, most internet requests are unencrypted. When a user makes an internet
-connection — such as visiting a website in a browser — the user's device connects
-to their Internet Service Provider (ISP), and the ISP then connects to the internet
-to find the appropriate web server to communicate with and fetch the website's
-content.
+## Why a plain connection isn't private
 
-Information about the user is exposed at every step of visiting a website. Because
-the user's IP address is exposed throughout the process, the ISP and any other
-intermediaries can log the user's browsing history. In addition, the data flowing
-between the user's device and the web server is unencrypted; this creates an
-opportunity for hackers to spy on the data or carry out attacks against the user,
-such as an on-path attack.
+Most internet requests travel **unencrypted**. When you open a website, your device
+connects to your **Internet Service Provider (ISP)**, and the ISP reaches out across the
+internet to the web server to fetch the page.
+
+The problem is that your information is exposed at every hop. Because your IP address is
+visible the whole way, your ISP and any device in between can log where you go. And since
+the data itself isn't encrypted, an attacker on the same network can read it or tamper
+with it — for example, an on-path (man-in-the-middle) attack.
 
 ![Unencrypted connection](/assets/images/posts/networking-vpn/unencrypted.png)
 
-In contrast, a user who connects to the internet using a VPN service has a higher
-level of security and privacy. A VPN connection consists of the following 4 steps:
+## How a VPN fixes it
 
-1. The VPN client connects to the ISP over an encrypted connection.
-2. The ISP connects the VPN client to the VPN server, maintaining the encrypted
-   connection.
-3. The VPN server decrypts data from the user's device and then connects to the
-   internet to reach the web server.
-4. The VPN server creates an encrypted connection with the client, called a VPN
-   tunnel.
+When you connect through a VPN, your traffic is encrypted before it ever leaves your
+device. A VPN connection works in four steps:
+
+1. The VPN client opens an **encrypted** connection to the VPN server (through your ISP).
+2. The ISP passes that encrypted traffic along to the VPN server without being able to
+   read it.
+3. The VPN server **decrypts** your request and connects out to the internet on your
+   behalf.
+4. The encrypted path between your device and the VPN server is the **VPN tunnel**.
 
 ![VPN tunnel](/assets/images/posts/networking-vpn/vpn-tunnel.png)
 
-The VPN tunnel between the VPN client and the VPN server passes through the ISP, but
-because all the data is encrypted, the ISP can't see the user's activity. The VPN
-server's communications with the internet are unencrypted, but the web servers only
-record the VPN server's IP address, which gives them no information about the user.
+The tunnel still passes through your ISP, but because everything inside it is encrypted,
+the ISP can't see what you're doing. And the websites you visit only see the **VPN
+server's** IP address, not yours — so your identity and location stay private.
+
+In the final post of the series, we'll get hands-on with the **Linux networking tools**
+you'll use every day to test and debug all of this.

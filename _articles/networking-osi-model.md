@@ -7,45 +7,58 @@ part: 1
 date: 2024-02-07
 author: Quan Huynh
 tags: [networking, devops]
-image: /assets/images/posts/networking-osi-model/cover.png
+image: /assets/images/posts/networking-osi-model/cover.svg
 ---
 
-The OSI (Open Systems Interconnection) model is a reference model that describes
-how network systems work. It divides the network communication process into 7
-independent layers to improve compatibility and manageability. The layers of the
-OSI model are:
+Before you can debug a slow app, a refused connection, or a firewall rule, it helps
+to know *where* in the network the problem lives. That's exactly what the OSI model
+gives us — a shared map of how data travels across a network, split into layers.
 
-- Layer 7: Application
-- Layer 6: Presentation
-- Layer 5: Session
-- Layer 4: Transport
-- Layer 3: Network
-- Layer 2: Data Link
-- Layer 1: Physical
+## The 7 layers of the OSI model
 
-Each layer has a specific function and responsibility in network communication.
-This model is widely used to understand how networks work and to help isolate and
-troubleshoot network issues. For details on how each layer works, see:
-[OSI Model](https://www.geeksforgeeks.org/open-systems-interconnection-model-osi/).
+The OSI (Open Systems Interconnection) model describes network communication as **7
+independent layers**. Splitting it up this way makes networks easier to build,
+understand, and troubleshoot: each layer has one job and only talks to the layers
+directly above and below it.
 
-The OSI model we just looked at is a reference model and is used as a way to
-describe network architecture. Meanwhile, the model widely applied in practice is
-the TCP/IP model (Transmission Control Protocol/Internet Protocol), which is a
-condensed version of the OSI model.
+- **Layer 7 — Application**: the apps and protocols you use directly (HTTP, DNS, SSH).
+- **Layer 6 — Presentation**: formatting and encryption (TLS, character encoding).
+- **Layer 5 — Session**: opening, managing, and closing conversations.
+- **Layer 4 — Transport**: reliable delivery and ports (TCP, UDP).
+- **Layer 3 — Network**: addressing and routing between networks (IP).
+- **Layer 2 — Data Link**: delivery between two devices on the same network (MAC, Ethernet).
+- **Layer 1 — Physical**: the cables, radio waves, and electrical signals.
 
-The TCP/IP model has 4 layers, starting from the lowest — Physical → Network →
-Transport → Application.
+An easy way to remember them top-to-bottom: **A**ll **P**eople **S**eem **T**o
+**N**eed **D**ata **P**rocessing.
+
+Think of posting a parcel: you write the letter (Application), seal it in an envelope
+(Presentation/Session), write the address (Network), hand it to a courier who
+guarantees delivery (Transport), and it travels down the road (Physical). Each person
+in the chain only cares about their own step. For a deep dive on every layer, see
+[the OSI model explained](https://www.geeksforgeeks.org/open-systems-interconnection-model-osi/).
+
+## OSI vs. the TCP/IP model
+
+The OSI model is a *reference* model — perfect for learning and for describing where a
+problem sits. But the model the internet actually runs on is the **TCP/IP model**, a
+simpler, 4-layer version of the same idea.
 
 ![The 4 layers of the TCP/IP model](/assets/images/posts/networking-osi-model/tcp-ip-layers.png)
 
-The layers of the TCP/IP model have the following specific functions:
+From the bottom up, its layers are:
 
-- **Physical**: Responsible for transmitting data between devices on the same
-  network.
-- **Network**: Responsible for routing and forwarding data packets between
-  different networks.
-- **Transport**: Splits large data packets when they are sent and reassembles
-  them. This layer ensures data integrity (no errors, no loss, and in the correct
-  order).
-- **Application**: Where network programs such as web browsers and mail user
-  agents operate.
+- **Network Access (Link)**: moves data between devices on the same physical network.
+  (This rolls the OSI Physical + Data Link layers into one.)
+- **Internet**: routes and forwards packets between different networks (IP).
+- **Transport**: splits data into packets and reassembles them, making sure nothing is
+  lost, duplicated, or out of order (TCP, UDP).
+- **Application**: where programs such as web browsers and mail clients operate (HTTP,
+  DNS, SMTP).
+
+As a DevOps engineer, most of your day-to-day work lives at **Layers 3–4** (IP, ports,
+routing, firewalls) and **Layer 7** (HTTP, load balancers, TLS). When something
+breaks, asking "*which layer is this?*" is often the fastest way to narrow it down.
+
+In the next post, we'll zoom into Layers 3 and 4 and look at the three protocols
+you'll use constantly: **TCP, UDP, and IP**.

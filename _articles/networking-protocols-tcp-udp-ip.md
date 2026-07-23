@@ -7,41 +7,58 @@ part: 2
 date: 2024-02-07
 author: Quan Huynh
 tags: [networking, devops]
-image: /assets/images/posts/networking-protocols-tcp-udp-ip/cover.png
+image: /assets/images/posts/networking-protocols-tcp-udp-ip/cover.svg
 ---
 
-A protocol is a set of rules that define how data is transmitted and received
-between devices. It ensures data transmission and lets different systems
-understand and interact with each other. Some common protocols are TCP, HTTP, and
-SMTP. The key protocol concepts we need to understand are: TCP, UDP, and IP.
+A **protocol** is simply an agreed set of rules for how devices talk to each other —
+how data is packaged, sent, and confirmed. Because both sides follow the same rules,
+completely different systems can understand one another. There are many protocols
+(HTTP, SMTP, DNS…), but the three foundations every DevOps engineer should know are
+**TCP**, **UDP**, and **IP**.
 
-**TCP (Transmission Control Protocol):**
+## IP — the addressing system
 
-- TCP operates at the transport layer of the OSI model. It establishes a
-  connection between two devices before exchanging data, ensuring reliable,
-  ordered transmission.
-- It splits data into packets, assigns sequence numbers, and uses acknowledgment
-  messages to ensure reliable delivery. It is a connection-oriented protocol,
-  meaning it establishes, maintains, and terminates a connection to exchange data.
+**IP (Internet Protocol)** works at the **Network layer**. Its job is addressing and
+routing: making sure a packet of data reaches the right destination. Every device on a
+network gets a unique **IP address**, and IP uses it to move packets from one machine
+to another — a bit like the postal system reading the address on an envelope.
 
-**UDP (User Datagram Protocol):**
+IP gets the packet to the right *building*. But which *application* on that machine
+should receive it, and should we double-check it arrived? That's where TCP and UDP come
+in. Both live at the **Transport layer**, one level above IP.
 
-- UDP also operates at the transport layer of the OSI model. However, UDP is
-  *connectionless*, meaning that when sending data it doesn't need to establish a
-  connection between the two devices — it just identifies the destination device
-  and sends the data.
-- UDP doesn't need to confirm whether the data reached the destination, so it's
-  faster than TCP. It's suitable for real-time applications such as video
-  streaming or online gaming.
+## TCP — reliable, like a phone call
 
-**IP (Internet Protocol):**
+**TCP (Transmission Control Protocol)** is *connection-oriented*. Before sending
+anything, the two devices "shake hands" to open a connection — like dialing someone and
+waiting for them to say "hello" before you start talking.
 
-- IP operates at the network layer and is a fundamental part of the TCP/IP suite.
-  It handles addressing and routing to ensure data packets reach the correct
-  destination.
-- Each device on a network is assigned a unique IP address.
+TCP then splits your data into packets, numbers them, and waits for the other side to
+**acknowledge** each one. If a packet goes missing, TCP resends it. The result is
+**reliable, in-order delivery** — nothing lost, nothing scrambled. The trade-off is a
+little extra overhead and delay. Web pages, APIs, databases, and SSH all use TCP.
 
-In summary: the Internet Protocol handles addressing and routing data to the
-correct destination. TCP and UDP handle the data between devices — TCP uses a
-connection-oriented approach (slow but reliable), while UDP uses a connectionless
-approach (fast but not guaranteed).
+## UDP — fast, like a postcard
+
+**UDP (User Datagram Protocol)** is *connectionless*. There's no handshake and no
+acknowledgements — it just addresses the data and fires it off, like dropping a postcard
+in the mailbox and hoping it arrives.
+
+Because it skips all the checking, UDP is **faster and lighter** than TCP, but delivery
+isn't guaranteed. That's a perfect fit for things where speed matters more than perfect
+accuracy: live video, voice calls, online games, and DNS lookups.
+
+## TCP vs. UDP at a glance
+
+| | **TCP** | **UDP** |
+|---|---|---|
+| Connection | Yes (handshake first) | No |
+| Reliability | Guaranteed & in order | Best-effort |
+| Speed | Slower (more checking) | Faster (no checking) |
+| Good for | Web, APIs, SSH, databases | Video, voice, games, DNS |
+
+**In short:** IP handles *where* the data goes; TCP and UDP handle *how* it gets there —
+TCP the careful way, UDP the fast way.
+
+In the next post, we'll look at **ports** — how a single server tells apart the many
+kinds of traffic arriving at the same IP address.
