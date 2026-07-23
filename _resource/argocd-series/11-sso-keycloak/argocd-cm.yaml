@@ -1,0 +1,20 @@
+# Chapter 11 — OIDC config pointing ArgoCD at a Keycloak realm.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  url: https://argocd.example.com
+  # Disable the shared local admin once SSO works.
+  # admin.enabled: "false"
+  oidc.config: |
+    name: Keycloak
+    issuer: https://keycloak.example.com/realms/devops
+    clientID: argocd
+    clientSecret: $oidc.keycloak.clientSecret
+    requestedScopes:
+      - openid
+      - profile
+      - email
+      - groups

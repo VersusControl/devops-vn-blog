@@ -1,0 +1,26 @@
+# Chapter 2 — an AppProject to organize Applications and control access (RBAC).
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dev
+  namespace: argocd
+spec:
+  description: "Project for managing applications in ArgoCD"
+  sourceRepos:
+    - '*'
+  destinations:
+    - server: 'https://kubernetes.default.svc'
+      namespace: '*'
+  roles:
+    - name: read-only
+      description: Read-only access to applications in this project
+      policies:
+        - p, role:read-only, applications, get, dev/*, allow
+      groups:
+        - role:read-only-group
+    - name: admin
+      description: Admin access to applications in this project
+      policies:
+        - p, role:admin, applications, *, dev/*, allow
+      groups:
+        - role:admin-group

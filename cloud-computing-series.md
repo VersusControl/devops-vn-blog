@@ -2,6 +2,7 @@
 layout: page
 title: "Cloud Computing — A Complete Series"
 permalink: /cloud-computing-series/
+cover: /assets/images/series/cloud-computing-series.svg
 ---
 
 An introductory series on cloud computing — what the cloud is, its components

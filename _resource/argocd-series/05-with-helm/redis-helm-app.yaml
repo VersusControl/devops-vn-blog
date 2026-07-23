@@ -1,0 +1,23 @@
+# Chapter 5 — deploy Redis directly from the Bitnami Helm chart with an Application.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redis-helm-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    chart: redis
+    targetRevision: 17.11.3
+    helm:
+      releaseName: redis
+      parameters:
+        - name: password
+          value: "your-redis-password"
+        - name: replication.enabled
+          value: "true"
+        - name: replication.slaveCount
+          value: "2"
+  destination:
+    server: 'https://kubernetes.default.svc'

@@ -1,0 +1,38 @@
+# Chapter 9 — Matrix generator: the cross-product of apps (git) x environments (list).
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps-per-env
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: 'https://github.com/hoalongnatsu/argocd-series'
+              revision: HEAD
+              directories:
+                - path: 'apps/*'
+          - list:
+              elements:
+                - env: dev
+                - env: prod
+  template:
+    metadata:
+      name: '{{ .path.basename }}-{{ .env }}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/hoalongnatsu/argocd-series'
+        targetRevision: HEAD
+        path: '{{ .path.path }}/overlays/{{ .env }}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{ .path.basename }}-{{ .env }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

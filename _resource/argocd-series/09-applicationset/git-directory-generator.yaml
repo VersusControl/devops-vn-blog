@@ -1,0 +1,33 @@
+# Chapter 9 — Git directory generator: one Application per folder under apps/*.
+# Add a folder to the repo and a new Application appears automatically.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - git:
+        repoURL: 'https://github.com/hoalongnatsu/argocd-series'
+        revision: HEAD
+        directories:
+          - path: 'apps/*'
+  template:
+    metadata:
+      name: '{{ .path.basename }}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/hoalongnatsu/argocd-series'
+        targetRevision: HEAD
+        path: '{{ .path.path }}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{ .path.basename }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

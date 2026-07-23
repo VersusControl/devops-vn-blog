@@ -1,0 +1,33 @@
+# Chapter 9 — List generator: one Application per environment.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: book-info
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - env: dev
+            namespace: book-info-dev
+          - env: prod
+            namespace: book-info-prod
+  template:
+    metadata:
+      name: 'book-info-{{ .env }}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/hoalongnatsu/argocd-series'
+        targetRevision: HEAD
+        path: '06-kustomize/book-info/overlays/{{ .env }}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{ .namespace }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

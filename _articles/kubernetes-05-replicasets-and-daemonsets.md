@@ -7,7 +7,7 @@ part: 5
 date: 2023-10-23
 author: Quan Huynh
 tags: [kubernetes, devops]
-image: /assets/images/posts/kubernetes-05-replicasets-and-daemonsets/cover.png
+image: /assets/images/posts/kubernetes-05-replicasets-and-daemonsets/cover.svg
 ---
 
 In the previous post we learned how to use Replication Controllers. In this post

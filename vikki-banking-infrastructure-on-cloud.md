@@ -2,6 +2,7 @@
 layout: page
 title: "Vikki — Banking Infrastructure on Cloud"
 permalink: /vikki-banking-infrastructure-on-cloud/
+cover: /assets/images/series/vikki-banking-series.svg
 ---
 
 A short series sharing the infrastructure architecture of a banking system on the

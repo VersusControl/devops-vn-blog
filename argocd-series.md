@@ -2,6 +2,7 @@
 layout: page
 title: "ArgoCD — A Complete Series"
 permalink: /argocd-series/
+cover: /assets/images/series/argocd-series.svg
 ---
 
 A step-by-step series on using Argo CD for GitOps continuous delivery on

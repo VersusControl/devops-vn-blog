@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productpage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productpage
+  template:
+    metadata:
+      labels:
+        app: productpage
+    spec:
+      containers:
+        - name: productpage
+          image: docker.io/istio/examples-bookinfo-productpage-v1:1.20.1
+          ports:
+            - containerPort: 9080

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <rect width="1600" height="760" fill="#111827"/>
+  <circle cx="1370" cy="180" r="360" fill="#ef4444" opacity="0.12"/>
+  <circle cx="1440" cy="600" r="240" fill="#f59e0b" opacity="0.12"/>
+  <!-- shield motif -->
+  <g transform="translate(1300,300)" stroke="#f59e0b" stroke-opacity="0.30" fill="none" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M0,-150 L150,-95 L150,55 C150,150 80,205 0,240 C-80,205 -150,150 -150,55 L-150,-95 Z"/>
+    <path d="M-58,20 L-16,64 L70,-40"/>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#f59e0b"/>
+  <text x="192" y="163" font-size="26" fill="#f59e0b" font-weight="700" letter-spacing="4">AWS · CI/CD · SECURITY</text>
+  <text x="118" y="360" font-size="96" fill="#ffffff" font-weight="800">AWS CI/CD Security</text>
+  <text x="118" y="472" font-size="96" fill="#ffffff" font-weight="800">Mistakes to Avoid</text>
+  <text x="120" y="600" font-size="30" fill="#9aa4b2" font-weight="500">Common pitfalls and how to fix them</text>
+  <text x="120" y="648" font-size="24" fill="#5b6472" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

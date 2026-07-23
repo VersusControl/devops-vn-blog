@@ -1,0 +1,20 @@
+# Chapter 7 — PostSync hook: run a smoke test after the new version is healthy.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: smoke-test
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: curl
+          image: curlimages/curl:8.9.1
+          command:
+            - sh
+            - -c
+            - "curl -sf http://productpage:9080/health || exit 1"
+  backoffLimit: 0

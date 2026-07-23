@@ -2,6 +2,7 @@
 layout: page
 title: "AWS CDK — A Complete Series"
 permalink: /aws-cdk-series/
+cover: /assets/images/series/aws-cdk-series.svg
 ---
 
 A hands-on series on the AWS Cloud Development Kit (CDK) — defining cloud

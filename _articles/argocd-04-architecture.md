@@ -7,7 +7,7 @@ part: 4
 date: 2024-11-04
 author: Quan Huynh
 tags: [kubernetes, argocd, gitops]
-image: /assets/images/posts/argocd-04-architecture/components.png
+image: /assets/images/posts/argocd-04-architecture/cover.svg
 ---
 
 This post will help you better understand ArgoCD's architecture. ArgoCD performs

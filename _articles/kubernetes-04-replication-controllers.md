@@ -7,7 +7,7 @@ part: 4
 date: 2023-10-09
 author: Quan Huynh
 tags: [kubernetes, devops]
-image: /assets/images/posts/kubernetes-04-replication-controllers/cover.png
+image: /assets/images/posts/kubernetes-04-replication-controllers/cover.svg
 ---
 
 In the previous post we learned how to use a Pod to run an application. But in

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#326CE5"/>
+      <stop offset="1" stop-color="#1D3A8A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.16" fill="none" stroke-width="6" stroke-linejoin="round">
+    <polygon points="1360,120 1547.8,214.6 1594,395.8 1464.4,540.7 1255.6,540.7 1126,395.8 1172.2,214.6"/>
+    <line x1="1360" y1="360" x2="1360" y2="120"/>
+    <line x1="1360" y1="360" x2="1547.8" y2="214.6"/>
+    <line x1="1360" y1="360" x2="1594" y2="395.8"/>
+    <line x1="1360" y1="360" x2="1464.4" y2="540.7"/>
+    <line x1="1360" y1="360" x2="1255.6" y2="540.7"/>
+    <line x1="1360" y1="360" x2="1126" y2="395.8"/>
+    <line x1="1360" y1="360" x2="1172.2" y2="214.6"/>
+    <circle cx="1360" cy="360" r="42"/>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#BFD4FF"/>
+  <text x="192" y="163" font-size="26" fill="#BFD4FF" font-weight="700" letter-spacing="4">DEVOPS VN · KUBERNETES</text>
+  <text x="118" y="430" font-size="98" fill="#ffffff" font-weight="800">Kubernetes Basics</text>
+  <text x="120" y="606" font-size="30" fill="#C3D3F5" font-weight="500">Kubernetes fundamentals for DevOps</text>
+  <text x="120" y="652" font-size="24" fill="#8FA9E0" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

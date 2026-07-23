@@ -2,6 +2,7 @@
 layout: page
 title: "Networking for DevOps — A Complete Series"
 permalink: /networking-series/
+cover: /assets/images/series/networking-series.svg
 ---
 
 A practical networking series for DevOps engineers — the essential concepts you

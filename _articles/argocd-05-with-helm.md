@@ -7,7 +7,7 @@ part: 5
 date: 2024-11-16
 author: Quan Huynh
 tags: [kubernetes, argocd, gitops, helm]
-image: /assets/images/posts/argocd-05-with-helm/cover.png
+image: /assets/images/posts/argocd-05-with-helm/cover.svg
 ---
 
 For easier management and deployment, we usually don't write Kubernetes resource

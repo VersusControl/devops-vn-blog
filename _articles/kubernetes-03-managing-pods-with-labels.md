@@ -7,7 +7,7 @@ part: 3
 date: 2023-09-19
 author: Quan Huynh
 tags: [kubernetes, devops]
-image: /assets/images/posts/kubernetes-03-managing-pods-with-labels/cover.png
+image: /assets/images/posts/kubernetes-03-managing-pods-with-labels/cover.svg
 ---
 
 In the previous post we learned what a Pod is. In this post we'll learn how to

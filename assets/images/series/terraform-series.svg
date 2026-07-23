@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a1d47"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <circle cx="1360" cy="180" r="340" fill="#a970ff" opacity="0.14"/>
+  <circle cx="1420" cy="610" r="220" fill="#7B42BC" opacity="0.14"/>
+  <g stroke="#c9a7ff" stroke-opacity="0.32" fill="none" stroke-width="7" stroke-linejoin="round">
+    <rect x="1210" y="250" width="150" height="150" rx="10"/>
+    <rect x="1300" y="330" width="150" height="150" rx="10"/>
+    <rect x="1390" y="250" width="150" height="150" rx="10"/>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#a970ff"/>
+  <text x="192" y="163" font-size="26" fill="#c9a7ff" font-weight="700" letter-spacing="4">DEVOPS VN · INFRASTRUCTURE AS CODE</text>
+  <text x="118" y="430" font-size="98" fill="#ffffff" font-weight="800">Mastering Terraform</text>
+  <text x="120" y="606" font-size="30" fill="#b9a9d6" font-weight="500">Terraform from the basics to production</text>
+  <text x="120" y="652" font-size="24" fill="#7a6f99" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

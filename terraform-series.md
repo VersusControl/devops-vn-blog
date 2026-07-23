@@ -2,6 +2,7 @@
 layout: page
 title: "Mastering Terraform — A Complete Series"
 permalink: /terraform-series/
+cover: /assets/images/series/terraform-series.svg
 ---
 
 A hands-on, 19-part journey through Terraform — from the very basics of Infrastructure as Code to modules, backends, CI/CD, deployment strategies, multi-cloud, security, and state management. Every part uses practical AWS examples.

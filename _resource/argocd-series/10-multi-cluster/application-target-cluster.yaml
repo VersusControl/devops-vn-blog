@@ -1,0 +1,21 @@
+# Chapter 10 — an Application that deploys to a registered external cluster by name.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: book-info-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/hoalongnatsu/argocd-series'
+    targetRevision: HEAD
+    path: '06-kustomize/book-info/overlays/prod'
+  destination:
+    name: prod
+    namespace: book-info
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

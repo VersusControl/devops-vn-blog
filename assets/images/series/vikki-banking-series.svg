@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B3D2E"/>
+      <stop offset="1" stop-color="#08251c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <circle cx="1360" cy="180" r="340" fill="#E0B44A" opacity="0.12"/>
+  <circle cx="1420" cy="610" r="220" fill="#E0B44A" opacity="0.08"/>
+  <g stroke="#E0B44A" stroke-opacity="0.34" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1240 250 L1360 200 L1480 250 Z"/>
+    <line x1="1230" y1="250" x2="1490" y2="250"/>
+    <line x1="1255" y1="270" x2="1255" y2="420"/>
+    <line x1="1315" y1="270" x2="1315" y2="420"/>
+    <line x1="1405" y1="270" x2="1405" y2="420"/>
+    <line x1="1465" y1="270" x2="1465" y2="420"/>
+    <line x1="1225" y1="440" x2="1495" y2="440"/>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#E0B44A"/>
+  <text x="192" y="163" font-size="26" fill="#EBC978" font-weight="700" letter-spacing="4">DEVOPS VN · CASE STUDY · AWS</text>
+  <text x="118" y="360" font-size="80" fill="#ffffff" font-weight="800">Banking Infrastructure</text>
+  <text x="118" y="464" font-size="80" fill="#ffffff" font-weight="800">on Cloud</text>
+  <text x="120" y="606" font-size="30" fill="#c8d6cd" font-weight="500">A digital bank's architecture on AWS</text>
+  <text x="120" y="652" font-size="24" fill="#7a927f" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

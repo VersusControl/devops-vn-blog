@@ -1,0 +1,76 @@
+# Chapter 3 — Book Info Applications sourced from the PRIVATE repo.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-details
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/hoalongnatsu/private-microservice-book-info'
+    targetRevision: HEAD
+    path: '01/details'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-products
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/hoalongnatsu/private-microservice-book-info'
+    targetRevision: HEAD
+    path: '01/products'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-ratings
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/hoalongnatsu/private-microservice-book-info'
+    targetRevision: HEAD
+    path: '01/ratings'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-reviews
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/hoalongnatsu/private-microservice-book-info'
+    targetRevision: HEAD
+    path: '01/reviews'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

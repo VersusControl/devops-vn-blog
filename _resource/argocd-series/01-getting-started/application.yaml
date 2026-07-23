@@ -1,0 +1,22 @@
+# Chapter 1 — Getting Started
+#
+# The declarative equivalent of the "+ New App" UI steps: a single Application
+# that deploys the whole Book Info microservice app from a public Git repo.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/hoalongnatsu/istio-microservice-book-info.git'
+    targetRevision: HEAD
+    path: .
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

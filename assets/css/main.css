@@ -1167,16 +1167,63 @@ main {
 }
 
 .series-index-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--border-color);
   border-radius: 14px;
   background: #fff;
-  padding: 24px 26px;
+  overflow: hidden;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .series-index-card:hover {
   border-color: var(--brand-light);
   box-shadow: var(--shadow-lg);
+}
+
+.series-index-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1600 / 760;
+  background: #0d1117;
+  overflow: hidden;
+}
+
+.series-index-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.series-index-card:hover .series-index-cover img {
+  transform: scale(1.03);
+}
+
+.series-index-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 22px 26px 24px;
+}
+
+/* On wider screens, sit the cover beside the content for a more compact index. */
+@media (min-width: 860px) {
+  .series-index-card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .series-index-cover {
+    flex: 0 0 46%;
+    width: 46%;
+    aspect-ratio: auto;
+  }
+
+  .series-index-cover img {
+    height: 100%;
+  }
 }
 
 .series-index-eyebrow {
@@ -1602,6 +1649,19 @@ main {
 .page-header {
   background: var(--bg-primary);
   padding: 52px 0 0;
+}
+
+.page-hero {
+  margin: 0 0 28px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.page-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .page-title {

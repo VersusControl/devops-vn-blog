@@ -1,0 +1,18 @@
+# Chapter 7 — PreSync hook: run a database migration before the app is updated.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migrate
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: myorg/book-info-migrations:1.4.0
+          command: ["/bin/sh", "-c", "migrate up"]
+  backoffLimit: 1

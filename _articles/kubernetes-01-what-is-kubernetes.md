@@ -7,7 +7,7 @@ part: 1
 date: 2023-08-28
 author: Quan Huynh
 tags: [kubernetes, devops]
-image: /assets/images/posts/kubernetes-01-what-is-kubernetes/cover.png
+image: /assets/images/posts/kubernetes-01-what-is-kubernetes/cover.svg
 ---
 
 Welcome to Kubernetes Basics. In this series we'll cover the fundamental Kubernetes

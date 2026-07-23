@@ -1,0 +1,17 @@
+# Chapter 11 — map Keycloak groups to ArgoCD roles.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+data:
+  policy.default: role:readonly
+  policy.csv: |
+    # Keycloak group  ->  ArgoCD role
+    g, argocd-admins, role:admin
+
+    # A custom, scoped role for developers
+    p, role:developer, applications, get, */*, allow
+    p, role:developer, applications, sync, */*, allow
+    g, argocd-developers, role:developer
+  scopes: '[groups]'

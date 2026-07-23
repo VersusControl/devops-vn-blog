@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#326CE5"/>
+      <stop offset="1" stop-color="#1D3A8A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity="0.14" fill="none" stroke-width="6" stroke-linejoin="round">
+    <polygon points="1360,80 1578.9,185.4 1633,422.3 1481.5,612.3 1238.5,612.3 1087,422.3 1141.1,185.4"/>
+    <line x1="1360" y1="360" x2="1360" y2="80"/>
+    <line x1="1360" y1="360" x2="1578.9" y2="185.4"/>
+    <line x1="1360" y1="360" x2="1633" y2="422.3"/>
+    <line x1="1360" y1="360" x2="1481.5" y2="612.3"/>
+    <line x1="1360" y1="360" x2="1238.5" y2="612.3"/>
+    <line x1="1360" y1="360" x2="1087" y2="422.3"/>
+    <line x1="1360" y1="360" x2="1141.1" y2="185.4"/>
+    <circle cx="1360" cy="360" r="48"/>
+  </g>
+  <text x="120" y="163" font-size="26" fill="#BFD4FF" font-weight="700" letter-spacing="4">KUBERNETES BASICS · CHAPTER 03</text>
+  <text x="118" y="360" font-size="94" fill="#ffffff" font-weight="800">Managing Pods</text>
+  <text x="118" y="474" font-size="94" fill="#ffffff" font-weight="800">with Labels</text>
+  <text x="120" y="606" font-size="30" fill="#C3D3F5" font-weight="500">Kubernetes fundamentals for DevOps</text>
+  <text x="120" y="652" font-size="24" fill="#8FA9E0" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

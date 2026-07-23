@@ -1,0 +1,22 @@
+# Chapter 6 — an Application that points at a Kustomize overlay. ArgoCD renders
+# the kustomization.yaml automatically.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: book-info-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/hoalongnatsu/argocd-series'
+    targetRevision: HEAD
+    path: '06-kustomize/book-info/overlays/prod'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: book-info-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

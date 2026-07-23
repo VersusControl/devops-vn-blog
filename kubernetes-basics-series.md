@@ -2,6 +2,7 @@
 layout: page
 title: "Kubernetes Basics — A Complete Series"
 permalink: /kubernetes-basics-series/
+cover: /assets/images/series/kubernetes-basics-series.svg
 ---
 
 A beginner-friendly series on Kubernetes fundamentals — from what Kubernetes is

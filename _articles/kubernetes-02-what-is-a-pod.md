@@ -7,7 +7,7 @@ part: 2
 date: 2023-09-01
 author: Quan Huynh
 tags: [kubernetes, devops]
-image: /assets/images/posts/kubernetes-02-what-is-a-pod/cover.png
+image: /assets/images/posts/kubernetes-02-what-is-a-pod/cover.svg
 ---
 
 In the previous post we learned what Kubernetes is. In this post we'll talk about
