@@ -7,7 +7,7 @@ part: 4
 date: 2023-03-21
 author: Quan Huynh
 tags: [aws, cdk, iac, go]
-image: /assets/images/posts/aws-cdk-04-construct-layers/cover.png
+image: /assets/images/posts/aws-cdk-04-construct-layers/cover.svg
 ---
 
 In this post we'll learn about the concepts of the Construct Tree and Construct
@@ -149,7 +149,7 @@ func NewQuestionCacheStack(scope constructs.Construct, id string, props *Questio
   // Elasticache Construct
   awselasticache.NewCfnCacheCluster(stack, jsii.String("Cache"), &awselasticache.CfnCacheClusterProps{
     Engine:              jsii.String("redis"),
-    CacheNodeType:       jsii.String("cache.t2.micro"),
+    CacheNodeType:       jsii.String("cache.t3.micro"),
     NumCacheNodes:       jsii.Number(1),
     VpcSecurityGroupIds: &[]*string{sg.SecurityGroupId()},
   })

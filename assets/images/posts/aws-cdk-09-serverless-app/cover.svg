@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#232F3E"/>
+      <stop offset="1" stop-color="#0f1620"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <circle cx="1360" cy="180" r="330" fill="#FF9900" opacity="0.13"/>
+  <circle cx="1420" cy="610" r="210" fill="#FF9900" opacity="0.09"/>
+  <text x="1250" y="490" font-size="320" fill="none" stroke="#FF9900" stroke-opacity="0.26" stroke-width="8" font-weight="800">{ }</text>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#FF9900"/>
+  <text x="192" y="163" font-size="26" fill="#FFB84D" font-weight="700" letter-spacing="4">AWS CDK SERIES · CHAPTER 09</text>
+  <text x="118" y="360" font-size="92" fill="#ffffff" font-weight="800">A Serverless App,</text>
+  <text x="118" y="472" font-size="92" fill="#ffffff" font-weight="800">End to End</text>
+  <text x="120" y="606" font-size="30" fill="#b7c0cc" font-weight="500">Infrastructure as code, in a language you know</text>
+  <text x="120" y="652" font-size="24" fill="#7c8794" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

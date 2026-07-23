@@ -1,0 +1,39 @@
+name: CDK Deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write   # required for OIDC
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      - name: Install CDK
+        run: npm install -g aws-cdk
+
+      # Log in to AWS with short-lived OIDC credentials — no stored keys.
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::<ACCOUNT_ID>:role/github-actions-cdk
+          aws-region: us-west-2
+
+      - run: go mod tidy
+
+      # Show what would change (fails the build on synth errors).
+      - name: Diff
+        run: cdk diff
+
+      # Deploy without an interactive prompt.
+      - name: Deploy
+        run: cdk deploy --all --require-approval never

@@ -61,6 +61,10 @@ layout: base
       {% assign repo_base = "argocd-series" %}
       {% assign repo_slug = page.slug | remove_first: 'argocd-' %}
       {% assign repo_label = "manifests" %}
+    {% elsif page.series == "AWS CDK" %}
+      {% assign repo_base = "aws-cdk-series" %}
+      {% assign repo_slug = page.slug | remove_first: 'aws-cdk-' %}
+      {% assign repo_label = "CDK code" %}
     {% endif %}
 
     {% if repo_base != "" %}

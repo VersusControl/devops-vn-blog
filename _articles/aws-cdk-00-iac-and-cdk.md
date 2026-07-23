@@ -7,7 +7,7 @@ part: 0
 date: 2023-03-07
 author: Quan Huynh
 tags: [aws, cdk, iac, go]
-image: /assets/images/posts/aws-cdk-00-iac-and-cdk/cover.png
+image: /assets/images/posts/aws-cdk-00-iac-and-cdk/cover.svg
 ---
 
 Welcome to the journey of mastering AWS CDK. In this first post we'll learn what
@@ -54,7 +54,9 @@ writing, AWS CDK supports the following languages:
 - C#
 - Go
 
-**In this series we'll use Go.**
+**In this series we'll use Go.** (CDK is on **v2** and the AWS Construct Library is a
+single module — `aws-cdk-lib` for TS/Python or `awscdk/v2` for Go — so you get every
+service from one import.)
 
 ## Should You Use Terraform or AWS CDK?
 
@@ -181,11 +183,9 @@ func NewFirstAppStack(scope constructs.Construct, id string, props *FirstAppStac
   vpc := awsec2.Vpc_FromLookup(stack, jsii.String("VPC"), &awsec2.VpcLookupOptions{IsDefault: jsii.Bool(true)})
 
   awsec2.NewInstance(stack, jsii.String("Server"), &awsec2.InstanceProps{
-    InstanceType: awsec2.NewInstanceType(jsii.String("t2.micro")),
-    MachineImage: awsec2.MachineImage_LatestAmazonLinux(&awsec2.AmazonLinuxImageProps{
-      CpuType: awsec2.AmazonLinuxCpuType_X86_64,
-    }),
-    Vpc: vpc,
+    InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
+    MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+    Vpc:          vpc,
   })
 
   return stack
@@ -254,7 +254,7 @@ Resources:
         Ref: ServerInstanceProfileB511E411
       ImageId:
         Ref: SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter
-      InstanceType: t2.micro
+      InstanceType: t3.micro
       SecurityGroupIds:
         - Fn::GetAtt:
             - ServerInstanceSecurityGroup71D53DD9

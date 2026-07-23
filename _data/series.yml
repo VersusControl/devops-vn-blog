@@ -13,7 +13,7 @@
   url: /aws-cdk-series/
   cover: /assets/images/series/aws-cdk-series.svg
   category: "Infrastructure as Code"
-  blurb: "Define cloud infrastructure in real programming languages with the AWS Cloud Development Kit — from the basics to constructs, stacks, and building infrastructure for a real application."
+  blurb: "Define cloud infrastructure in real programming languages with the AWS Cloud Development Kit — from the basics to constructs, stacks, testing, CI/CD, and shipping a real serverless application."
 
 - title: "ArgoCD"
   key: "ArgoCD"

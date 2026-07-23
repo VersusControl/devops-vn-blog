@@ -7,7 +7,7 @@ part: 2
 date: 2023-03-09
 author: Quan Huynh
 tags: [aws, cdk, iac, go]
-image: /assets/images/posts/aws-cdk-02-core-components/cover.png
+image: /assets/images/posts/aws-cdk-02-core-components/cover.svg
 ---
 
 In the previous post, we learned how to use CDK to provision infrastructure on
@@ -73,11 +73,13 @@ func NewQuestionServiceStack(scope constructs.Construct, id string, props *Quest
 
   // RDS Construct
   awsrds.NewDatabaseInstance(stack, jsii.String("Postgres"), &awsrds.DatabaseInstanceProps{
-    Engine:       awsrds.DatabaseInstanceEngine_POSTGRES(),
+    Engine: awsrds.DatabaseInstanceEngine_Postgres(&awsrds.PostgresInstanceEngineProps{
+      Version: awsrds.PostgresEngineVersion_VER_16(),
+    }),
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
     Credentials: awsrds.Credentials_FromPassword(
       jsii.String("question"),
-      awscdk.NewSecretValue("question", &awscdk.IntrinsicProps{}),
+      awscdk.SecretValue_UnsafePlainText(jsii.String("question")),
     ),
     PubliclyAccessible: jsii.Bool(true),
     VpcSubnets:         &awsec2.SubnetSelection{SubnetType: awsec2.SubnetType_PUBLIC},
@@ -87,10 +89,8 @@ func NewQuestionServiceStack(scope constructs.Construct, id string, props *Quest
   // EC2 Construct
   awsec2.NewInstance(stack, jsii.String("Server"), &awsec2.InstanceProps{
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
-    MachineImage: awsec2.NewAmazonLinuxImage(&awsec2.AmazonLinuxImageProps{
-      Generation: awsec2.AmazonLinuxGeneration_AMAZON_LINUX_2,
-    }),
-    Vpc: vpc,
+    MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+    Vpc:          vpc,
   })
 
   return stack
@@ -244,11 +244,13 @@ RDS Construct:
 ```go
 // RDS Construct
 awsrds.NewDatabaseInstance(stack, jsii.String("Postgres"), &awsrds.DatabaseInstanceProps{
-  Engine:       awsrds.DatabaseInstanceEngine_POSTGRES(),
+  Engine: awsrds.DatabaseInstanceEngine_Postgres(&awsrds.PostgresInstanceEngineProps{
+    Version: awsrds.PostgresEngineVersion_VER_16(),
+  }),
   InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
   Credentials: awsrds.Credentials_FromPassword(
     jsii.String("question"),
-    awscdk.NewSecretValue("question", &awscdk.IntrinsicProps{}),
+    awscdk.SecretValue_UnsafePlainText(jsii.String("question")),
   ),
   PubliclyAccessible: jsii.Bool(true),
   VpcSubnets:         &awsec2.SubnetSelection{SubnetType: awsec2.SubnetType_PUBLIC},
@@ -267,15 +269,14 @@ EC2 Construct:
 // EC2 Construct
 awsec2.NewInstance(stack, jsii.String("Server"), &awsec2.InstanceProps{
   InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
-  MachineImage: awsec2.NewAmazonLinuxImage(&awsec2.AmazonLinuxImageProps{
-    Generation: awsec2.AmazonLinuxGeneration_AMAZON_LINUX_2,
-  }),
-  Vpc: vpc,
+  MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+  Vpc:          vpc,
 })
 ```
 
 To create EC2 we use `NewInstance`. Above, we create an EC2 with the *Amazon Linux
-2* OS and instance type `t3.micro`.
+2023* OS and instance type `t3.micro`. (`MachineImage_LatestAmazonLinux2023()` always
+picks the newest AL2023 AMI, so you never hard-code an image ID.)
 
 ## Create the Infrastructure
 

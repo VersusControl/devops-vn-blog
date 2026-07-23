@@ -7,7 +7,7 @@ part: 3
 date: 2023-03-14
 author: Quan Huynh
 tags: [aws, cdk, iac, go]
-image: /assets/images/posts/aws-cdk-03-design-build-qa-infrastructure/cover.png
+image: /assets/images/posts/aws-cdk-03-design-build-qa-infrastructure/cover.svg
 ---
 
 In the previous post we learned the core components of CDK and built infrastructure
@@ -320,11 +320,13 @@ func NewQuestionInsertStack(scope constructs.Construct, id string, props *Questi
 
   // RDS Construct
   awsrds.NewDatabaseInstance(stack, jsii.String("Postgres"), &awsrds.DatabaseInstanceProps{
-    Engine:       awsrds.DatabaseInstanceEngine_POSTGRES(),
+    Engine: awsrds.DatabaseInstanceEngine_Postgres(&awsrds.PostgresInstanceEngineProps{
+      Version: awsrds.PostgresEngineVersion_VER_16(),
+    }),
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
     Credentials: awsrds.Credentials_FromPassword(
       jsii.String("question"),
-      awscdk.NewSecretValue("question", &awscdk.IntrinsicProps{}),
+      awscdk.SecretValue_UnsafePlainText(jsii.String("question")),
     ),
     PubliclyAccessible: jsii.Bool(true),
     VpcSubnets:         &awsec2.SubnetSelection{SubnetType: awsec2.SubnetType_PUBLIC},
@@ -334,10 +336,8 @@ func NewQuestionInsertStack(scope constructs.Construct, id string, props *Questi
   // EC2 Construct
   awsec2.NewInstance(stack, jsii.String("Server"), &awsec2.InstanceProps{
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
-    MachineImage: awsec2.NewAmazonLinuxImage(&awsec2.AmazonLinuxImageProps{
-      Generation: awsec2.AmazonLinuxGeneration_AMAZON_LINUX_2,
-    }),
-    Vpc: vpc,
+    MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+    Vpc:          vpc,
   })
 
   return stack
@@ -388,10 +388,8 @@ func NewQuestionCacheStack(scope constructs.Construct, id string, props *Questio
   // EC2 Construct
   awsec2.NewInstance(stack, jsii.String("Server"), &awsec2.InstanceProps{
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
-    MachineImage: awsec2.NewAmazonLinuxImage(&awsec2.AmazonLinuxImageProps{
-      Generation: awsec2.AmazonLinuxGeneration_AMAZON_LINUX_2,
-    }),
-    Vpc: vpc,
+    MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+    Vpc:          vpc,
   })
 
   return stack
@@ -404,7 +402,7 @@ Then, to create the ElastiCache Construct, we use `NewCfnCacheCluster`:
 // Elasticache Construct
 awselasticache.NewCfnCacheCluster(stack, jsii.String("Cache"), &awselasticache.CfnCacheClusterProps{
   Engine:        jsii.String("redis"),
-  CacheNodeType: jsii.String("cache.t2.micro"),
+  CacheNodeType: jsii.String("cache.t3.micro"),
   NumCacheNodes: jsii.Number(1),
 })
 ```
@@ -437,7 +435,7 @@ sg.AddIngressRule(
 // Elasticache Construct
 awselasticache.NewCfnCacheCluster(stack, jsii.String("Cache"), &awselasticache.CfnCacheClusterProps{
   Engine:              jsii.String("redis"),
-  CacheNodeType:       jsii.String("cache.t2.micro"),
+  CacheNodeType:       jsii.String("cache.t3.micro"),
   NumCacheNodes:       jsii.Number(1),
   VpcSecurityGroupIds: &[]*string{sg.SecurityGroupId()},
 })
@@ -486,10 +484,8 @@ func NewQuestionWorkerStack(scope constructs.Construct, id string, props *Questi
   // EC2 Construct
   awsec2.NewInstance(stack, jsii.String("Worker"), &awsec2.InstanceProps{
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
-    MachineImage: awsec2.NewAmazonLinuxImage(&awsec2.AmazonLinuxImageProps{
-      Generation: awsec2.AmazonLinuxGeneration_AMAZON_LINUX_2,
-    }),
-    Vpc: vpc,
+    MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+    Vpc:          vpc,
   })
 
   return stack

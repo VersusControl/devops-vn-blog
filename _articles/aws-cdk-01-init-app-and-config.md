@@ -7,7 +7,7 @@ part: 1
 date: 2023-03-08
 author: Quan Huynh
 tags: [aws, cdk, iac, go]
-image: /assets/images/posts/aws-cdk-01-init-app-and-config/cover.png
+image: /assets/images/posts/aws-cdk-01-init-app-and-config/cover.svg
 ---
 
 In the previous post, we learned about AWS CDK and built a simple example. In this

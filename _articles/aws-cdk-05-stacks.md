@@ -7,7 +7,7 @@ part: 5
 date: 2023-03-31
 author: Quan Huynh
 tags: [aws, cdk, iac, go]
-image: /assets/images/posts/aws-cdk-05-stacks/cover.png
+image: /assets/images/posts/aws-cdk-05-stacks/cover.svg
 ---
 
 In this post we'll take a deeper look at Stacks and how to use resources from one
@@ -291,10 +291,8 @@ func NewUserServiceStack(scope constructs.Construct, id string, props *UserServi
   // EC2 Construct
   awsec2.NewInstance(stack, jsii.String("Server"), &awsec2.InstanceProps{
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
-    MachineImage: awsec2.NewAmazonLinuxImage(&awsec2.AmazonLinuxImageProps{
-      Generation: awsec2.AmazonLinuxGeneration_AMAZON_LINUX_2,
-    }),
-    Vpc: props.Vpc,
+    MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+    Vpc:          props.Vpc,
   })
 
   return stack
@@ -328,10 +326,8 @@ func NewPostServiceStack(scope constructs.Construct, id string, props *PostServi
   // EC2 Construct
   awsec2.NewInstance(stack, jsii.String("Server"), &awsec2.InstanceProps{
     InstanceType: awsec2.NewInstanceType(jsii.String("t3.micro")),
-    MachineImage: awsec2.NewAmazonLinuxImage(&awsec2.AmazonLinuxImageProps{
-      Generation: awsec2.AmazonLinuxGeneration_AMAZON_LINUX_2,
-    }),
-    Vpc: props.Vpc,
+    MachineImage: awsec2.MachineImage_LatestAmazonLinux2023(),
+    Vpc:          props.Vpc,
   })
 
   return stack
@@ -416,3 +412,10 @@ Remember to delete the resources when you're done to avoid getting charged.
 
 We've now taken a closer look at how to use Stacks in CDK. With CDK, organizing
 source code is much simpler than with other IaC tools.
+
+At this point you can build real infrastructure with CDK. But there's a big
+difference between code that *works* and code you'd trust in production. Because CDK
+is real code, we can do things no YAML template can: write unit tests, run it in a
+CI/CD pipeline, and apply software engineering practices to our infrastructure. In
+the [next post]({{ '/aws-cdk-series/' | relative_url }}) we'll start by learning how
+to **test** CDK code.
