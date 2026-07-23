@@ -1545,10 +1545,13 @@ main {
   font-size: inherit;
 }
 
-/* Images render like Substack — full column width, rounded, with caption */
+/* Images render like Substack — up to full column width, rounded, with caption.
+   Use max-width (not width) so small screenshots keep their natural size and stay
+   crisp instead of being stretched/blurred to the full content width. */
 .post-content img {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  height: auto;
   border-radius: 6px;
   margin: 2rem auto 0.6rem;
 }

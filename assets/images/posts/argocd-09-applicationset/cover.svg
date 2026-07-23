@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <rect width="1600" height="760" fill="#0d1117"/>
+  <circle cx="1360" cy="170" r="360" fill="#ef7b4d" opacity="0.12"/>
+  <circle cx="1430" cy="620" r="240" fill="#2563EB" opacity="0.10"/>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#ef7b4d"/>
+  <text x="192" y="163" font-size="26" fill="#ef7b4d" font-weight="700" letter-spacing="4">ARGOCD SERIES · CHAPTER 09</text>
+  <text x="118" y="425" font-size="98" fill="#ffffff" font-weight="800">ApplicationSet</text>
+  <text x="120" y="600" font-size="30" fill="#9aa4b2" font-weight="500">GitOps continuous delivery on Kubernetes</text>
+  <text x="120" y="648" font-size="24" fill="#5b6472" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>
