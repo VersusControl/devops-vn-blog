@@ -1603,8 +1603,15 @@ main {
   margin: 2rem auto 0.6rem;
 }
 
+/* Image captions. Two supported patterns:
+   1. Caption on the line right after the image (same paragraph): `img + em`.
+   2. Caption as its own paragraph right after the image paragraph.
+   We scope the standalone case to a paragraph that follows an image paragraph so
+   that ordinary inline italics elsewhere are NOT treated as captions. (`:only-child`
+   ignores text-node siblings, so a bare `.post-content p > em:only-child` would
+   wrongly turn any single inline *word* into a centered grey caption block.) */
 .post-content img + em,
-.post-content p > em:only-child {
+.post-content p:has(> img) + p > em:only-child {
   display: block;
   text-align: center;
   font-family: var(--font-family);
