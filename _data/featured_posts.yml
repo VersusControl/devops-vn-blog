@@ -1,18 +1,22 @@
 # Featured posts shown on the home page. All entries link to translated
 # English posts.
-- title: "Creating and Authorizing Users on Kubernetes"
+- title: "Kubernetes RBAC in Practice: Granting Developers Scoped Access"
+  subtitle: "Give developers scoped, self-service access to your cluster with Service Accounts, Roles, and RoleBindings."
   category: Kubernetes
   image: /assets/images/posts/kubernetes-create-and-authorize-users/cover.png
   url: /kubernetes-create-and-authorize-users/
 - title: "PipeCD — GitOps on AWS"
+  subtitle: "Extend the GitOps model beyond Kubernetes to AWS and other cloud environments."
   category: AWS
   image: /assets/images/posts/pipecd-gitops-on-aws/cover.png
   url: /pipecd-gitops-on-aws/
-- title: "Types of Databases on AWS"
+- title: "A Guide to AWS Database Types"
+  subtitle: "From relational to graph and time-series — the managed databases AWS offers and when to use each."
   category: AWS
   image: /assets/images/posts/aws-database-types/cover.png
   url: /aws-database-types/
 - title: "ArgoCD 4 — Architecture"
+  subtitle: "A look under the hood at how Argo CD's components fit together."
   category: Kubernetes
   image: /assets/images/posts/argocd-04-architecture/cover.png
   url: /argocd-04-architecture/

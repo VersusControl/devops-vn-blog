@@ -1,26 +1,32 @@
 # Latest posts shown on the home page. All entries link to translated
 # English posts. Update as new folders are translated.
 - title: "ArgoCD 1 — Getting Started"
+  subtitle: "An intro to Argo CD and the GitOps workflow for deploying apps on Kubernetes."
   category: Kubernetes
   image: /assets/images/posts/argocd-01-getting-started/bookinfo.png
   url: /argocd-01-getting-started/
 - title: "Networking for DevOps — The OSI Model"
+  subtitle: "A shared map of how data travels across a network, one layer at a time."
   category: Networking
   image: /assets/images/posts/networking-osi-model/cover.png
   url: /networking-osi-model/
-- title: "Practicing AWS Without Creating an Account"
+- title: "Practice AWS for Free with LocalStack"
+  subtitle: "Run a local AWS environment so you can learn hands-on — no credit card, no surprise bills."
   category: AWS
   image: /assets/images/posts/aws-practice-without-account/cover.png
   url: /aws-practice-without-account/
 - title: "Kubernetes Basics — What Is Kubernetes?"
+  subtitle: "Meet the container orchestrator and the problems it was built to solve."
   category: Kubernetes
   image: /assets/images/posts/kubernetes-01-what-is-kubernetes/cover.png
   url: /kubernetes-01-what-is-kubernetes/
 - title: "AWS CDK 0 — Infrastructure as Code and the AWS CDK"
+  subtitle: "Define cloud infrastructure in real programming languages instead of raw templates."
   category: AWS
   image: /assets/images/posts/aws-cdk-00-iac-and-cdk/cover.png
   url: /aws-cdk-00-iac-and-cdk/
-- title: "Remove All Exited Docker Containers"
+- title: "The DevOps Linux Cheatsheet"
+  subtitle: "Practical terminal tricks for everyday work at the command line."
   category: Linux
-  image: /assets/images/posts/linux-remove-exited-containers/cover.png
-  url: /linux-remove-exited-containers/
+  image: /assets/images/posts/linux-cheatsheet/cover.svg
+  url: /linux-cheatsheet/

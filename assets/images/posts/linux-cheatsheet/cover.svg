@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a2a0b"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <circle cx="1360" cy="180" r="330" fill="#fbbf24" opacity="0.12"/>
+  <circle cx="1420" cy="610" r="210" fill="#f59e0b" opacity="0.10"/>
+  <g transform="translate(1210 250)">
+    <rect x="0" y="0" width="300" height="210" rx="18" fill="#0d1117" stroke="#fcd34d" stroke-opacity="0.35" stroke-width="6"/>
+    <rect x="0" y="0" width="300" height="46" rx="18" fill="#fcd34d" fill-opacity="0.18"/>
+    <circle cx="28" cy="23" r="7" fill="#f87171"/>
+    <circle cx="52" cy="23" r="7" fill="#fbbf24"/>
+    <circle cx="76" cy="23" r="7" fill="#34d399"/>
+    <text x="30" y="110" font-size="34" fill="#fcd34d" font-weight="700" font-family="'SFMono-Regular', Consolas, monospace">$ ls -1</text>
+    <text x="30" y="160" font-size="34" fill="#7dd3fc" font-weight="700" font-family="'SFMono-Regular', Consolas, monospace">_</text>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#fbbf24"/>
+  <text x="192" y="163" font-size="26" fill="#fcd34d" font-weight="700" letter-spacing="4">DEVOPS VN · LINUX TIPS</text>
+  <text x="118" y="360" font-size="94" fill="#ffffff" font-weight="800">The DevOps</text>
+  <text x="118" y="470" font-size="94" fill="#ffffff" font-weight="800">Linux Cheatsheet</text>
+  <text x="120" y="606" font-size="30" fill="#e7cfa0" font-weight="500">Practical terminal tricks for everyday work</text>
+  <text x="120" y="652" font-size="24" fill="#8a7350" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

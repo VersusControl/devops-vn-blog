@@ -32,6 +32,8 @@ layout: base
         <div class="post-row-body">
           {% if post.category %}<span class="post-row-cat">{{ post.category }}</span>{% endif %}
           <h3 class="post-row-title">{{ post.title }}</h3>
+          {% assign row_sub = post.subtitle | default: full.subtitle %}
+          {% if row_sub %}<p class="post-row-sub">{{ row_sub }}</p>{% endif %}
           <div class="post-row-meta">Quan Huynh</div>
         </div>
         {% if thumb %}
@@ -61,7 +63,8 @@ layout: base
         <div class="featured-card-body">
           {% if post.category %}<span class="featured-card-cat">{{ post.category }}</span>{% endif %}
           <h3 class="featured-card-title">{{ post.title }}</h3>
-          {% if full.subtitle %}<p class="featured-card-sub">{{ full.subtitle }}</p>{% endif %}
+          {% assign card_sub = post.subtitle | default: full.subtitle %}
+          {% if card_sub %}<p class="featured-card-sub">{{ card_sub }}</p>{% endif %}
           <div class="featured-card-meta">Quan Huynh{% if full.date %} · {{ full.date | date: "%b %d, %Y" }}{% endif %}</div>
         </div>
       </a>

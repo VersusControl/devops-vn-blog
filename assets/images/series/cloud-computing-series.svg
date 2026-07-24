@@ -4,15 +4,34 @@
       <stop offset="0" stop-color="#0b3a5e"/>
       <stop offset="1" stop-color="#0d1117"/>
     </linearGradient>
+    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0f2fe"/>
+      <stop offset="1" stop-color="#7dd3fc"/>
+    </linearGradient>
   </defs>
   <rect width="1600" height="760" fill="url(#bg)"/>
   <circle cx="1360" cy="180" r="340" fill="#38bdf8" opacity="0.13"/>
   <circle cx="1420" cy="610" r="220" fill="#0ea5e9" opacity="0.10"/>
-  <path d="M1230 430 a70 70 0 0 1 6 -139 a95 95 0 0 1 183 20 a62 62 0 0 1 -6 119 z"
-        fill="none" stroke="#7dd3fc" stroke-opacity="0.32" stroke-width="8" stroke-linejoin="round"/>
+
+  <!-- cloud connected to server nodes -->
+  <g transform="translate(1180 205)">
+    <path d="M70 190 a80 80 0 0 1 8 -159 a108 108 0 0 1 208 22 a70 70 0 0 1 -8 137 z"
+          fill="url(#cloud)" fill-opacity="0.92"/>
+    <g stroke="#7dd3fc" stroke-opacity="0.45" stroke-width="4">
+      <line x1="120" y1="196" x2="120" y2="300"/>
+      <line x1="200" y1="196" x2="200" y2="300"/>
+      <line x1="280" y1="196" x2="280" y2="300"/>
+    </g>
+    <g fill="#38bdf8" fill-opacity="0.85">
+      <rect x="96" y="300" width="48" height="48" rx="8"/>
+      <rect x="176" y="300" width="48" height="48" rx="8"/>
+      <rect x="256" y="300" width="48" height="48" rx="8"/>
+    </g>
+  </g>
+
   <rect x="120" y="150" width="54" height="6" rx="3" fill="#38bdf8"/>
   <text x="192" y="163" font-size="26" fill="#7dd3fc" font-weight="700" letter-spacing="4">DEVOPS VN · CLOUD FUNDAMENTALS</text>
   <text x="118" y="430" font-size="102" fill="#ffffff" font-weight="800">Cloud Computing</text>
-  <text x="120" y="606" font-size="30" fill="#a9cfe6" font-weight="500">What the cloud is, from the ground up</text>
+  <text x="120" y="606" font-size="30" fill="#a9cfe6" font-weight="500">Understand the cloud from the ground up</text>
   <text x="120" y="652" font-size="24" fill="#5f83a0" font-weight="600" letter-spacing="1">devopsvn.tech</text>
 </svg>

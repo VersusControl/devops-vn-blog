@@ -1,29 +1,60 @@
 ---
 layout: post
-title: "Creating and Authorizing Users on Kubernetes"
+title: "Kubernetes RBAC in Practice: Granting Developers Scoped Access"
+subtitle: "Give developers scoped, self-service access to your cluster using Service Accounts, Roles, and RoleBindings."
 date: 2023-06-05
 author: Quan Huynh
 tags: [kubernetes, rbac, security]
 image: /assets/images/posts/kubernetes-create-and-authorize-users/cover.png
 ---
 
-A guide to creating and authorizing users with kubectl.
+Sooner or later, you stop being the only person who touches the cluster. When that
+happens, you need a way to hand out access that is scoped, safe, and self-service.
+This guide walks through creating a Kubernetes user and authorizing exactly what they
+can do using Role-Based Access Control (RBAC) and `kubectl`.
 
 ## The Problem
 
 Imagine the following situation. Your company has a Kubernetes cluster with two
-environments, `pro` and `dev` — `pro` for the real production environment and `dev`
-for product development. Until now you've worked alone and have full permissions to
-manage the cluster; every time a developer wants to do anything, even view logs,
-they have to go through you. Your boss finds this a bit inconvenient and asks you to
-find a way for developers to list applications and view logs themselves in the `dev`
-environment.
+environments, `pro` and `dev` — `pro` for real production and `dev` for product
+development. Until now you've worked alone and hold full permissions over the
+cluster, so every time a developer needs to do anything — even just view logs — they
+have to go through you. That bottleneck slows everyone down, and your boss asks you to
+let developers list applications and view logs themselves in the `dev` environment,
+without touching production.
+
+## How RBAC Fits Together
+
+Before jumping into commands, it helps to know the four pieces RBAC gives us and how
+they connect:
+
+- **Subject** — *who* is asking. This can be a User, a Group, or a **ServiceAccount**.
+  Kubernetes has no built-in "user" object, so we'll lean on a ServiceAccount and hand
+  its token to the developer.
+- **Role** — *what* is allowed, scoped to a single namespace. A `ClusterRole` is the
+  same idea but cluster-wide.
+- **RoleBinding** — the glue that grants a Role's permissions to a Subject inside a
+  namespace. A `ClusterRoleBinding` grants them cluster-wide.
+- **Verbs & Resources** — the concrete actions (`get`, `list`, `create`, …) on
+  concrete resources (`pods`, `pods/log`, …) that a Role permits.
+
+In short: a **RoleBinding** connects a **ServiceAccount** to a **Role** that lists the
+allowed **verbs** on specific **resources** — all within one namespace. Because we
+bind inside `dev` only, the permissions can never leak into `pro`.
+
+## Prerequisites
+
+- `kubectl` configured with an admin (cluster-admin) context.
+- A namespace named `dev`. Create it if it doesn't exist: `kubectl create namespace dev`.
 
 ## The Solution
 
-We use Role-Based Access Control (RBAC) to solve this. The steps are as follows.
+We solve this with RBAC: grant a ServiceAccount a narrow set of permissions in the
+`dev` namespace, then hand its token to the developer. The steps are as follows.
 
-Create a `pod-logs-sa.yaml` file for the Service Account:
+### 1. Create the ServiceAccount and its token
+
+Create a `pod-logs-sa.yaml` file for the ServiceAccount:
 
 ```yaml
 apiVersion: v1
@@ -49,6 +80,13 @@ type: kubernetes.io/service-account-token
 kubectl apply -f pod-logs-sa.yaml
 ```
 
+> **Note for Kubernetes 1.24+:** creating a ServiceAccount no longer generates a
+> long-lived token Secret automatically. That's exactly why we define the Secret
+> ourselves above — the `kubernetes.io/service-account.name` annotation tells the
+> control plane to populate it with a token for the `pod-logs` account.
+
+### 2. Define what the account can do
+
 Create a `pod-logs-role.yaml` file:
 
 ```yaml
@@ -67,28 +105,37 @@ rules:
 kubectl apply -f pod-logs-role.yaml
 ```
 
-Create the RoleBinding:
+The empty `apiGroups: [""]` refers to the core API group, where `pods` live. Keeping
+the verbs to `get` and `list` means the developer can view and list Pods and stream
+logs, but cannot create, edit, or delete anything.
+
+### 3. Bind the Role to the account
+
+Create the RoleBinding that connects the `pod-logs` Role to the `pod-logs`
+ServiceAccount, inside the `dev` namespace:
 
 ```bash
 kubectl -n dev create rolebinding pod-logs --serviceaccount=dev:pod-logs --role=pod-logs
 ```
 
-Next, we'll create a user and let them log in with a token taken from the `pod-logs`
-Service Account. Get the token:
+Next, we'll let the developer log in with the token attached to the `pod-logs`
+ServiceAccount. Read it out:
 
 ```bash
 kubectl -n dev describe secrets "$(kubectl -n dev describe serviceaccount pod-logs | grep -i Tokens | awk '{print $2}')" | grep token: | awk '{print $2}'
 ```
 
-**Note: run kubectl with the correct namespace.** In this example it's `-n dev`.
+**Note: run `kubectl` with the correct namespace.** In this example it's `-n dev`.
 
-Assign that value to the `TOKEN` variable:
+Assign that value to a `TOKEN` variable so we can reuse it:
 
 ```bash
 TOKEN=$(kubectl -n dev describe secrets "$(kubectl -n dev describe serviceaccount pod-logs | grep -i Tokens | awk '{print $2}')" | grep token: | awk '{print $2}')
 ```
 
-Create a user with any name:
+### 5. Create the user context
+
+Register a user (any name works) that authenticates with that token:
 
 ```bash
 kubectl config set-credentials devopsvn --token=$TOKEN
@@ -98,14 +145,21 @@ kubectl config set-credentials devopsvn --token=$TOKEN
 User "devopsvn" set.
 ```
 
-Switch the current cluster context to the `devopsvn` user:
+Then point the current context at the `devopsvn` user:
 
 ```bash
 kubectl config set-context $(kubectl config current-context) --user=devopsvn
 ```
 
-At this point you've created the user successfully. Run the following commands to
-check permissions:
+> **Heads up:** this command overwrites the user on your *current* context, so your
+> own admin access in this context is replaced by the limited `devopsvn` user. If you
+> want to keep your admin session intact, build a **separate kubeconfig** for the
+> developer instead — for example export `KUBECONFIG=./devopsvn.kubeconfig` before
+> running the `set-credentials`/`set-context` commands, then share only that file.
+
+### 6. Verify the permissions
+
+At this point the user exists. Confirm the boundaries with `kubectl auth can-i`:
 
 ```bash
 $ kubectl auth can-i get pods --namespace=dev
@@ -113,10 +167,18 @@ yes
 
 $ kubectl auth can-i get pods --namespace=pro
 no
+
+$ kubectl auth can-i delete pods --namespace=dev
+no
 ```
 
-Next, open the `~/.kube/config` file and remove the other users and unnecessary
-information, keeping only the `devopsvn` user. For example:
+Exactly what we wanted: read access in `dev`, nothing in `pro`, and no destructive
+actions anywhere.
+
+### 7. Hand off the kubeconfig
+
+Finally, open `~/.kube/config` (or the separate file from step 5), remove any other
+users and unnecessary entries, and keep only the `devopsvn` user. For example:
 
 ```yaml
 apiVersion: v1
@@ -138,11 +200,16 @@ users:
     token: ...
 ```
 
-Then send this file to your developers.
+Then send this file to your developers. They set `KUBECONFIG` to it (or drop it in
+`~/.kube/config`) and immediately have scoped, self-service access to the `dev`
+environment.
 
 ## Conclusion
 
-There are many solutions to the problem posed in this post, but the other solutions
-are somewhat convoluted and complex. This is a manual approach, but it's the
-simplest and easiest to do, and it's suitable for beginners. You can also look into a
-more complex solution using ArgoCD.
+There are many ways to solve this problem, and some of them are far more elaborate.
+The approach here is manual, but it's the simplest to reason about and a great way to
+learn how RBAC's building blocks — ServiceAccounts, Roles, and RoleBindings — click
+together, which makes it ideal for beginners. Once the concepts feel natural, you can
+grow into more scalable options: bind to OIDC groups from your identity provider so
+you're not managing tokens by hand, or layer on a GitOps tool like ArgoCD to manage
+these RBAC manifests declaratively.

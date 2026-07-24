@@ -1,18 +1,19 @@
 ---
 layout: post
-title: "Why Use AWS S3?"
+title: "Why Use Amazon S3? Object Storage Explained"
+subtitle: "How S3's distributed object storage solves the limits of traditional disks — with real use cases and performance tips."
 date: 2023-08-18
 author: Quan Huynh
 tags: [aws, s3, storage]
 image: /assets/images/posts/aws-why-use-s3/cover.png
 ---
 
-In this post we talk about one of AWS's oldest services: S3 (Simple Storage
-Service). Let's explore why we should use it, along with some useful cases and tips
-for improving S3 performance.
+S3 (Simple Storage Service) is one of AWS's oldest and most widely used services. In
+this post we'll explore what makes it different from ordinary disk storage, why you'd
+reach for it, and some practical use cases and performance tips.
 
-Before diving into S3, let's look at the problems with traditional storage systems
-and how to solve them.
+Before diving into S3, let's look at the problems with traditional storage systems and
+how object storage solves them.
 
 ## The Challenge
 

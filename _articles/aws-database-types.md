@@ -1,20 +1,21 @@
 ---
 layout: post
-title: "Types of Databases on AWS"
+title: "A Guide to AWS Database Types"
+subtitle: "From relational to graph and time-series — the managed database services AWS offers and when to reach for each one."
 date: 2023-02-17
 author: Quan Huynh
 tags: [aws, database]
 image: /assets/images/posts/aws-database-types/cover.png
 ---
 
-In any application, the database is always the most important part. If we only
-build a simple app, installing a database ourselves isn't difficult. But to build
-an application that serves millions of users, installing and managing a database
-cluster ourselves is far from easy. So if circumstances allow, you should use
-Amazon Web Services' database services — they make our work much easier.
+In almost every application, the database is the most critical part. For a simple app,
+running a database yourself isn't hard. But to serve millions of users, installing and
+operating a database cluster on your own — handling replication, backups, scaling, and
+failover — is far from easy. Where possible, it's worth leaning on Amazon Web Services'
+managed database services to do that heavy lifting for you.
 
-AWS provides quite a few different database services. To find out which ones AWS
-offers, let's explore them in this post.
+AWS offers quite a few different database services, each suited to a different kind of
+workload. Let's walk through them and see when each one is the right fit.
 
 ## AWS Databases
 

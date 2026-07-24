@@ -1,17 +1,20 @@
 ---
 layout: post
-title: "Practicing AWS Without Creating an Account"
+title: "Practice AWS for Free with LocalStack — No Account Needed"
+subtitle: "Run a local AWS environment on your machine so you can learn hands-on without a credit card or surprise bills."
 date: 2023-09-29
 author: Quan Huynh
 tags: [aws, localstack]
 image: /assets/images/posts/aws-practice-without-account/cover.png
 ---
 
-Here's how to practice AWS without creating an account, so you avoid getting
-charged. This is great for beginners who want to learn AWS. It is **not**
-recommended for production.
+One of the biggest hurdles for anyone learning AWS is the sign-up wall: you need a
+credit card, and one misconfigured resource can leave you with a surprise bill. The
+good news is you can practice AWS hands-on without creating an account at all. This is
+ideal for beginners who just want to learn — but it is **not** recommended for
+production.
 
-To do this, we'll emulate an AWS environment locally using a tool called
+The trick is to emulate an AWS environment locally using a tool called
 [LocalStack](https://localstack.cloud/). The steps are as follows.
 
 Run LocalStack with Docker:
