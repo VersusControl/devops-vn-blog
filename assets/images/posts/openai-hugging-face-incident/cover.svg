@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#07111f"/>
+  <rect x="40" y="40" width="1120" height="550" rx="28" fill="#0d1f35" stroke="#2f6fef" stroke-width="2"/>
+  <circle cx="930" cy="180" r="150" fill="#1d4ed8" opacity="0.35"/>
+  <circle cx="290" cy="470" r="180" fill="#60a5fa" opacity="0.15"/>
+  <text x="90" y="245" fill="#f8fafc" font-family="Segoe UI, Arial, sans-serif" font-size="48" font-weight="600">OpenAI &amp; Hugging Face</text>
+  <text x="90" y="315" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="28">When AI Started Hacking on Its Own</text>
+  <text x="90" y="420" fill="#93c5fd" font-family="Segoe UI, Arial, sans-serif" font-size="22">Security • AI Safety • Autonomous Systems</text>
+</svg>
