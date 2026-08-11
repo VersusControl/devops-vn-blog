@@ -6,3 +6,4 @@ _site/
 vendor/
 .bundle/
 Gemfile.lock
+writing-style.md

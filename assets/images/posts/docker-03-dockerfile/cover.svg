@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="840" viewBox="0 0 1600 840" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <rect width="1600" height="840" fill="#0d1117"/>
+  <circle cx="1360" cy="200" r="360" fill="#2496ED" opacity="0.12"/>
+  <circle cx="1440" cy="700" r="220" fill="#1D63ED" opacity="0.10"/>
+  <g transform="translate(1260,350)" fill="none" stroke="#2496ED" stroke-opacity="0.4">
+    <rect x="0" y="0" width="180" height="140" rx="8" stroke-width="4"/>
+    <text x="20" y="35" fill="#2496ED" fill-opacity="0.5" font-size="16" font-family="monospace">FROM node</text>
+    <text x="20" y="60" fill="#2496ED" fill-opacity="0.5" font-size="16" font-family="monospace">WORKDIR /app</text>
+    <text x="20" y="85" fill="#2496ED" fill-opacity="0.5" font-size="16" font-family="monospace">COPY . .</text>
+    <text x="20" y="110" fill="#2496ED" fill-opacity="0.5" font-size="16" font-family="monospace">RUN npm ci</text>
+    <text x="20" y="135" fill="#2496ED" fill-opacity="0.5" font-size="16" font-family="monospace">CMD ["node"]</text>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#2496ED"/>
+  <text x="192" y="163" font-size="26" fill="#2496ED" font-weight="700" letter-spacing="4">DOCKER SERIES · CHAPTER 03</text>
+  <text x="118" y="470" font-size="78" fill="#ffffff" font-weight="800">Writing Dockerfiles</text>
+  <text x="120" y="690" font-size="28" fill="#9aa4b2" font-weight="500">Multi-stage builds and production patterns</text>
+  <text x="120" y="736" font-size="24" fill="#5b6472" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

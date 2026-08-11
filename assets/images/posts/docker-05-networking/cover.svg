@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="840" viewBox="0 0 1600 840" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <rect width="1600" height="840" fill="#0d1117"/>
+  <circle cx="1360" cy="200" r="360" fill="#2496ED" opacity="0.12"/>
+  <circle cx="1440" cy="700" r="220" fill="#1D63ED" opacity="0.10"/>
+  <g transform="translate(1260,350)" fill="none" stroke="#2496ED" stroke-opacity="0.4" stroke-width="4">
+    <rect x="0" y="0" width="60" height="45" rx="6"/>
+    <rect x="130" y="0" width="60" height="45" rx="6"/>
+    <rect x="65" y="80" width="60" height="45" rx="6"/>
+    <line x1="60" y1="22" x2="130" y2="22" stroke-dasharray="6,4"/>
+    <line x1="30" y1="45" x2="95" y2="80"/>
+    <line x1="160" y1="45" x2="95" y2="80"/>
+  </g>
+  <rect x="120" y="150" width="54" height="6" rx="3" fill="#2496ED"/>
+  <text x="192" y="163" font-size="26" fill="#2496ED" font-weight="700" letter-spacing="4">DOCKER SERIES · CHAPTER 05</text>
+  <text x="118" y="470" font-size="78" fill="#ffffff" font-weight="800">Docker Networking</text>
+  <text x="120" y="690" font-size="28" fill="#9aa4b2" font-weight="500">Bridge networks, DNS, and port publishing</text>
+  <text x="120" y="736" font-size="24" fill="#5b6472" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+</svg>

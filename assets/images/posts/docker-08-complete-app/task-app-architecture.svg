@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="Inter, system-ui, sans-serif">
+  <rect width="800" height="400" fill="#0d1117"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" fill="#9aa4b2" font-size="16" font-weight="600" text-anchor="middle">Task App Architecture</text>
+  
+  <!-- Client -->
+  <g transform="translate(50,100)">
+    <rect x="0" y="0" width="80" height="50" rx="6" fill="#475569"/>
+    <text x="40" y="30" fill="white" font-size="11" text-anchor="middle">Client</text>
+  </g>
+  
+  <!-- Arrow to API -->
+  <line x1="130" y1="125" x2="180" y2="125" stroke="#6b7280" stroke-width="2"/>
+  <polygon points="180,125 172,120 172,130" fill="#6b7280"/>
+  <text x="155" y="115" fill="#6b7280" font-size="9" text-anchor="middle">HTTP</text>
+  
+  <!-- API Service -->
+  <g transform="translate(190,80)">
+    <rect x="0" y="0" width="140" height="90" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+    <text x="70" y="25" fill="#4ade80" font-size="13" text-anchor="middle" font-weight="600">API</text>
+    <text x="70" y="45" fill="#6b7280" font-size="10" text-anchor="middle">Node.js / Express</text>
+    <text x="70" y="65" fill="#6b7280" font-size="10" text-anchor="middle">:3000</text>
+    <rect x="20" y="72" width="100" height="12" rx="2" fill="#4ade80" opacity="0.3"/>
+    <text x="70" y="82" fill="#4ade80" font-size="8" text-anchor="middle">port published</text>
+  </g>
+  
+  <!-- Arrow API to DB -->
+  <line x1="330" y1="105" x2="400" y2="105" stroke="#16a34a" stroke-width="2"/>
+  <polygon points="400,105 392,100 392,110" fill="#16a34a"/>
+  <text x="365" y="95" fill="#6b7280" font-size="9" text-anchor="middle">SQL</text>
+  
+  <!-- PostgreSQL -->
+  <g transform="translate(410,80)">
+    <rect x="0" y="0" width="140" height="90" rx="8" fill="#1e293b" stroke="#16a34a" stroke-width="2"/>
+    <text x="70" y="25" fill="#16a34a" font-size="13" text-anchor="middle" font-weight="600">PostgreSQL</text>
+    <text x="70" y="45" fill="#6b7280" font-size="10" text-anchor="middle">postgres:16-alpine</text>
+    <text x="70" y="65" fill="#6b7280" font-size="10" text-anchor="middle">:5432</text>
+  </g>
+  
+  <!-- Volume for DB -->
+  <g transform="translate(440,190)">
+    <ellipse cx="40" cy="20" rx="50" ry="18" fill="#7c3aed" fill-opacity="0.2" stroke="#7c3aed" stroke-width="2"/>
+    <text x="40" y="25" fill="#a78bfa" font-size="9" text-anchor="middle">postgres_data</text>
+    <line x1="40" y1="2" x2="40" y2="-20" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4,2"/>
+  </g>
+  
+  <!-- Arrow API to Redis -->
+  <line x1="260" y1="170" x2="260" y2="240" stroke="#ef4444" stroke-width="2"/>
+  <polygon points="260,240 255,232 265,232" fill="#ef4444"/>
+  <text x="275" y="205" fill="#6b7280" font-size="9">push jobs</text>
+  
+  <!-- Redis -->
+  <g transform="translate(190,250)">
+    <rect x="0" y="0" width="140" height="70" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+    <text x="70" y="25" fill="#ef4444" font-size="13" text-anchor="middle" font-weight="600">Redis</text>
+    <text x="70" y="45" fill="#6b7280" font-size="10" text-anchor="middle">Message Queue</text>
+    <text x="70" y="60" fill="#6b7280" font-size="10" text-anchor="middle">:6379</text>
+  </g>
+  
+  <!-- Arrow Redis to Worker -->
+  <line x1="330" y1="285" x2="400" y2="285" stroke="#0ea5e9" stroke-width="2"/>
+  <polygon points="400,285 392,280 392,290" fill="#0ea5e9"/>
+  <text x="365" y="275" fill="#6b7280" font-size="9" text-anchor="middle">pull jobs</text>
+  
+  <!-- Worker -->
+  <g transform="translate(410,250)">
+    <rect x="0" y="0" width="140" height="70" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="70" y="25" fill="#0ea5e9" font-size="13" text-anchor="middle" font-weight="600">Worker</text>
+    <text x="70" y="45" fill="#6b7280" font-size="10" text-anchor="middle">Python</text>
+    <text x="70" y="60" fill="#6b7280" font-size="10" text-anchor="middle">Background Jobs</text>
+  </g>
+  
+  <!-- Network boundary -->
+  <rect x="170" y="60" width="410" height="280" rx="10" fill="none" stroke="#2496ED" stroke-width="1" stroke-dasharray="8,4"/>
+  <text x="600" y="80" fill="#2496ED" font-size="10">task-net</text>
+  
+  <!-- Legend -->
+  <g transform="translate(620,150)">
+    <text x="0" y="0" fill="#9aa4b2" font-size="10" font-weight="500">Services:</text>
+    <rect x="0" y="15" width="12" height="12" rx="2" fill="#4ade80"/>
+    <text x="20" y="25" fill="#6b7280" font-size="9">API (exposed)</text>
+    <rect x="0" y="35" width="12" height="12" rx="2" fill="#16a34a"/>
+    <text x="20" y="45" fill="#6b7280" font-size="9">Database</text>
+    <rect x="0" y="55" width="12" height="12" rx="2" fill="#ef4444"/>
+    <text x="20" y="65" fill="#6b7280" font-size="9">Queue</text>
+    <rect x="0" y="75" width="12" height="12" rx="2" fill="#0ea5e9"/>
+    <text x="20" y="85" fill="#6b7280" font-size="9">Worker</text>
+  </g>
+  
+  <text x="400" y="375" fill="#6b7280" font-size="11" text-anchor="middle">docker compose up -d → entire stack running in seconds</text>
+</svg>

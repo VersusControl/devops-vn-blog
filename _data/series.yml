@@ -1,6 +1,20 @@
 # Ordered list of series shown on the /series/ index page.
 # `key` must match the `series` front matter value used by the articles so the
 # chapters can be pulled dynamically. `url` points to the series landing page.
+- title: "Docker Basics"
+  key: "Docker Basics"
+  url: /docker-series/
+  cover: /assets/images/series/docker-series.svg
+  category: "Containers"
+  blurb: "A hands-on introduction to Docker — images, containers, Dockerfiles, networking, volumes, and Compose — capped off by containerizing a real multi-service application."
+
+- title: "Kubernetes Basics"
+  key: "Kubernetes Basics"
+  url: /kubernetes-basics-series/
+  cover: /assets/images/series/kubernetes-basics-series.svg
+  category: "Kubernetes"
+  blurb: "A beginner-friendly tour of Kubernetes fundamentals — from what Kubernetes is to Pods, labels, replication controllers, ReplicaSets, and DaemonSets."
+
 - title: "Mastering Terraform"
   key: "Terraform Series"
   url: /terraform-series/
@@ -28,13 +42,6 @@
   cover: /assets/images/series/helm-series.svg
   category: "Kubernetes · Packaging"
   blurb: "A beginner-friendly guide to Helm 4, the package manager for Kubernetes — from your first release to templating, values, dependencies, upgrades, and packaging the Book Info app as your own chart."
-
-- title: "Kubernetes Basics"
-  key: "Kubernetes Basics"
-  url: /kubernetes-basics-series/
-  cover: /assets/images/series/kubernetes-basics-series.svg
-  category: "Kubernetes"
-  blurb: "A beginner-friendly tour of Kubernetes fundamentals — from what Kubernetes is to Pods, labels, replication controllers, ReplicaSets, and DaemonSets."
 
 - title: "Networking for DevOps"
   key: "Networking for DevOps"
