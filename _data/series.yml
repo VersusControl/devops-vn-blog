@@ -1,6 +1,13 @@
 # Ordered list of series shown on the /series/ index page.
 # `key` must match the `series` front matter value used by the articles so the
 # chapters can be pulled dynamically. `url` points to the series landing page.
+- title: "Docker Advanced"
+  key: "Docker Advanced"
+  url: /docker-advanced-series/
+  cover: /assets/images/series/docker-advanced-series.svg
+  category: "Containers · Production"
+  blurb: "Take Docker beyond the local machine: production image builds, security, multi-platform delivery, container operations, CI/CD, and a practical path to Kubernetes."
+
 - title: "Docker Basics"
   key: "Docker Basics"
   url: /docker-series/

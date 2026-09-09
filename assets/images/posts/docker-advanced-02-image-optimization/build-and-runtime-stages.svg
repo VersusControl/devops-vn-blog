@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" role="img" aria-label="A multi-stage Docker build creates application output in a build stage, then copies the output to a smaller runtime image with production dependencies.">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0 0L10 5 0 10z" fill="#000"/>
+    </marker>
+    <style>
+      .title { font-family: Arial, sans-serif; font-weight: 700; fill: #12222f; }
+      .body { font-family: Arial, sans-serif; fill: #12222f; }
+      .zone { font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; fill: #5b6b78; }
+      .code { font-family: Menlo, monospace; font-size: 13px; fill: #12222f; }
+    </style>
+  </defs>
+
+  <rect width="760" height="380" fill="#fff"/>
+  <rect x="24" y="28" width="310" height="324" rx="14" fill="#f2f5f8"/>
+  <rect x="426" y="28" width="310" height="324" rx="14" fill="#f2f5f8"/>
+
+  <text x="46" y="56" class="zone">BUILD STAGE</text>
+  <text x="448" y="56" class="zone">RUNTIME STAGE</text>
+
+  <rect x="52" y="88" width="254" height="76" rx="12" fill="#bacfe3" stroke="#000" stroke-width="2"/>
+  <text x="72" y="120" class="title" font-size="18">Build tools</text>
+  <text x="72" y="146" class="body" font-size="13">compiler and dev dependencies</text>
+
+  <rect x="52" y="236" width="254" height="76" rx="12" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="72" y="268" class="title" font-size="18">Application output</text>
+  <text x="72" y="294" class="code">dist/</text>
+
+  <rect x="454" y="88" width="254" height="76" rx="12" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="474" y="120" class="title" font-size="18">Production dependencies</text>
+  <text x="474" y="146" class="body" font-size="13">no development tools</text>
+
+  <rect x="454" y="236" width="254" height="76" rx="12" fill="#bacfe3" stroke="#000" stroke-width="2"/>
+  <text x="474" y="268" class="title" font-size="18">Runtime image</text>
+  <text x="474" y="294" class="body" font-size="13">runs as a non-root user</text>
+
+  <path d="M306 274H448" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="336" y="214" class="zone" font-size="10">COPY dist/</text>
+</svg>

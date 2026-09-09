@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Docker Advanced series cover with eight individual chapter cards covering BuildKit, small images, runtime security, multi-platform images, registry digests, production Compose, debugging, and Kubernetes delivery.">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0 0L10 5 0 10z" fill="#2496ed"/>
+    </marker>
+    <style>
+      .eyebrow { font-family: Arial, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 4px; fill: #2496ed; }
+      .title { font-family: Arial, sans-serif; font-size: 76px; font-weight: 800; fill: #f7f9fb; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 28px; fill: #aebdcd; }
+      .zone { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 2px; fill: #78bdf1; }
+      .chapter { font-family: Menlo, monospace; font-size: 12px; fill: #78bdf1; }
+      .topic { font-family: Arial, sans-serif; font-size: 19px; font-weight: 700; fill: #dce8f5; }
+      .detail { font-family: Arial, sans-serif; font-size: 13px; fill: #aebdcd; }
+      .footer { font-family: Menlo, monospace; font-size: 17px; fill: #71849a; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0d1117"/>
+  <path d="M790 0V900" stroke="#263545" stroke-width="2"/>
+
+  <text x="100" y="168" class="eyebrow">CONTAINER SERIES</text>
+  <text x="100" y="394" class="title">Docker</text>
+  <text x="100" y="486" class="title">Advanced</text>
+  <text x="100" y="570" class="subtitle">Build, secure, ship, and operate</text>
+  <text x="100" y="608" class="subtitle">production container workloads.</text>
+  <text x="100" y="820" class="footer">devopsvn.tech</text>
+
+  <g transform="translate(875 82)">
+    <rect width="610" height="736" rx="28" fill="#12202f" stroke="#263f57" stroke-width="3"/>
+    <text x="38" y="50" class="zone">PRODUCTION CONTAINER PATH</text>
+
+    <g fill="#1b3044" stroke="#4a6b88" stroke-width="2">
+      <rect x="38" y="84" width="248" height="116" rx="16"/>
+      <rect x="324" y="84" width="248" height="116" rx="16"/>
+      <rect x="38" y="244" width="248" height="116" rx="16"/>
+      <rect x="324" y="244" width="248" height="116" rx="16"/>
+      <rect x="38" y="404" width="248" height="116" rx="16"/>
+      <rect x="324" y="404" width="248" height="116" rx="16"/>
+      <rect x="38" y="564" width="248" height="116" rx="16"/>
+    </g>
+    <rect x="324" y="564" width="248" height="116" rx="16" fill="#2496ed" stroke="#78bdf1" stroke-width="2"/>
+
+    <text x="60" y="116" class="chapter">CHAPTER 01</text>
+    <text x="60" y="151" class="topic">BuildKit</text>
+    <text x="60" y="176" class="detail">cache and secret mounts</text>
+
+    <text x="346" y="116" class="chapter">CHAPTER 02</text>
+    <text x="346" y="151" class="topic">Small Images</text>
+    <text x="346" y="176" class="detail">build stage to runtime</text>
+
+    <text x="60" y="276" class="chapter">CHAPTER 03</text>
+    <text x="60" y="311" class="topic">Runtime Security</text>
+    <text x="60" y="336" class="detail">users and capabilities</text>
+
+    <text x="346" y="276" class="chapter">CHAPTER 04</text>
+    <text x="346" y="311" class="topic">Multi Platform</text>
+    <text x="346" y="336" class="detail">amd64 and arm64</text>
+
+    <text x="60" y="436" class="chapter">CHAPTER 05</text>
+    <text x="60" y="471" class="topic">Registry</text>
+    <text x="60" y="496" class="detail">immutable releases</text>
+
+    <text x="346" y="436" class="chapter">CHAPTER 06</text>
+    <text x="346" y="471" class="topic">Docker Compose</text>
+    <text x="346" y="496" class="detail">limits and recovery</text>
+
+    <text x="60" y="596" class="chapter">CHAPTER 07</text>
+    <text x="60" y="631" class="topic">Debug Container</text>
+    <text x="60" y="656" class="detail">logs and metrics</text>
+
+    <text x="346" y="596" class="chapter" fill="#e5f3ff">CHAPTER 08</text>
+    <text x="346" y="631" class="topic" fill="#fff">Kubernetes Delivery</text>
+    <text x="346" y="656" class="detail" fill="#e5f3ff">promote one digest</text>
+
+    <g fill="none" stroke="#2496ed" stroke-width="3" marker-end="url(#a)">
+      <path d="M286 142H312"/>
+      <path d="M448 200V218H162V238"/>
+      <path d="M286 302H312"/>
+      <path d="M448 360V378H162V398"/>
+      <path d="M286 462H312"/>
+      <path d="M448 520V538H162V558"/>
+      <path d="M286 622H312"/>
+    </g>
+  </g>
+</svg>

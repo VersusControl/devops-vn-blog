@@ -1,0 +1,16 @@
+services:
+  api:
+    image: ghcr.io/acme/task-api:1.4.0
+    restart: unless-stopped
+    read_only: true
+    tmpfs: /tmp
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"

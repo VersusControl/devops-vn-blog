@@ -1,0 +1,8 @@
+{
+  "name": "task-api-image-optimization-example",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "mkdir -p dist && cp src/index.js dist/index.js"
+  }
+}

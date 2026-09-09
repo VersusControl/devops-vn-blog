@@ -7,3 +7,5 @@ vendor/
 .bundle/
 Gemfile.lock
 writing-style.md
+local
+.github/agents

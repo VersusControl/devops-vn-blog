@@ -1,0 +1,9 @@
+services:
+  api:
+    image: ghcr.io/acme/task-api:1.0.0
+    read_only: true
+    tmpfs: /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

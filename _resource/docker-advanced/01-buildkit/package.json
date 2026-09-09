@@ -1,0 +1,11 @@
+{
+  "name": "task-api-buildkit-example",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "lodash": "4.17.21"
+  }
+}
