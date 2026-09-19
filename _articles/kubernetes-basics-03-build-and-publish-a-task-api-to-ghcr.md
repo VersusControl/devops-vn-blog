@@ -36,6 +36,8 @@ token, and task file path from environment variables. `POST /tasks` requires a b
 when `API_TOKEN` is set; Chapter 8 sets it. Those settings become useful in later chapters, but
 the application has one job now: give the image a real process to run.
 
+![Task API runtime flow for health checks, task reads, and task creation](/assets/images/posts/kubernetes-basics-03-build-and-publish-a-task-api-to-ghcr/task-api-runtime-flow.svg)
+
 The Dockerfile is intentionally short:
 
 ```dockerfile
