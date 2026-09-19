@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="460" viewBox="0 0 760 460" role="img" aria-label="Task API source is built into an image, tagged for GHCR, pushed, then pulled by a Kubernetes node" font-family="Arial, sans-serif">
+  <rect width="760" height="460" fill="#ffffff"/>
+  <rect x="22" y="34" width="296" height="350" rx="14" fill="#eef4f7" stroke="#b7c8d3" stroke-width="1.5"/>
+  <rect x="330" y="34" width="170" height="350" rx="14" fill="#f4f7f9" stroke="#b7c8d3" stroke-width="1.5"/>
+  <rect x="512" y="34" width="226" height="350" rx="14" fill="#eef4f7" stroke="#b7c8d3" stroke-width="1.5"/>
+  <text x="42" y="68" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083">LOCAL WORKSTATION</text>
+  <text x="350" y="68" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083">GHCR</text>
+  <text x="532" y="68" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083">KUBERNETES NODE</text>
+
+  <text x="166" y="174" text-anchor="middle" font-size="12" font-family="monospace" fill="#506779">docker build</text>
+  <text x="330" y="174" text-anchor="middle" font-size="12" font-family="monospace" fill="#506779">tag + push</text>
+  <text x="516" y="174" text-anchor="middle" font-size="12" font-family="monospace" fill="#506779">image pull</text>
+  <path d="M142 242 H170 M310 242 H330 M490 242 H512 M642 242 H656" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M170 235 L182 242 L170 249 Z M330 235 L342 242 L330 249 Z M512 235 L524 242 L512 249 Z M656 235 L668 242 L656 249 Z" fill="#172b3a"/>
+
+  <rect x="42" y="197" width="100" height="90" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="92" y="232" text-anchor="middle" font-size="16" font-weight="700" fill="#102534">Task API</text>
+  <text x="92" y="258" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">server.js</text>
+
+  <rect x="190" y="187" width="120" height="110" rx="12" fill="#c9e1ed" stroke="#172b3a" stroke-width="2"/>
+  <text x="250" y="229" text-anchor="middle" font-size="16" font-weight="700" fill="#102534">Image build</text>
+  <text x="250" y="255" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">task-api</text>
+  <text x="250" y="275" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">0.1.0</text>
+
+  <rect x="350" y="187" width="140" height="110" rx="12" fill="#c9e1ed" stroke="#172b3a" stroke-width="2"/>
+  <text x="420" y="226" text-anchor="middle" font-size="16" font-weight="700" fill="#102534">GHCR package</text>
+  <text x="420" y="252" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">OWNER/task-api</text>
+  <text x="420" y="274" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">tag + digest</text>
+
+  <rect x="532" y="197" width="110" height="90" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="587" y="232" text-anchor="middle" font-size="16" font-weight="700" fill="#102534">kubelet</text>
+  <text x="587" y="258" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">pull policy</text>
+
+  <rect x="676" y="197" width="42" height="90" rx="10" fill="#c9e1ed" stroke="#172b3a" stroke-width="2"/>
+  <text x="697" y="235" text-anchor="middle" font-size="14" font-weight="700" fill="#102534">Pod</text>
+  <text x="697" y="260" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">:3000</text>
+
+  <line x1="42" y1="330" x2="718" y2="330" stroke="#b7c8d3" stroke-width="1.5"/>
+  <text x="42" y="407" font-size="11" fill="#506779">Private packages require node credentials before image pull.</text>
+  <text x="42" y="426" font-size="11" fill="#506779">Credentials never belong inside the image.</text>
+</svg>

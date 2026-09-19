@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: task-api-config
+  namespace: tasks
+data:
+  APP_MESSAGE: Tasks are ready from Kubernetes.
+  PORT: "3000"

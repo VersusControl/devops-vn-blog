@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="500" viewBox="0 0 760 500" role="img" aria-label="Kubernetes control loop from desired state through API, controllers, scheduler, worker nodes, and back as observed state" font-family="Arial, sans-serif">
+  <rect width="760" height="500" fill="#ffffff"/>
+  <rect x="22" y="42" width="716" height="190" rx="14" fill="#eef4f7" stroke="#b7c8d3" stroke-width="1.5"/>
+  <rect x="22" y="254" width="716" height="220" rx="14" fill="#f4f7f9" stroke="#b7c8d3" stroke-width="1.5"/>
+  <text x="46" y="74" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083">CONTROL PLANE</text>
+  <text x="46" y="286" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083">WORKER NODE</text>
+
+  <path d="M174 151H190 M354 151H370 M532 151H548" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M190 144L202 151L190 158Z M370 144L382 151L370 158Z M548 144L560 151L548 158Z" fill="#172b3a"/>
+  <path d="M629 194V274" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M622 274L629 286L636 274Z" fill="#172b3a"/>
+  <path d="M302 390H254V244H461V216" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M454 216L461 202L468 216Z" fill="#172b3a"/>
+  <text x="177" y="424" text-anchor="middle" font-size="11" font-weight="700" fill="#587083">OBSERVED STATE</text>
+  <text x="177" y="444" text-anchor="middle" font-size="11" fill="#506779">status returns to controllers</text>
+
+  <rect x="46" y="108" width="128" height="86" rx="12" fill="#c9e1ed" stroke="#172b3a" stroke-width="2"/>
+  <text x="110" y="142" text-anchor="middle" font-size="15" font-weight="700" fill="#102534">Desired state</text>
+  <text x="110" y="168" text-anchor="middle" font-size="12" font-family="monospace" fill="#506779">replicas: 2</text>
+
+  <rect x="210" y="108" width="144" height="86" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="282" y="142" text-anchor="middle" font-size="15" font-weight="700" fill="#102534">Kubernetes API</text>
+  <text x="282" y="168" text-anchor="middle" font-size="12" fill="#506779">stores resources</text>
+
+  <rect x="390" y="108" width="142" height="86" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="461" y="142" text-anchor="middle" font-size="15" font-weight="700" fill="#102534">Controllers</text>
+  <text x="461" y="168" text-anchor="middle" font-size="12" fill="#506779">reconcile drift</text>
+
+  <rect x="568" y="108" width="122" height="86" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="629" y="142" text-anchor="middle" font-size="15" font-weight="700" fill="#102534">Scheduler</text>
+  <text x="629" y="168" text-anchor="middle" font-size="12" fill="#506779">places Pods</text>
+
+  <rect x="302" y="294" width="388" height="128" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="326" y="326" font-size="14" font-weight="700" fill="#102534">kubelet + container runtime</text>
+  <rect x="326" y="346" width="92" height="52" rx="8" fill="#c9e1ed" stroke="#172b3a" stroke-width="1.7"/>
+  <rect x="450" y="346" width="92" height="52" rx="8" fill="#c9e1ed" stroke="#172b3a" stroke-width="1.7"/>
+  <rect x="574" y="346" width="92" height="52" rx="8" fill="#c9e1ed" stroke="#172b3a" stroke-width="1.7"/>
+  <text x="372" y="378" text-anchor="middle" font-size="13" font-family="monospace" fill="#102534">Pod A</text>
+  <text x="496" y="378" text-anchor="middle" font-size="13" font-family="monospace" fill="#102534">Pod B</text>
+  <text x="620" y="378" text-anchor="middle" font-size="13" font-family="monospace" fill="#102534">Pod C</text>
+</svg>

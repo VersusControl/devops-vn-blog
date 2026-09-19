@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="460" viewBox="0 0 760 460" role="img" aria-label="Kind setup sequence from tool checks through cluster configuration, cluster creation, kubectl context, and node inspection" font-family="Arial, sans-serif">
+  <rect width="760" height="460" fill="#ffffff"/>
+  <rect x="22" y="34" width="716" height="388" rx="14" fill="#eef4f7" stroke="#b7c8d3" stroke-width="1.5"/>
+  <text x="46" y="68" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083">LOCAL KIND CLUSTER SETUP</text>
+
+  <path d="M144 213H157 M289 213H302 M434 213H447 M579 213H592" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M157 206L169 213L157 220Z M302 206L314 213L302 220Z M447 206L459 213L447 220Z M592 206L604 213L592 220Z" fill="#172b3a"/>
+
+  <rect x="32" y="148" width="112" height="130" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="88" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#102534">1 · Check tools</text>
+  <text x="88" y="215" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">docker</text>
+  <text x="88" y="237" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">kind + kubectl</text>
+
+  <rect x="177" y="148" width="112" height="130" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="233" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#102534">2 · Configure</text>
+  <text x="233" y="215" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">control-plane</text>
+  <text x="233" y="237" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">+ worker</text>
+
+  <rect x="322" y="148" width="112" height="130" rx="12" fill="#c9e1ed" stroke="#172b3a" stroke-width="2"/>
+  <text x="378" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#102534">3 · Create</text>
+  <text x="378" y="215" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">kind create</text>
+  <text x="378" y="237" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">cluster</text>
+
+  <rect x="467" y="148" width="112" height="130" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="523" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#102534">4 · Select</text>
+  <text x="523" y="215" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">kubectl</text>
+  <text x="523" y="237" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">context</text>
+
+  <rect x="612" y="148" width="112" height="130" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="668" y="180" text-anchor="middle" font-size="13" font-weight="700" fill="#102534">5 · Inspect</text>
+  <text x="668" y="215" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">kubectl get</text>
+  <text x="668" y="237" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">nodes -o wide</text>
+
+  <rect x="46" y="322" width="668" height="62" rx="10" fill="#ffffff" stroke="#b7c8d3" stroke-width="1.5"/>
+  <text x="68" y="347" font-size="12" font-weight="700" fill="#102534">EXPECTED</text>
+  <text x="68" y="370" font-size="12" fill="#506779">Both the control-plane and worker nodes report Ready.</text>
+</svg>

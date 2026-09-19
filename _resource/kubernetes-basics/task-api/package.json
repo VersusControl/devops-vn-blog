@@ -1,0 +1,13 @@
+{
+  "name": "kubernetes-basics-task-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A dependency-free task API for the Kubernetes Basics series.",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

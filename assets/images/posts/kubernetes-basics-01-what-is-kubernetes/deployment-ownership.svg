@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="500" viewBox="0 0 760 500" role="img" aria-label="hello-web Deployment owns a ReplicaSet, which maintains two nginx Pods scheduled on separate node runtimes" font-family="Arial, sans-serif">
+  <rect width="760" height="500" fill="#ffffff"/>
+  <rect x="22" y="42" width="716" height="184" rx="14" fill="#eef4f7" stroke="#b7c8d3" stroke-width="1.5"/>
+  <rect x="22" y="250" width="716" height="226" rx="14" fill="#f4f7f9" stroke="#b7c8d3" stroke-width="1.5"/>
+  <text x="46" y="74" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083">CONTROLLER OWNERSHIP</text>
+  <text x="358" y="282" font-size="12" font-weight="700" letter-spacing="1.5" fill="#587083" text-anchor="middle">SCHEDULED WORKLOADS</text>
+
+  <path d="M316 151H420" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M420 144L432 151L420 158Z" fill="#172b3a"/>
+  <text x="378" y="134" text-anchor="middle" font-size="11" fill="#506779">creates and owns</text>
+
+  <path d="M560 194V236H172V294" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M165 294L172 306L179 294Z" fill="#172b3a"/>
+  <path d="M560 236V294" fill="none" stroke="#172b3a" stroke-width="2.8"/>
+  <path d="M553 294L560 306L567 294Z" fill="#172b3a"/>
+  <text x="366" y="215" text-anchor="middle" font-size="11" fill="#506779">maintains two matching Pods</text>
+
+  <rect x="76" y="108" width="240" height="86" rx="12" fill="#c9e1ed" stroke="#172b3a" stroke-width="2"/>
+  <text x="196" y="142" text-anchor="middle" font-size="17" font-weight="700" fill="#102534">Deployment</text>
+  <text x="196" y="168" text-anchor="middle" font-size="13" font-family="monospace" fill="#506779">hello-web · replicas: 2</text>
+
+  <rect x="440" y="108" width="240" height="86" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="560" y="142" text-anchor="middle" font-size="17" font-weight="700" fill="#102534">ReplicaSet</text>
+  <text x="560" y="168" text-anchor="middle" font-size="13" font-family="monospace" fill="#506779">selector: app=hello-web</text>
+
+  <rect x="52" y="314" width="240" height="126" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="76" y="346" font-size="15" font-weight="700" fill="#102534">Node A runtime</text>
+  <rect x="76" y="364" width="192" height="52" rx="8" fill="#c9e1ed" stroke="#172b3a" stroke-width="1.7"/>
+  <text x="172" y="386" text-anchor="middle" font-size="13" font-family="monospace" fill="#102534">hello-web Pod A</text>
+  <text x="172" y="404" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">nginx:1.27-alpine</text>
+
+  <rect x="440" y="314" width="240" height="126" rx="12" fill="#ffffff" stroke="#172b3a" stroke-width="2"/>
+  <text x="464" y="346" font-size="15" font-weight="700" fill="#102534">Node B runtime</text>
+  <rect x="464" y="364" width="192" height="52" rx="8" fill="#c9e1ed" stroke="#172b3a" stroke-width="1.7"/>
+  <text x="560" y="386" text-anchor="middle" font-size="13" font-family="monospace" fill="#102534">hello-web Pod B</text>
+  <text x="560" y="404" text-anchor="middle" font-size="11" font-family="monospace" fill="#506779">nginx:1.27-alpine</text>
+
+  <text x="380" y="463" text-anchor="middle" font-size="11" fill="#506779">The ReplicaSet replaces a Pod when its observed count falls below two.</text>
+</svg>

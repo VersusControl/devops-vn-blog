@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Basics Chapter 1 cover showing desired state, controllers, and running Pods.">
+	<defs><style>.k{font:700 22px Arial;letter-spacing:4px;fill:#2496ed}.t{font:800 72px Arial;fill:#f7f9fb}.s{font:28px Arial;fill:#aebdcd}.n{font:700 21px Arial;fill:#dce8f5}.d{font:17px Menlo,monospace;fill:#aebdcd}.light{fill:#f7f9fb}.dark{fill:#12202f}</style></defs>
+	<rect width="1600" height="900" fill="#0d1117"/><path d="M860 0V900" stroke="#263545" stroke-width="2"/>
+	<text x="100" y="120" class="k">KUBERNETES BASICS</text><text x="100" y="156" class="k">CHAPTER 01</text>
+	<text x="100" y="380" class="t">What Is</text><text x="100" y="468" class="t">Kubernetes</text><text x="100" y="570" class="s">Desired state and control loops.</text>
+	<g transform="translate(980 190)">
+		<rect width="500" height="500" rx="24" fill="#12202f" stroke="#2496ed" stroke-width="3"/>
+		<path d="M226 115H246 M364 160V238H250V250" fill="none" stroke="#2496ed" stroke-width="4"/>
+		<path d="M246 105L264 115L246 125Z M240 250L250 268L260 250Z" fill="#2496ed"/>
+		<rect x="46" y="70" width="180" height="90" rx="14" fill="#1b3044"/>
+		<text x="136" y="110" text-anchor="middle" class="n">desired state</text><text x="136" y="138" text-anchor="middle" class="d">replicas: 2</text>
+		<rect x="274" y="70" width="180" height="90" rx="14" fill="#2496ed"/>
+		<text x="364" y="110" text-anchor="middle" class="n light">controllers</text><text x="364" y="138" text-anchor="middle" class="d light">reconcile</text>
+		<rect x="140" y="280" width="220" height="110" rx="14" fill="#dce8f5" stroke="#4a6b88" stroke-width="2"/>
+		<text x="250" y="326" text-anchor="middle" class="n dark">running Pods</text><text x="250" y="356" text-anchor="middle" class="d dark">observed state</text>
+	</g>
+</svg>

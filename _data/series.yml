@@ -21,7 +21,7 @@
   url: /kubernetes-basics-series/
   cover: /assets/images/series/kubernetes-basics-series.svg
   category: "Kubernetes"
-  blurb: "A beginner-friendly tour of Kubernetes fundamentals — from what Kubernetes is to Pods, labels, replication controllers, ReplicaSets, and DaemonSets."
+  blurb: "Learn Kubernetes from the ground up with Kind: understand core resources, publish a container image to GitHub Container Registry, and deploy a working application locally."
 
 - title: "Mastering Terraform"
   key: "Terraform Series"
