@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="384" viewBox="0 0 760 384" role="img" aria-label="Ingress NGINX retirement timeline: Gateway API v1.0 GA in October 2023, retirement announced in November 2025, maintenance ended in March 2026, and today there are no fixes and no security patches. Existing deployments, Helm charts, and images still work; new releases, bug fixes, and security patches are not provided. Two migration paths: another Ingress controller as a smaller change now, or the Gateway API using ingress2gateway to convert.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.date{font-size:13px;font-weight:700}
+			.date-hl{font-size:13px;font-weight:700;fill:#456987}
+			.event{font-size:12px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:11.5px;fill:#263746}
+			.muted-title{font-size:15px;font-weight:700;fill:#6e5233}
+			.muted-detail{font-size:12px;fill:#7a6248}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+		</style>
+	</defs>
+	<rect width="760" height="384" fill="#fff"/>
+
+	<!-- Timeline -->
+	<rect x="20" y="16" width="720" height="128" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="40" y="40" class="zone">INGRESS NGINX TIMELINE</text>
+	<path d="M70 88H690" stroke="#283541" stroke-width="2"/>
+	<circle cx="130" cy="88" r="7" fill="#fff" stroke="#283541" stroke-width="2"/>
+	<circle cx="310" cy="88" r="7" fill="#fff" stroke="#283541" stroke-width="2"/>
+	<circle cx="490" cy="88" r="7" fill="#fff" stroke="#283541" stroke-width="2"/>
+	<circle cx="650" cy="88" r="9" fill="#d8e7f2" stroke="#456987" stroke-width="2.5"/>
+	<text x="130" y="72" text-anchor="middle" class="date">Oct 2023</text>
+	<text x="310" y="72" text-anchor="middle" class="date">Nov 2025</text>
+	<text x="490" y="72" text-anchor="middle" class="date">Mar 2026</text>
+	<text x="650" y="72" text-anchor="middle" class="date-hl">Today</text>
+	<text x="130" y="114" text-anchor="middle" class="event">Gateway API v1.0 GA</text>
+	<text x="310" y="114" text-anchor="middle" class="event">retirement announced</text>
+	<text x="490" y="114" text-anchor="middle" class="event">maintenance ends</text>
+	<text x="650" y="114" text-anchor="middle" class="event">no fixes,</text>
+	<text x="650" y="130" text-anchor="middle" class="event">no security patches</text>
+
+	<!-- After retirement -->
+	<rect x="20" y="158" width="354" height="94" rx="13" class="node"/>
+	<text x="40" y="182" class="title">Still works</text>
+	<text x="40" y="204" class="detail">existing deployments</text>
+	<text x="40" y="221" class="detail">Helm charts and images</text>
+
+	<rect x="386" y="158" width="354" height="94" rx="13" fill="#faf5ee" stroke="#a88660" stroke-width="2"/>
+	<text x="406" y="182" class="muted-title">Not provided</text>
+	<text x="406" y="204" class="muted-detail">new releases</text>
+	<text x="406" y="221" class="muted-detail">bug fixes</text>
+	<text x="406" y="238" class="muted-detail">security patches</text>
+
+	<!-- Migration paths -->
+	<rect x="20" y="266" width="720" height="104" rx="14" fill="#e9eff4" stroke="#aab9c7" stroke-width="2"/>
+	<text x="40" y="290" class="zone">MIGRATION PATHS</text>
+	<rect x="40" y="302" width="320" height="54" rx="12" class="node"/>
+	<text x="200" y="325" text-anchor="middle" class="title">Another Ingress controller</text>
+	<text x="200" y="344" text-anchor="middle" class="detail">smaller change now</text>
+	<text x="380" y="334" text-anchor="middle" class="detail">or</text>
+	<rect x="400" y="302" width="320" height="54" rx="12" fill="#d8e7f2" stroke="#456987" stroke-width="2"/>
+	<text x="560" y="325" text-anchor="middle" class="title">Gateway API</text>
+	<text x="560" y="344" text-anchor="middle" class="detail"><tspan class="mono">ingress2gateway</tspan> to convert</text>
+</svg>

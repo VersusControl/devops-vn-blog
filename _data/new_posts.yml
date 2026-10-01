@@ -1,5 +1,11 @@
 # Latest posts shown on the home page. All entries link to translated
 # English posts. Update as new folders are translated.
+- title: "Kubernetes Gateway API: How a Request Travels from DNS to Pod"
+  subtitle: "Why Ingress is being replaced, and how one request moves through DNS, a load balancer, the Gateway proxy, and an HTTPRoute to a Pod."
+  category: Kubernetes
+  image: /assets/images/posts/kubernetes-gateway-api-dns-to-pod/cover.svg
+  url: /kubernetes-gateway-api-dns-to-pod/
+
 - title: "Docker Advanced — Docker BuildKit"
   subtitle: "Use BuildKit cache and secret mounts for faster rebuilds without baking credentials into images."
   category: Docker

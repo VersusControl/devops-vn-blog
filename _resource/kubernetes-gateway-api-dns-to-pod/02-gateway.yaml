@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: shop-gateway
+  namespace: shop
+spec:
+  gatewayClassName: nginx
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: "*.example.com"
+      allowedRoutes:
+        namespaces:
+          from: Same

@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  namespace: shop
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: echo
+          image: hashicorp/http-echo:1.0
+          args: ["-text=payment-service", "-listen=:5678"]
+          ports:
+            - name: http
+              containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: shop
+spec:
+  selector:
+    app: payment
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  namespace: shop
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: echo
+          image: hashicorp/http-echo:1.0
+          args: ["-text=auth-service", "-listen=:5678"]
+          ports:
+            - name: http
+              containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: shop
+spec:
+  selector:
+    app: auth
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

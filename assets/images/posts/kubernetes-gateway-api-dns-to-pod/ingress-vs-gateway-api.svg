@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="480" viewBox="0 0 760 480" role="img" aria-label="Ingress compared with the Gateway API. One Ingress object holds ingressClassName, tls, rules, and controller-specific annotations, and both the platform team and app team edit it. The Gateway API splits this into GatewayClass owned by the infra provider, Gateway owned by the platform team, and HTTPRoute owned by the app team, linked by gatewayClassName and parentRefs.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.small{font-size:10.5px;fill:#526579}
+			.tag{font-size:11px;font-weight:700;fill:#456987}
+			.mono{font-family:Menlo,monospace;font-size:11px;fill:#263746}
+			.mono-label{font-family:Menlo,monospace;font-size:10.5px;fill:#526579}
+			.warn-title{font-size:13px;font-weight:700;fill:#6e5233}
+			.warn-note{font-size:10.5px;fill:#7a6248}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.row{fill:#f5f7f9;stroke:#c3cfd9;stroke-width:1.5}
+			.pill{fill:#fff;stroke:#7893a8;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="480" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="20" y="20" width="340" height="440" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="40" y="45" class="zone">INGRESS</text>
+	<rect x="380" y="20" width="360" height="440" rx="14" fill="#e9eff4" stroke="#aab9c7" stroke-width="2"/>
+	<text x="400" y="45" class="zone">GATEWAY API</text>
+
+	<!-- Connectors -->
+	<path d="M110 88V127" class="flow"/>
+	<path d="M110 138L103 125H117Z" class="arrow"/>
+	<path d="M270 88V127" class="flow"/>
+	<path d="M270 138L263 125H277Z" class="arrow"/>
+	<path d="M450 202V163" class="flow"/>
+	<path d="M450 150L443 163H457Z" class="arrow"/>
+	<path d="M450 324V285" class="flow"/>
+	<path d="M450 272L443 285H457Z" class="arrow"/>
+
+	<!-- Ingress side -->
+	<rect x="50" y="60" width="120" height="28" rx="14" class="pill"/>
+	<text x="110" y="78" text-anchor="middle" class="tag">platform team</text>
+	<rect x="210" y="60" width="120" height="28" rx="14" class="pill"/>
+	<text x="270" y="78" text-anchor="middle" class="tag">app team</text>
+	<text x="190" y="118" text-anchor="middle" class="small">same object</text>
+
+	<rect x="40" y="146" width="300" height="266" rx="13" class="node"/>
+	<text x="58" y="172" class="title">Ingress</text>
+	<rect x="56" y="184" width="268" height="28" rx="7" class="row"/>
+	<text x="70" y="202" class="mono">ingressClassName</text>
+	<rect x="56" y="220" width="268" height="28" rx="7" class="row"/>
+	<text x="70" y="238" class="mono">tls</text>
+	<rect x="56" y="256" width="268" height="28" rx="7" class="row"/>
+	<text x="70" y="274" class="mono">rules (host, path)</text>
+	<rect x="56" y="294" width="268" height="104" rx="8" fill="#f8f1e7" stroke="#a88660" stroke-width="1.5"/>
+	<text x="70" y="315" class="warn-title">annotations</text>
+	<text x="70" y="336" class="mono">ssl-redirect</text>
+	<text x="70" y="352" class="mono">proxy-body-size</text>
+	<text x="70" y="368" class="mono">rewrite-target</text>
+	<text x="70" y="388" class="warn-note">free-form strings, controller-specific</text>
+
+	<text x="190" y="440" text-anchor="middle" class="detail">validated: host, path, TLS only</text>
+
+	<!-- Gateway API side -->
+	<rect x="398" y="80" width="212" height="62" rx="13" class="node"/>
+	<text x="504" y="106" text-anchor="middle" class="title">GatewayClass</text>
+	<text x="504" y="126" text-anchor="middle" class="detail">implementation</text>
+	<rect x="626" y="97" width="100" height="28" rx="14" class="pill"/>
+	<text x="676" y="115" text-anchor="middle" class="tag">infra provider</text>
+
+	<rect x="398" y="202" width="212" height="62" rx="13" fill="#d8e7f2" stroke="#456987" stroke-width="2"/>
+	<text x="504" y="228" text-anchor="middle" class="title">Gateway</text>
+	<text x="504" y="248" text-anchor="middle" class="detail">ports, hostnames, TLS</text>
+	<rect x="626" y="219" width="100" height="28" rx="14" class="pill"/>
+	<text x="676" y="237" text-anchor="middle" class="tag">platform team</text>
+
+	<rect x="398" y="324" width="212" height="62" rx="13" class="node"/>
+	<text x="504" y="350" text-anchor="middle" class="title">HTTPRoute</text>
+	<text x="504" y="370" text-anchor="middle" class="detail">hosts, paths, filters, weights</text>
+	<rect x="626" y="341" width="100" height="28" rx="14" class="pill"/>
+	<text x="676" y="359" text-anchor="middle" class="tag">app team</text>
+
+	<text x="462" y="180" class="mono-label">gatewayClassName</text>
+	<text x="462" y="302" class="mono-label">parentRefs</text>
+
+	<text x="560" y="440" text-anchor="middle" class="detail">validated typed fields + status</text>
+</svg>

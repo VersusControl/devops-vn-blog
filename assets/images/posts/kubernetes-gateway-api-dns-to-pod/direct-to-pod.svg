@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="436" viewBox="0 0 760 436" role="img" aria-label="The payment-service Service lists its ready Pods in an EndpointSlice; the Gateway controller watches the EndpointSlice and writes the Pod IPs into the NGINX upstream shop_payment-service_80, so the Gateway proxy sends requests directly to 10.244.0.8:5678 and 10.244.0.7:5678 and never uses the ClusterIP 10.96.97.213.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.small{font-size:11px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:11px;fill:#263746}
+			.muted{fill:#8b9bab}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.ghost{fill:#f7f9fb;stroke:#a9b7c4;stroke-width:1.5;stroke-dasharray:5 4}
+			.flow{fill:none;stroke:#17212b;stroke-width:3;stroke-linecap:round}
+			.control{fill:none;stroke:#17212b;stroke-width:2.5;stroke-dasharray:8 6;stroke-linecap:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="436" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="20" y="36" width="720" height="152" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="38" y="58" class="zone">CONTROL PATH</text>
+	<rect x="20" y="214" width="720" height="202" rx="14" fill="#e9eff4" stroke="#aab9c7" stroke-width="2"/>
+	<text x="38" y="236" class="zone">REQUEST PATH</text>
+
+	<!-- Legend -->
+	<path d="M548 54H572" class="flow"/>
+	<path d="M584 54L572 48.5V59.5Z" class="arrow"/>
+	<text x="591" y="58" class="small">request</text>
+	<path d="M648 54H672" class="control"/>
+	<path d="M684 54L672 48.5V59.5Z" class="arrow"/>
+	<text x="691" y="58" class="small">control</text>
+
+	<!-- Control connectors: Service -> EndpointSlice -> controller -> proxy -->
+	<path d="M522 124H471" class="control"/>
+	<path d="M458 124L471 117.5V130.5Z" class="arrow"/>
+	<path d="M262 124H211" class="control"/>
+	<path d="M198 124L211 117.5V130.5Z" class="arrow"/>
+	<path d="M170 160V229" class="control"/>
+	<path d="M170 242L163.5 229H176.5Z" class="arrow"/>
+
+	<!-- Request connectors: proxy -> each Pod -->
+	<path d="M308 280H519" class="flow"/>
+	<path d="M532 280L519 273.5V286.5Z" class="arrow"/>
+	<path d="M308 370H519" class="flow"/>
+	<path d="M532 370L519 363.5V376.5Z" class="arrow"/>
+
+	<!-- Control nodes -->
+	<rect x="40" y="92" width="150" height="64" rx="12" class="node"/>
+	<text x="115" y="119" text-anchor="middle" class="title" font-size="14">Gateway controller</text>
+	<text x="115" y="140" text-anchor="middle" class="mono">nginx-gateway</text>
+
+	<rect x="270" y="84" width="180" height="80" rx="12" class="node"/>
+	<text x="360" y="110" text-anchor="middle" class="title">EndpointSlice</text>
+	<text x="360" y="131" text-anchor="middle" class="mono">10.244.0.8, 10.244.0.7</text>
+	<text x="360" y="150" text-anchor="middle" class="small">ready Pods only</text>
+
+	<rect x="530" y="76" width="190" height="96" rx="12" class="node"/>
+	<text x="544" y="100" class="title">Service</text>
+	<text x="544" y="120" class="mono">payment-service</text>
+	<text x="544" y="139" class="mono">selector app=payment</text>
+	<text x="544" y="158" class="mono">port 80 → targetPort 5678</text>
+
+	<!-- Gateway proxy -->
+	<rect x="40" y="250" width="260" height="150" rx="12" fill="#d8e7f2" stroke="#456987" stroke-width="2"/>
+	<text x="170" y="276" text-anchor="middle" class="title">Gateway proxy (NGINX)</text>
+	<rect x="50" y="292" width="240" height="92" rx="8" fill="#fff" stroke="#7893a8" stroke-width="1.5"/>
+	<text x="62" y="316" class="mono">upstream shop_payment-service_80</text>
+	<text x="78" y="342" class="mono">server 10.244.0.8:5678</text>
+	<text x="78" y="366" class="mono">server 10.244.0.7:5678</text>
+
+	<!-- Bypassed ClusterIP -->
+	<rect x="350" y="296" width="140" height="58" rx="10" class="ghost"/>
+	<text x="420" y="314" text-anchor="middle" class="small muted" font-weight="700">ClusterIP</text>
+	<text x="420" y="330" text-anchor="middle" class="mono muted">10.96.97.213</text>
+	<text x="420" y="346" text-anchor="middle" class="small muted" font-style="italic">not in request path</text>
+
+	<!-- Pods -->
+	<rect x="540" y="250" width="180" height="60" rx="12" class="node"/>
+	<text x="630" y="275" text-anchor="middle" class="title" font-size="14">payment Pod</text>
+	<text x="630" y="295" text-anchor="middle" class="mono">10.244.0.8:5678</text>
+	<rect x="540" y="340" width="180" height="60" rx="12" class="node"/>
+	<text x="630" y="365" text-anchor="middle" class="title" font-size="14">payment Pod</text>
+	<text x="630" y="385" text-anchor="middle" class="mono">10.244.0.7:5678</text>
+
+	<!-- Connector labels -->
+	<text x="490" y="101" text-anchor="middle" class="small">lists</text>
+	<text x="490" y="114" text-anchor="middle" class="small">ready Pods</text>
+	<text x="230" y="114" text-anchor="middle" class="small">watches</text>
+	<text x="182" y="205" class="small">writes upstreams</text>
+	<text x="420" y="270" text-anchor="middle" class="small">direct to Pod IPs</text>
+</svg>

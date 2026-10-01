@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-label="Gateway API role model in three lanes. The infrastructure provider supplies GatewayClass nginx. The cluster operator owns Gateway shop-gateway with an http listener on port 80 for *.example.com and allowedRoutes. Application teams own HTTPRoute api-routes in namespace shop, which attaches to the Gateway, and HTTPRoute orders in namespace team-b, which can attach only if allowedRoutes permits it.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.title-mono{font-family:Menlo,monospace;font-size:13px;font-weight:400;fill:#263746}
+			.small{font-size:10.5px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:10.5px;fill:#526579}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.dashed{fill:none;stroke:#17212b;stroke-width:2.5;stroke-dasharray:7 6;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="420" fill="#fff"/>
+
+	<!-- Lanes -->
+	<rect x="20" y="16" width="720" height="104" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="40" y="40" class="zone">INFRASTRUCTURE PROVIDER</text>
+	<rect x="20" y="136" width="720" height="128" rx="14" fill="#e9eff4" stroke="#aab9c7" stroke-width="2"/>
+	<text x="40" y="160" class="zone">CLUSTER OPERATOR / PLATFORM</text>
+	<rect x="20" y="280" width="720" height="124" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="40" y="304" class="zone">APPLICATION TEAMS</text>
+
+	<!-- Connectors -->
+	<path d="M380 176V127" class="flow"/>
+	<path d="M380 114L373 127H387Z" class="arrow"/>
+	<path d="M280 330V261" class="flow"/>
+	<path d="M280 248L273 261H287Z" class="arrow"/>
+	<path d="M480 330V261" class="dashed"/>
+	<path d="M480 248L473 261H487Z" class="arrow"/>
+
+	<!-- Nodes -->
+	<rect x="270" y="52" width="220" height="54" rx="12" class="node"/>
+	<text x="380" y="75" text-anchor="middle" class="title">GatewayClass <tspan class="title-mono">nginx</tspan></text>
+	<text x="380" y="95" text-anchor="middle" class="mono">controllerName</text>
+
+	<rect x="200" y="176" width="360" height="64" rx="12" fill="#d8e7f2" stroke="#456987" stroke-width="2"/>
+	<text x="380" y="202" text-anchor="middle" class="title">Gateway <tspan class="title-mono">shop-gateway</tspan></text>
+	<text x="380" y="224" text-anchor="middle" class="mono">listener http :80 · *.example.com · allowedRoutes</text>
+
+	<rect x="140" y="330" width="220" height="58" rx="12" class="node"/>
+	<text x="250" y="354" text-anchor="middle" class="title">HTTPRoute <tspan class="title-mono">api-routes</tspan></text>
+	<text x="250" y="375" text-anchor="middle" class="small">namespace <tspan class="mono">shop</tspan></text>
+
+	<rect x="400" y="330" width="220" height="58" rx="12" class="node"/>
+	<text x="510" y="354" text-anchor="middle" class="title">HTTPRoute <tspan class="title-mono">orders</tspan></text>
+	<text x="510" y="375" text-anchor="middle" class="small">namespace <tspan class="mono">team-b</tspan></text>
+
+	<!-- Connector labels -->
+	<text x="392" y="160" class="small">gatewayClassName</text>
+	<text x="268" y="304" text-anchor="end" class="small">attach</text>
+	<text x="492" y="304" class="small">needs allowedRoutes</text>
+</svg>

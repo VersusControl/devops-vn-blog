@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="560" viewBox="0 0 760 560" role="img" aria-label="Triage by status code: a 404 Not Found means no listener or route matched, so check the HTTPRoute Accepted condition, for example Accepted=False NotAllowedByListeners, and change allowedRoutes from Same to Selector; a 500 from the Gateway means a rule matched but its backend is invalid, so check ResolvedRefs, for example ResolvedRefs=False BackendNotFound, and correct the backendRefs name or add a ReferenceGrant for other namespaces.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:11px;font-weight:700;letter-spacing:1.3px;fill:#526579}
+			.title{font-size:16px;font-weight:700}
+			.body{font-size:13px}
+			.mono{font-family:Menlo,monospace;font-size:11px;fill:#263746}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="560" fill="#fff"/>
+
+	<!-- Column zones -->
+	<rect x="92" y="96" width="310" height="448" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="106" y="116" class="zone">NO MATCH</text>
+	<rect x="422" y="96" width="310" height="448" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="436" y="116" class="zone">INVALID BACKEND</text>
+
+	<!-- Row labels -->
+	<text x="20" y="155" class="zone">CODE</text>
+	<text x="20" y="243" class="zone">MEANING</text>
+	<text x="20" y="329" class="zone">CHECK</text>
+	<text x="20" y="415" class="zone">STATUS</text>
+	<text x="20" y="506" class="zone">FIX</text>
+
+	<!-- Branch: one path and head per column -->
+	<path d="M372 64V80H247V107" class="flow"/>
+	<path d="M247 120L240.5 107H253.5Z" class="arrow"/>
+	<path d="M452 64V80H577V107" class="flow"/>
+	<path d="M577 120L570.5 107H583.5Z" class="arrow"/>
+
+	<!-- Left column steps -->
+	<path d="M247 178V197" class="flow"/>
+	<path d="M247 210L240.5 197H253.5Z" class="arrow"/>
+	<path d="M247 264V283" class="flow"/>
+	<path d="M247 296L240.5 283H253.5Z" class="arrow"/>
+	<path d="M247 350V369" class="flow"/>
+	<path d="M247 382L240.5 369H253.5Z" class="arrow"/>
+	<path d="M247 436V455" class="flow"/>
+	<path d="M247 468L240.5 455H253.5Z" class="arrow"/>
+
+	<!-- Right column steps -->
+	<path d="M577 178V197" class="flow"/>
+	<path d="M577 210L570.5 197H583.5Z" class="arrow"/>
+	<path d="M577 264V283" class="flow"/>
+	<path d="M577 296L570.5 283H583.5Z" class="arrow"/>
+	<path d="M577 350V369" class="flow"/>
+	<path d="M577 382L570.5 369H583.5Z" class="arrow"/>
+	<path d="M577 436V455" class="flow"/>
+	<path d="M577 468L570.5 455H583.5Z" class="arrow"/>
+
+	<!-- Top node -->
+	<rect x="262" y="18" width="300" height="42" rx="12" class="node"/>
+	<text x="412" y="45" text-anchor="middle" class="title" font-size="15">Request through the Gateway fails</text>
+
+	<!-- Left column nodes -->
+	<rect x="104" y="128" width="286" height="46" rx="12" class="node"/>
+	<text x="247" y="157" text-anchor="middle" class="title">404 Not Found</text>
+	<rect x="104" y="218" width="286" height="42" rx="12" class="node"/>
+	<text x="247" y="244" text-anchor="middle" class="body">no listener or route matched</text>
+	<rect x="104" y="304" width="286" height="42" rx="12" class="node"/>
+	<text x="247" y="330" text-anchor="middle" class="body"><tspan font-weight="700">HTTPRoute</tspan><tspan class="mono" font-size="12" dx="6">Accepted</tspan></text>
+	<rect x="104" y="390" width="286" height="42" rx="12" class="node"/>
+	<text x="247" y="415" text-anchor="middle" class="mono">Accepted=False NotAllowedByListeners</text>
+	<rect x="104" y="476" width="286" height="52" rx="12" class="node"/>
+	<text x="247" y="506" text-anchor="middle" class="mono">allowedRoutes: Same → Selector</text>
+
+	<!-- Right column nodes -->
+	<rect x="434" y="128" width="286" height="46" rx="12" fill="#d8e7f2" stroke="#456987" stroke-width="2"/>
+	<text x="577" y="157" text-anchor="middle" class="title">500 from the Gateway</text>
+	<rect x="434" y="218" width="286" height="42" rx="12" class="node"/>
+	<text x="577" y="244" text-anchor="middle" class="body">rule matched, backend invalid</text>
+	<rect x="434" y="304" width="286" height="42" rx="12" class="node"/>
+	<text x="577" y="330" text-anchor="middle" class="body"><tspan font-weight="700">HTTPRoute</tspan><tspan class="mono" font-size="12" dx="6">ResolvedRefs</tspan></text>
+	<rect x="434" y="390" width="286" height="42" rx="12" class="node"/>
+	<text x="577" y="415" text-anchor="middle" class="mono">ResolvedRefs=False BackendNotFound</text>
+	<rect x="434" y="476" width="286" height="52" rx="12" class="node"/>
+	<text x="577" y="497" text-anchor="middle" class="body" font-size="12">correct <tspan class="mono">backendRefs</tspan> name</text>
+	<text x="577" y="516" text-anchor="middle" class="body" font-size="12"><tspan class="mono">ReferenceGrant</tspan> for other namespaces</text>
+</svg>

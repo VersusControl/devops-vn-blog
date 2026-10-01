@@ -15,7 +15,7 @@
   category: AWS
   image: /assets/images/posts/aws-database-types/cover.png
   url: /aws-database-types/
-- title: "ArgoCD 4 — Architecture"
+- title: "ArgoCD Architecture"
   subtitle: "A look under the hood at how Argo CD's components fit together."
   category: Kubernetes
   image: /assets/images/posts/argocd-04-architecture/cover.png

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Gateway API cover: a request travels from DNS for api.example.com through a load balancer to the Gateway proxy, whose HTTPRoute rules send it to the payment or auth Pod.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.kicker{font-size:24px;font-weight:700;letter-spacing:5px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:34px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:30px;font-weight:700}
+			.pod-title{font-size:24px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:20px;fill:#263746}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="170" y="336" class="kicker">KUBERNETES</text>
+	<text x="166" y="428" class="title">Gateway API</text>
+	<path d="M170 474H290" stroke="#aab9c7" stroke-width="3"/>
+	<text x="170" y="534" class="subtitle">How a request travels</text>
+	<text x="170" y="578" class="subtitle">from DNS to Pod</text>
+
+	<!-- Zones -->
+	<rect x="820" y="110" width="600" height="314" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="846" y="142" class="zone">EDGE</text>
+	<rect x="820" y="444" width="600" height="346" rx="14" fill="#e9eff4" stroke="#aab9c7" stroke-width="2"/>
+	<text x="846" y="476" class="zone">CLUSTER</text>
+
+	<!-- Connectors: each destination has its own shaft and head -->
+	<path d="M1120 246V288" class="flow"/>
+	<path d="M1120 306L1110 286H1130Z" class="arrow"/>
+	<path d="M1120 402V466" class="flow"/>
+	<path d="M1120 484L1110 464H1130Z" class="arrow"/>
+	<path d="M1120 590V620H1010V654" class="flow"/>
+	<path d="M1010 672L1000 652H1020Z" class="arrow"/>
+	<path d="M1120 590V620H1230V654" class="flow"/>
+	<path d="M1230 672L1220 652H1240Z" class="arrow"/>
+
+	<!-- Nodes -->
+	<rect x="930" y="156" width="380" height="88" rx="14" class="node"/>
+	<text x="1120" y="194" text-anchor="middle" class="node-title">DNS</text>
+	<text x="1120" y="228" text-anchor="middle" class="mono">api.example.com</text>
+
+	<rect x="930" y="314" width="380" height="86" rx="14" class="node"/>
+	<text x="1120" y="351" text-anchor="middle" class="node-title">Load Balancer</text>
+	<text x="1120" y="383" text-anchor="middle" class="mono">34.56.56.23</text>
+
+	<rect x="930" y="492" width="380" height="96" rx="14" fill="#d8e7f2" stroke="#456987" stroke-width="2"/>
+	<text x="1120" y="534" text-anchor="middle" class="node-title">Gateway proxy</text>
+	<text x="1120" y="568" text-anchor="middle" class="detail">HTTPRoute rules</text>
+
+	<rect x="920" y="680" width="180" height="76" rx="14" class="node"/>
+	<text x="1010" y="712" text-anchor="middle" class="pod-title">payment</text>
+	<text x="1010" y="740" text-anchor="middle" class="detail">Pod</text>
+
+	<rect x="1140" y="680" width="180" height="76" rx="14" class="node"/>
+	<text x="1230" y="712" text-anchor="middle" class="pod-title">auth</text>
+	<text x="1230" y="740" text-anchor="middle" class="detail">Pod</text>
+</svg>

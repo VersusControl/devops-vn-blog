@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-label="Route matching for GET api.example.com/payment/refund: the proxy checks the listener, then the route hostname, then the PathPrefix /payment rule, then picks the payment-service backend and forwards to a Pod; a failed check at any of the first three steps returns 404 from the proxy. Examples: /payment and /payment/refund go to payment-service, /payments and www.example.com get 404.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.label{font-size:11px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:10.5px;fill:#263746}
+			.mono-bold{font-family:Menlo,monospace;font-size:10.5px;font-weight:700;fill:#17212b}
+			.bar-label{font-size:11px;font-weight:700;letter-spacing:1.5px;fill:#9fb2c3}
+			.bar-text{font-family:Menlo,monospace;font-size:14px;fill:#fff}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.hl{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="520" fill="#fff"/>
+
+	<!-- Request bar -->
+	<rect x="20" y="16" width="720" height="40" rx="10" fill="#17212b"/>
+	<text x="40" y="40" class="bar-label">REQUEST</text>
+	<text x="136" y="41" class="bar-text">GET api.example.com/payment/refund</text>
+
+	<!-- Zone -->
+	<rect x="20" y="74" width="460" height="432" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="460" y="96" text-anchor="end" class="zone">GATEWAY PROXY</text>
+
+	<!-- Decision nodes -->
+	<rect x="40" y="108" width="230" height="56" rx="12" class="node"/>
+	<text x="155" y="131" text-anchor="middle" class="title">1  Listener</text>
+	<text x="155" y="151" text-anchor="middle" class="mono">port 80, hostname *.example.com</text>
+
+	<rect x="40" y="206" width="230" height="56" rx="12" class="node"/>
+	<text x="155" y="229" text-anchor="middle" class="title">2  Route hostname</text>
+	<text x="155" y="249" text-anchor="middle" class="mono">hostnames: api.example.com</text>
+
+	<rect x="40" y="304" width="230" height="88" rx="12" class="node"/>
+	<text x="155" y="327" text-anchor="middle" class="title">3  Rule</text>
+	<text x="155" y="347" text-anchor="middle" class="mono">PathPrefix /payment</text>
+	<text x="155" y="366" text-anchor="middle" class="detail">matches /payment/refund</text>
+	<text x="155" y="382" text-anchor="middle" class="detail">not /payments</text>
+
+	<rect x="40" y="434" width="230" height="56" rx="12" class="hl"/>
+	<text x="155" y="457" text-anchor="middle" class="title">4  Backend</text>
+	<text x="155" y="477" text-anchor="middle" class="mono">payment-service</text>
+
+	<rect x="360" y="108" width="100" height="284" rx="12" class="node"/>
+	<text x="410" y="246" text-anchor="middle" font-size="18" font-weight="700">404</text>
+	<text x="410" y="268" text-anchor="middle" class="detail">from proxy</text>
+
+	<rect x="540" y="434" width="180" height="56" rx="12" class="node"/>
+	<text x="630" y="457" text-anchor="middle" class="title">Pod</text>
+	<text x="630" y="477" text-anchor="middle" class="detail">receives /payment/refund</text>
+
+	<!-- Example table -->
+	<rect x="496" y="108" width="244" height="144" rx="12" class="node"/>
+	<text x="510" y="132" font-size="13" font-weight="700">Request → Result</text>
+	<path d="M506 144H730" stroke="#aab9c7" stroke-width="1.5"/>
+	<path d="M506 174H730 M506 198H730 M506 222H730" stroke="#d3dde6" stroke-width="1"/>
+	<text x="510" y="164" class="mono">/payment</text>
+	<text x="622" y="164" class="mono">payment-service</text>
+	<text x="510" y="188" class="mono">/payment/refund</text>
+	<text x="622" y="188" class="mono">payment-service</text>
+	<text x="510" y="212" class="mono">/payments</text>
+	<text x="622" y="212" class="mono-bold">404</text>
+	<text x="510" y="236" class="mono">www.example.com</text>
+	<text x="622" y="236" class="mono-bold">404</text>
+
+	<!-- Request into listener -->
+	<path d="M155 56V88" class="flow"/>
+	<path d="M155 100L148.5 87H161.5Z" class="arrow"/>
+	<!-- match arrows -->
+	<path d="M155 164V186" class="flow"/>
+	<path d="M155 198L148.5 185H161.5Z" class="arrow"/>
+	<path d="M155 262V284" class="flow"/>
+	<path d="M155 296L148.5 283H161.5Z" class="arrow"/>
+	<path d="M155 392V414" class="flow"/>
+	<path d="M155 426L148.5 413H161.5Z" class="arrow"/>
+	<!-- no match arrows, one per check -->
+	<path d="M270 136H340" class="flow"/>
+	<path d="M352 136L339 129.5V142.5Z" class="arrow"/>
+	<path d="M270 234H340" class="flow"/>
+	<path d="M352 234L339 227.5V240.5Z" class="arrow"/>
+	<path d="M270 348H340" class="flow"/>
+	<path d="M352 348L339 341.5V354.5Z" class="arrow"/>
+	<!-- backend to Pod -->
+	<path d="M270 462H520" class="flow"/>
+	<path d="M532 462L519 455.5V468.5Z" class="arrow"/>
+
+	<!-- Connector labels -->
+	<text x="166" y="185" class="label">match</text>
+	<text x="166" y="283" class="label">match</text>
+	<text x="166" y="413" class="label">match</text>
+	<text x="315" y="127" text-anchor="middle" class="label">no match</text>
+	<text x="315" y="225" text-anchor="middle" class="label">no match</text>
+	<text x="315" y="339" text-anchor="middle" class="label">no match</text>
+	<text x="400" y="452" text-anchor="middle" class="label">forwards</text>
+</svg>
