@@ -10,3 +10,4 @@ writing-style.md
 local
 .github/agents
 .DS_Store
+.claude

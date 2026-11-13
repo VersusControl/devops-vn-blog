@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="644" viewBox="0 0 760 644" role="img" aria-label="GitHub Actions job for the integration tests, in order: check out code, set up Python 3.13, install the pinned aws-emulator 1.0.338 .deb package, start aws-emulator with --idle-timeout 600 and wait for /__admin/health, source scripts/emulator-env.sh and run pytest in the same step, and print the emulator log only if a step fails. The emulator runs on the runner at 127.0.0.1:9297 with an empty account 000000000000. The job uses no AWS account, no AWS secrets, and no OIDC role.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.lane{font-size:13px;font-weight:700;fill:#344656}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.monob{font-family:Menlo,monospace;font-size:12.5px;font-weight:700;fill:#17212b}
+			.num{font-size:12px;font-weight:700;fill:#fff}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.cond{fill:#fff;stroke:#283541;stroke-width:2;stroke-dasharray:7 5}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.cell{fill:#fff;stroke:#9fb0bf;stroke-width:1.5}
+			.rule{stroke:#d3dde6;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round}
+			.dash{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:6 4}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+
+	<rect width="760" height="644" fill="#fff"/>
+
+	<!-- Zone -->
+	<rect x="24" y="20" width="712" height="604" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="44" y="44" class="zone">GITHUB ACTIONS JOB</text>
+	<text x="716" y="44" class="mono" text-anchor="end" font-size="11">.github/workflows/integration-tests.yml</text>
+
+	<!-- Connectors -->
+	<path d="M224 118L224 137" class="flow"/>
+	<path d="M224 148L218 136L230 136Z" class="arrow"/>
+	<path d="M224 210L224 229" class="flow"/>
+	<path d="M224 240L218 228L230 228Z" class="arrow"/>
+	<path d="M224 302L224 321" class="flow"/>
+	<path d="M224 332L218 320L230 320Z" class="arrow"/>
+	<path d="M224 408L224 427" class="flow"/>
+	<path d="M224 438L218 426L230 426Z" class="arrow"/>
+	<path d="M224 514L224 533" class="dash"/>
+	<path d="M224 544L218 532L230 532Z" class="arrow"/>
+	<text x="236" y="538" class="detail">on failure</text>
+	<path d="M406 373L469 373" class="flow"/>
+	<path d="M480 373L468 379L468 367Z" class="arrow"/>
+	<text x="443" y="364" class="detail" text-anchor="middle">starts</text>
+	<path d="M406 479L469 479" class="flow"/>
+	<path d="M480 479L468 485L468 473Z" class="arrow"/>
+	<text x="443" y="470" class="detail" text-anchor="middle">API calls</text>
+	<path d="M602 514L602 533" class="flow"/>
+	<path d="M602 544L596 532L608 532Z" class="arrow"/>
+	<text x="614" y="535" class="detail">writes</text>
+	<path d="M486 578L423 578" class="dash"/>
+	<path d="M412 578L424 572L424 584Z" class="arrow"/>
+	<text x="449" y="569" class="detail" text-anchor="middle">read</text>
+
+	<!-- Steps -->
+	<rect x="44" y="64" width="360" height="52" rx="12" class="node"/>
+	<circle cx="66" cy="85" r="10" fill="#17212b"/>
+	<text x="66" y="89" class="num" text-anchor="middle">1</text>
+	<text x="86" y="90" class="title">check out code</text>
+	<text x="86" y="108" class="mono" font-size="11.5">actions/checkout@v7</text>
+	<rect x="44" y="156" width="360" height="52" rx="12" class="node"/>
+	<circle cx="66" cy="177" r="10" fill="#17212b"/>
+	<text x="66" y="181" class="num" text-anchor="middle">2</text>
+	<text x="86" y="182" class="title">set up Python 3.13</text>
+	<text x="86" y="200" class="mono" font-size="11.5">actions/setup-python@v7</text>
+	<rect x="44" y="248" width="360" height="52" rx="12" class="node"/>
+	<circle cx="66" cy="269" r="10" fill="#17212b"/>
+	<text x="66" y="273" class="num" text-anchor="middle">3</text>
+	<text x="86" y="274" class="title">install pinned emulator</text>
+	<text x="86" y="292" class="mono" font-size="11.5">aws-emulator_1.0.338-1_amd64.deb</text>
+	<rect x="44" y="340" width="360" height="66" rx="12" class="node"/>
+	<circle cx="66" cy="361" r="10" fill="#17212b"/>
+	<text x="66" y="365" class="num" text-anchor="middle">4</text>
+	<text x="86" y="366" class="title">start and wait for health</text>
+	<text x="86" y="384" class="mono" font-size="11.5">aws-emulator --idle-timeout 600 &amp;</text>
+	<text x="86" y="401" class="mono" font-size="11.5">./scripts/wait-for-emulator.sh</text>
+	<rect x="44" y="446" width="360" height="66" rx="12" class="primary"/>
+	<circle cx="66" cy="467" r="10" fill="#17212b"/>
+	<text x="66" y="471" class="num" text-anchor="middle">5</text>
+	<text x="86" y="472" class="title">run integration tests</text>
+	<text x="390" y="472" class="detail" text-anchor="end">same shell</text>
+	<text x="86" y="490" class="mono" font-size="11.5">source scripts/emulator-env.sh</text>
+	<text x="86" y="507" class="mono" font-size="11.5">pytest app/tests -v</text>
+	<rect x="44" y="552" width="360" height="52" rx="12" class="cond"/>
+	<circle cx="66" cy="573" r="10" fill="#17212b"/>
+	<text x="66" y="577" class="num" text-anchor="middle">6</text>
+	<text x="86" y="578" class="title">print emulator log</text>
+	<text x="390" y="578" class="mono" text-anchor="end" font-size="11.5">if: failure()</text>
+	<text x="86" y="596" class="mono" font-size="11.5">cat "$RUNNER_TEMP/emulator.log"</text>
+
+	<!-- Job settings and AWS access -->
+	<rect x="488" y="64" width="228" height="110" rx="12" class="node"/>
+	<text x="504" y="88" class="title">job settings</text>
+	<text x="504" y="110" class="mono" font-size="11">runs-on: ubuntu-latest</text>
+	<text x="504" y="128" class="mono" font-size="11">timeout-minutes: 15</text>
+	<text x="504" y="146" class="mono" font-size="11">EMULATOR_VERSION: "1.0.338"</text>
+	<text x="504" y="164" class="mono" font-size="11">permissions: contents: read</text>
+	<rect x="488" y="194" width="228" height="112" rx="12" class="node"/>
+	<text x="504" y="218" class="title">AWS access</text>
+	<path d="M500 230L704 230" class="rule"/>
+	<text x="504" y="252" class="detail" font-size="13" style="fill:#17212b">AWS account</text>
+	<text x="700" y="252" class="title" text-anchor="end" font-size="13">none</text>
+	<text x="504" y="274" class="detail" font-size="13" style="fill:#17212b">AWS secrets</text>
+	<text x="700" y="274" class="title" text-anchor="end" font-size="13">none</text>
+	<text x="504" y="296" class="detail" font-size="13" style="fill:#17212b">OIDC role</text>
+	<text x="700" y="296" class="title" text-anchor="end" font-size="13">none</text>
+
+	<!-- Emulator and log on the runner -->
+	<rect x="488" y="340" width="228" height="172" rx="12" class="node"/>
+	<text x="504" y="364" class="title">aws-emulator</text>
+	<text x="504" y="384" class="mono" font-size="11.5">https://127.0.0.1:9297</text>
+	<path d="M500 400L704 400" class="rule"/>
+	<text x="504" y="422" class="detail">empty account</text>
+	<text x="504" y="440" class="mono" font-size="11.5">000000000000</text>
+	<path d="M500 456L704 456" class="rule"/>
+	<text x="504" y="478" class="detail">state in memory</text>
+	<text x="504" y="496" class="detail">exits after 600 s idle</text>
+	<rect x="488" y="552" width="228" height="52" rx="12" class="node"/>
+	<text x="504" y="574" class="title">emulator log</text>
+	<text x="504" y="594" class="mono" font-size="11">$RUNNER_TEMP/emulator.log</text>
+</svg>

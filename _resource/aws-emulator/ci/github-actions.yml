@@ -1,0 +1,54 @@
+# Integration tests against AWS Emulator on GitHub Actions.
+# Copy this file to .github/workflows/integration-tests.yml in your repository.
+# The job needs no AWS account, no AWS secrets, and no OIDC role.
+name: integration-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        # Where the sample lives in the devops-vn-blog repository. Use "." in your own repo.
+        working-directory: _resource/aws-emulator
+    env:
+      # Pin a version so a new emulator release changes results only when you choose.
+      # Published versions: https://downloads.aws.com/aws-emulator/packages/aws-emulator/LTS/versions.json
+      EMULATOR_VERSION: "1.0.338"
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install AWS Emulator
+        run: |
+          curl -fsSLo /tmp/aws-emulator.deb \
+            "https://downloads.aws.com/aws-emulator/packages/aws-emulator/LTS/aws-emulator_${EMULATOR_VERSION}-1_amd64.deb"
+          sudo apt-get install -y /tmp/aws-emulator.deb
+          aws-emulator -v
+
+      - name: Start AWS Emulator
+        run: |
+          # --idle-timeout stops the emulator if a step hangs or forgets to stop it.
+          nohup aws-emulator --telemetry off --idle-timeout 600 > "$RUNNER_TEMP/emulator.log" 2>&1 &
+          ./scripts/wait-for-emulator.sh
+
+      - name: Run integration tests
+        run: |
+          source scripts/emulator-env.sh
+          pip install -r app/requirements.txt
+          pytest app/tests -v
+
+      - name: Show emulator log
+        if: failure()
+        run: cat "$RUNNER_TEMP/emulator.log"

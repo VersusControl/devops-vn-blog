@@ -1,5 +1,11 @@
 # Latest posts shown on the home page. All entries link to translated
 # English posts. Update as new folders are translated.
+- title: "AWS Emulator: Test AWS Code Locally Without an AWS Account"
+  subtitle: "Run the AWS APIs on your machine to learn the AWS CLI, test application code, and run integration tests in CI with no account and no secrets."
+  category: AWS
+  image: /assets/images/posts/aws-emulator-test-aws-locally/cover.svg
+  url: /aws-emulator-test-aws-locally/
+
 - title: "Kubernetes Gateway API: How a Request Travels from DNS to Pod"
   subtitle: "Why Ingress is being replaced, and how one request moves through DNS, a load balancer, the Gateway proxy, and an HTTPRoute to a Pod."
   category: Kubernetes
@@ -29,18 +35,6 @@
   category: Networking
   image: /assets/images/posts/networking-osi-model/cover.png
   url: /networking-osi-model/
-
-- title: "Practice AWS for Free with LocalStack"
-  subtitle: "Run a local AWS environment so you can learn hands-on — no credit card, no surprise bills."
-  category: AWS
-  image: /assets/images/posts/aws-practice-without-account/cover.png
-  url: /aws-practice-without-account/
-
-- title: "AWS CDK — Infrastructure as Code and the AWS CDK"
-  subtitle: "Define cloud infrastructure in real programming languages instead of raw templates."
-  category: AWS
-  image: /assets/images/posts/aws-cdk-00-iac-and-cdk/cover.png
-  url: /aws-cdk-00-iac-and-cdk/
 
 - title: "The DevOps Linux Cheatsheet"
   subtitle: "Practical terminal tricks for everyday work at the command line."

@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="712" viewBox="0 0 760 712" role="img" aria-label="How the AWS CLI finds AWS Emulator. The emulator start writes emulator_credentials, config, and ca.pem to ~/.aws/emulator/9297/. Sourcing scripts/emulator-env.sh exports AWS_SHARED_CREDENTIALS_FILE, AWS_CONFIG_FILE, and AWS_CA_BUNDLE pointing at those files, and AWS_ENDPOINT_URL set to https://127.0.0.1:9297. The aws CLI reads these variables and calls STS, S3, DynamoDB, and SQS on the local endpoint. The first check, aws sts get-caller-identity, must return account 000000000000; any other account ID means requests are reaching AWS.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.lane{font-size:13px;font-weight:700;fill:#344656}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.monob{font-family:Menlo,monospace;font-size:12.5px;font-weight:700;fill:#17212b}
+			.num{font-size:12px;font-weight:700;fill:#fff}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.cond{fill:#fff;stroke:#283541;stroke-width:2;stroke-dasharray:7 5}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.cell{fill:#fff;stroke:#9fb0bf;stroke-width:1.5}
+			.rule{stroke:#d3dde6;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round}
+			.dash{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:6 4}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+
+	<rect width="760" height="712" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="24" y="20" width="336" height="512" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="44" y="44" class="zone">YOUR SHELL</text>
+	<rect x="400" y="20" width="336" height="512" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="420" y="44" class="zone">AWS EMULATOR</text>
+	<rect x="24" y="552" width="712" height="140" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="44" y="576" class="zone">FIRST CHECK</text>
+
+	<!-- Connectors are drawn before nodes; each destination gets its own head -->
+	<path d="M190 122L190 146" class="flow"/>
+	<path d="M190 157L184 145L196 145Z" class="arrow"/>
+	<text x="202" y="145" class="detail">exports</text>
+	<path d="M572 122L572 146" class="flow"/>
+	<path d="M572 157L566 145L578 145Z" class="arrow"/>
+	<text x="584" y="145" class="detail">writes at startup</text>
+	<path d="M338 228L409 228" class="flow"/>
+	<path d="M420 228L408 234L408 222Z" class="arrow"/>
+	<path d="M338 274L409 274" class="flow"/>
+	<path d="M420 274L408 280L408 268Z" class="arrow"/>
+	<path d="M338 320L409 320" class="flow"/>
+	<path d="M420 320L408 326L408 314Z" class="arrow"/>
+	<path d="M190 394L190 415" class="flow"/>
+	<path d="M190 426L184 414L196 414Z" class="arrow"/>
+	<text x="202" y="415" class="detail">read by</text>
+	<path d="M338 470L409 470" class="flow"/>
+	<path d="M420 470L408 476L408 464Z" class="arrow"/>
+	<path d="M314 626L350 626L350 608L373 608" class="flow"/>
+	<path d="M384 608L372 614L372 602Z" class="arrow"/>
+	<path d="M314 626L350 626L350 656L373 656" class="flow"/>
+	<path d="M384 656L372 662L372 650Z" class="arrow"/>
+
+	<!-- Shell nodes -->
+	<rect x="44" y="56" width="292" height="64" rx="12" class="node"/>
+	<text x="60" y="81" class="title">env script</text>
+	<text x="60" y="104" class="mono">source scripts/emulator-env.sh</text>
+	<rect x="44" y="165" width="292" height="227" rx="12" class="node"/>
+	<text x="60" y="190" class="title">environment variables</text>
+	<path d="M44 204L336 204" class="rule"/>
+	<text x="60" y="225" class="monob">AWS_SHARED_CREDENTIALS_FILE</text>
+	<text x="60" y="242" class="detail">keys for request signing</text>
+	<path d="M56 251L324 251" class="rule"/>
+	<text x="60" y="271" class="monob">AWS_CONFIG_FILE</text>
+	<text x="60" y="288" class="detail">hides your ~/.aws/config</text>
+	<path d="M56 297L324 297" class="rule"/>
+	<text x="60" y="317" class="monob">AWS_CA_BUNDLE</text>
+	<text x="60" y="334" class="detail">trusts the run certificate</text>
+	<path d="M56 343L324 343" class="rule"/>
+	<text x="60" y="363" class="monob">AWS_ENDPOINT_URL</text>
+	<text x="60" y="380" class="mono" font-size="11.5">https://127.0.0.1:9297</text>
+	<rect x="44" y="434" width="292" height="72" rx="12" class="primary"/>
+	<text x="60" y="462" class="title">aws CLI</text>
+	<text x="60" y="484" class="detail">signs with run keys, trusts ca.pem</text>
+
+	<!-- Emulator nodes -->
+	<rect x="428" y="56" width="288" height="64" rx="12" class="node"/>
+	<text x="444" y="81" class="title">emulator start</text>
+	<text x="444" y="104" class="mono">scripts/start-emulator.sh</text>
+	<rect x="428" y="165" width="288" height="181" rx="12" class="node"/>
+	<text x="444" y="190" class="monob" font-size="13">~/.aws/emulator/9297/</text>
+	<path d="M428 204L716 204" class="rule"/>
+	<text x="444" y="225" class="monob">emulator_credentials</text>
+	<text x="444" y="242" class="detail">new key pair every run</text>
+	<path d="M440 251L704 251" class="rule"/>
+	<text x="444" y="271" class="monob">config</text>
+	<text x="444" y="288" class="detail">profile for this run</text>
+	<path d="M440 297L704 297" class="rule"/>
+	<text x="444" y="317" class="monob">ca.pem</text>
+	<text x="444" y="334" class="detail">self-signed certificate</text>
+	<rect x="428" y="370" width="288" height="142" rx="12" class="node"/>
+	<text x="444" y="395" class="monob" font-size="13">https://127.0.0.1:9297</text>
+	<text x="444" y="413" class="detail">one endpoint for every service</text>
+	<rect x="444" y="426" width="122" height="32" rx="8" class="cell"/>
+	<text x="505" y="447" class="title" text-anchor="middle" font-size="14">STS</text>
+	<rect x="578" y="426" width="122" height="32" rx="8" class="cell"/>
+	<text x="639" y="447" class="title" text-anchor="middle" font-size="14">S3</text>
+	<rect x="444" y="466" width="122" height="32" rx="8" class="cell"/>
+	<text x="505" y="487" class="title" text-anchor="middle" font-size="14">DynamoDB</text>
+	<rect x="578" y="466" width="122" height="32" rx="8" class="cell"/>
+	<text x="639" y="487" class="title" text-anchor="middle" font-size="14">SQS</text>
+
+	<!-- First check -->
+	<rect x="44" y="596" width="270" height="60" rx="12" class="node"/>
+	<text x="60" y="620" class="title">identity check</text>
+	<text x="60" y="642" class="mono">aws sts get-caller-identity</text>
+	<rect x="392" y="590" width="324" height="36" rx="10" class="primary"/>
+	<text x="408" y="613" class="monob" font-size="13">000000000000</text>
+	<text x="530" y="613" class="detail">emulator account, continue</text>
+	<rect x="392" y="638" width="324" height="36" rx="10" class="node"/>
+	<text x="408" y="661" class="title" font-size="13">your account ID</text>
+	<text x="530" y="661" class="detail">requests go to AWS, stop</text>
+</svg>

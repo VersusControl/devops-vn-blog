@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="732" viewBox="0 0 760 732" role="img" aria-label="Per-test flow of the local integration tests. Once per session, pytest_sessionstart checks that AWS_ENDPOINT_URL starts with https://127.0.0.1: and that STS returns account 000000000000, otherwise pytest.exit stops the run. For each test, the infra fixture creates a DynamoDB table orders-&lt;suffix&gt;, an S3 bucket receipts-&lt;suffix&gt;, and an SQS queue order-events-&lt;suffix&gt;. OrderService.place_order writes the order item with put_item, the receipt receipts/&lt;order_id&gt;.json with put_object, and an order_placed event with send_message. The test reads each one back: total == Decimal(&quot;39&quot;) from DynamoDB, total == &quot;39.00&quot; from the S3 receipt, and type == &quot;order_placed&quot; from SQS.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.lane{font-size:13px;font-weight:700;fill:#344656}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.monob{font-family:Menlo,monospace;font-size:12.5px;font-weight:700;fill:#17212b}
+			.num{font-size:12px;font-weight:700;fill:#fff}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.cond{fill:#fff;stroke:#283541;stroke-width:2;stroke-dasharray:7 5}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.cell{fill:#fff;stroke:#9fb0bf;stroke-width:1.5}
+			.rule{stroke:#d3dde6;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round}
+			.dash{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:6 4}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+
+	<rect width="760" height="732" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="24" y="20" width="712" height="126" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="44" y="44" class="zone">ONCE PER SESSION</text>
+	<rect x="24" y="178" width="712" height="534" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="44" y="202" class="zone">FOR EACH TEST</text>
+	<text x="716" y="202" class="detail" text-anchor="end">new random suffix every test</text>
+
+	<!-- Connectors -->
+	<path d="M466 93L541 93" class="flow"/>
+	<path d="M552 93L540 99L540 87Z" class="arrow"/>
+	<text x="509" y="84" class="detail" text-anchor="middle">fail</text>
+	<path d="M160 132L160 159" class="flow"/>
+	<path d="M160 170L154 158L166 158Z" class="arrow"/>
+	<text x="172" y="166" class="detail">pass</text>
+	<path d="M160 348L160 373" class="flow"/>
+	<path d="M160 384L154 372L166 372Z" class="arrow"/>
+	<path d="M160 508L160 533" class="flow"/>
+	<path d="M160 544L154 532L166 532Z" class="arrow"/>
+	<path d="M380 348L380 373" class="flow"/>
+	<path d="M380 384L374 372L386 372Z" class="arrow"/>
+	<path d="M380 508L380 533" class="flow"/>
+	<path d="M380 544L374 532L386 532Z" class="arrow"/>
+	<path d="M600 348L600 373" class="flow"/>
+	<path d="M600 384L594 372L606 372Z" class="arrow"/>
+	<path d="M600 508L600 533" class="flow"/>
+	<path d="M600 544L594 532L606 532Z" class="arrow"/>
+
+	<!-- Session guard -->
+	<rect x="44" y="56" width="420" height="74" rx="12" class="node"/>
+	<text x="60" y="80" class="monob" font-size="14">pytest_sessionstart</text>
+	<text x="60" y="101" class="detail" xml:space="preserve"><tspan class="detail">endpoint starts with </tspan><tspan class="mono">https://127.0.0.1:</tspan></text>
+	<text x="60" y="120" class="detail" xml:space="preserve"><tspan class="detail">STS account is </tspan><tspan class="mono">000000000000</tspan></text>
+	<rect x="560" y="61" width="156" height="64" rx="12" class="node"/>
+	<text x="576" y="86" class="monob" font-size="14">pytest.exit</text>
+	<text x="576" y="108" class="detail">no test runs</text>
+
+	<!-- Lane headers -->
+	<text x="160" y="232" class="lane" text-anchor="middle">DynamoDB table</text>
+	<text x="380" y="232" class="lane" text-anchor="middle">S3 bucket</text>
+	<text x="600" y="232" class="lane" text-anchor="middle">SQS queue</text>
+
+	<!-- Fixture, call, and assertions -->
+	<rect x="44" y="246" width="672" height="100" rx="12" class="node"/>
+	<text x="60" y="270" class="title">infra fixture</text>
+	<text x="168" y="270" class="mono" font-size="11.5">suffix = uuid4().hex[:8]</text>
+	<rect x="56" y="282" width="208" height="52" rx="8" class="cell"/>
+	<text x="70" y="303" class="monob">orders-&lt;suffix&gt;</text>
+	<text x="70" y="321" class="detail">create_table and waiter</text>
+	<rect x="276" y="282" width="208" height="52" rx="8" class="cell"/>
+	<text x="290" y="303" class="monob">receipts-&lt;suffix&gt;</text>
+	<text x="290" y="321" class="detail">create_bucket</text>
+	<rect x="496" y="282" width="208" height="52" rx="8" class="cell"/>
+	<text x="510" y="303" class="monob">order-events-&lt;suffix&gt;</text>
+	<text x="510" y="321" class="detail">create_queue</text>
+	<rect x="44" y="392" width="672" height="114" rx="12" class="primary"/>
+	<text x="60" y="416" class="monob" font-size="14">OrderService.place_order</text>
+	<text x="700" y="416" class="detail" text-anchor="end">writes table, bucket, then queue</text>
+	<rect x="56" y="428" width="208" height="66" rx="8" class="cell"/>
+	<text x="70" y="449" class="title" font-size="14">order item</text>
+	<text x="70" y="467" class="mono" font-size="11.5">put_item</text>
+	<text x="70" y="485" class="detail">status PLACED, total 39.00</text>
+	<rect x="276" y="428" width="208" height="66" rx="8" class="cell"/>
+	<text x="290" y="449" class="title" font-size="14">receipt</text>
+	<text x="290" y="467" class="mono" font-size="11.5">put_object</text>
+	<text x="290" y="485" class="mono" font-size="11.5">receipts/&lt;order_id&gt;.json</text>
+	<rect x="496" y="428" width="208" height="66" rx="8" class="cell"/>
+	<text x="510" y="449" class="title" font-size="14">event</text>
+	<text x="510" y="467" class="mono" font-size="11.5">send_message</text>
+	<text x="510" y="485" class="mono" font-size="11.5">{"type": "order_placed"}</text>
+	<rect x="44" y="552" width="672" height="114" rx="12" class="node"/>
+	<text x="60" y="576" class="title">test asserts</text>
+	<text x="164" y="576" class="mono" font-size="11.5">test_place_order_saves_order_receipt_and_event</text>
+	<rect x="56" y="588" width="208" height="66" rx="8" class="cell"/>
+	<text x="70" y="609" class="title" font-size="14">read order</text>
+	<text x="70" y="627" class="mono" font-size="11.5">get_order</text>
+	<text x="70" y="645" class="mono" font-size="11.5">total == Decimal("39")</text>
+	<rect x="276" y="588" width="208" height="66" rx="8" class="cell"/>
+	<text x="290" y="609" class="title" font-size="14">read receipt</text>
+	<text x="290" y="627" class="mono" font-size="11.5">get_object</text>
+	<text x="290" y="645" class="mono" font-size="11.5">total == "39.00"</text>
+	<rect x="496" y="588" width="208" height="66" rx="8" class="cell"/>
+	<text x="510" y="609" class="title" font-size="14">receive event</text>
+	<text x="510" y="627" class="mono" font-size="11.5">receive_message</text>
+	<text x="510" y="645" class="mono" font-size="11.5">type == "order_placed"</text>
+	<text x="380" y="694" class="detail" text-anchor="middle">No cleanup step: the emulator discards every resource when it stops.</text>
+</svg>
