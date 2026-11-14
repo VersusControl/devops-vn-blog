@@ -5,6 +5,10 @@ description: >-
 url: "https://devopsvn.tech"
 baseurl: ""
 
+# Share image for pages without a cover (home, /series/, /topics/, /tags/, about).
+# Must be PNG or JPG: social sites ignore SVG. See _plugins/social_image.rb.
+social_image: /assets/images/social/devopsvn-share.png
+
 permalink: /:title/
 
 # Collections

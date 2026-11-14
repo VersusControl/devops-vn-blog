@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="DevOps VN share card: the site name, the line Practical DevOps and Cloud Computing, and the URL devopsvn.tech, beside a diagram where a CI/CD pipeline builds Docker containers that deploy to Kubernetes inside AWS cloud, and Terraform provisions the cloud.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.title{font-size:76px;font-weight:700}
+			.subtitle{font-size:30px;fill:#526579}
+			.url{font-family:Menlo,Consolas,monospace;font-size:26px;font-weight:700;fill:#4a77a5}
+			.zone-label{font-size:14px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:18px;font-weight:700}
+			.detail{font-size:14px;fill:#526579}
+			.flow-label{font-size:14px;fill:#526579}
+			.mono{font-family:Menlo,Consolas,monospace;font-size:14px;fill:#263746}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#dce8f4;stroke:#283541;stroke-width:2}
+			.icon{fill:#fff;stroke:#283541;stroke-width:2;stroke-linejoin:round}
+			.icon-fill{fill:#5a87b5;stroke:#283541;stroke-width:2;stroke-linejoin:round}
+			.shaft{stroke:#17212b;stroke-width:3;fill:none}
+			.head{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="1200" height="630" fill="#f4f8fb"/>
+
+	<!-- Title block -->
+	<rect x="120" y="176" width="64" height="8" rx="4" fill="#5a87b5"/>
+	<text x="117" y="268" class="title">DevOps VN</text>
+	<path d="M120 306H240" stroke="#aab9c7" stroke-width="3"/>
+	<text x="120" y="360" class="subtitle">Practical DevOps and</text>
+	<text x="120" y="400" class="subtitle">Cloud Computing</text>
+	<text x="120" y="472" class="url">devopsvn.tech</text>
+
+	<!-- Zone: AWS cloud -->
+	<rect x="600" y="240" width="468" height="160" rx="14" fill="#e4eef5" stroke="#a9bccb" stroke-width="2"/>
+	<text x="622" y="270" class="zone-label">AWS CLOUD</text>
+
+	<!-- Nodes -->
+	<rect x="618" y="92" width="180" height="88" rx="12" class="node"/>
+	<rect x="868" y="92" width="180" height="88" rx="12" class="node"/>
+	<rect x="868" y="288" width="180" height="88" rx="12" class="primary"/>
+	<rect x="618" y="460" width="180" height="88" rx="12" class="node"/>
+
+	<!-- Icon: CI/CD pipeline -->
+	<path d="M638 136H670" stroke="#283541" stroke-width="2"/>
+	<circle cx="638" cy="136" r="6" class="icon"/>
+	<circle cx="654" cy="136" r="6" class="icon"/>
+	<circle cx="670" cy="136" r="6" class="icon-fill"/>
+
+	<!-- Icon: containers -->
+	<rect x="882" y="138" width="16" height="12" rx="2" class="icon"/>
+	<rect x="902" y="138" width="16" height="12" rx="2" class="icon"/>
+	<rect x="882" y="122" width="16" height="12" rx="2" class="icon-fill"/>
+	<rect x="902" y="122" width="16" height="12" rx="2" class="icon"/>
+	<rect x="892" y="106" width="16" height="12" rx="2" class="icon"/>
+
+	<!-- Icon: Kubernetes cluster (generic hexagon) -->
+	<path d="M900 312L917 322V342L900 352L883 342V322Z" class="icon"/>
+	<circle cx="900" cy="332" r="6" class="icon-fill"/>
+
+	<!-- Icon: Terraform (infrastructure layers) -->
+	<path d="M632 520L650 512L668 520L650 528Z" class="icon"/>
+	<path d="M632 508L650 500L668 508L650 516Z" class="icon"/>
+	<path d="M632 496L650 488L668 496L650 504Z" class="icon-fill"/>
+
+	<!-- Icon: cloud services -->
+	<path d="M650 354H748A20 20 0 0 0 750 314A30 30 0 0 0 696 300A24 24 0 0 0 660 318A18 18 0 0 0 650 354Z" class="icon"/>
+	<text x="622" y="384" class="mono">EC2  S3  VPC</text>
+
+	<!-- Node labels -->
+	<text x="690" y="130" class="node-title">CI/CD</text>
+	<text x="690" y="152" class="detail">pipelines</text>
+	<text x="932" y="130" class="node-title">Docker</text>
+	<text x="932" y="152" class="detail">containers</text>
+	<text x="932" y="326" class="node-title">Kubernetes</text>
+	<text x="932" y="348" class="detail">orchestration</text>
+	<text x="690" y="498" class="node-title">Terraform</text>
+	<text x="690" y="520" class="detail">infra as code</text>
+
+	<!-- Connectors: CI/CD builds Docker images -->
+	<path d="M806 136H848" class="shaft"/>
+	<path d="M861 136L847 129V143Z" class="head"/>
+	<text x="833" y="120" text-anchor="middle" class="flow-label">build</text>
+
+	<!-- Docker deploys to Kubernetes -->
+	<path d="M958 188V267" class="shaft"/>
+	<path d="M958 280L951 266H965Z" class="head"/>
+	<text x="970" y="220" class="flow-label">deploy</text>
+
+	<!-- Terraform provisions AWS -->
+	<path d="M708 452V421" class="shaft"/>
+	<path d="M708 408L701 422H715Z" class="head"/>
+	<text x="720" y="436" class="flow-label">provision</text>
+</svg>
