@@ -1,0 +1,15 @@
+# Written by the bookstore team, in their namespace: HTTPRoutes in "partners" may
+# send traffic to Services in "bookstore". Without it, cross-namespace backendRefs are refused.
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: partners-to-bookstore
+  namespace: bookstore
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: partners
+  to:
+    - group: ""
+      kind: Service

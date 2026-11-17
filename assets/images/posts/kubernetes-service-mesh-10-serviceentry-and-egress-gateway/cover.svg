@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 10 cover: Egress Gateway. Inside the mesh, the Envoy sidecars of the tester and productpage Pods send their calls for the partner to one egress gateway, which sits in the mesh boundary like an exit door and forwards them to catalog.partner.example outside the mesh, a host registered by a ServiceEntry. A call from the tester Pod to an unknown host is blocked at its sidecar and never leaves the mesh.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:30px;font-weight:700}
+			.card-title{font-size:26px;font-weight:700}
+			.proxy-title{font-size:24px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:20px;fill:#263746}
+			.host{font-family:Menlo,monospace;font-size:20px;font-weight:700;fill:#17212b}
+			.off-title{font-size:26px;font-weight:700;fill:#8a99a8}
+			.off-detail{font-size:20px;fill:#8a99a8}
+			.blocked{font-size:20px;font-weight:700;fill:#526579}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.off{fill:#f5f7f9;stroke:#aab9c7;stroke-width:2;stroke-dasharray:10 6}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round}
+			.denied{fill:none;stroke:#6b7d8f;stroke-width:4;stroke-dasharray:12 8;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.stop{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 10</text>
+	<text x="156" y="432" class="title">Egress</text>
+	<text x="156" y="522" class="title">Gateway</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Allow one partner host and</text>
+	<text x="160" y="672" class="subtitle">send it through one exit</text>
+
+	<!-- Mesh boundary: the egress gateway sits in its bottom edge -->
+	<rect x="800" y="110" width="650" height="480" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="826" y="150" class="zone">MESH</text>
+
+	<!-- Connectors: each has its own shaft and head -->
+	<!-- tester to the egress gateway -->
+	<path d="M970 310V410H1190V515" class="flow"/>
+	<path d="M1190 535L1180 515H1200Z" class="arrow"/>
+	<!-- productpage to the egress gateway -->
+	<path d="M1310 310V515" class="flow"/>
+	<path d="M1310 535L1300 515H1320Z" class="arrow"/>
+	<!-- tester to an unknown host: stopped at the sidecar's policy -->
+	<path d="M910 310V530" class="denied"/>
+	<rect x="886" y="532" width="48" height="7" rx="2" class="stop"/>
+	<text x="950" y="542" class="blocked">blocked</text>
+	<!-- egress gateway to the partner -->
+	<path d="M1250 635V672" class="flow"/>
+	<path d="M1250 692L1240 672H1260Z" class="arrow"/>
+
+	<!-- Pods inside the mesh, sidecar on the way out -->
+	<rect x="840" y="180" width="200" height="100" rx="14" class="node"/>
+	<text x="940" y="230" text-anchor="middle" class="card-title">tester</text>
+	<rect x="880" y="252" width="120" height="58" rx="12" class="proxy"/>
+	<text x="940" y="290" text-anchor="middle" class="proxy-title">Envoy</text>
+
+	<rect x="1210" y="180" width="200" height="100" rx="14" class="node"/>
+	<text x="1310" y="230" text-anchor="middle" class="card-title">productpage</text>
+	<rect x="1250" y="252" width="120" height="58" rx="12" class="proxy"/>
+	<text x="1310" y="290" text-anchor="middle" class="proxy-title">Envoy</text>
+
+	<!-- The exit door: egress gateway -->
+	<rect x="1100" y="545" width="300" height="90" rx="14" class="primary"/>
+	<text x="1250" y="584" text-anchor="middle" class="node-title">egress gateway</text>
+	<text x="1250" y="616" text-anchor="middle" class="mono">Envoy :8443</text>
+
+	<!-- Outside the mesh -->
+	<rect x="800" y="702" width="220" height="98" rx="14" class="off"/>
+	<text x="910" y="744" text-anchor="middle" class="off-title">unknown host</text>
+	<text x="910" y="776" text-anchor="middle" class="off-detail">never reached</text>
+
+	<rect x="1060" y="702" width="380" height="98" rx="14" class="node"/>
+	<text x="1250" y="742" text-anchor="middle" class="card-title">partner catalog</text>
+	<text x="1250" y="776" text-anchor="middle" class="host">catalog.partner.example</text>
+</svg>

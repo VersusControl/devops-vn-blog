@@ -1,0 +1,14 @@
+# Pin reviews to v2, which calls ratings on every request (black stars).
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  hosts:
+    - reviews
+  http:
+    - route:
+        - destination:
+            host: reviews
+            subset: v2

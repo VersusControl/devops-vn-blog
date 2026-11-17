@@ -1,0 +1,18 @@
+# The "door": which ports, protocols, and host names the ingress gateway accepts.
+# It configures the existing istio-ingressgateway Pods; it doesn't create a proxy.
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: bookstore-gateway
+  namespace: bookstore
+spec:
+  # Which gateway Pods get this configuration: matched by Pod label, in any namespace.
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80          # the gateway Service's port 80 (node port 30080, localhost:8080)
+        name: http
+        protocol: HTTP
+      hosts:
+        - bookstore.local   # the Host header the gateway accepts on this port

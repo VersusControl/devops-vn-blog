@@ -1,0 +1,8 @@
+# Default deny: an ALLOW policy with no rules matches nothing, so every request to every
+# workload in bookstore is denied unless another ALLOW policy below allows it.
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-nothing
+  namespace: bookstore
+spec: {}

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="622" viewBox="0 0 760 622" role="img" aria-label="How the ingress gateway matches one request. A request arrives on the gateway listener, port 8080. Check 1: does the Host header match a host of the Gateway and the VirtualService? If not, the gateway answers 404 with response flag NR, route_not_found. Check 2: does the path match a VirtualService rule? Rules are checked in order and the first match wins. If none matches, the gateway answers 404 NR, route_not_found. Check 3: the matched rule's action. A redirect rule is answered by the gateway itself with a 301 to /productpage. A route rule sends the request to the productpage Service on port 9080; from there, errors come from the app, and the access log shows via_upstream.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.label{font-size:12px;font-weight:700;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.badge{fill:#17212b}
+			.badge-text{font-size:14px;font-weight:700;fill:#fff}
+			.tag-404{fill:#17212b}
+			.tag-301{fill:#fff;stroke:#17212b;stroke-width:2}
+			.tag-text{font-size:15px;font-weight:700}
+		</style>
+	</defs>
+	<rect width="760" height="622" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="396" height="452" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="38" class="zone">GATEWAY ENVOY</text>
+	<rect x="432" y="120" width="312" height="348" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="448" y="142" class="zone">GATEWAY ANSWERS</text>
+	<rect x="16" y="488" width="728" height="118" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="510" class="zone">APP ANSWERS</text>
+
+	<!-- Main path: each step has its own shaft and head -->
+	<path d="M196 116V136" class="flow"/>
+	<path d="M196 148L190 136H202Z" class="arrow"/>
+	<path d="M196 228V248" class="flow"/>
+	<path d="M196 260L190 248H202Z" class="arrow"/>
+	<path d="M196 340V360" class="flow"/>
+	<path d="M196 372L190 360H202Z" class="arrow"/>
+	<path d="M196 452V512" class="flow"/>
+	<path d="M196 524L190 512H202Z" class="arrow"/>
+
+	<!-- Exits to answers from the gateway -->
+	<path d="M336 192H440" class="flow"/>
+	<path d="M452 192L440 186V198Z" class="arrow"/>
+	<path d="M336 304H440" class="flow"/>
+	<path d="M452 304L440 298V310Z" class="arrow"/>
+	<path d="M336 416H440" class="flow"/>
+	<path d="M452 416L440 410V422Z" class="arrow"/>
+
+	<!-- Connector labels -->
+	<text x="206" y="248" class="label">yes</text>
+	<text x="206" y="360" class="label">yes</text>
+	<text x="206" y="482" class="label">route</text>
+	<text x="374" y="184" text-anchor="middle" class="label">no</text>
+	<text x="374" y="296" text-anchor="middle" class="label">no</text>
+	<text x="374" y="408" text-anchor="middle" class="label">redirect</text>
+
+	<!-- Request -->
+	<rect x="56" y="52" width="280" height="64" rx="12" class="node"/>
+	<text x="196" y="79" text-anchor="middle" class="title">request arrives</text>
+	<text x="196" y="99" text-anchor="middle"><tspan class="detail">listener</tspan><tspan class="mono" dx="6">:8080</tspan></text>
+
+	<!-- Check 1: host -->
+	<rect x="56" y="156" width="280" height="72" rx="12" class="node"/>
+	<circle cx="86" cy="192" r="14" class="badge"/>
+	<text x="86" y="197" text-anchor="middle" class="badge-text">1</text>
+	<text x="114" y="188" class="title">Host matches?</text>
+	<text x="114" y="208" class="detail">Gateway and VirtualService hosts</text>
+
+	<!-- Check 2: path -->
+	<rect x="56" y="268" width="280" height="72" rx="12" class="node"/>
+	<circle cx="86" cy="304" r="14" class="badge"/>
+	<text x="86" y="309" text-anchor="middle" class="badge-text">2</text>
+	<text x="114" y="300" class="title">Path matches a rule?</text>
+	<text x="114" y="320" class="detail">rules in order, first match wins</text>
+
+	<!-- Check 3: action -->
+	<rect x="56" y="380" width="280" height="72" rx="12" class="node"/>
+	<circle cx="86" cy="416" r="14" class="badge"/>
+	<text x="86" y="421" text-anchor="middle" class="badge-text">3</text>
+	<text x="114" y="412" class="title">Which action?</text>
+	<text x="114" y="432" class="detail">from the matched rule</text>
+
+	<!-- Gateway answers -->
+	<rect x="460" y="156" width="268" height="72" rx="12" class="node"/>
+	<rect x="474" y="178" width="52" height="28" rx="6" class="tag-404"/>
+	<text x="500" y="197" text-anchor="middle" class="tag-text" fill="#fff" style="fill:#fff">404</text>
+	<text x="540" y="188" class="mono-b">NR route_not_found</text>
+	<text x="540" y="208" class="detail">no host matches</text>
+
+	<rect x="460" y="268" width="268" height="72" rx="12" class="node"/>
+	<rect x="474" y="290" width="52" height="28" rx="6" class="tag-404"/>
+	<text x="500" y="309" text-anchor="middle" class="tag-text" style="fill:#fff">404</text>
+	<text x="540" y="300" class="mono-b">NR route_not_found</text>
+	<text x="540" y="320" class="detail">no rule matches the path</text>
+
+	<rect x="460" y="380" width="268" height="72" rx="12" class="node"/>
+	<rect x="475" y="403" width="50" height="26" rx="6" class="tag-301"/>
+	<text x="500" y="421" text-anchor="middle" class="tag-text">301</text>
+	<text x="540" y="412" class="mono">location: /productpage</text>
+	<text x="540" y="432" class="detail">no Service is called</text>
+
+	<!-- App answers -->
+	<rect x="56" y="532" width="280" height="60" rx="12" class="primary"/>
+	<text x="196" y="557" text-anchor="middle" class="mono-title">productpage:9080</text>
+	<text x="196" y="577" text-anchor="middle" class="detail">destination Service</text>
+	<text x="460" y="557" class="title">Errors from here come from the app</text>
+	<text x="460" y="577"><tspan class="detail">access log details</tspan><tspan class="mono" dx="6">via_upstream</tspan></text>
+</svg>

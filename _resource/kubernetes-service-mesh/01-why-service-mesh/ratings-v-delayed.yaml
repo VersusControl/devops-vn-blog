@@ -1,0 +1,43 @@
+# Chapter 1: a new ratings build that is slow half the time.
+# Same image as ratings v1; SERVICE_VERSION=v-delayed makes half of the
+# requests wait 7 seconds. It shares the ratings Service with v1, so
+# Kubernetes sends it a share of the traffic based on Pod count.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-v-delayed
+  namespace: bookstore
+  labels:
+    app: ratings
+    version: v-delayed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: v-delayed
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: v-delayed
+    spec:
+      serviceAccountName: bookstore-ratings
+      containers:
+        - name: ratings
+          image: registry.istio.io/release/examples-bookinfo-ratings-v1:1.20.3
+          env:
+            - name: SERVICE_VERSION
+              value: "v-delayed"
+          ports:
+            - containerPort: 9080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 9080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi

@@ -1,0 +1,53 @@
+# Send every call to the partner catalog through the egress gateway: one exit point
+# that logs, and can later secure and police, all traffic to this partner.
+#
+# Hop 1: the caller's sidecar sends partner-catalog traffic to the egress gateway.
+# Hop 2: the egress gateway sends it on to the real partner-catalog.
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: partner-egress
+  namespace: bookstore
+spec:
+  selector:
+    istio: egressgateway       # the istio-egressgateway Pods from chapter 2's install
+  servers:
+    - port:
+        number: 80             # the egress gateway Service's port 80 (Pod port 8080)
+        name: http
+        protocol: HTTP
+      hosts:
+        - catalog.partner.example
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: partner-catalog
+  namespace: bookstore
+spec:
+  hosts:
+    - catalog.partner.example
+  gateways:
+    - mesh                     # rules for sidecars inside the mesh
+    - partner-egress           # rules for the egress gateway
+  http:
+    - name: to-egress-gateway
+      match:
+        - gateways:
+            - mesh
+          port: 8080
+      route:
+        - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            port:
+              number: 80
+    - name: to-partner
+      match:
+        - gateways:
+            - partner-egress
+          port: 80
+      route:
+        - destination:
+            host: catalog.partner.example
+            port:
+              number: 8080

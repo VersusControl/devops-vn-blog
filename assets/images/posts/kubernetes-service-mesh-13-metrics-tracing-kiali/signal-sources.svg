@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="424" viewBox="0 0 760 424" role="img" aria-label="Where each signal comes from. On the left, the Envoy proxies: the sidecar in every bookstore Pod and the istio-ingressgateway. Each exposes request metrics on its Pod's port 15020, and Prometheus scrapes them every 15 seconds. Each also sends spans in Zipkin format to Jaeger through the Service zipkin on port 9411. Grafana reads Prometheus to draw dashboards. Kiali reads Prometheus for the traffic graph and the Kubernetes API for Istio configuration, which it validates. A dashed grey arrow from Jaeger to Kiali marks the optional traces link, which is off in the sample Kiali add-on, so traces are read in Jaeger directly. Arrows show the direction the data moves.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.note{font-size:13px;fill:#526579}
+			.label{font-size:13px;font-weight:700;fill:#263746}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#263746}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.flow-off{fill:none;stroke:#8496a8;stroke-width:2.5;stroke-dasharray:7 5;stroke-linecap:butt}
+			.arrow-off{fill:#8496a8}
+			.off{font-size:12px;fill:#6b7d8f}
+		</style>
+	</defs>
+	<rect width="760" height="424" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="226" height="356" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">DATA PLANE</text>
+	<rect x="358" y="16" width="386" height="356" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="374" y="40" class="zone">ADD-ONS AND API</text>
+
+	<!-- Connectors: arrows follow the data -->
+	<!-- Envoy metrics to Prometheus -->
+	<path d="M222 108H354" class="flow"/>
+	<path d="M366 108L354 102V114Z" class="arrow"/>
+	<!-- Envoy spans to Jaeger -->
+	<path d="M222 244H354" class="flow"/>
+	<path d="M366 244L354 238V250Z" class="arrow"/>
+	<!-- Prometheus to Grafana -->
+	<path d="M510 88H598" class="flow"/>
+	<path d="M610 88L598 82V94Z" class="arrow"/>
+	<!-- Prometheus to Kiali -->
+	<path d="M510 132H673V174" class="flow"/>
+	<path d="M673 186L667 174H679Z" class="arrow"/>
+	<!-- Jaeger to Kiali: optional, off in the sample add-on -->
+	<path d="M510 244H598" class="flow-off"/>
+	<path d="M610 244L598 238V250Z" class="arrow-off"/>
+	<!-- Kubernetes API to Kiali -->
+	<path d="M510 330H673V314" class="flow"/>
+	<path d="M673 302L667 314H679Z" class="arrow"/>
+
+	<!-- Envoy proxies -->
+	<rect x="32" y="56" width="190" height="300" rx="14" class="primary"/>
+	<text x="127" y="82" text-anchor="middle" class="title">Envoy proxies</text>
+	<text x="127" y="100" text-anchor="middle" class="detail">count, time, and trace</text>
+	<text x="127" y="116" text-anchor="middle" class="detail">every request</text>
+
+	<rect x="44" y="134" width="166" height="96" rx="12" class="node"/>
+	<text x="127" y="160" text-anchor="middle" class="pod-title">bookstore Pods</text>
+	<text x="127" y="178" text-anchor="middle" class="detail">one sidecar per Pod</text>
+	<text x="127" y="198" text-anchor="middle" class="mono">productpage details</text>
+	<text x="127" y="214" text-anchor="middle" class="mono">reviews ratings</text>
+
+	<rect x="44" y="248" width="166" height="92" rx="12" class="node"/>
+	<text x="127" y="276" text-anchor="middle" class="pod-title">ingress gateway</text>
+	<text x="127" y="294" text-anchor="middle" class="detail">Envoy at the edge</text>
+	<text x="127" y="320" text-anchor="middle" class="mono">istio-ingressgateway</text>
+
+	<!-- Connector labels in the left gutter -->
+	<text x="290" y="98" text-anchor="middle"><tspan class="label">metrics</tspan><tspan class="detail" dx="5">on</tspan><tspan class="mono-b" dx="5">:15020</tspan></text>
+	<text x="290" y="128" text-anchor="middle" class="detail">scraped every 15 s</text>
+	<text x="290" y="234" text-anchor="middle"><tspan class="label">spans</tspan><tspan class="detail" dx="5">Zipkin format</tspan></text>
+	<text x="290" y="264" text-anchor="middle"><tspan class="detail">Service</tspan><tspan class="mono-b" dx="5">zipkin:9411</tspan></text>
+
+	<!-- Stores -->
+	<rect x="374" y="60" width="136" height="88" rx="12" class="node"/>
+	<text x="442" y="94" text-anchor="middle" class="title">Prometheus</text>
+	<text x="442" y="114" text-anchor="middle" class="detail">metrics</text>
+	<text x="442" y="130" text-anchor="middle" class="detail">time series</text>
+
+	<rect x="374" y="204" width="136" height="80" rx="12" class="node"/>
+	<text x="442" y="238" text-anchor="middle" class="title">Jaeger</text>
+	<text x="442" y="258" text-anchor="middle" class="detail">traces and spans</text>
+
+	<rect x="374" y="304" width="136" height="52" rx="12" class="node"/>
+	<text x="442" y="326" text-anchor="middle" class="pod-title">Kubernetes API</text>
+	<text x="442" y="343" text-anchor="middle" class="detail">Istio config objects</text>
+
+	<!-- Views -->
+	<rect x="618" y="60" width="110" height="56" rx="12" class="node"/>
+	<text x="673" y="84" text-anchor="middle" class="title">Grafana</text>
+	<text x="673" y="102" text-anchor="middle" class="detail">dashboards</text>
+
+	<rect x="618" y="194" width="110" height="100" rx="12" class="primary"/>
+	<text x="673" y="232" text-anchor="middle" class="title">Kiali</text>
+	<text x="673" y="252" text-anchor="middle" class="detail">traffic graph,</text>
+	<text x="673" y="268" text-anchor="middle" class="detail">config validation</text>
+
+	<!-- Labels on Kiali's inputs -->
+	<text x="683" y="160" class="detail">graph</text>
+	<text x="564" y="234" text-anchor="middle" class="off">traces</text>
+	<text x="564" y="264" text-anchor="middle" class="off">off in the</text>
+	<text x="564" y="279" text-anchor="middle" class="off">sample add-on</text>
+	<text x="683" y="322" class="detail">config</text>
+
+	<!-- Footer -->
+	<text x="380" y="402" text-anchor="middle" class="note">Arrows follow the data: Prometheus pulls the metrics, the proxies push the spans.</text>
+</svg>

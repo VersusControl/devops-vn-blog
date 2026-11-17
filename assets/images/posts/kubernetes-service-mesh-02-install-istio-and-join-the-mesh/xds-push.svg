@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="654" viewBox="0 0 760 654" role="img" aria-label="istiod in the control plane pushes configuration over xDS to the Envoy in each of the eight proxies: the six Book Store Pods productpage-v1, details-v1, reviews-v1, reviews-v2, reviews-v3, and ratings-v1 in namespace bookstore, which subscribe to LDS listeners, RDS routes, CDS clusters, and EDS endpoints, and the istio-ingressgateway and istio-egressgateway in namespace istio-system, which subscribe to LDS, CDS, and EDS only because they have no HTTP routes yet. istioctl proxy-status on your machine reads the list of connected proxies from istiod.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.detail{font-size:12px;fill:#526579}
+			.group{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.name{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.cmd-title{font-family:Menlo,monospace;font-size:14px;font-weight:700;fill:#17212b}
+			.envoy{font-size:13px;font-weight:700}
+			.type{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#263746}
+			.type-off{font-family:Menlo,monospace;font-size:12px;fill:#9aa9b7}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.chip-off{fill:none;stroke:#aab9c7;stroke-width:1.5;stroke-dasharray:4 3}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.config{fill:none;stroke:#456987;stroke-width:2.5;stroke-dasharray:9 6;stroke-linecap:butt;stroke-linejoin:round}
+			.config-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="760" height="654" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="440" height="108" rx="14" class="zone"/>
+	<text x="32" y="40" class="zone-label">CONTROL PLANE</text>
+	<rect x="476" y="16" width="268" height="108" rx="14" class="zone"/>
+	<text x="492" y="40" class="zone-label">YOUR MACHINE</text>
+	<rect x="16" y="160" width="728" height="478" rx="14" class="zone"/>
+	<text x="72" y="186" class="zone-label">DATA PLANE</text>
+	<text x="479" y="186" text-anchor="middle" class="detail">listeners</text>
+	<text x="549" y="186" text-anchor="middle" class="detail">routes</text>
+	<text x="619" y="186" text-anchor="middle" class="detail">clusters</text>
+	<text x="689" y="186" text-anchor="middle" class="detail">endpoints</text>
+	<text x="104" y="214"><tspan class="group">namespace</tspan><tspan class="mono" dx="5">bookstore</tspan></text>
+	<text x="104" y="524"><tspan class="group">namespace</tspan><tspan class="mono" dx="5">istio-system</tspan></text>
+	<text x="549" y="524" text-anchor="middle" class="detail">no routes yet</text>
+
+	<!-- xDS push: shared trunk and bus, then one branch and one head per proxy -->
+	<path d="M170 110V142H48V601" class="config"/>
+	<path d="M46.75 245H72" class="config"/>
+	<path d="M84 245L72 239V251Z" class="config-arrow"/>
+	<path d="M46.75 291H72" class="config"/>
+	<path d="M84 291L72 285V297Z" class="config-arrow"/>
+	<path d="M46.75 337H72" class="config"/>
+	<path d="M84 337L72 331V343Z" class="config-arrow"/>
+	<path d="M46.75 383H72" class="config"/>
+	<path d="M84 383L72 377V389Z" class="config-arrow"/>
+	<path d="M46.75 429H72" class="config"/>
+	<path d="M84 429L72 423V435Z" class="config-arrow"/>
+	<path d="M46.75 475H72" class="config"/>
+	<path d="M84 475L72 469V481Z" class="config-arrow"/>
+	<path d="M46.75 555H72" class="config"/>
+	<path d="M84 555L72 549V561Z" class="config-arrow"/>
+	<path d="M46.75 601H72" class="config"/>
+	<path d="M84 601L72 595V607Z" class="config-arrow"/>
+
+	<!-- istioctl reads the proxy list from istiod -->
+	<path d="M300 81H472" class="flow"/>
+	<path d="M484 81L472 75V87Z" class="arrow"/>
+	<text x="378" y="70" text-anchor="middle" class="detail">connected proxies</text>
+
+	<!-- Control plane and client nodes -->
+	<rect x="40" y="52" width="260" height="58" rx="12" class="node"/>
+	<text x="170" y="76" text-anchor="middle" class="mono-title">istiod</text>
+	<text x="170" y="97" text-anchor="middle" class="detail">pushes config over xDS (gRPC)</text>
+	<rect x="492" y="52" width="236" height="58" rx="12" class="node"/>
+	<text x="610" y="76" text-anchor="middle" class="cmd-title">istioctl proxy-status</text>
+	<text x="610" y="97" text-anchor="middle" class="detail">lists 8 connected proxies</text>
+
+	<!-- Proxies: each Pod card with its Envoy attached on the left edge -->
+	<rect x="140" y="226" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="230" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="250" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="250" class="name">productpage-v1</text>
+	<rect x="448" y="234" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="249" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="234" width="62" height="22" rx="6" class="chip"/>
+	<text x="549" y="249" text-anchor="middle" class="type">RDS</text>
+	<rect x="588" y="234" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="249" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="234" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="249" text-anchor="middle" class="type">EDS</text>
+	<rect x="140" y="272" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="276" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="296" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="296" class="name">details-v1</text>
+	<rect x="448" y="280" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="295" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="280" width="62" height="22" rx="6" class="chip"/>
+	<text x="549" y="295" text-anchor="middle" class="type">RDS</text>
+	<rect x="588" y="280" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="295" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="280" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="295" text-anchor="middle" class="type">EDS</text>
+	<rect x="140" y="318" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="322" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="342" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="342" class="name">reviews-v1</text>
+	<rect x="448" y="326" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="341" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="326" width="62" height="22" rx="6" class="chip"/>
+	<text x="549" y="341" text-anchor="middle" class="type">RDS</text>
+	<rect x="588" y="326" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="341" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="326" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="341" text-anchor="middle" class="type">EDS</text>
+	<rect x="140" y="364" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="368" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="388" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="388" class="name">reviews-v2</text>
+	<rect x="448" y="372" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="387" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="372" width="62" height="22" rx="6" class="chip"/>
+	<text x="549" y="387" text-anchor="middle" class="type">RDS</text>
+	<rect x="588" y="372" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="387" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="372" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="387" text-anchor="middle" class="type">EDS</text>
+	<rect x="140" y="410" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="414" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="434" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="434" class="name">reviews-v3</text>
+	<rect x="448" y="418" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="433" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="418" width="62" height="22" rx="6" class="chip"/>
+	<text x="549" y="433" text-anchor="middle" class="type">RDS</text>
+	<rect x="588" y="418" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="433" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="418" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="433" text-anchor="middle" class="type">EDS</text>
+	<rect x="140" y="456" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="460" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="480" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="480" class="name">ratings-v1</text>
+	<rect x="448" y="464" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="479" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="464" width="62" height="22" rx="6" class="chip"/>
+	<text x="549" y="479" text-anchor="middle" class="type">RDS</text>
+	<rect x="588" y="464" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="479" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="464" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="479" text-anchor="middle" class="type">EDS</text>
+	<rect x="140" y="536" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="540" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="560" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="560" class="name">istio-ingressgateway</text>
+	<rect x="448" y="544" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="559" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="544" width="62" height="22" rx="6" class="chip-off"/>
+	<text x="549" y="559" text-anchor="middle" class="type-off">RDS</text>
+	<rect x="588" y="544" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="559" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="544" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="559" text-anchor="middle" class="type">EDS</text>
+	<rect x="140" y="582" width="592" height="38" rx="12" class="pod"/>
+	<rect x="92" y="586" width="80" height="30" rx="10" class="proxy"/>
+	<text x="132" y="606" text-anchor="middle" class="envoy">Envoy</text>
+	<text x="188" y="606" class="name">istio-egressgateway</text>
+	<rect x="448" y="590" width="62" height="22" rx="6" class="chip"/>
+	<text x="479" y="605" text-anchor="middle" class="type">LDS</text>
+	<rect x="518" y="590" width="62" height="22" rx="6" class="chip-off"/>
+	<text x="549" y="605" text-anchor="middle" class="type-off">RDS</text>
+	<rect x="588" y="590" width="62" height="22" rx="6" class="chip"/>
+	<text x="619" y="605" text-anchor="middle" class="type">CDS</text>
+	<rect x="658" y="590" width="62" height="22" rx="6" class="chip"/>
+	<text x="689" y="605" text-anchor="middle" class="type">EDS</text>
+</svg>

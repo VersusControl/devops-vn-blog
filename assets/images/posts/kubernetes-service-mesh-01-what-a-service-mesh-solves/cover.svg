@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 1 cover: What a Service Mesh Solves. On plain Kubernetes, productpage calls the reviews Service, which fans out to reviews-v1, v2, and v3 Pods, and a question mark sits on every path.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:30px;font-weight:700}
+			.pod-title{font-size:26px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.badge{fill:#17212b}
+			.mark{font-size:30px;font-weight:700;fill:#fff}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 1</text>
+	<text x="156" y="432" class="title">What a Service</text>
+	<text x="156" y="522" class="title">Mesh Solves</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Four traffic questions</text>
+	<text x="160" y="672" class="subtitle">plain Kubernetes leaves open</text>
+
+	<g transform="translate(0 10)">
+	<!-- Zone -->
+	<rect x="800" y="110" width="650" height="650" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="826" y="146" class="zone">PLAIN KUBERNETES</text>
+
+	<!-- Connectors: each destination has its own shaft and head -->
+	<path d="M1125 262V322" class="flow"/>
+	<path d="M1125 342L1115 322H1135Z" class="arrow"/>
+	<path d="M1125 448V494H915V594" class="flow"/>
+	<path d="M915 614L905 594H925Z" class="arrow"/>
+	<path d="M1125 448V594" class="flow"/>
+	<path d="M1125 614L1115 594H1135Z" class="arrow"/>
+	<path d="M1125 448V494H1335V594" class="flow"/>
+	<path d="M1335 614L1325 594H1345Z" class="arrow"/>
+
+	<!-- Nodes -->
+	<rect x="1005" y="172" width="240" height="90" rx="14" class="node"/>
+	<text x="1125" y="212" text-anchor="middle" class="node-title">productpage</text>
+	<text x="1125" y="244" text-anchor="middle" class="detail">caller</text>
+
+	<rect x="1005" y="352" width="240" height="96" rx="14" class="primary"/>
+	<text x="1125" y="394" text-anchor="middle" class="node-title">reviews</text>
+	<text x="1125" y="428" text-anchor="middle" class="detail">Service</text>
+
+	<rect x="825" y="624" width="180" height="100" rx="14" class="node"/>
+	<text x="915" y="666" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="915" y="698" text-anchor="middle" class="detail">no stars</text>
+
+	<rect x="1035" y="624" width="180" height="100" rx="14" class="node"/>
+	<text x="1125" y="666" text-anchor="middle" class="pod-title">reviews-v2</text>
+	<text x="1125" y="698" text-anchor="middle" class="detail">black stars</text>
+
+	<rect x="1245" y="624" width="180" height="100" rx="14" class="node"/>
+	<text x="1335" y="666" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<text x="1335" y="698" text-anchor="middle" class="detail">red stars</text>
+
+	<!-- Open questions beside each path -->
+	<circle cx="1177" cy="302" r="24" class="badge"/>
+	<text x="1177" y="313" text-anchor="middle" class="mark">?</text>
+	<circle cx="957" cy="548" r="24" class="badge"/>
+	<text x="957" y="559" text-anchor="middle" class="mark">?</text>
+	<circle cx="1167" cy="548" r="24" class="badge"/>
+	<text x="1167" y="559" text-anchor="middle" class="mark">?</text>
+	<circle cx="1377" cy="548" r="24" class="badge"/>
+	<text x="1377" y="559" text-anchor="middle" class="mark">?</text>
+	</g>
+</svg>

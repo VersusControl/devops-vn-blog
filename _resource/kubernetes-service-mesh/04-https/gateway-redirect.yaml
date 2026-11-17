@@ -1,0 +1,27 @@
+# Step 2: plain HTTP for bookstore.local only redirects to HTTPS.
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: bookstore-gateway
+  namespace: bookstore
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - bookstore.local
+      tls:
+        httpsRedirect: true          # answer every HTTP request with 301 to https://
+    - port:
+        number: 443
+        name: https-bookstore
+        protocol: HTTPS
+      hosts:
+        - bookstore.local
+      tls:
+        mode: SIMPLE
+        credentialName: bookstore-local-tls

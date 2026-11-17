@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="580" viewBox="0 0 760 580" role="img" aria-label="Three TLS modes on the Istio ingress gateway, side by side. SIMPLE: the client opens TLS to the gateway Envoy, which holds the bookstore.local certificate, decrypts, and sends plain HTTP to the productpage Pod, so TLS ends at the gateway. MUTUAL: the partner client also presents its partner-client certificate, which the gateway, holding the api.bookstore.local certificate, checks against the CA in ca.crt before it decrypts and sends plain HTTP to productpage, so TLS ends at the gateway. PASSTHROUGH: the gateway reads only the SNI host name payments.bookstore.local, holds no certificate, and forwards the still-encrypted TLS connection to the payments Pod, which decrypts it with its own payments-tls certificate, so TLS ends at the payments Pod. Not shown: the sidecars also encrypt the gateway-to-Pod hop with mesh mTLS, covered in chapter 11.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:13px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.sub{font-size:12px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.summary{font-size:13px;fill:#526579}
+			.summary-strong{font-weight:700;fill:#17212b}
+			.tls-label{font-size:12px;font-weight:700;fill:#456987}
+			.http-label{font-size:12px;font-weight:700;fill:#17212b}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.tls{fill:none;stroke:#456987;stroke-width:3;stroke-linecap:butt}
+			.tls-arrow{fill:#456987}
+			.lock-shackle{fill:none;stroke:#456987;stroke-width:1.8}
+			.lock-body{fill:#456987}
+		</style>
+		<g id="lock">
+			<path d="M3 7V4.5a3 3 0 0 1 6 0V7" class="lock-shackle"/>
+			<rect x="0" y="6.5" width="12" height="8.5" rx="2" class="lock-body"/>
+			<circle cx="6" cy="10.5" r="1.3" fill="#fff"/>
+		</g>
+	</defs>
+	<rect width="760" height="580" fill="#fff"/>
+
+	<!-- Zones: one column per TLS mode -->
+	<rect x="16" y="16" width="234" height="494" rx="14" class="zone"/>
+	<text x="32" y="40" class="zone-label">SIMPLE</text>
+	<text x="32" y="58" class="sub">server certificate</text>
+	<rect x="263" y="16" width="234" height="494" rx="14" class="zone"/>
+	<text x="279" y="40" class="zone-label">MUTUAL</text>
+	<text x="279" y="58" class="sub">server and client certificates</text>
+	<rect x="510" y="16" width="234" height="494" rx="14" class="zone"/>
+	<text x="526" y="40" class="zone-label">PASSTHROUGH</text>
+	<text x="526" y="58" class="sub">gateway forwards encrypted bytes</text>
+
+	<!-- Connectors: client to gateway (TLS in every mode) -->
+	<path d="M133 130V188" class="tls"/>
+	<path d="M133 200L127 188H139Z" class="tls-arrow"/>
+	<path d="M380 130V188" class="tls"/>
+	<path d="M380 200L374 188H386Z" class="tls-arrow"/>
+	<path d="M627 130V188" class="tls"/>
+	<path d="M627 200L621 188H633Z" class="tls-arrow"/>
+
+	<!-- Connectors: gateway to backend -->
+	<path d="M133 306V364" class="flow"/>
+	<path d="M133 376L127 364H139Z" class="arrow"/>
+	<path d="M380 306V364" class="flow"/>
+	<path d="M380 376L374 364H386Z" class="arrow"/>
+	<path d="M627 306V364" class="tls"/>
+	<path d="M627 376L621 364H633Z" class="tls-arrow"/>
+
+	<!-- Connector labels -->
+	<use href="#lock" x="147" y="151"/>
+	<text x="165" y="164" class="tls-label">TLS</text>
+	<use href="#lock" x="394" y="145"/>
+	<text x="412" y="158" class="tls-label">TLS</text>
+	<text x="394" y="176" class="detail">+ client cert</text>
+	<use href="#lock" x="641" y="151"/>
+	<text x="659" y="164" class="tls-label">TLS</text>
+
+	<text x="147" y="340" class="http-label">HTTP</text>
+	<text x="394" y="340" class="http-label">HTTP</text>
+	<use href="#lock" x="641" y="327"/>
+	<text x="659" y="340" class="tls-label">TLS</text>
+
+	<!-- SIMPLE column nodes -->
+	<rect x="33" y="74" width="200" height="56" rx="12" class="node"/>
+	<text x="133" y="98" text-anchor="middle" class="title">client</text>
+	<text x="133" y="117" text-anchor="middle" class="detail">browser or curl</text>
+
+	<rect x="33" y="208" width="200" height="98" rx="12" class="primary"/>
+	<text x="133" y="234" text-anchor="middle" class="title">gateway Envoy</text>
+	<text x="133" y="254" text-anchor="middle" class="mono">bookstore.local cert</text>
+	<text x="133" y="273" text-anchor="middle" class="detail">decrypts</text>
+	<text x="133" y="291" text-anchor="middle" class="detail">routes by path</text>
+
+	<rect x="33" y="384" width="200" height="76" rx="12" class="node"/>
+	<text x="133" y="408" text-anchor="middle" class="title">productpage Pod</text>
+	<text x="133" y="428" text-anchor="middle" class="detail">receives plain HTTP</text>
+	<text x="133" y="446" text-anchor="middle" class="mono">port 9080</text>
+
+	<!-- MUTUAL column nodes -->
+	<rect x="280" y="74" width="200" height="56" rx="12" class="node"/>
+	<text x="380" y="98" text-anchor="middle" class="title">partner client</text>
+	<text x="380" y="117" text-anchor="middle" class="mono">partner-client.crt</text>
+
+	<rect x="280" y="208" width="200" height="98" rx="12" class="primary"/>
+	<text x="380" y="234" text-anchor="middle" class="title">gateway Envoy</text>
+	<text x="380" y="254" text-anchor="middle" class="mono">api.bookstore.local cert</text>
+	<text x="380" y="273" text-anchor="middle" class="detail">checks client cert</text>
+	<text x="380" y="291" text-anchor="middle"><tspan class="detail">against</tspan><tspan class="mono" dx="4">ca.crt</tspan><tspan class="detail">, decrypts</tspan></text>
+
+	<rect x="280" y="384" width="200" height="76" rx="12" class="node"/>
+	<text x="380" y="408" text-anchor="middle" class="title">productpage Pod</text>
+	<text x="380" y="428" text-anchor="middle" class="detail">receives plain HTTP</text>
+	<text x="380" y="446" text-anchor="middle" class="mono">port 9080</text>
+
+	<!-- PASSTHROUGH column nodes -->
+	<rect x="527" y="74" width="200" height="56" rx="12" class="node"/>
+	<text x="627" y="98" text-anchor="middle" class="title">client</text>
+	<text x="627" y="117" text-anchor="middle" class="detail">browser or curl</text>
+
+	<rect x="527" y="208" width="200" height="98" rx="12" class="node"/>
+	<text x="627" y="234" text-anchor="middle" class="title">gateway Envoy</text>
+	<text x="627" y="254" text-anchor="middle" class="detail">reads SNI only</text>
+	<text x="627" y="273" text-anchor="middle" class="mono">payments.bookstore.local</text>
+	<text x="627" y="291" text-anchor="middle" class="detail">no cert, no decrypt</text>
+
+	<rect x="527" y="384" width="200" height="76" rx="12" class="primary"/>
+	<text x="627" y="408" text-anchor="middle" class="title">payments Pod</text>
+	<text x="627" y="428" text-anchor="middle" class="mono">payments-tls cert</text>
+	<text x="627" y="446" text-anchor="middle" class="detail">decrypts</text>
+
+	<!-- Where TLS ends -->
+	<text x="133" y="490" text-anchor="middle" class="summary">TLS ends at the <tspan class="summary-strong">gateway</tspan></text>
+	<text x="380" y="490" text-anchor="middle" class="summary">TLS ends at the <tspan class="summary-strong">gateway</tspan></text>
+	<text x="627" y="490" text-anchor="middle" class="summary">TLS ends at the <tspan class="summary-strong">payments Pod</tspan></text>
+
+	<!-- Legend -->
+	<path d="M18 534H44" class="tls"/>
+	<path d="M56 534L44 528V540Z" class="tls-arrow"/>
+	<text x="66" y="538" class="detail">TLS, encrypted</text>
+	<path d="M190 534H216" class="flow"/>
+	<path d="M228 534L216 528V540Z" class="arrow"/>
+	<text x="238" y="538" class="detail">HTTP, readable</text>
+	<rect x="362" y="525" width="26" height="18" rx="5" class="primary"/>
+	<text x="398" y="538" class="detail">decrypts here</text>
+	<text x="18" y="566" class="detail">Not shown: the sidecars also encrypt the gateway-to-Pod hop with mesh mTLS (chapter 11).</text>
+</svg>

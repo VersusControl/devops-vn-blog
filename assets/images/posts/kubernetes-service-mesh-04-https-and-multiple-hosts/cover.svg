@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 4 cover: HTTPS at the Gateway. One Istio ingress gateway on port 443 sends traffic to three host names, each behind a lock: bookstore.local with SIMPLE TLS and a server certificate, api.bookstore.local with MUTUAL TLS where the client presents a certificate too, and payments.bookstore.local with PASSTHROUGH, where the encrypted connection goes on to the Pod.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.tag{font-family:Menlo,monospace;font-size:18px;fill:#263746}
+			.node-title{font-size:30px;font-weight:700}
+			.node-mono{font-family:Menlo,monospace;font-size:19px;fill:#263746}
+			.host{font-family:Menlo,monospace;font-size:20px;font-weight:700;fill:#17212b}
+			.chip-text{font-family:Menlo,monospace;font-size:17px;font-weight:700;fill:#263746}
+			.detail{font-size:19px;fill:#526579}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#fff;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.lock-shackle{fill:none;stroke:#456987;stroke-width:1.8}
+			.lock-body{fill:#456987}
+		</style>
+		<g id="lock">
+			<path d="M3 7V4.5a3 3 0 0 1 6 0V7" class="lock-shackle"/>
+			<rect x="0" y="6.5" width="12" height="8.5" rx="2" class="lock-body"/>
+			<circle cx="6" cy="10.5" r="1.3" fill="#fff"/>
+		</g>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 4</text>
+	<text x="156" y="432" class="title">HTTPS at</text>
+	<text x="156" y="522" class="title">the Gateway</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Three hosts, three TLS modes,</text>
+	<text x="160" y="672" class="subtitle">one port</text>
+
+	<!-- Zone -->
+	<rect x="770" y="120" width="680" height="660" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="796" y="164" class="zone">INGRESS GATEWAY</text>
+	<text x="1424" y="164" text-anchor="end" class="tag">port 443</text>
+
+	<!-- Connectors: one arrow per host -->
+	<path d="M960 270H1002" class="flow"/>
+	<path d="M1022 270L1002 260V280Z" class="arrow"/>
+	<path d="M960 460H1002" class="flow"/>
+	<path d="M1022 460L1002 450V470Z" class="arrow"/>
+	<path d="M960 650H1002" class="flow"/>
+	<path d="M1022 650L1002 640V660Z" class="arrow"/>
+
+	<!-- The gateway: one door -->
+	<rect x="800" y="205" width="160" height="510" rx="14" class="primary"/>
+	<text x="880" y="446" text-anchor="middle" class="node-title">gateway</text>
+	<text x="880" y="482" text-anchor="middle" class="node-mono">SNI</text>
+
+	<!-- Host cards, each with its lock and TLS mode -->
+	<rect x="1030" y="205" width="396" height="130" rx="14" class="node"/>
+	<use href="#lock" transform="translate(1054 247) scale(2.6)"/>
+	<text x="1108" y="258" class="host">bookstore.local</text>
+	<rect x="1108" y="276" width="88" height="32" rx="8" class="chip"/>
+	<text x="1152" y="298" text-anchor="middle" class="chip-text">SIMPLE</text>
+	<text x="1212" y="299" class="detail">server cert</text>
+
+	<rect x="1030" y="395" width="396" height="130" rx="14" class="node"/>
+	<use href="#lock" transform="translate(1054 437) scale(2.6)"/>
+	<text x="1108" y="448" class="host">api.bookstore.local</text>
+	<rect x="1108" y="466" width="88" height="32" rx="8" class="chip"/>
+	<text x="1152" y="488" text-anchor="middle" class="chip-text">MUTUAL</text>
+	<text x="1212" y="489" class="detail">client cert too</text>
+
+	<rect x="1030" y="585" width="396" height="130" rx="14" class="node"/>
+	<use href="#lock" transform="translate(1054 627) scale(2.6)"/>
+	<text x="1108" y="638" class="host">payments.bookstore.local</text>
+	<rect x="1108" y="656" width="138" height="32" rx="8" class="chip"/>
+	<text x="1177" y="678" text-anchor="middle" class="chip-text">PASSTHROUGH</text>
+	<text x="1262" y="679" class="detail">TLS to the Pod</text>
+</svg>

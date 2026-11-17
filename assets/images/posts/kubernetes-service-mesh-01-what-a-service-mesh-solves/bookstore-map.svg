@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="400" viewBox="0 0 760 400" role="img" aria-label="Book Store map: a request from your machine reaches productpage (Python) through port-forward on port 9000. productpage calls details (Ruby) and the reviews Service, which sends the call to one of reviews-v1, v2, or v3 (Java). reviews-v2 and reviews-v3 call ratings (Node.js); reviews-v1 does not.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="400" fill="#fff"/>
+	<g transform="translate(0 -36)">
+
+	<!-- Zone: the reviews Service and its three Pods -->
+	<rect x="212" y="186" width="406" height="232" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="228" y="207" class="zone">REVIEWS</text>
+
+	<!-- Connectors: each destination has its own shaft and head -->
+	<!-- your machine to productpage -->
+	<path d="M132 108H224" class="flow"/>
+	<path d="M236 108L224 102V114Z" class="arrow"/>
+	<!-- productpage to details -->
+	<path d="M394 108H462" class="flow"/>
+	<path d="M474 108L462 102V114Z" class="arrow"/>
+	<!-- productpage to reviews Service -->
+	<path d="M319 152V251" class="flow"/>
+	<path d="M319 263L313 251H325Z" class="arrow"/>
+	<!-- reviews Service to each Pod -->
+	<path d="M394 311H434V245H462" class="flow"/>
+	<path d="M474 245L462 239V251Z" class="arrow"/>
+	<path d="M394 311H462" class="flow"/>
+	<path d="M474 311L462 305V317Z" class="arrow"/>
+	<path d="M394 311H434V377H462" class="flow"/>
+	<path d="M474 377L462 371V383Z" class="arrow"/>
+	<!-- v2 and v3 to ratings -->
+	<path d="M602 311H632" class="flow"/>
+	<path d="M644 311L632 305V317Z" class="arrow"/>
+	<path d="M602 377H632" class="flow"/>
+	<path d="M644 377L632 371V383Z" class="arrow"/>
+
+	<!-- Nodes -->
+	<rect x="16" y="78" width="116" height="60" rx="12" class="node"/>
+	<text x="74" y="104" text-anchor="middle" class="title" font-size="14">your machine</text>
+	<text x="74" y="123" text-anchor="middle" class="detail">curl, browser</text>
+
+	<rect x="244" y="64" width="150" height="88" rx="12" class="node"/>
+	<text x="319" y="91" text-anchor="middle" class="title">productpage</text>
+	<text x="319" y="111" text-anchor="middle" class="detail">Python</text>
+	<text x="319" y="131" text-anchor="middle" class="detail">web page + JSON API</text>
+
+	<rect x="482" y="78" width="120" height="60" rx="12" class="node"/>
+	<text x="542" y="104" text-anchor="middle" class="title">details</text>
+	<text x="542" y="123" text-anchor="middle" class="detail">Ruby</text>
+
+	<rect x="244" y="271" width="150" height="80" rx="12" class="primary"/>
+	<text x="319" y="306" text-anchor="middle" class="title">reviews</text>
+	<text x="319" y="326" text-anchor="middle" class="detail">Service</text>
+
+	<rect x="482" y="220" width="120" height="50" rx="12" class="node"/>
+	<text x="542" y="241" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="542" y="259" text-anchor="middle" class="detail">Java, no stars</text>
+
+	<rect x="482" y="286" width="120" height="50" rx="12" class="node"/>
+	<text x="542" y="307" text-anchor="middle" class="pod-title">reviews-v2</text>
+	<text x="542" y="325" text-anchor="middle" class="detail">Java, black stars</text>
+
+	<rect x="482" y="352" width="120" height="50" rx="12" class="node"/>
+	<text x="542" y="373" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<text x="542" y="391" text-anchor="middle" class="detail">Java, red stars</text>
+
+	<rect x="652" y="286" width="92" height="116" rx="12" class="node"/>
+	<text x="698" y="340" text-anchor="middle" class="title">ratings</text>
+	<text x="698" y="360" text-anchor="middle" class="detail">Node.js</text>
+
+	<!-- Connector label -->
+	<text x="188" y="80" text-anchor="middle" class="mono">port-forward</text>
+	<text x="188" y="95" text-anchor="middle" class="mono">:9000</text>
+	</g>
+</svg>

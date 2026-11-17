@@ -1,0 +1,51 @@
+# gateway.yaml plus a listener for the partners team's routes.
+# A Kubernetes Gateway API Gateway. Unlike Istio's Gateway object, it creates its own
+# proxy: Istio sees gatewayClassName "istio" and deploys a Deployment and a Service
+# named bookstore-gw-istio in this namespace.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bookstore-gw-options
+  namespace: bookstore
+data:
+  # Patch for the generated Service. On Kind there is no cloud load balancer, so use a
+  # NodePort fixed at 30090, which cluster/kind-config.yaml maps to localhost:9080.
+  service: |
+    spec:
+      type: NodePort
+      ports:
+        - name: http
+          port: 80
+          nodePort: 30090
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: bookstore-gw
+  namespace: bookstore
+spec:
+  gatewayClassName: istio
+  infrastructure:
+    parametersRef:              # settings for the generated Deployment and Service
+      group: ""
+      kind: ConfigMap
+      name: bookstore-gw-options
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      hostname: bookstore.local
+      allowedRoutes:
+        namespaces:
+          from: Same            # only HTTPRoutes in bookstore may attach (the default)
+    # A second listener for the partner API, owned by another team in namespace "partners".
+    - name: api
+      port: 80
+      protocol: HTTP
+      hostname: api.bookstore.local
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: partners

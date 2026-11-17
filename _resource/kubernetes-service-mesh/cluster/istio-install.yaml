@@ -1,0 +1,39 @@
+# Istio install settings for the Kubernetes Advanced: Service Mesh series.
+# Used by cluster/install-istio.sh:  istioctl install -f cluster/istio-install.yaml
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: mesh
+spec:
+  # default = istiod + an ingress gateway. Good starting point for a real cluster.
+  profile: default
+  meshConfig:
+    # Every Envoy writes one log line per request to its stdout (chapters 3-13 read them).
+    accessLogFile: /dev/stdout
+  components:
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          service:
+            # Kind has no cloud load balancer. A NodePort with fixed port numbers matches
+            # the extraPortMappings in cluster/kind-config.yaml:
+            #   localhost:8080 -> node 30080 -> gateway port 80
+            #   localhost:8443 -> node 30443 -> gateway port 443
+            type: NodePort
+            ports:
+              - name: status-port
+                port: 15021
+                targetPort: 15021
+              - name: http2
+                port: 80
+                targetPort: 8080
+                nodePort: 30080
+              - name: https
+                port: 443
+                targetPort: 8443
+                nodePort: 30443
+    egressGateways:
+      # The exit point for traffic leaving the mesh (chapter 10).
+      - name: istio-egressgateway
+        enabled: true

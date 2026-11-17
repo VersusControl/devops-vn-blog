@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="400" viewBox="0 0 760 400" role="img" aria-label="Canary release of reviews v3 in four steps, each applied with one VirtualService file. Step 1, all to v1: configured v1 100 and v3 0, measured 20 of 20 requests on v1. Step 2, canary 10 percent: configured 90 and 10, measured 89 and 11 of 100. Step 3, half and half: configured 50 and 50, measured 56 and 44 of 100. Step 4, all to v3: configured 0 and 100, measured 100 of 100 on v3. From any step, a rollback arrow returns to step 1 with one kubectl apply of virtualservice-reviews-v1.yaml, and no Pod restarts.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.sub{font-size:11px;font-weight:700;letter-spacing:1px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.mono-step{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#456987}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.divider{stroke:#aab9c7;stroke-width:1.5}
+			.bar{fill:none;stroke:#283541;stroke-width:1.5}
+			.v1{fill:#fff}
+			.v3{fill:#456987}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="400" fill="#fff"/>
+
+	<!-- Header: what each step applies, and the bar legend -->
+	<text x="16" y="30"><tspan class="detail">Each step applies</tspan><tspan class="mono" dx="6">virtualservice-reviews-&lt;step&gt;.yaml</tspan></text>
+	<rect x="566" y="19" width="16" height="14" rx="2" class="v1"/>
+	<rect x="566" y="19" width="16" height="14" rx="2" class="bar"/>
+	<text x="588" y="30" class="detail">reviews-v1</text>
+	<rect x="664" y="19" width="16" height="14" rx="2" class="v3"/>
+	<rect x="664" y="19" width="16" height="14" rx="2" class="bar"/>
+	<text x="686" y="30" class="detail">reviews-v3</text>
+
+	<!-- Forward steps -->
+	<path d="M170 167H190" class="flow"/>
+	<path d="M202 167L190 161V173Z" class="arrow"/>
+	<path d="M364 167H384" class="flow"/>
+	<path d="M396 167L384 161V173Z" class="arrow"/>
+	<path d="M558 167H578" class="flow"/>
+	<path d="M590 167L578 161V173Z" class="arrow"/>
+
+	<!-- Rollback: from steps 2, 3, and 4 back to step 1 -->
+	<path d="M283 278V324H89V300" class="flow"/>
+	<path d="M477 278V324H89V300" class="flow"/>
+	<path d="M671 278V324H89V300" class="flow"/>
+	<path d="M89 288L83 300H95Z" class="arrow"/>
+
+	<!-- STEP 1 -->
+	<rect x="16" y="56" width="146" height="222" rx="14" class="node"/>
+	<text x="32" y="80" class="zone">STEP 1</text>
+	<text x="146" y="80" text-anchor="end" class="mono-step">v1</text>
+	<text x="32" y="104" class="title">All to v1</text>
+	<path d="M32 118H146" class="divider"/>
+	<text x="32" y="140" class="sub">CONFIGURED</text>
+	<rect x="32" y="150" width="114" height="20" class="v1"/>
+	<rect x="32" y="150" width="114" height="20" rx="3" class="bar"/>
+	<text x="32" y="188" class="mono">v1 100</text>
+	<text x="146" y="188" text-anchor="end" class="mono">v3 0</text>
+	<text x="32" y="216" class="sub">MEASURED</text>
+	<text x="146" y="216" text-anchor="end" class="detail">of 20</text>
+	<rect x="32" y="226" width="114" height="20" class="v1"/>
+	<rect x="32" y="226" width="114" height="20" rx="3" class="bar"/>
+	<text x="32" y="264" class="mono-b">20</text>
+	<text x="146" y="264" text-anchor="end" class="mono-b">0</text>
+	<!-- STEP 2 -->
+	<rect x="210" y="56" width="146" height="222" rx="14" class="node"/>
+	<text x="226" y="80" class="zone">STEP 2</text>
+	<text x="340" y="80" text-anchor="end" class="mono-step">90-10</text>
+	<text x="226" y="104" class="title">Canary 10%</text>
+	<path d="M226 118H340" class="divider"/>
+	<text x="226" y="140" class="sub">CONFIGURED</text>
+	<rect x="226" y="150" width="114" height="20" class="v1"/>
+	<rect x="328.6" y="150" width="11.4" height="20" class="v3"/>
+	<rect x="226" y="150" width="114" height="20" rx="3" class="bar"/>
+	<text x="226" y="188" class="mono">v1 90</text>
+	<text x="340" y="188" text-anchor="end" class="mono">v3 10</text>
+	<text x="226" y="216" class="sub">MEASURED</text>
+	<text x="340" y="216" text-anchor="end" class="detail">of 100</text>
+	<rect x="226" y="226" width="114" height="20" class="v1"/>
+	<rect x="327.5" y="226" width="12.5" height="20" class="v3"/>
+	<rect x="226" y="226" width="114" height="20" rx="3" class="bar"/>
+	<text x="226" y="264" class="mono-b">89</text>
+	<text x="340" y="264" text-anchor="end" class="mono-b">11</text>
+	<!-- STEP 3 -->
+	<rect x="404" y="56" width="146" height="222" rx="14" class="node"/>
+	<text x="420" y="80" class="zone">STEP 3</text>
+	<text x="534" y="80" text-anchor="end" class="mono-step">50-50</text>
+	<text x="420" y="104" class="title">Half and half</text>
+	<path d="M420 118H534" class="divider"/>
+	<text x="420" y="140" class="sub">CONFIGURED</text>
+	<rect x="420" y="150" width="114" height="20" class="v1"/>
+	<rect x="477.0" y="150" width="57.0" height="20" class="v3"/>
+	<rect x="420" y="150" width="114" height="20" rx="3" class="bar"/>
+	<text x="420" y="188" class="mono">v1 50</text>
+	<text x="534" y="188" text-anchor="end" class="mono">v3 50</text>
+	<text x="420" y="216" class="sub">MEASURED</text>
+	<text x="534" y="216" text-anchor="end" class="detail">of 100</text>
+	<rect x="420" y="226" width="114" height="20" class="v1"/>
+	<rect x="483.8" y="226" width="50.2" height="20" class="v3"/>
+	<rect x="420" y="226" width="114" height="20" rx="3" class="bar"/>
+	<text x="420" y="264" class="mono-b">56</text>
+	<text x="534" y="264" text-anchor="end" class="mono-b">44</text>
+	<!-- STEP 4 -->
+	<rect x="598" y="56" width="146" height="222" rx="14" class="node"/>
+	<text x="614" y="80" class="zone">STEP 4</text>
+	<text x="728" y="80" text-anchor="end" class="mono-step">v3</text>
+	<text x="614" y="104" class="title">All to v3</text>
+	<path d="M614 118H728" class="divider"/>
+	<text x="614" y="140" class="sub">CONFIGURED</text>
+	<rect x="614" y="150" width="114" height="20" class="v1"/>
+	<rect x="614.0" y="150" width="114.0" height="20" class="v3"/>
+	<rect x="614" y="150" width="114" height="20" rx="3" class="bar"/>
+	<text x="614" y="188" class="mono">v1 0</text>
+	<text x="728" y="188" text-anchor="end" class="mono">v3 100</text>
+	<text x="614" y="216" class="sub">MEASURED</text>
+	<text x="728" y="216" text-anchor="end" class="detail">of 100</text>
+	<rect x="614" y="226" width="114" height="20" class="v1"/>
+	<rect x="614.0" y="226" width="114.0" height="20" class="v3"/>
+	<rect x="614" y="226" width="114" height="20" rx="3" class="bar"/>
+	<text x="614" y="264" class="mono-b">0</text>
+	<text x="728" y="264" text-anchor="end" class="mono-b">100</text>
+
+	<!-- Rollback label below its line -->
+	<text x="380" y="350" text-anchor="middle" class="title">Rollback from any step</text>
+	<text x="380" y="370" text-anchor="middle" class="mono">kubectl apply -f 06-traffic-shifting/virtualservice-reviews-v1.yaml</text>
+	<text x="380" y="389" text-anchor="middle" class="detail">one command, effective in seconds, no Pod restart</text>
+</svg>

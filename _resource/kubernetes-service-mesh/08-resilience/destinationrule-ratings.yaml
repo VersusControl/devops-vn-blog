@@ -1,0 +1,15 @@
+# Subsets of ratings: the stable v1 and the new, slow v-delayed build.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  host: ratings
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+    - name: v-delayed
+      labels:
+        version: v-delayed

@@ -1,0 +1,13 @@
+# Overlay for cluster/istio-install.yaml: register Jaeger as a tracing provider.
+# Install both files together:
+#   istioctl install -f cluster/istio-install.yaml -f 13-observability/istio-tracing.yaml -y
+# Registering a provider doesn't turn tracing on; telemetry-tracing.yaml does that.
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  meshConfig:
+    extensionProviders:
+      - name: jaeger
+        zipkin:                                    # Jaeger accepts spans in Zipkin format
+          service: zipkin.istio-system.svc.cluster.local
+          port: 9411

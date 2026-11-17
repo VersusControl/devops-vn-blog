@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 7 cover: Route by User and Header. Two requests reach the productpage sidecar. The QA team's request carries the header end-user: qa-team, matches the rule qa-team, and goes to reviews-v3 with red stars. Everyone else sends no end-user header, falls through to the rule default, and goes to reviews-v1 with no stars.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:30px;font-weight:700}
+			.pod-title{font-size:28px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.chip-text{font-family:Menlo,monospace;font-size:20px;font-weight:700;fill:#17212b}
+			.rule-text{font-family:Menlo,monospace;font-size:20px;fill:#263746}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.rule{fill:#fff;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.star{fill:#c0392b}
+		</style>
+		<path id="star" d="M0 -12L2.69 -3.71L11.41 -3.71L4.36 1.42L7.05 9.71L0 4.58L-7.05 9.71L-4.36 1.42L-11.41 -3.71L-2.69 -3.71Z"/>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 7</text>
+	<text x="156" y="432" class="title">Route by User</text>
+	<text x="156" y="522" class="title">and Header</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">The QA team sees v3,</text>
+	<text x="160" y="672" class="subtitle">everyone else sees v1</text>
+
+	<!-- Zone -->
+	<rect x="800" y="120" width="650" height="660" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="826" y="158" class="zone">BOOKSTORE MESH</text>
+
+	<!-- Connectors: one straight path per request, no crossing -->
+	<path d="M965 312V362" class="flow"/>
+	<path d="M965 382L955 362H975Z" class="arrow"/>
+	<path d="M1285 312V362" class="flow"/>
+	<path d="M1285 382L1275 362H1295Z" class="arrow"/>
+	<path d="M965 522V572" class="flow"/>
+	<path d="M965 592L955 572H975Z" class="arrow"/>
+	<path d="M1285 522V572" class="flow"/>
+	<path d="M1285 592L1275 572H1295Z" class="arrow"/>
+
+	<!-- Requests -->
+	<rect x="830" y="186" width="270" height="126" rx="14" class="node"/>
+	<text x="965" y="230" text-anchor="middle" class="node-title">QA team</text>
+	<rect x="843" y="252" width="244" height="40" rx="10" class="chip"/>
+	<text x="965" y="279" text-anchor="middle" class="chip-text">end-user: qa-team</text>
+
+	<rect x="1150" y="186" width="270" height="126" rx="14" class="node"/>
+	<text x="1285" y="230" text-anchor="middle" class="node-title">everyone else</text>
+	<text x="1285" y="278" text-anchor="middle" class="detail">no end-user header</text>
+
+	<!-- The decision: productpage's sidecar and its two rules -->
+	<rect x="830" y="392" width="590" height="130" rx="14" class="proxy"/>
+	<text x="1125" y="436" text-anchor="middle" class="node-title">productpage sidecar</text>
+	<rect x="865" y="458" width="200" height="42" rx="10" class="rule"/>
+	<text x="965" y="486" text-anchor="middle" class="rule-text">qa-team → v3</text>
+	<rect x="1185" y="458" width="200" height="42" rx="10" class="rule"/>
+	<text x="1285" y="486" text-anchor="middle" class="rule-text">default → v1</text>
+
+	<!-- Destinations -->
+	<rect x="845" y="602" width="240" height="132" rx="14" class="node"/>
+	<text x="965" y="650" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<use href="#star" class="star" transform="translate(909 692) scale(1.15)"/>
+	<use href="#star" class="star" transform="translate(937 692) scale(1.15)"/>
+	<use href="#star" class="star" transform="translate(965 692) scale(1.15)"/>
+	<use href="#star" class="star" transform="translate(993 692) scale(1.15)"/>
+	<use href="#star" class="star" transform="translate(1021 692) scale(1.15)"/>
+
+	<rect x="1165" y="602" width="240" height="132" rx="14" class="node"/>
+	<text x="1285" y="650" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="1285" y="700" text-anchor="middle" class="detail">no stars</text>
+</svg>

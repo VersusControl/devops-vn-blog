@@ -1,0 +1,21 @@
+# Failure 4 in chapter 5: a second VirtualService for the same host on the same gateway.
+# Its catch-all rule is merged after the existing rules, so it only catches unrouted paths.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: bookstore-maintenance
+  namespace: bookstore
+spec:
+  hosts:
+    - bookstore.local
+  gateways:
+    - bookstore-gateway
+  http:
+    - name: maintenance
+      match:
+        - uri:
+            prefix: /
+      directResponse:
+        status: 503
+        body:
+          string: "Book Store is down for maintenance\n"

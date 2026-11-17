@@ -1,0 +1,25 @@
+# Step 1: serve bookstore.local over HTTPS (TLS ends at the gateway) and keep plain HTTP.
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: bookstore-gateway
+  namespace: bookstore
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - bookstore.local
+    - port:
+        number: 443                  # gateway Service port 443 = node port 30443 = localhost:8443
+        name: https-bookstore
+        protocol: HTTPS
+      hosts:
+        - bookstore.local
+      tls:
+        mode: SIMPLE                 # the gateway ends TLS and forwards plain HTTP inside the mesh
+        credentialName: bookstore-local-tls   # a Secret in the gateway's namespace (istio-system)

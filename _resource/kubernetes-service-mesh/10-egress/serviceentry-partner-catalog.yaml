@@ -1,0 +1,15 @@
+# Register the partner catalog, which runs outside the cluster, in Istio's service registry.
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: partner-catalog
+  namespace: bookstore
+spec:
+  hosts:
+    - catalog.partner.example  # the name clients use (a Docker network alias of the container)
+  location: MESH_EXTERNAL      # outside the mesh: no sidecar, no mesh mTLS on the other end
+  resolution: DNS              # the sidecar resolves the name with DNS when it connects
+  ports:
+    - number: 8080
+      name: http               # HTTP: full request visibility, routing, retries
+      protocol: HTTP

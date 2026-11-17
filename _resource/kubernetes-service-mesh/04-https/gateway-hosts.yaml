@@ -1,0 +1,49 @@
+# Step 3: one gateway, three host names, three TLS modes on port 443.
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: bookstore-gateway
+  namespace: bookstore
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - bookstore.local
+      tls:
+        httpsRedirect: true
+    # The shop: TLS ends at the gateway.
+    - port:
+        number: 443
+        name: https-bookstore
+        protocol: HTTPS
+      hosts:
+        - bookstore.local
+      tls:
+        mode: SIMPLE
+        credentialName: bookstore-local-tls
+    # The partner API: the gateway also asks for a client certificate signed by the CA
+    # in the Secret's ca.crt, and refuses the connection without one.
+    - port:
+        number: 443
+        name: https-api
+        protocol: HTTPS
+      hosts:
+        - api.bookstore.local
+      tls:
+        mode: MUTUAL
+        credentialName: api-bookstore-local-tls
+    # Payments: the gateway doesn't decrypt anything. It reads the host name from the TLS
+    # handshake (SNI) and passes the encrypted connection to the payments Pod.
+    - port:
+        number: 443
+        name: tls-payments
+        protocol: TLS
+      hosts:
+        - payments.bookstore.local
+      tls:
+        mode: PASSTHROUGH

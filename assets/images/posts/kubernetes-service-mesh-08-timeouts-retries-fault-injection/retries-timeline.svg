@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="424" viewBox="0 0 760 424" role="img" aria-label="Retries over time on the route to ratings. The overall timeout of 2 seconds is an outer bar from 0 to 2 seconds that caps every try and the pauses between them. Top row: try 1 and try 2 are slow and each is cut at 500 milliseconds by perTryTimeout with 504 UT, with a short pause between tries; try 3 starts at about 1.05 seconds and gets a fast 200 answer. Bottom row: all three tries are slow and cut at 500 milliseconds, so the call ends with 504 URX,UT after 1552 milliseconds, before the 2 second limit. attempts: 2 means two retries after the first try, three tries in total.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:13px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.tick{font-family:Menlo,monospace;font-size:12px;fill:#526579}
+			.outer{fill:#fff;stroke:#283541;stroke-width:2}
+			.try{fill:#fff;stroke:#283541;stroke-width:2}
+			.fast{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.cut{fill:#17212b}
+			.dim{fill:none;stroke:#526579;stroke-width:1.5}
+			.axis{fill:none;stroke:#283541;stroke-width:1.5}
+		</style>
+	</defs>
+	<rect width="760" height="424" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="728" height="166" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">TRY 3 GETS A FAST ANSWER</text>
+
+	<rect x="16" y="196" width="728" height="168" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="220" class="zone">ALL THREE TRIES SLOW</text>
+
+	<!-- Row 1: outer timeout bar, 0 to 2 s at 320 px per second -->
+	<rect x="56" y="54" width="660" height="80" rx="12" class="outer"/>
+	<text x="72" y="76" class="mono-b">timeout: 2s</text>
+	<text x="700" y="76" text-anchor="end" class="detail">caps all tries and the pauses between them</text>
+
+	<rect x="66" y="88" width="160" height="34" rx="7" class="try"/>
+	<text x="78" y="110" class="title">try 1</text>
+	<text x="214" y="110" text-anchor="end" class="mono">504 UT</text>
+	<rect x="224" y="82" width="4" height="46" class="cut"/>
+
+	<rect x="234" y="88" width="160" height="34" rx="7" class="try"/>
+	<text x="246" y="110" class="title">try 2</text>
+	<text x="382" y="110" text-anchor="end" class="mono">504 UT</text>
+	<rect x="392" y="82" width="4" height="46" class="cut"/>
+
+	<rect x="402" y="88" width="18" height="34" rx="5" class="fast"/>
+	<text x="434" y="110"><tspan class="title">try 3</tspan><tspan class="mono-b" dx="10">200</tspan><tspan class="detail" dx="6">fast answer, page shows stars</tspan></text>
+
+	<!-- Row 1: perTryTimeout dimension under try 1 -->
+	<path d="M66 150H226M66 144V156M226 144V156" class="dim"/>
+	<text x="146" y="172" text-anchor="middle" class="mono">perTryTimeout: 500ms</text>
+
+	<!-- Row 2: outer timeout bar -->
+	<rect x="56" y="234" width="660" height="80" rx="12" class="outer"/>
+	<text x="72" y="256" class="mono-b">timeout: 2s</text>
+	<text x="700" y="256" text-anchor="end" class="detail">2 s limit not reached</text>
+
+	<rect x="66" y="268" width="160" height="34" rx="7" class="try"/>
+	<text x="78" y="290" class="title">try 1</text>
+	<text x="214" y="290" text-anchor="end" class="mono">504 UT</text>
+	<rect x="224" y="262" width="4" height="46" class="cut"/>
+
+	<rect x="234" y="268" width="160" height="34" rx="7" class="try"/>
+	<text x="246" y="290" class="title">try 2</text>
+	<text x="382" y="290" text-anchor="end" class="mono">504 UT</text>
+	<rect x="392" y="262" width="4" height="46" class="cut"/>
+
+	<rect x="402" y="268" width="160" height="34" rx="7" class="try"/>
+	<text x="414" y="290" class="title">try 3</text>
+	<text x="550" y="290" text-anchor="end" class="mono">504 UT</text>
+	<rect x="560" y="262" width="4" height="46" class="cut"/>
+
+	<text x="578" y="283" class="mono-b">504 URX,UT</text>
+	<text x="578" y="299" class="detail">after 1552 ms</text>
+
+	<!-- Row 2: first try and retries -->
+	<path d="M66 336H226M66 330V336M226 330V336" class="dim"/>
+	<text x="146" y="354" text-anchor="middle" class="detail">first try</text>
+	<path d="M234 336H562M234 330V336M562 330V336" class="dim"/>
+	<text x="398" y="354" text-anchor="middle"><tspan class="mono">attempts: 2</tspan><tspan class="detail" dx="6">two retries</tspan></text>
+
+	<!-- Time axis -->
+	<path d="M66 386H706" class="axis"/>
+	<path d="M66 386v6M146 386v4M226 386v6M306 386v4M386 386v6M466 386v4M546 386v6M626 386v4M706 386v6" class="axis"/>
+	<text y="408" text-anchor="middle" class="tick"><tspan x="66">0</tspan><tspan x="226">0.5</tspan><tspan x="386">1</tspan><tspan x="546">1.5</tspan><tspan x="706">2</tspan></text>
+	<text x="720" y="408" class="tick">s</text>
+</svg>

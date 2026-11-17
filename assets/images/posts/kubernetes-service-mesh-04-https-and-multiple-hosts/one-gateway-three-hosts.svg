@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="700" viewBox="0 0 760 700" role="img" aria-label="One Istio ingress gateway, istio-ingressgateway in istio-system, serving three host names on one port. On port 80, listener 8080, the bookstore.local server has httpsRedirect: true and answers with a 301 redirect to https://bookstore.local. Port 443 is one Envoy listener on 8443 that picks a server by SNI, the host name in the TLS handshake. bookstore.local uses SIMPLE TLS with the certificate bookstore-local-tls, decrypts, and its route table sends /productpage, /static/, /login, /logout, and /api/v1/products to productpage. api.bookstore.local uses MUTUAL TLS with the certificate api-bookstore-local-tls plus ca.crt for client certificates, decrypts, and its route table sends only /api/v1/products to productpage; any other path gets 404 NR. payments.bookstore.local uses PASSTHROUGH: no certificate at the gateway and no decryption, no route table, straight to the cluster outbound|443||payments, and the still-encrypted TLS connection reaches the payments Pod in bookstore, which decrypts it with its own payments-tls certificate.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.title-sm{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.label{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-host{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.chip-text{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#263746}
+			.tls-label{font-size:12px;font-weight:700;fill:#456987}
+			.http-label{font-size:12px;font-weight:700;fill:#17212b}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.tls{fill:none;stroke:#456987;stroke-width:3;stroke-linecap:butt}
+			.tls-arrow{fill:#456987}
+			.lock-shackle{fill:none;stroke:#456987;stroke-width:1.8}
+			.lock-body{fill:#456987}
+		</style>
+		<g id="lock">
+			<path d="M3 7V4.5a3 3 0 0 1 6 0V7" class="lock-shackle"/>
+			<rect x="0" y="6.5" width="12" height="8.5" rx="2" class="lock-body"/>
+			<circle cx="6" cy="10.5" r="1.3" fill="#fff"/>
+		</g>
+	</defs>
+	<rect width="760" height="700" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="728" height="512" rx="14" class="zone"/>
+	<text x="32" y="38" class="zone-label">ISTIO-SYSTEM</text>
+	<text x="728" y="38" text-anchor="end"><tspan class="detail">gateway Envoy</tspan><tspan class="mono" dx="6">istio-ingressgateway</tspan></text>
+	<rect x="16" y="552" width="728" height="132" rx="14" class="zone"/>
+	<text x="32" y="574" class="zone-label">BOOKSTORE</text>
+
+	<!-- Connectors: port 80 redirect -->
+	<path d="M208 78H252" class="flow"/>
+	<path d="M264 78L252 72V84Z" class="arrow"/>
+	<path d="M450 78H494" class="flow"/>
+	<path d="M506 78L494 72V84Z" class="arrow"/>
+
+	<!-- Connectors: listener 8443 to one server per SNI host -->
+	<path d="M138 180V212" class="flow"/>
+	<path d="M138 224L132 212H144Z" class="arrow"/>
+	<path d="M380 180V212" class="flow"/>
+	<path d="M380 224L374 212H386Z" class="arrow"/>
+	<path d="M622 180V212" class="flow"/>
+	<path d="M622 224L616 212H628Z" class="arrow"/>
+	<text x="148" y="207" class="label">SNI</text>
+	<text x="390" y="207" class="label">SNI</text>
+	<text x="632" y="207" class="label">SNI</text>
+
+	<!-- Connectors: server to route table or cluster -->
+	<path d="M138 336V368" class="flow"/>
+	<path d="M138 380L132 368H144Z" class="arrow"/>
+	<path d="M380 336V368" class="flow"/>
+	<path d="M380 380L374 368H386Z" class="arrow"/>
+	<path d="M622 336V368" class="flow"/>
+	<path d="M622 380L616 368H628Z" class="arrow"/>
+
+	<!-- Connectors: to the Pods in bookstore -->
+	<path d="M138 512V572" class="flow"/>
+	<path d="M138 584L132 572H144Z" class="arrow"/>
+	<path d="M380 512V572" class="flow"/>
+	<path d="M380 584L374 572H386Z" class="arrow"/>
+	<path d="M622 512V572" class="tls"/>
+	<path d="M622 584L616 572H628Z" class="tls-arrow"/>
+	<text x="150" y="545" class="http-label">HTTP</text>
+	<text x="392" y="545" class="http-label">HTTP</text>
+	<use href="#lock" x="634" y="532"/>
+	<text x="652" y="545" class="tls-label">TLS</text>
+
+	<!-- Row 1: port 80 -->
+	<rect x="30" y="52" width="178" height="52" rx="12" class="node"/>
+	<text x="119" y="74" text-anchor="middle" class="title">port 80</text>
+	<text x="119" y="93" text-anchor="middle" class="mono">listener :8080</text>
+
+	<rect x="272" y="52" width="178" height="52" rx="12" class="node"/>
+	<text x="361" y="74" text-anchor="middle" class="mono-host">bookstore.local</text>
+	<text x="361" y="93" text-anchor="middle" class="mono">httpsRedirect: true</text>
+
+	<rect x="514" y="52" width="216" height="52" rx="12" class="node"/>
+	<text x="622" y="74" text-anchor="middle" class="title">301 redirect</text>
+	<text x="622" y="93" text-anchor="middle" class="mono">https://bookstore.local</text>
+
+	<!-- Row 2: port 443 listener -->
+	<rect x="30" y="128" width="700" height="52" rx="12" class="node"/>
+	<text x="380" y="150" text-anchor="middle"><tspan class="title">port 443</tspan><tspan class="mono" dx="10">listener :8443</tspan></text>
+	<text x="380" y="169" text-anchor="middle" class="detail">Envoy picks a server by SNI, the host name in the TLS handshake</text>
+
+	<!-- Row 3: one server per host -->
+	<rect x="30" y="232" width="216" height="104" rx="12" class="primary"/>
+	<text x="138" y="256" text-anchor="middle" class="mono-host">bookstore.local</text>
+	<rect x="106" y="266" width="64" height="21" rx="6" class="chip"/>
+	<text x="138" y="281" text-anchor="middle" class="chip-text">SIMPLE</text>
+	<text x="138" y="308" text-anchor="middle" class="mono">bookstore-local-tls</text>
+	<text x="138" y="326" text-anchor="middle" class="detail">decrypts</text>
+
+	<rect x="272" y="232" width="216" height="104" rx="12" class="primary"/>
+	<text x="380" y="256" text-anchor="middle" class="mono-host">api.bookstore.local</text>
+	<rect x="348" y="266" width="64" height="21" rx="6" class="chip"/>
+	<text x="380" y="281" text-anchor="middle" class="chip-text">MUTUAL</text>
+	<text x="380" y="308" text-anchor="middle" class="mono">api-bookstore-local-tls</text>
+	<text x="380" y="326" text-anchor="middle"><tspan class="mono">+ ca.crt</tspan><tspan class="detail" dx="5">for client certs</tspan></text>
+
+	<rect x="514" y="232" width="216" height="104" rx="12" class="node"/>
+	<text x="622" y="256" text-anchor="middle" class="mono-host">payments.bookstore.local</text>
+	<rect x="570" y="266" width="104" height="21" rx="6" class="chip"/>
+	<text x="622" y="281" text-anchor="middle" class="chip-text">PASSTHROUGH</text>
+	<text x="622" y="308" text-anchor="middle" class="detail">no cert at the gateway</text>
+	<text x="622" y="326" text-anchor="middle" class="detail">does not decrypt</text>
+
+	<!-- Row 4: route tables and the passthrough cluster -->
+	<rect x="30" y="388" width="216" height="124" rx="12" class="node"/>
+	<text x="138" y="410" text-anchor="middle" class="title-sm">route table</text>
+	<text x="82" y="432" class="mono">/productpage</text>
+	<text x="82" y="448" class="mono">/static/</text>
+	<text x="82" y="464" class="mono">/login</text>
+	<text x="82" y="480" class="mono">/logout</text>
+	<text x="82" y="496" class="mono">/api/v1/products</text>
+
+	<rect x="272" y="388" width="216" height="124" rx="12" class="node"/>
+	<text x="380" y="410" text-anchor="middle" class="title-sm">route table</text>
+	<text x="324" y="432" class="mono">/api/v1/products</text>
+	<text x="380" y="464" text-anchor="middle" class="detail">any other path</text>
+	<text x="380" y="480" text-anchor="middle" class="mono">404 NR</text>
+
+	<rect x="514" y="388" width="216" height="124" rx="12" class="node"/>
+	<text x="622" y="410" text-anchor="middle" class="title-sm">no route table</text>
+	<text x="622" y="432" text-anchor="middle" class="detail">straight to the cluster</text>
+	<text x="622" y="452" text-anchor="middle" class="mono">outbound|443||payments</text>
+	<text x="622" y="480" text-anchor="middle" class="detail">the path is encrypted,</text>
+	<text x="622" y="496" text-anchor="middle" class="detail">so nothing to match</text>
+
+	<!-- Row 5: Pods in bookstore -->
+	<rect x="30" y="592" width="458" height="76" rx="12" class="node"/>
+	<text x="259" y="626" text-anchor="middle" class="title">productpage</text>
+	<text x="259" y="648" text-anchor="middle" class="mono">port 9080</text>
+
+	<rect x="514" y="592" width="216" height="76" rx="12" class="primary"/>
+	<text x="622" y="616" text-anchor="middle" class="title">payments Pod</text>
+	<text x="622" y="636" text-anchor="middle" class="mono">payments-tls cert</text>
+	<text x="622" y="654" text-anchor="middle" class="detail">decrypts</text>
+</svg>

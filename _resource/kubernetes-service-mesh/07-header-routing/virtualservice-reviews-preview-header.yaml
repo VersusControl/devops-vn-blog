@@ -1,0 +1,35 @@
+# Attempt: anyone who sends "x-bookstore-preview: true" sees v3.
+# This does NOT work through productpage: productpage doesn't forward this header to reviews,
+# so the reviews call made by productpage's sidecar never carries it.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  hosts:
+    - reviews
+  http:
+    - name: qa-team
+      match:
+        - headers:
+            end-user:
+              exact: qa-team
+      route:
+        - destination:
+            host: reviews
+            subset: v3
+    - name: preview-header
+      match:
+        - headers:
+            x-bookstore-preview:
+              exact: "true"
+      route:
+        - destination:
+            host: reviews
+            subset: v3
+    - name: default
+      route:
+        - destination:
+            host: reviews
+            subset: v1

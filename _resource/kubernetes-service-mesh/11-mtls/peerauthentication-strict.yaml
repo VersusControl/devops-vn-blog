@@ -1,0 +1,10 @@
+# Accept only mutual TLS for every workload in the bookstore namespace.
+# Plain-text callers (Pods without a sidecar) are rejected.
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: default            # "default" with no selector = the whole namespace
+  namespace: bookstore
+spec:
+  mtls:
+    mode: STRICT

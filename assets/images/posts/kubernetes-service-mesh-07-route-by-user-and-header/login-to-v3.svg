@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="624" viewBox="0 0 760 624" role="img" aria-label="Routing the QA team to reviews v3 in three numbered steps. Step 1, sign in: the browser sends POST /login as qa-team to productpage, which stores the user in a signed session cookie and answers with a 302 redirect and Set-Cookie: session. Step 2: the next page load carries the session cookie through the ingress gateway to the productpage app, which reads the session and adds the header end-user: qa-team to its call to reviews. Step 3: productpage's sidecar Envoy matches the rule qa-team and sends the call to reviews-v3 with red stars. For contrast, a browser that is not signed in sends no cookie, the app sends no end-user header, the sidecar uses the rule default, and the call goes to reviews-v1 with no stars.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.label{font-size:13px;font-weight:700;fill:#263746}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.chip-text{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.badge-text{font-size:13px;font-weight:700;fill:#fff}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.card{fill:#fff;stroke:#aab9c7;stroke-width:1.5}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.badge{fill:#17212b}
+			.cfg{fill:#fff;stroke:#456987;stroke-width:2;stroke-dasharray:6 4}
+			.config{fill:none;stroke:#456987;stroke-width:2.5;stroke-dasharray:6 4;stroke-linecap:butt}
+			.config-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="760" height="624" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="728" height="144" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">SIGN IN</text>
+	<rect x="16" y="172" width="728" height="212" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="196" class="zone">SIGNED IN AS QA-TEAM</text>
+	<rect x="16" y="396" width="728" height="212" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="420" class="zone">NOT SIGNED IN</text>
+
+	<!-- Step 1: sign in -->
+	<path d="M120 90H272" class="flow"/>
+	<path d="M284 90L272 84V96Z" class="arrow"/>
+	<path d="M292 114H140" class="flow"/>
+	<path d="M128 114L140 108V120Z" class="arrow"/>
+
+	<rect x="32" y="56" width="88" height="80" rx="12" class="node"/>
+	<text x="76" y="84" text-anchor="middle" class="title">browser</text>
+	<text x="76" y="104" text-anchor="middle" class="detail">signs in as</text>
+	<text x="76" y="122" text-anchor="middle" class="mono">qa-team</text>
+
+	<rect x="292" y="56" width="128" height="80" rx="12" class="node"/>
+	<text x="356" y="84" text-anchor="middle" class="title">productpage</text>
+	<text x="356" y="104" text-anchor="middle" class="detail">stores the user</text>
+	<text x="356" y="121" text-anchor="middle" class="detail">in its session</text>
+
+	<path d="M420 96H440" class="config"/>
+	<path d="M452 96L440 90V102Z" class="config-arrow"/>
+	<rect x="460" y="56" width="268" height="80" rx="12" class="cfg"/>
+	<text x="594" y="84" text-anchor="middle" class="title">session cookie</text>
+	<text x="594" y="104" text-anchor="middle" class="mono">user: qa-team</text>
+	<text x="594" y="122" text-anchor="middle" class="detail">signed by productpage</text>
+
+	<circle cx="159" cy="66" r="11" class="badge"/>
+	<text x="159" y="71" text-anchor="middle" class="badge-text">1</text>
+	<text x="178" y="71" class="mono">POST /login</text>
+	<text x="206" y="134" text-anchor="middle" class="mono">Set-Cookie: session</text>
+	<text x="206" y="150" text-anchor="middle" class="detail">302 redirect</text>
+
+	<!-- Steps 2 and 3: signed in -->
+	<rect x="268" y="208" width="336" height="112" rx="14" class="pod"/>
+	<text x="284" y="230" class="pod-title">productpage Pod</text>
+
+	<path d="M120 274H140" class="flow"/>
+	<path d="M152 274L140 268V280Z" class="arrow"/>
+	<path d="M248 274H272" class="flow"/>
+	<path d="M284 274L272 268V280Z" class="arrow"/>
+	<path d="M420 274H440" class="flow"/>
+	<path d="M452 274L440 268V280Z" class="arrow"/>
+	<path d="M580 274H608" class="flow"/>
+	<path d="M620 274L608 268V280Z" class="arrow"/>
+
+	<rect x="32" y="242" width="88" height="64" rx="12" class="node"/>
+	<text x="76" y="268" text-anchor="middle" class="title">browser</text>
+	<text x="76" y="288" text-anchor="middle" class="detail">sends cookie</text>
+
+	<rect x="160" y="242" width="88" height="64" rx="12" class="node"/>
+	<text x="204" y="268" text-anchor="middle" class="title">gateway</text>
+	<text x="204" y="288" text-anchor="middle" class="detail">routes page</text>
+
+	<rect x="292" y="242" width="128" height="64" rx="12" class="node"/>
+	<text x="356" y="268" text-anchor="middle" class="title">productpage</text>
+	<text x="356" y="288" text-anchor="middle" class="detail">reads the session</text>
+
+	<rect x="460" y="242" width="120" height="64" rx="12" class="proxy"/>
+	<text x="520" y="268" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="520" y="289" text-anchor="middle" class="mono">rule qa-team</text>
+
+	<rect x="628" y="242" width="100" height="64" rx="12" class="node"/>
+	<text x="678" y="268" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<text x="678" y="288" text-anchor="middle" class="detail">red stars</text>
+
+	<circle cx="140" cy="250" r="11" class="badge"/>
+	<text x="140" y="255" text-anchor="middle" class="badge-text">2</text>
+	<circle cx="440" cy="250" r="11" class="badge"/>
+	<text x="440" y="255" text-anchor="middle" class="badge-text">3</text>
+
+	<rect x="32" y="332" width="316" height="38" rx="10" class="card"/>
+	<text x="46" y="356" class="label">page request</text>
+	<text x="146" y="356" class="mono">Cookie: session=…</text>
+	<rect x="364" y="332" width="364" height="38" rx="10" class="card"/>
+	<text x="378" y="356" class="label">call to reviews</text>
+	<rect x="490" y="340" width="140" height="22" rx="6" class="chip"/>
+	<text x="560" y="355" text-anchor="middle" class="chip-text">end-user: qa-team</text>
+
+	<!-- Contrast: not signed in -->
+	<rect x="268" y="432" width="336" height="112" rx="14" class="pod"/>
+	<text x="284" y="454" class="pod-title">productpage Pod</text>
+
+	<path d="M120 498H140" class="flow"/>
+	<path d="M152 498L140 492V504Z" class="arrow"/>
+	<path d="M248 498H272" class="flow"/>
+	<path d="M284 498L272 492V504Z" class="arrow"/>
+	<path d="M420 498H440" class="flow"/>
+	<path d="M452 498L440 492V504Z" class="arrow"/>
+	<path d="M580 498H608" class="flow"/>
+	<path d="M620 498L608 492V504Z" class="arrow"/>
+
+	<rect x="32" y="466" width="88" height="64" rx="12" class="node"/>
+	<text x="76" y="492" text-anchor="middle" class="title">browser</text>
+	<text x="76" y="512" text-anchor="middle" class="detail">no cookie</text>
+
+	<rect x="160" y="466" width="88" height="64" rx="12" class="node"/>
+	<text x="204" y="492" text-anchor="middle" class="title">gateway</text>
+	<text x="204" y="512" text-anchor="middle" class="detail">routes page</text>
+
+	<rect x="292" y="466" width="128" height="64" rx="12" class="node"/>
+	<text x="356" y="492" text-anchor="middle" class="title">productpage</text>
+	<text x="356" y="512" text-anchor="middle" class="detail">no session</text>
+
+	<rect x="460" y="466" width="120" height="64" rx="12" class="proxy"/>
+	<text x="520" y="492" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="520" y="513" text-anchor="middle" class="mono">rule default</text>
+
+	<rect x="628" y="466" width="100" height="64" rx="12" class="node"/>
+	<text x="678" y="492" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="678" y="512" text-anchor="middle" class="detail">no stars</text>
+
+	<rect x="32" y="556" width="316" height="38" rx="10" class="card"/>
+	<text x="46" y="580" class="label">page request</text>
+	<text x="146" y="580" class="detail">no cookie</text>
+	<rect x="364" y="556" width="364" height="38" rx="10" class="card"/>
+	<text x="378" y="580" class="label">call to reviews</text>
+	<text x="490" y="580" class="detail">no end-user header</text>
+</svg>

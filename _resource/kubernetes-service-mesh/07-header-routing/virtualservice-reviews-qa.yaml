@@ -1,0 +1,26 @@
+# The QA team sees reviews v3; everyone else sees v1.
+# productpage adds the "end-user" header to its calls to reviews after a user logs in.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  hosts:
+    - reviews
+  http:
+    # Rules are checked in order: the specific match first, the default last.
+    - name: qa-team
+      match:
+        - headers:
+            end-user:
+              exact: qa-team
+      route:
+        - destination:
+            host: reviews
+            subset: v3
+    - name: default
+      route:
+        - destination:
+            host: reviews
+            subset: v1

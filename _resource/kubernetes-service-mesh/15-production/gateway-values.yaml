@@ -1,0 +1,25 @@
+# Values for the gateway chart: the ingress gateway, in its own namespace.
+service:
+  # On a cloud, keep the chart's default (LoadBalancer) and add your load balancer
+  # annotations. On Kind: NodePort, on the ports cluster/kind-config.yaml maps.
+  type: NodePort
+  ports:
+    - name: status-port
+      port: 15021
+      protocol: TCP
+      targetPort: 15021
+    - name: http2
+      port: 80
+      protocol: TCP
+      targetPort: 80
+      nodePort: 30080
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+      nodePort: 30443
+autoscaling:
+  minReplicas: 2                     # two gateway Pods, so one can restart at a time
+  maxReplicas: 3
+podDisruptionBudget:
+  minAvailable: 1

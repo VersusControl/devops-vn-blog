@@ -1,0 +1,12 @@
+# Turn tracing on for the whole mesh (a Telemetry object in the root namespace) and send
+# spans to the "jaeger" provider. 100% sampling is for a lab; production uses 1% or less.
+apiVersion: telemetry.istio.io/v1
+kind: Telemetry
+metadata:
+  name: mesh-default
+  namespace: istio-system
+spec:
+  tracing:
+    - providers:
+        - name: jaeger
+      randomSamplingPercentage: 100

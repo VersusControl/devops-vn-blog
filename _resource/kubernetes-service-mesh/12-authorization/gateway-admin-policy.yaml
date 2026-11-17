@@ -1,0 +1,30 @@
+# At the ingress gateway, deny requests to the admin host unless they carry a valid JWT
+# (any request principal) whose "role" claim is "admin". DENY policies run before ALLOW
+# policies, and this one only matches the admin host, so bookstore.local is unaffected.
+# "ports" limits it to the HTTP port; without it, Istio warns that a DENY rule with only
+# HTTP fields also denies all TCP traffic (such as chapter 4's TLS passthrough) on the gateway.
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: admin-requires-jwt
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  action: DENY
+  rules:
+    - from:
+        - source:
+            notRequestPrincipals: ["*"]       # no valid token
+      to:
+        - operation:
+            hosts: ["admin.bookstore.local", "admin.bookstore.local:*"]
+            ports: ["8080"]                   # the gateway's HTTP port (Service port 80)
+    - to:
+        - operation:
+            hosts: ["admin.bookstore.local", "admin.bookstore.local:*"]
+            ports: ["8080"]
+      when:
+        - key: request.auth.claims[role]
+          notValues: ["admin"]                # a token, but not an admin

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="738" viewBox="0 0 760 738" role="img" aria-label="Two hops through the egress gateway. Inside the cluster, in namespace bookstore, the tester app in the tester Pod calls plain http://catalog.partner.example:8080, and its sidecar Envoy intercepts the call. Hop 1: the sidecar matches VirtualService rule to-egress-gateway, which applies to gateways mesh on port 8080, and sends the call over mesh mTLS, ISTIO_MUTUAL with SNI catalog.partner.example, to port 443 of the istio-egressgateway Service in namespace istio-system. The Service forwards it to port 8443 on the gateway Envoy, which logs every call. Hop 2: the gateway Envoy matches rule to-partner, which applies to gateways partner-egress on port 443, and sends plain HTTP across the cluster boundary to the partner-catalog container, catalog.partner.example port 8080, outside the cluster. A dashed path from the tester Pod straight to the cluster edge ends at a stop bar: block direct egress with a NetworkPolicy so the gateway is the only exit.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:13px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.label{font-size:13px;font-weight:700;fill:#17212b}
+			.tls-label{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#456987}
+			.note{font-size:12px;fill:#526579}
+			.note-strong{font-size:12px;font-weight:700;fill:#17212b}
+			.cluster{fill:#fff;stroke:#526579;stroke-width:2}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.outside{fill:#fff;stroke:#aab9c7;stroke-width:2;stroke-dasharray:8 5}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.tls{fill:none;stroke:#456987;stroke-width:3;stroke-linecap:butt}
+			.tls-arrow{fill:#456987}
+			.denied{fill:none;stroke:#6b7d8f;stroke-width:2.5;stroke-dasharray:6 4;stroke-linecap:butt;stroke-linejoin:round}
+			.stop{fill:#17212b}
+			.lock-shackle{fill:none;stroke:#456987;stroke-width:1.8}
+			.lock-body{fill:#456987}
+		</style>
+		<g id="lock">
+			<path d="M3 7V4.5a3 3 0 0 1 6 0V7" class="lock-shackle"/>
+			<rect x="0" y="6.5" width="12" height="8.5" rx="2" class="lock-body"/>
+			<circle cx="6" cy="10.5" r="1.3" fill="#fff"/>
+		</g>
+	</defs>
+	<rect width="760" height="738" fill="#fff"/>
+
+	<!-- Cluster boundary with its namespaces, and the outside world below it -->
+	<rect x="16" y="16" width="728" height="574" rx="14" class="cluster"/>
+	<text x="32" y="40" class="zone-label">CLUSTER</text>
+	<rect x="32" y="52" width="696" height="254" rx="14" class="zone"/>
+	<text x="48" y="76" class="zone-label">BOOKSTORE</text>
+	<rect x="32" y="384" width="696" height="182" rx="14" class="zone"/>
+	<text x="48" y="408" class="zone-label">ISTIO-SYSTEM</text>
+	<rect x="16" y="606" width="728" height="116" rx="14" class="outside"/>
+	<text x="32" y="630" class="zone-label">OUTSIDE THE CLUSTER</text>
+
+	<!-- Direct egress from the Pod, which a NetworkPolicy should block -->
+	<path d="M420 258H700V581" class="denied"/>
+	<rect x="684" y="582" width="32" height="6" rx="2" class="stop"/>
+	<text x="688" y="330" text-anchor="end" class="note-strong">direct egress</text>
+	<text x="688" y="348" text-anchor="end" class="note">block it with a</text>
+	<text x="688" y="366" text-anchor="end" class="note">NetworkPolicy</text>
+
+	<!-- tester Pod -->
+	<rect x="80" y="92" width="340" height="198" rx="14" class="pod"/>
+	<text x="96" y="116" class="pod-title">tester Pod</text>
+
+	<rect x="96" y="130" width="308" height="56" rx="12" class="node"/>
+	<text x="250" y="153" text-anchor="middle" class="title">tester app</text>
+	<text x="250" y="173" text-anchor="middle" class="mono">http://catalog.partner.example:8080</text>
+
+	<rect x="96" y="226" width="308" height="48" rx="12" class="proxy"/>
+	<text x="250" y="246" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="250" y="264" text-anchor="middle" class="detail">intercepts the call on :8080</text>
+
+	<path d="M250 186V206" class="flow"/>
+	<path d="M250 218L244 206H256Z" class="arrow"/>
+
+	<!-- Hop 1: sidecar to the egress gateway Service, mesh mTLS -->
+	<path d="M250 274V400" class="tls"/>
+	<path d="M250 412L244 400H256Z" class="tls-arrow"/>
+	<text x="236" y="330" text-anchor="end"><tspan class="label">hop 1</tspan><tspan class="mono-b" dx="8">to-egress-gateway</tspan></text>
+	<text x="236" y="348" text-anchor="end" class="mono">gateways: [mesh]</text>
+	<text x="236" y="366" text-anchor="end" class="mono">port: 8080</text>
+	<use href="#lock" x="264" y="317"/>
+	<text x="282" y="330" class="tls-label">ISTIO_MUTUAL</text>
+	<text x="264" y="348" class="detail">mesh mTLS to port 443</text>
+	<text x="264" y="366" class="mono">SNI catalog.partner.example</text>
+
+	<!-- Egress gateway: Service, then Envoy -->
+	<rect x="150" y="420" width="200" height="68" rx="12" class="node"/>
+	<text x="250" y="443" text-anchor="middle" class="title">gateway Service</text>
+	<text x="250" y="462" text-anchor="middle" class="mono">istio-egressgateway</text>
+	<text x="250" y="480" text-anchor="middle" class="mono">port 443 → 8443</text>
+
+	<path d="M350 454H390" class="flow"/>
+	<path d="M402 454L390 448V460Z" class="arrow"/>
+
+	<rect x="410" y="420" width="240" height="68" rx="12" class="proxy"/>
+	<text x="530" y="443" text-anchor="middle" class="title">gateway Envoy</text>
+	<text x="530" y="462" text-anchor="middle" class="mono">listens on :8443</text>
+	<text x="530" y="480" text-anchor="middle" class="detail">logs every call</text>
+
+	<!-- Hop 2: gateway Envoy to the partner, across the cluster boundary -->
+	<path d="M530 488V618" class="flow"/>
+	<path d="M530 630L524 618H536Z" class="arrow"/>
+	<text x="516" y="514" text-anchor="end"><tspan class="label">hop 2</tspan><tspan class="mono-b" dx="8">to-partner</tspan></text>
+	<text x="516" y="532" text-anchor="end" class="mono">gateways: [partner-egress]</text>
+	<text x="516" y="550" text-anchor="end" class="mono">port: 443</text>
+	<text x="544" y="514" class="label">plain HTTP</text>
+	<text x="544" y="532" class="detail">to port 8080</text>
+
+	<!-- Partner outside the cluster -->
+	<rect x="360" y="638" width="340" height="64" rx="12" class="node"/>
+	<text x="530" y="660" text-anchor="middle" class="title">partner-catalog container</text>
+	<text x="530" y="680" text-anchor="middle" class="mono">catalog.partner.example:8080</text>
+	<text x="530" y="696" text-anchor="middle" class="detail">172.21.0.5, plain HTTP</text>
+</svg>

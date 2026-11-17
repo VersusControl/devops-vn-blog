@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="556" viewBox="0 0 760 556" role="img" aria-label="VirtualService and DestinationRule for reviews. The VirtualService reviews, with hosts reviews and no gateways so it applies in the mesh, decides where to send: subset v1 with weight 90 and subset v3 with weight 10, and no route to v2. It refers to the subsets by name. The DestinationRule reviews, with host reviews, defines what the names mean: subset v1 is the Pods labeled version v1, subset v2 version v2, subset v3 version v3; later chapters add load balancing, connection pool, and TLS settings to it. Each subset selects one reviews Pod by its version label, while the reviews Service selects all three Pods by app: reviews.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.chip-title{font-size:14px;font-weight:700}
+			.kind{font-size:12px;font-weight:700;fill:#526579}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.chip{fill:#fff;stroke:#456987;stroke-width:2}
+			.subset{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.empty{fill:none;stroke:#aab9c7;stroke-width:1.5;stroke-dasharray:5 4}
+			.divider{stroke:#aab9c7;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="556" fill="#fff"/>
+
+	<!-- Zone: the reviews Service and its Pods -->
+	<rect x="16" y="340" width="728" height="200" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="362" class="zone">REVIEWS</text>
+
+	<!-- Connectors: VirtualService routes refer to DestinationRule subsets by name -->
+	<path d="M340 120V156" class="flow"/>
+	<path d="M340 168L334 156H346Z" class="arrow"/>
+	<path d="M658 120V156" class="flow"/>
+	<path d="M658 168L652 156H664Z" class="arrow"/>
+	<text x="352" y="150" class="detail">by subset name</text>
+
+	<!-- Connectors: each subset selects Pods by version label -->
+	<path d="M340 300V364" class="flow"/>
+	<path d="M340 376L334 364H346Z" class="arrow"/>
+	<path d="M499 300V364" class="flow"/>
+	<path d="M499 376L493 364H505Z" class="arrow"/>
+	<path d="M658 300V364" class="flow"/>
+	<path d="M658 376L652 364H664Z" class="arrow"/>
+	<text x="352" y="326" class="detail">Pods with that label</text>
+
+	<!-- Connectors: the Service selects all three Pods by app label -->
+	<path d="M130 454V500H340V474" class="flow"/>
+	<path d="M340 462L334 474H346Z" class="arrow"/>
+	<path d="M130 454V500H499V474" class="flow"/>
+	<path d="M499 462L493 474H505Z" class="arrow"/>
+	<path d="M130 454V500H658V474" class="flow"/>
+	<path d="M658 462L652 474H664Z" class="arrow"/>
+	<text x="150" y="524"><tspan class="detail">Service selector</tspan><tspan class="mono" dx="6">app: reviews</tspan><tspan class="detail" dx="6">matches all three Pods</tspan></text>
+
+	<!-- VirtualService: where to send -->
+	<rect x="16" y="16" width="728" height="104" rx="14" class="node"/>
+	<text x="36" y="41" class="kind">VirtualService</text>
+	<text x="36" y="62" class="mono-title">reviews</text>
+	<text x="36" y="83" class="mono">hosts: reviews</text>
+	<text x="36" y="104" class="detail">no gateways: applies in the mesh</text>
+	<path d="M250 30V106" class="divider"/>
+	<text x="270" y="40" class="title">Where to send</text>
+
+	<rect x="270" y="52" width="140" height="54" rx="10" class="chip"/>
+	<text x="340" y="74" text-anchor="middle" class="mono-b">subset: v1</text>
+	<text x="340" y="94" text-anchor="middle" class="mono">weight: 90</text>
+
+	<rect x="429" y="52" width="140" height="54" rx="10" class="empty"/>
+	<text x="499" y="83" text-anchor="middle" class="detail">no route to v2</text>
+
+	<rect x="588" y="52" width="140" height="54" rx="10" class="chip"/>
+	<text x="658" y="74" text-anchor="middle" class="mono-b">subset: v3</text>
+	<text x="658" y="94" text-anchor="middle" class="mono">weight: 10</text>
+
+	<!-- DestinationRule: what the names mean -->
+	<rect x="16" y="176" width="728" height="124" rx="14" class="node"/>
+	<text x="36" y="201" class="kind">DestinationRule</text>
+	<text x="36" y="222" class="mono-title">reviews</text>
+	<text x="36" y="243" class="mono">host: reviews</text>
+	<text x="36" y="266" class="detail">later: load balancing,</text>
+	<text x="36" y="284" class="detail">connection pool, TLS</text>
+	<path d="M250 190V286" class="divider"/>
+	<text x="270" y="200" class="title">What the names mean</text>
+
+	<rect x="270" y="212" width="140" height="58" rx="10" class="subset"/>
+	<text x="340" y="236" text-anchor="middle" class="chip-title">subset v1</text>
+	<text x="340" y="257" text-anchor="middle" class="mono">version: v1</text>
+
+	<rect x="429" y="212" width="140" height="58" rx="10" class="subset"/>
+	<text x="499" y="236" text-anchor="middle" class="chip-title">subset v2</text>
+	<text x="499" y="257" text-anchor="middle" class="mono">version: v2</text>
+
+	<rect x="588" y="212" width="140" height="58" rx="10" class="subset"/>
+	<text x="658" y="236" text-anchor="middle" class="chip-title">subset v3</text>
+	<text x="658" y="257" text-anchor="middle" class="mono">version: v3</text>
+
+	<!-- Service and Pods -->
+	<rect x="40" y="384" width="180" height="70" rx="12" class="node"/>
+	<text x="130" y="414" text-anchor="middle" class="title">reviews</text>
+	<text x="130" y="434" text-anchor="middle" class="detail">Service</text>
+
+	<rect x="270" y="384" width="140" height="70" rx="12" class="node"/>
+	<text x="340" y="406" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="340" y="424" text-anchor="middle" class="detail">no stars</text>
+	<text x="340" y="443" text-anchor="middle" class="mono">version: v1</text>
+
+	<rect x="429" y="384" width="140" height="70" rx="12" class="node"/>
+	<text x="499" y="406" text-anchor="middle" class="pod-title">reviews-v2</text>
+	<text x="499" y="424" text-anchor="middle" class="detail">black stars</text>
+	<text x="499" y="443" text-anchor="middle" class="mono">version: v2</text>
+
+	<rect x="588" y="384" width="140" height="70" rx="12" class="node"/>
+	<text x="658" y="406" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<text x="658" y="424" text-anchor="middle" class="detail">red stars</text>
+	<text x="658" y="443" text-anchor="middle" class="mono">version: v3</text>
+</svg>

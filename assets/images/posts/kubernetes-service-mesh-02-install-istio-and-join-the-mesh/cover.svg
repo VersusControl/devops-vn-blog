@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 2 cover: Install Istio, Join the Mesh. In the bookstore namespace, labeled istio-injection=enabled, the productpage, reviews, and ratings Pods each go from one app container, READY 1/1, to the app plus an Envoy sidecar, READY 2/2.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.tag{font-family:Menlo,monospace;font-size:18px;fill:#263746}
+			.ready{font-family:Menlo,monospace;font-size:22px;font-weight:700;fill:#263746}
+			.chip-title{font-size:24px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 2</text>
+	<text x="156" y="432" class="title">Install Istio</text>
+	<text x="156" y="522" class="title">Join the Mesh</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Istio 1.32 on Kind, and</text>
+	<text x="160" y="672" class="subtitle">a sidecar in every Pod</text>
+
+	<!-- Zone -->
+	<rect x="770" y="120" width="680" height="660" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="796" y="164" class="zone">BOOKSTORE</text>
+	<text x="1424" y="164" text-anchor="end" class="tag">istio-injection=enabled</text>
+
+	<!-- Column headers -->
+	<text x="902" y="244" text-anchor="middle" class="ready">READY 1/1</text>
+	<text x="1258" y="244" text-anchor="middle" class="ready">READY 2/2</text>
+
+	<!-- Connectors: one arrow per Pod -->
+	<path d="M1008 334H1064" class="flow"/>
+	<path d="M1084 334L1064 324V344Z" class="arrow"/>
+	<path d="M1008 494H1064" class="flow"/>
+	<path d="M1084 494L1064 484V504Z" class="arrow"/>
+	<path d="M1008 654H1064" class="flow"/>
+	<path d="M1084 654L1064 644V664Z" class="arrow"/>
+
+	<!-- Before: one app container per Pod -->
+	<rect x="796" y="270" width="212" height="128" rx="14" class="pod"/>
+	<rect x="814" y="290" width="176" height="88" rx="12" class="node"/>
+	<text x="902" y="330" text-anchor="middle" class="chip-title">productpage</text>
+	<text x="902" y="358" text-anchor="middle" class="detail">Python</text>
+
+	<rect x="796" y="430" width="212" height="128" rx="14" class="pod"/>
+	<rect x="814" y="450" width="176" height="88" rx="12" class="node"/>
+	<text x="902" y="490" text-anchor="middle" class="chip-title">reviews</text>
+	<text x="902" y="518" text-anchor="middle" class="detail">Java</text>
+
+	<rect x="796" y="590" width="212" height="128" rx="14" class="pod"/>
+	<rect x="814" y="610" width="176" height="88" rx="12" class="node"/>
+	<text x="902" y="650" text-anchor="middle" class="chip-title">ratings</text>
+	<text x="902" y="678" text-anchor="middle" class="detail">Node.js</text>
+
+	<!-- After: app container plus Envoy sidecar -->
+	<rect x="1092" y="270" width="332" height="128" rx="14" class="pod"/>
+	<rect x="1110" y="290" width="176" height="88" rx="12" class="node"/>
+	<text x="1198" y="330" text-anchor="middle" class="chip-title">productpage</text>
+	<text x="1198" y="358" text-anchor="middle" class="detail">Python</text>
+	<rect x="1298" y="290" width="108" height="88" rx="12" class="proxy"/>
+	<text x="1352" y="330" text-anchor="middle" class="chip-title">Envoy</text>
+	<text x="1352" y="358" text-anchor="middle" class="detail">sidecar</text>
+
+	<rect x="1092" y="430" width="332" height="128" rx="14" class="pod"/>
+	<rect x="1110" y="450" width="176" height="88" rx="12" class="node"/>
+	<text x="1198" y="490" text-anchor="middle" class="chip-title">reviews</text>
+	<text x="1198" y="518" text-anchor="middle" class="detail">Java</text>
+	<rect x="1298" y="450" width="108" height="88" rx="12" class="proxy"/>
+	<text x="1352" y="490" text-anchor="middle" class="chip-title">Envoy</text>
+	<text x="1352" y="518" text-anchor="middle" class="detail">sidecar</text>
+
+	<rect x="1092" y="590" width="332" height="128" rx="14" class="pod"/>
+	<rect x="1110" y="610" width="176" height="88" rx="12" class="node"/>
+	<text x="1198" y="650" text-anchor="middle" class="chip-title">ratings</text>
+	<text x="1198" y="678" text-anchor="middle" class="detail">Node.js</text>
+	<rect x="1298" y="610" width="108" height="88" rx="12" class="proxy"/>
+	<text x="1352" y="650" text-anchor="middle" class="chip-title">Envoy</text>
+	<text x="1352" y="678" text-anchor="middle" class="detail">sidecar</text>
+</svg>

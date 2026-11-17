@@ -1,0 +1,14 @@
+# Step 1: all ratings traffic goes to the slow build. No timeout, no retries.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  hosts:
+    - ratings
+  http:
+    - route:
+        - destination:
+            host: ratings
+            subset: v-delayed

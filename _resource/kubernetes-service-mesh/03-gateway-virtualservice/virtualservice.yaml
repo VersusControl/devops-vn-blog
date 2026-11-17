@@ -1,0 +1,37 @@
+# The routing table for bookstore.local: which paths go to which Service.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: bookstore
+  namespace: bookstore
+spec:
+  hosts:
+    - bookstore.local       # must match a host in the Gateway
+  gateways:
+    - bookstore-gateway     # attach to the Gateway above (same namespace)
+  http:
+    # "/" has no page of its own: send the browser to the product page.
+    - name: home
+      match:
+        - uri:
+            exact: /
+      redirect:
+        uri: /productpage
+    # Paths that productpage serves. Anything else gets a 404 from the gateway.
+    - name: productpage
+      match:
+        - uri:
+            exact: /productpage
+        - uri:
+            prefix: /static/
+        - uri:
+            exact: /login
+        - uri:
+            exact: /logout
+        - uri:
+            prefix: /api/v1/products
+      route:
+        - destination:
+            host: productpage     # short name: productpage.bookstore.svc.cluster.local
+            port:
+              number: 9080

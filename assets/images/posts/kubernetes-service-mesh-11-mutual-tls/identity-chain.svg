@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="540" viewBox="0 0 760 540" role="img" aria-label="Workload identity from service account to handshake. Issue: the productpage Pod runs as service account bookstore-productpage; its istio-agent, in the sidecar, uses that service account token to send a certificate signing request to istiod, the mesh CA with issuer O=cluster.local. istiod signs a certificate whose Subject Alternative Name is spiffe://cluster.local/ns/bookstore/sa/bookstore-productpage, where cluster.local is the trust domain, bookstore the namespace, and bookstore-productpage the service account. It is valid for 24 hours and renewed automatically; istio-agent hands it to Envoy over SDS. Handshake: the productpage sidecar presents this certificate, the reviews sidecar presents its own, spiffe://cluster.local/ns/bookstore/sa/bookstore-reviews, and each checks the other in a mutual TLS handshake. SPIFFE ID format: spiffe://trust domain/ns/namespace/sa/service account.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:13px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.seg{font-size:11px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.san{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.flow-label{font-size:12px;font-weight:700;fill:#17212b}
+			.tls-label{font-size:12px;font-weight:700;fill:#456987}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.bracket{fill:none;stroke:#8a99a8;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.tls{fill:none;stroke:#456987;stroke-width:3;stroke-linecap:butt}
+			.tls-arrow{fill:#456987}
+			.lock-shackle{fill:none;stroke:#456987;stroke-width:1.8}
+			.lock-body{fill:#456987}
+		</style>
+		<g id="lock">
+			<path d="M3 7V4.5a3 3 0 0 1 6 0V7" class="lock-shackle"/>
+			<rect x="0" y="6.5" width="12" height="8.5" rx="2" class="lock-body"/>
+			<circle cx="6" cy="10.5" r="1.3" fill="#fff"/>
+		</g>
+	</defs>
+	<rect width="760" height="540" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="728" height="298" rx="14" class="zone"/>
+	<text x="32" y="40" class="zone-label">ISSUE</text>
+	<rect x="16" y="330" width="728" height="160" rx="14" class="zone"/>
+	<text x="32" y="354" class="zone-label">HANDSHAKE</text>
+
+	<!-- Connectors: issue chain -->
+	<path d="M226 101H265" class="flow"/>
+	<path d="M279 101L265 95V107Z" class="arrow"/>
+	<text x="252" y="88" text-anchor="middle" class="flow-label">SA token</text>
+	<path d="M481 101H520" class="flow"/>
+	<path d="M534 101L520 95V107Z" class="arrow"/>
+	<text x="507" y="88" text-anchor="middle" class="flow-label">CSR</text>
+	<path d="M635 154V176" class="flow"/>
+	<path d="M635 190L629 176H641Z" class="arrow"/>
+	<text x="647" y="178" class="flow-label">signs</text>
+
+	<!-- Connector: certificate to the productpage sidecar -->
+	<path d="M152 306V350" class="flow"/>
+	<path d="M152 364L146 350H158Z" class="arrow"/>
+	<text x="164" y="350" class="flow-label">to Envoy over SDS</text>
+
+	<!-- Connectors: mutual TLS, each side presents its certificate -->
+	<path d="M280 400H466" class="tls"/>
+	<path d="M480 400L466 394V406Z" class="tls-arrow"/>
+	<path d="M294 442H480" class="tls"/>
+	<path d="M280 442L294 436V448Z" class="tls-arrow"/>
+	<use href="#lock" x="347" y="413"/>
+	<text x="365" y="426" class="tls-label">mutual TLS</text>
+
+	<!-- Row 1: who asks, who signs -->
+	<rect x="32" y="56" width="186" height="90" rx="12" class="node"/>
+	<text x="125" y="84" text-anchor="middle" class="title">productpage Pod</text>
+	<text x="125" y="104" text-anchor="middle" class="detail">runs as service account</text>
+	<text x="125" y="124" text-anchor="middle" class="mono">bookstore-productpage</text>
+
+	<rect x="287" y="56" width="186" height="90" rx="12" class="node"/>
+	<text x="380" y="84" text-anchor="middle" class="title">istio-agent</text>
+	<text x="380" y="104" text-anchor="middle" class="detail">in the sidecar</text>
+	<text x="380" y="124" text-anchor="middle" class="detail">asks for a certificate</text>
+
+	<rect x="542" y="56" width="186" height="90" rx="12" class="primary"/>
+	<text x="635" y="84" text-anchor="middle" class="title">istiod</text>
+	<text x="635" y="104" text-anchor="middle" class="detail">mesh CA, issuer</text>
+	<text x="635" y="124" text-anchor="middle" class="mono">O=cluster.local</text>
+
+	<!-- Row 2: the certificate -->
+	<rect x="32" y="198" width="696" height="100" rx="12" class="node"/>
+	<text x="52" y="224" class="title">productpage certificate</text>
+	<text x="52" y="254" class="detail">SAN</text>
+	<text x="92" y="254" class="san">spiffe://cluster.local/ns/bookstore/sa/bookstore-productpage</text>
+	<path d="M163 262V267H264V262" class="bracket"/>
+	<path d="M296 262V267H366V262" class="bracket"/>
+	<path d="M398 262V267H562V262" class="bracket"/>
+	<text x="213" y="282" text-anchor="middle" class="seg">trust domain</text>
+	<text x="331" y="282" text-anchor="middle" class="seg">namespace</text>
+	<text x="480" y="282" text-anchor="middle" class="seg">service account</text>
+	<text x="708" y="224" text-anchor="end" class="title">valid 24 h</text>
+	<text x="708" y="254" text-anchor="end" class="detail">renewed automatically</text>
+	<text x="708" y="272" text-anchor="end" class="detail">before it expires</text>
+
+	<!-- Row 3: the handshake -->
+	<rect x="32" y="372" width="240" height="98" rx="12" class="primary"/>
+	<text x="152" y="400" text-anchor="middle" class="title">productpage sidecar</text>
+	<text x="152" y="420" text-anchor="middle" class="detail">presents this certificate</text>
+	<text x="152" y="444" text-anchor="middle" class="mono">…/sa/bookstore-productpage</text>
+
+	<rect x="488" y="372" width="240" height="98" rx="12" class="node"/>
+	<text x="608" y="400" text-anchor="middle" class="title">reviews sidecar</text>
+	<text x="608" y="420" text-anchor="middle" class="detail">presents its own</text>
+	<text x="608" y="444" text-anchor="middle" class="mono">…/sa/bookstore-reviews</text>
+
+	<!-- SPIFFE ID format -->
+	<text x="16" y="520"><tspan class="detail">SPIFFE ID format</tspan><tspan class="mono" dx="10">spiffe://&lt;trust domain&gt;/ns/&lt;namespace&gt;/sa/&lt;service account&gt;</tspan></text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 5 cover: Debug the Gateway. A gateway access log line reads GET /productpage 503 UH, and the UH response flag points to one of the four layers inside the gateway Envoy. A request passes down through the listener 0.0.0.0:8080, the route /productpage, the cluster outbound|9080||productpage, and the endpoint 10.244.2.8:9080, and the flag marks the endpoint layer as the one that stopped it.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.layer{font-size:28px;font-weight:700}
+			.card-title{font-size:26px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:20px;fill:#263746}
+			.log{font-family:Menlo,monospace;font-size:24px;fill:#263746}
+			.flag{font-family:Menlo,monospace;font-size:24px;font-weight:700;fill:#17212b}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt}
+			.pointer{fill:none;stroke:#456987;stroke-width:3;stroke-dasharray:9 6;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.pointer-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 5</text>
+	<text x="156" y="432" class="title">Debug the</text>
+	<text x="156" y="522" class="title">Gateway</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Envoy's four layers and</text>
+	<text x="160" y="672" class="subtitle">the flag that names one</text>
+
+	<!-- Zone: the gateway Envoy -->
+	<rect x="800" y="250" width="640" height="536" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="826" y="286" class="zone">GATEWAY ENVOY</text>
+
+	<!-- Connectors: request flow down the layers, each with its own head -->
+	<path d="M1071 382V408" class="flow"/>
+	<path d="M1071 426L1061 408H1081Z" class="arrow"/>
+	<path d="M1071 510V536" class="flow"/>
+	<path d="M1071 554L1061 536H1081Z" class="arrow"/>
+	<path d="M1071 638V664" class="flow"/>
+	<path d="M1071 682L1061 664H1081Z" class="arrow"/>
+
+	<!-- Pointer: the UH flag names the endpoint layer -->
+	<path d="M1396 172V728H1350" class="pointer"/>
+	<path d="M1330 728L1350 718V738Z" class="pointer-arrow"/>
+
+	<!-- Access log card -->
+	<rect x="800" y="100" width="640" height="112" rx="14" class="node"/>
+	<text x="826" y="146" class="card-title">access log</text>
+	<text x="826" y="180" class="detail">one failed request</text>
+	<text x="1354" y="161" text-anchor="end" class="log">GET /productpage 503</text>
+	<rect x="1368" y="132" width="56" height="40" rx="8" class="chip"/>
+	<text x="1396" y="161" text-anchor="middle" class="flag">UH</text>
+
+	<!-- The four layers -->
+	<rect x="820" y="306" width="502" height="76" rx="14" class="node"/>
+	<text x="846" y="354" class="layer">listener</text>
+	<text x="988" y="352" class="mono">0.0.0.0:8080</text>
+
+	<rect x="820" y="434" width="502" height="76" rx="14" class="node"/>
+	<text x="846" y="482" class="layer">route</text>
+	<text x="988" y="480" class="mono">/productpage</text>
+
+	<rect x="820" y="562" width="502" height="76" rx="14" class="node"/>
+	<text x="846" y="610" class="layer">cluster</text>
+	<text x="988" y="608" class="mono">outbound|9080||productpage</text>
+
+	<rect x="820" y="690" width="502" height="76" rx="14" class="primary"/>
+	<text x="846" y="738" class="layer">endpoint</text>
+	<text x="988" y="736" class="mono">10.244.2.8:9080</text>
+</svg>

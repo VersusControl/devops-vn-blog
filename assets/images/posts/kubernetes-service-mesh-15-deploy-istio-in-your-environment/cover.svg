@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 15 cover: Istio in Production. App namespaces carry the label istio.io/rev=prod and point at the prod revision tag. Two control planes run side by side in istio-system, istiod-1-31 on Istio 1.31.4 and istiod-1-32 on Istio 1.32.0. The prod tag moves from 1-31 to 1-32, so the namespaces follow the new control plane without changing their label.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.card-title{font-size:28px;font-weight:700}
+			.mono-title{font-family:Menlo,monospace;font-size:28px;font-weight:700;fill:#17212b}
+			.detail{font-size:22px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:22px;fill:#263746}
+			.tag-text{font-family:Menlo,monospace;font-size:28px;font-weight:700;fill:#17212b}
+			.tag-ghost-text{font-family:Menlo,monospace;font-size:28px;font-weight:700;fill:#9aa9b7}
+			.move-label{font-size:20px;font-weight:700;fill:#17212b}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.ghost{fill:#fff;stroke:#aab9c7;stroke-width:2;stroke-dasharray:10 6}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.old{fill:none;stroke:#9aa9b7;stroke-width:4;stroke-dasharray:9 6;stroke-linecap:butt}
+			.old-arrow{fill:#9aa9b7}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 15</text>
+	<text x="156" y="432" class="title">Istio in</text>
+	<text x="156" y="522" class="title">Production</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Helm, revisions, and</text>
+	<text x="160" y="672" class="subtitle">canary upgrades</text>
+
+	<!-- Zone: two control planes side by side -->
+	<rect x="780" y="465" width="670" height="270" rx="14" class="zone-box"/>
+	<text x="806" y="711" class="zone">ISTIO-SYSTEM</text>
+
+	<!-- Connectors -->
+	<!-- namespaces to the prod tag -->
+	<path d="M1280 275V327" class="flow"/>
+	<path d="M1280 347L1270 327H1290Z" class="arrow"/>
+	<!-- the tag moves from 1-31 to 1-32 -->
+	<path d="M1030 387H1172" class="flow"/>
+	<path d="M1192 387L1172 377V397Z" class="arrow"/>
+	<!-- old mapping: prod to 1-31 -->
+	<path d="M950 419V497" class="old"/>
+	<path d="M950 517L940 497H960Z" class="old-arrow"/>
+	<!-- new mapping: prod to 1-32 -->
+	<path d="M1280 419V497" class="flow"/>
+	<path d="M1280 517L1270 497H1290Z" class="arrow"/>
+
+	<!-- Namespaces -->
+	<rect x="860" y="175" width="510" height="100" rx="14" class="node"/>
+	<text x="1115" y="217" text-anchor="middle" class="card-title">app namespaces</text>
+	<text x="1115" y="253" text-anchor="middle" class="mono">istio.io/rev=prod</text>
+
+	<!-- Revision tag: where it was, where it is now -->
+	<rect x="870" y="355" width="160" height="64" rx="14" class="ghost"/>
+	<text x="950" y="397" text-anchor="middle" class="tag-ghost-text">prod</text>
+	<text x="1111" y="365" text-anchor="middle" class="move-label">move the tag</text>
+	<rect x="1200" y="355" width="160" height="64" rx="14" class="primary"/>
+	<text x="1280" y="397" text-anchor="middle" class="tag-text">prod</text>
+
+	<!-- Control plane revisions -->
+	<rect x="820" y="525" width="260" height="140" rx="14" class="node"/>
+	<text x="950" y="588" text-anchor="middle" class="mono-title">istiod-1-31</text>
+	<text x="950" y="626" text-anchor="middle" class="detail">Istio 1.31.4</text>
+
+	<rect x="1150" y="525" width="260" height="140" rx="14" class="primary"/>
+	<text x="1280" y="588" text-anchor="middle" class="mono-title">istiod-1-32</text>
+	<text x="1280" y="626" text-anchor="middle" class="detail">Istio 1.32.0</text>
+</svg>

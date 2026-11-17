@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="480" viewBox="0 0 760 480" role="img" aria-label="The path of one request into the mesh. On your machine, the browser connects to localhost:8080, and the Kind port mapping, extraPortMappings, forwards host port 8080 to port 30080 on the mesh-control-plane node. Node port 30080 belongs to the istio-ingressgateway Service in istio-system, whose port 80 sends the request to port 8080 on the gateway Pod, where Envoy listens because it runs as a non-root user. The Gateway and VirtualService objects configure that Envoy. The gateway sends the request to the productpage Pod in bookstore, where the sidecar Envoy receives it on inbound port 15006 and passes it to the productpage app on port 9080.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.title-sm{font-size:14px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-title{font-family:Menlo,monospace;font-size:14px;font-weight:700;fill:#17212b}
+			.mono-cfg{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#456987}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.cfg{fill:#fff;stroke:#456987;stroke-width:2;stroke-dasharray:6 4}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.config{fill:none;stroke:#456987;stroke-width:2.5;stroke-dasharray:6 4;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.config-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="760" height="480" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="40" y="16" width="504" height="134" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="56" y="38" class="zone">YOUR MACHINE</text>
+	<rect x="556" y="16" width="188" height="134" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="572" y="38" class="zone">KIND NODE</text>
+	<rect x="40" y="190" width="416" height="274" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="56" y="212" class="zone">ISTIO-SYSTEM</text>
+	<rect x="468" y="190" width="276" height="274" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="484" y="212" class="zone">BOOKSTORE</text>
+
+	<!-- Connectors: each hop has its own shaft and head -->
+	<path d="M146 92H162" class="flow"/>
+	<path d="M174 92L162 86V98Z" class="arrow"/>
+	<path d="M326 92H346" class="flow"/>
+	<path d="M358 92L346 86V98Z" class="arrow"/>
+	<path d="M530 92H550" class="flow"/>
+	<path d="M562 92L550 86V98Z" class="arrow"/>
+	<!-- Wrap from the node port to the gateway Service -->
+	<path d="M650 134V170H22V298H52" class="flow"/>
+	<path d="M64 298L52 292V304Z" class="arrow"/>
+	<path d="M242 298H262" class="flow"/>
+	<path d="M274 298L262 292V304Z" class="arrow"/>
+	<!-- Configuration for the gateway Envoy -->
+	<path d="M362 380V360" class="config"/>
+	<path d="M362 348L356 360H368Z" class="config-arrow"/>
+	<text x="374" y="368" class="detail">config</text>
+
+	<!-- Row 1: your machine and the Kind node -->
+	<rect x="54" y="50" width="92" height="84" rx="12" class="node"/>
+	<text x="100" y="88" text-anchor="middle" class="title">browser</text>
+	<text x="100" y="108" text-anchor="middle" class="detail">or curl</text>
+
+	<rect x="186" y="50" width="140" height="84" rx="12" class="node"/>
+	<text x="256" y="88" text-anchor="middle" class="mono-title">localhost:8080</text>
+	<text x="256" y="108" text-anchor="middle" class="detail">host port</text>
+
+	<rect x="366" y="50" width="164" height="84" rx="12" class="node"/>
+	<text x="448" y="78" text-anchor="middle" class="title-sm">Kind port mapping</text>
+	<text x="448" y="98" text-anchor="middle" class="mono">extraPortMappings</text>
+	<text x="448" y="117" text-anchor="middle" class="mono">8080 → 30080</text>
+
+	<rect x="570" y="50" width="160" height="84" rx="12" class="node"/>
+	<text x="650" y="78" text-anchor="middle" class="title-sm">node port 30080</text>
+	<text x="650" y="98" text-anchor="middle" class="detail">on the control plane</text>
+	<text x="650" y="117" text-anchor="middle" class="mono">mesh-control-plane</text>
+
+	<!-- Row 2: gateway in istio-system -->
+	<rect x="72" y="256" width="170" height="84" rx="12" class="node"/>
+	<text x="157" y="284" text-anchor="middle" class="title">gateway Service</text>
+	<text x="157" y="304" text-anchor="middle" class="mono">istio-ingressgateway</text>
+	<text x="157" y="323" text-anchor="middle" class="mono">port 80 → 8080</text>
+
+	<rect x="282" y="256" width="160" height="84" rx="12" class="proxy"/>
+	<text x="362" y="284" text-anchor="middle" class="title">gateway Envoy</text>
+	<text x="362" y="304" text-anchor="middle" class="mono">listens on :8080</text>
+	<text x="362" y="323" text-anchor="middle" class="detail">non-root user</text>
+
+	<rect x="282" y="380" width="160" height="60" rx="12" class="cfg"/>
+	<text x="362" y="405" text-anchor="middle" class="mono-cfg">Gateway</text>
+	<text x="362" y="424" text-anchor="middle" class="mono-cfg">VirtualService</text>
+
+	<!-- Row 2: productpage Pod in bookstore -->
+	<rect x="482" y="226" width="248" height="224" rx="14" class="pod"/>
+	<text x="498" y="250" class="pod-title">productpage Pod</text>
+	<text x="714" y="250" text-anchor="end" class="mono">READY 2/2</text>
+
+	<rect x="510" y="264" width="192" height="68" rx="12" class="proxy"/>
+	<text x="606" y="292" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="606" y="312" text-anchor="middle" class="mono">inbound :15006</text>
+
+	<rect x="510" y="380" width="192" height="56" rx="12" class="node"/>
+	<text x="606" y="403" text-anchor="middle" class="title">productpage app</text>
+	<text x="606" y="422" text-anchor="middle" class="mono">listens on :9080</text>
+
+	<!-- Connectors into and inside the Pod, painted after the Pod box -->
+	<path d="M442 298H490" class="flow"/>
+	<path d="M502 298L490 292V304Z" class="arrow"/>
+	<path d="M606 332V360" class="flow"/>
+	<path d="M606 372L600 360H612Z" class="arrow"/>
+</svg>

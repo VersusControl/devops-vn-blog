@@ -1,0 +1,29 @@
+# Fortio, the load-testing tool from the Istio project, as a client inside the mesh.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortio
+  namespace: bookstore
+  labels:
+    app: fortio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortio
+  template:
+    metadata:
+      labels:
+        app: fortio
+        version: v1
+    spec:
+      containers:
+        - name: fortio
+          image: docker.io/fortio/fortio:1.69.5
+          args: ["server"]
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi

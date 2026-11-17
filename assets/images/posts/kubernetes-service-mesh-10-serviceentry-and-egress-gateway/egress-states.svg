@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="600" viewBox="0 0 760 600" role="img" aria-label="Three egress states side by side for the same call: the tester app runs curl to catalog.partner.example port 8080, a container outside the cluster at 172.21.0.5. ALLOW_ANY, the default outbound policy: the host is not in Istio's registry, so the sidecar Envoy sends the connection to PassthroughCluster, which forwards raw TCP bytes to the partner; the call passes, but the sidecar log shows only dash dash dash, with no method, path, or status. REGISTRY_ONLY, set by a Sidecar object: the host is still not in the registry, so the sidecar sends the connection to BlackHoleCluster, which drops it; the partner is never reached, the log shows the flag UH, and the app sees connection reset. REGISTRY_ONLY plus a ServiceEntry: the host is in the registry, so the sidecar parses the call as HTTP and routes it to the cluster outbound|8080||catalog.partner.example; the call is allowed and logged as GET /get with status 200.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:13px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.sub{font-size:12px;fill:#526579}
+			.section{font-size:11px;font-weight:700;letter-spacing:1px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.log{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.off-title{font-size:15px;font-weight:700;fill:#8a99a8}
+			.off-detail{font-size:12px;fill:#8a99a8}
+			.off-mono{font-family:Menlo,monospace;font-size:12px;fill:#8a99a8}
+			.label{font-size:12px;font-weight:700;fill:#17212b}
+			.summary{font-size:13px;fill:#526579}
+			.summary-strong{font-weight:700;fill:#17212b}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.off{fill:#f5f7f9;stroke:#aab9c7;stroke-width:2;stroke-dasharray:6 4}
+			.card{fill:#fff;stroke:#aab9c7;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.stop{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="600" fill="#fff"/>
+
+	<!-- Zones: one column per outbound state -->
+	<rect x="16" y="16" width="234" height="540" rx="14" class="zone"/>
+	<text x="32" y="40" class="zone-label">ALLOW_ANY</text>
+	<text x="32" y="58" class="sub">default outbound policy</text>
+	<rect x="263" y="16" width="234" height="540" rx="14" class="zone"/>
+	<text x="279" y="40" class="zone-label">REGISTRY_ONLY</text>
+	<text x="279" y="58" class="sub">Sidecar object, no ServiceEntry</text>
+	<rect x="510" y="16" width="234" height="540" rx="14" class="zone"/>
+	<text x="526" y="40" class="zone-label">SERVICEENTRY ADDED</text>
+	<text x="526" y="58" class="sub">REGISTRY_ONLY + ServiceEntry</text>
+
+	<!-- Connectors: app to its sidecar (same in every state) -->
+	<path d="M133 130V156" class="flow"/>
+	<path d="M133 168L127 156H139Z" class="arrow"/>
+	<path d="M380 130V156" class="flow"/>
+	<path d="M380 168L374 156H386Z" class="arrow"/>
+	<path d="M627 130V156" class="flow"/>
+	<path d="M627 168L621 156H633Z" class="arrow"/>
+
+	<!-- Connectors: sidecar to the partner -->
+	<path d="M133 274V330" class="flow"/>
+	<path d="M133 342L127 330H139Z" class="arrow"/>
+	<text x="147" y="304" class="label">TCP</text>
+	<text x="147" y="320" class="detail">raw bytes</text>
+
+	<path d="M380 274V300" class="flow"/>
+	<rect x="364" y="300" width="32" height="6" rx="2" class="stop"/>
+	<text x="406" y="308" class="label">dropped</text>
+
+	<path d="M627 274V330" class="flow"/>
+	<path d="M627 342L621 330H633Z" class="arrow"/>
+	<text x="641" y="304" class="label">HTTP</text>
+	<text x="641" y="320" class="detail">parsed</text>
+
+	<!-- ALLOW_ANY column -->
+	<rect x="33" y="74" width="200" height="56" rx="12" class="node"/>
+	<text x="133" y="97" text-anchor="middle" class="title">tester app</text>
+	<text x="133" y="117" text-anchor="middle" class="mono">curl :8080/get</text>
+
+	<rect x="33" y="176" width="200" height="98" rx="12" class="proxy"/>
+	<text x="133" y="199" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="133" y="218" text-anchor="middle" class="detail">host not in registry</text>
+	<text x="133" y="240" text-anchor="middle" class="mono-b">PassthroughCluster</text>
+	<text x="133" y="259" text-anchor="middle" class="detail">forwards to any IP</text>
+
+	<rect x="33" y="350" width="200" height="70" rx="12" class="node"/>
+	<text x="133" y="373" text-anchor="middle" class="title">partner catalog</text>
+	<text x="133" y="392" text-anchor="middle" class="mono">catalog.partner.example</text>
+	<text x="133" y="410" text-anchor="middle" class="detail">172.21.0.5, outside cluster</text>
+
+	<rect x="33" y="436" width="200" height="76" rx="12" class="card"/>
+	<text x="133" y="456" text-anchor="middle" class="section">SIDECAR LOG</text>
+	<text x="133" y="479" text-anchor="middle" class="log">"- - -"</text>
+	<text x="133" y="499" text-anchor="middle" class="detail">no method, path, or status</text>
+
+	<!-- REGISTRY_ONLY column -->
+	<rect x="280" y="74" width="200" height="56" rx="12" class="node"/>
+	<text x="380" y="97" text-anchor="middle" class="title">tester app</text>
+	<text x="380" y="117" text-anchor="middle" class="mono">curl :8080/get</text>
+
+	<rect x="280" y="176" width="200" height="98" rx="12" class="proxy"/>
+	<text x="380" y="199" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="380" y="218" text-anchor="middle" class="detail">host not in registry</text>
+	<text x="380" y="240" text-anchor="middle" class="mono-b">BlackHoleCluster</text>
+	<text x="380" y="259" text-anchor="middle" class="detail">drops the connection</text>
+
+	<rect x="280" y="350" width="200" height="70" rx="12" class="off"/>
+	<text x="380" y="373" text-anchor="middle" class="off-title">partner catalog</text>
+	<text x="380" y="392" text-anchor="middle" class="off-mono">catalog.partner.example</text>
+	<text x="380" y="410" text-anchor="middle" class="off-detail">never reached</text>
+
+	<rect x="280" y="436" width="200" height="76" rx="12" class="card"/>
+	<text x="380" y="456" text-anchor="middle" class="section">SIDECAR LOG</text>
+	<text x="380" y="479" text-anchor="middle" class="log">"- - -" 0 UH</text>
+	<text x="380" y="499" text-anchor="middle" class="detail">app sees connection reset</text>
+
+	<!-- REGISTRY_ONLY + ServiceEntry column -->
+	<rect x="527" y="74" width="200" height="56" rx="12" class="node"/>
+	<text x="627" y="97" text-anchor="middle" class="title">tester app</text>
+	<text x="627" y="117" text-anchor="middle" class="mono">curl :8080/get</text>
+
+	<rect x="527" y="176" width="200" height="98" rx="12" class="proxy"/>
+	<text x="627" y="199" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="627" y="218" text-anchor="middle" class="detail">host in registry</text>
+	<text x="627" y="240" text-anchor="middle" class="mono-b">outbound|8080||</text>
+	<text x="627" y="259" text-anchor="middle" class="mono-b">catalog.partner.example</text>
+
+	<rect x="527" y="350" width="200" height="70" rx="12" class="node"/>
+	<text x="627" y="373" text-anchor="middle" class="title">partner catalog</text>
+	<text x="627" y="392" text-anchor="middle" class="mono">catalog.partner.example</text>
+	<text x="627" y="410" text-anchor="middle" class="detail">172.21.0.5, outside cluster</text>
+
+	<rect x="527" y="436" width="200" height="76" rx="12" class="card"/>
+	<text x="627" y="456" text-anchor="middle" class="section">SIDECAR LOG</text>
+	<text x="627" y="479" text-anchor="middle" class="log">"GET /get" 200</text>
+	<text x="627" y="499" text-anchor="middle" class="detail">method, path, status, host</text>
+
+	<!-- Outcome -->
+	<text x="133" y="538" text-anchor="middle" class="summary">Passes, but <tspan class="summary-strong">invisible</tspan></text>
+	<text x="380" y="538" text-anchor="middle" class="summary"><tspan class="summary-strong">Blocked</tspan> at the sidecar</text>
+	<text x="627" y="538" text-anchor="middle" class="summary">Allowed and <tspan class="summary-strong">visible</tspan></text>
+
+	<!-- Caption -->
+	<text x="18" y="584" class="detail">Same call in every column: the tester Pod calls catalog.partner.example:8080, outside the cluster.</text>
+</svg>

@@ -1,0 +1,68 @@
+# A stand-in for a payments service that must terminate TLS itself (for example for a
+# compliance rule). It runs go-httpbin, the image Istio 1.32's httpbin sample uses, with
+# its own certificate from the Secret payments-tls.
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments
+  namespace: bookstore
+  labels:
+    app: payments
+spec:
+  selector:
+    app: payments
+  ports:
+    # "https" tells Istio the traffic is TLS: the sidecar passes it through without decrypting.
+    - name: https
+      port: 443
+      targetPort: 8443
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookstore-payments
+  namespace: bookstore
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-v1
+  namespace: bookstore
+  labels:
+    app: payments
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: payments
+        version: v1
+    spec:
+      serviceAccountName: bookstore-payments
+      containers:
+        - name: payments
+          image: docker.io/mccutchen/go-httpbin:v2.15.0
+          command:
+            - /bin/go-httpbin
+            - -port=8443
+            - -https-cert-file=/etc/payments-tls/tls.crt
+            - -https-key-file=/etc/payments-tls/tls.key
+          ports:
+            - containerPort: 8443
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - name: tls
+              mountPath: /etc/payments-tls
+              readOnly: true
+      volumes:
+        - name: tls
+          secret:
+            secretName: payments-tls

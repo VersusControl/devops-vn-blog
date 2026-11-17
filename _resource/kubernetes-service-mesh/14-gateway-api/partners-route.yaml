@@ -1,0 +1,28 @@
+# The partners team's route, in its own namespace. It sends api.bookstore.local to the
+# productpage Service, which lives in another namespace (bookstore).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: partners
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: bookstore-api
+  namespace: partners
+spec:
+  parentRefs:
+    - name: bookstore-gw
+      namespace: bookstore
+      sectionName: api          # attach to the "api" listener only
+  hostnames:
+    - api.bookstore.local
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /api/v1/products
+      backendRefs:
+        - name: productpage
+          namespace: bookstore  # a Service in another namespace
+          port: 9080

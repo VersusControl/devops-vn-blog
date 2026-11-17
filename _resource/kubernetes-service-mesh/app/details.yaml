@@ -1,0 +1,64 @@
+# Part of the Book Store app for the Kubernetes Advanced: Service Mesh series.
+# Images are Istio's Bookinfo sample images; the manifests are our own.
+# details: book information (author, ISBN, pages).
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  namespace: bookstore
+  labels:
+    app: details
+spec:
+  selector:
+    app: details
+  ports:
+    # Istio reads the protocol from the port name (http, grpc, tcp, ...).
+    - name: http
+      port: 9080
+      targetPort: 9080
+---
+# One service account per service. From chapter 11 it becomes the workload identity
+# that mTLS and authorization policies use.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookstore-details
+  namespace: bookstore
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-v1
+  namespace: bookstore
+  labels:
+    app: details
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+      version: v1
+  template:
+    metadata:
+      labels:
+        # app selects the Service; version lets Istio tell versions apart (chapter 6).
+        app: details
+        version: v1
+    spec:
+      serviceAccountName: bookstore-details
+      containers:
+        - name: details
+          image: registry.istio.io/release/examples-bookinfo-details-v1:1.20.3
+          ports:
+            - containerPort: 9080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 9080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 13 cover: Metrics and Tracing. The Book Store mesh graph shows productpage calling details and reviews, and reviews calling ratings. Below it, a Prometheus card draws the request rate as a sparkline over time, and a Jaeger card draws one page load as a trace waterfall from 0 to 10 milliseconds: the gateway span covers the whole request, productpage sits inside it, and the calls to details, reviews, and ratings follow in order.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:26px;font-weight:700}
+			.card-title{font-size:26px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.tick{font-family:Menlo,monospace;font-size:18px;fill:#526579}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.span{fill:#fff;stroke:#283541;stroke-width:2}
+			.span-hot{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.spark{fill:none;stroke:#456987;stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+			.area{fill:#d8e7f2}
+			.base{fill:none;stroke:#aab9c7;stroke-width:2}
+			.grid{fill:none;stroke:#dfe6ec;stroke-width:2}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 13</text>
+	<text x="156" y="432" class="title">Metrics</text>
+	<text x="156" y="522" class="title">and Tracing</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">See the mesh in Prometheus,</text>
+	<text x="160" y="672" class="subtitle">Jaeger, and Kiali</text>
+
+	<!-- Zone: the Book Store graph -->
+	<rect x="780" y="130" width="670" height="282" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="806" y="172" class="zone">BOOKSTORE MESH</text>
+
+	<!-- Connectors: productpage to details, productpage to reviews, reviews to ratings -->
+	<path d="M1000 276H1040V230H1068" class="flow"/>
+	<path d="M1086 230L1068 221V239Z" class="arrow"/>
+	<path d="M1000 300H1040V346H1068" class="flow"/>
+	<path d="M1086 346L1068 337V355Z" class="arrow"/>
+	<path d="M1236 346H1276" class="flow"/>
+	<path d="M1294 346L1276 337V355Z" class="arrow"/>
+
+	<!-- Nodes -->
+	<rect x="806" y="246" width="194" height="84" rx="14" class="primary"/>
+	<text x="903" y="284" text-anchor="middle" class="node-title">productpage</text>
+	<text x="903" y="312" text-anchor="middle" class="detail">front end</text>
+
+	<rect x="1094" y="198" width="142" height="64" rx="14" class="node"/>
+	<text x="1165" y="239" text-anchor="middle" class="node-title">details</text>
+
+	<rect x="1094" y="314" width="142" height="64" rx="14" class="node"/>
+	<text x="1165" y="355" text-anchor="middle" class="node-title">reviews</text>
+
+	<rect x="1302" y="314" width="124" height="64" rx="14" class="node"/>
+	<text x="1364" y="355" text-anchor="middle" class="node-title">ratings</text>
+
+	<!-- Metrics card: request rate sparkline -->
+	<rect x="780" y="440" width="316" height="300" rx="14" class="node"/>
+	<text x="806" y="484" class="card-title">Prometheus</text>
+	<text x="806" y="514" class="detail">requests per second</text>
+	<path d="M806 590H1070M806 640H1070" class="grid"/>
+	<path d="M806 690L838 662L870 670L902 628L934 640L966 602L998 616L1030 574L1062 584V690Z" class="area"/>
+	<path d="M806 690L838 662L870 670L902 628L934 640L966 602L998 616L1030 574L1062 584" class="spark"/>
+	<circle cx="1062" cy="584" r="7" fill="#456987"/>
+	<path d="M806 690H1070" class="base"/>
+	<text x="806" y="720" class="tick">-5m</text>
+	<text x="1070" y="720" text-anchor="end" class="tick">now</text>
+
+	<!-- Trace card: one page load as a waterfall, 0 to 10 ms at 26 px per ms -->
+	<rect x="1120" y="440" width="330" height="300" rx="14" class="node"/>
+	<text x="1146" y="484" class="card-title">Jaeger</text>
+	<text x="1146" y="514" class="detail">one page load</text>
+	<path d="M1146 534V690M1276 534V690M1406 534V690" class="grid"/>
+	<rect x="1146" y="540" width="260" height="20" rx="5" class="span"/>
+	<rect x="1150" y="570" width="252" height="20" rx="5" class="span"/>
+	<rect x="1172" y="600" width="36" height="20" rx="5" class="span-hot"/>
+	<rect x="1219" y="630" width="115" height="20" rx="5" class="span-hot"/>
+	<rect x="1266" y="660" width="24" height="20" rx="5" class="span-hot"/>
+	<path d="M1146 690H1406" class="base"/>
+	<text x="1146" y="720" text-anchor="middle" class="tick">0</text>
+	<text x="1406" y="720" text-anchor="middle" class="tick">10 ms</text>
+</svg>

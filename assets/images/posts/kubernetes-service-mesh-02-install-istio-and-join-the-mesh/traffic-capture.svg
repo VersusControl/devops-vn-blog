@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="456" viewBox="0 0 760 456" role="img" aria-label="Traffic capture inside two Pods. In the productpage Pod, the productpage app calls reviews:9080; an iptables rule redirects the outbound TCP connection to the istio-proxy Envoy listening on port 15001. Envoy runs as UID 1337, so its own traffic skips the rules and does not loop back; it sends the request across the network to a reviews Pod IP, 10.244.2.9:9080. In the reviews Pod, an iptables rule redirects the inbound TCP connection to Envoy on port 15006, and Envoy forwards it to the reviews app on localhost:9080. istio-init writes the iptables rules in each Pod before the app starts.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.note{font-size:13px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="456" fill="#fff"/>
+
+	<!-- Pods -->
+	<rect x="16" y="16" width="728" height="184" rx="14" class="pod"/>
+	<text x="32" y="42" class="pod-title">productpage Pod</text>
+	<text x="728" y="42" text-anchor="end" class="mono">READY 2/2</text>
+
+	<rect x="16" y="252" width="728" height="154" rx="14" class="pod"/>
+	<text x="32" y="278" class="pod-title">reviews Pod</text>
+	<text x="728" y="278" text-anchor="end" class="mono">READY 2/2</text>
+
+	<!-- Connectors: outbound path left to right, network hop down, inbound path right to left -->
+	<path d="M212 104H272" class="flow"/>
+	<path d="M284 104L272 98V110Z" class="arrow"/>
+	<path d="M468 104H528" class="flow"/>
+	<path d="M540 104L528 98V110Z" class="arrow"/>
+	<path d="M636 146V278" class="flow"/>
+	<path d="M636 290L630 278H642Z" class="arrow"/>
+	<path d="M548 340H488" class="flow"/>
+	<path d="M476 340L488 334V346Z" class="arrow"/>
+	<path d="M292 340H232" class="flow"/>
+	<path d="M220 340L232 334V346Z" class="arrow"/>
+
+	<!-- productpage Pod: app, iptables, Envoy -->
+	<rect x="36" y="62" width="176" height="84" rx="12" class="node"/>
+	<text x="124" y="90" text-anchor="middle" class="title">productpage</text>
+	<text x="124" y="110" text-anchor="middle" class="detail">app container</text>
+	<text x="124" y="131" text-anchor="middle" class="mono">calls reviews:9080</text>
+
+	<rect x="292" y="62" width="176" height="84" rx="12" class="node"/>
+	<text x="380" y="90" text-anchor="middle" class="mono-title">iptables</text>
+	<text x="380" y="110" text-anchor="middle" class="detail">outbound TCP</text>
+	<text x="380" y="131" text-anchor="middle" class="mono">REDIRECT 15001</text>
+
+	<rect x="548" y="62" width="176" height="84" rx="12" class="proxy"/>
+	<text x="636" y="90" text-anchor="middle" class="mono-title">istio-proxy</text>
+	<text x="636" y="110" text-anchor="middle" class="detail">Envoy, runs as UID 1337</text>
+	<text x="636" y="131" text-anchor="middle" class="mono">listens :15001</text>
+
+	<!-- reviews Pod: iptables, Envoy, app -->
+	<rect x="548" y="298" width="176" height="84" rx="12" class="node"/>
+	<text x="636" y="326" text-anchor="middle" class="mono-title">iptables</text>
+	<text x="636" y="346" text-anchor="middle" class="detail">inbound TCP</text>
+	<text x="636" y="367" text-anchor="middle" class="mono">REDIRECT 15006</text>
+
+	<rect x="292" y="298" width="176" height="84" rx="12" class="proxy"/>
+	<text x="380" y="326" text-anchor="middle" class="mono-title">istio-proxy</text>
+	<text x="380" y="346" text-anchor="middle" class="detail">Envoy, runs as UID 1337</text>
+	<text x="380" y="367" text-anchor="middle" class="mono">listens :15006</text>
+
+	<rect x="36" y="298" width="176" height="84" rx="12" class="node"/>
+	<text x="124" y="326" text-anchor="middle" class="title">reviews</text>
+	<text x="124" y="346" text-anchor="middle" class="detail">app container</text>
+	<text x="124" y="367" text-anchor="middle" class="mono">localhost:9080</text>
+
+	<!-- Connector labels in clear space beside the network hop -->
+	<text x="622" y="172" text-anchor="end" class="detail">UID 1337 traffic skips the rules</text>
+	<text x="622" y="189" text-anchor="end" class="detail">so Envoy's request does not loop back</text>
+	<text x="622" y="231" text-anchor="end"><tspan class="detail">to a reviews Pod IP</tspan><tspan class="mono" dx="6">10.244.2.9:9080</tspan></text>
+
+	<!-- Footer note -->
+	<text x="380" y="438" text-anchor="middle" class="note">istio-init writes these iptables rules in each Pod before the app starts.</text>
+</svg>

@@ -1,0 +1,35 @@
+# A client Pod inside the mesh (bookstore has sidecar injection on) for calling
+# the partner catalog. It only sleeps; the chapter runs curl in it with kubectl exec.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tester
+  namespace: bookstore
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tester
+  namespace: bookstore
+  labels:
+    app: tester
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tester
+  template:
+    metadata:
+      labels:
+        app: tester
+        version: v1
+    spec:
+      serviceAccountName: tester
+      containers:
+        - name: tester
+          image: docker.io/curlimages/curl:8.16.0
+          command: ["sleep", "infinity"]
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 8 cover: Timeouts and Retries. A VirtualService route sets timeout: 2s with retries, attempts: 2 and perTryTimeout: 500ms. Below it, a timeline from 0 to 2 seconds shows the overall timeout as an outer bar: try 1 and try 2 are slow and each is cut at 500 milliseconds with 504, and try 3 gets a fast 200 answer well inside the limit.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.card-title{font-size:26px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.yaml{font-family:Menlo,monospace;font-size:24px;fill:#263746}
+			.yaml-b{font-family:Menlo,monospace;font-size:24px;font-weight:700;fill:#17212b}
+			.code{font-family:Menlo,monospace;font-size:22px;fill:#263746}
+			.result{font-family:Menlo,monospace;font-size:30px;font-weight:700;fill:#17212b}
+			.tick{font-family:Menlo,monospace;font-size:20px;fill:#526579}
+			.try-label{font-size:22px;font-weight:700}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.fast{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.cut{fill:#17212b}
+			.axis{fill:none;stroke:#283541;stroke-width:2}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 8</text>
+	<text x="156" y="432" class="title">Timeouts</text>
+	<text x="156" y="522" class="title">and Retries</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Cut slow calls, retry them,</text>
+	<text x="160" y="672" class="subtitle">and inject faults on purpose</text>
+
+	<!-- Zone -->
+	<rect x="800" y="160" width="650" height="580" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="826" y="204" class="zone">ROUTE TO RATINGS</text>
+
+	<!-- Config card -->
+	<rect x="826" y="232" width="380" height="176" rx="14" class="node"/>
+	<text x="852" y="276" class="yaml-b">timeout: 2s</text>
+	<text x="852" y="312" class="yaml-b">retries:</text>
+	<text x="881" y="348" class="yaml">attempts: 2</text>
+	<text x="881" y="384" class="yaml">perTryTimeout: 500ms</text>
+
+	<!-- Stopwatch -->
+	<rect x="1306" y="246" width="24" height="24" class="node"/>
+	<rect x="1294" y="234" width="48" height="16" rx="4" class="node"/>
+	<circle cx="1318" cy="330" r="62" fill="#fff" stroke="#283541" stroke-width="4"/>
+	<path d="M1318 330V280A50 50 0 0 1 1361.3 355Z" fill="#d8e7f2"/>
+	<path d="M1318 274V284M1374 330H1364M1318 386V376M1262 330H1272" stroke="#283541" stroke-width="3"/>
+	<path d="M1318 330L1356.1 352" stroke="#17212b" stroke-width="5" stroke-linecap="round"/>
+	<circle cx="1318" cy="330" r="7" fill="#17212b"/>
+
+	<!-- Timeline: 0 to 2 s at 270 px per second, outer bar is the overall timeout -->
+	<rect x="846" y="444" width="558" height="140" rx="14" class="node"/>
+	<text x="868" y="480" class="detail">2 s overall</text>
+
+	<rect x="860" y="504" width="135" height="60" rx="10" class="node"/>
+	<text x="927" y="542" text-anchor="middle" class="code">504</text>
+	<rect x="992" y="494" width="6" height="80" class="cut"/>
+
+	<rect x="1007" y="504" width="135" height="60" rx="10" class="node"/>
+	<text x="1074" y="542" text-anchor="middle" class="code">504</text>
+	<rect x="1139" y="494" width="6" height="80" class="cut"/>
+
+	<rect x="1154" y="504" width="30" height="60" rx="8" class="fast"/>
+	<text x="1204" y="545" class="result">200</text>
+
+	<text y="624" text-anchor="middle" class="try-label"><tspan x="927">try 1</tspan><tspan x="1074">try 2</tspan><tspan x="1169">try 3</tspan></text>
+
+	<!-- Time axis -->
+	<path d="M860 664H1400" class="axis"/>
+	<path d="M860 664v10M995 664v10M1130 664v10M1265 664v10M1400 664v10" class="axis"/>
+	<text y="704" text-anchor="middle" class="tick"><tspan x="860">0</tspan><tspan x="995">0.5</tspan><tspan x="1130">1</tspan><tspan x="1265">1.5</tspan><tspan x="1400">2 s</tspan></text>
+</svg>

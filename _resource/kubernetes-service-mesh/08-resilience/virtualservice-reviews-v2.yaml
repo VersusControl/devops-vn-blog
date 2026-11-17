@@ -1,0 +1,14 @@
+# Pin reviews to v2 (black stars). v2 waits up to 10 s for ratings, which this chapter needs.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  hosts:
+    - reviews
+  http:
+    - route:
+        - destination:
+            host: reviews
+            subset: v2

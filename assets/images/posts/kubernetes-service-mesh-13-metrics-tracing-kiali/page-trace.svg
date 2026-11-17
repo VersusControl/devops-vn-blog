@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="424" viewBox="0 0 760 424" role="img" aria-label="One page load as a trace of 9 spans across 5 services, drawn as a waterfall on a 0 to 10 millisecond axis. The istio-ingressgateway span for /productpage covers the whole 10.0 milliseconds. Every call then appears as a pair of spans, one from the caller side and one from the callee side: the gateway calls productpage (10.0 ms outbound, 9.7 ms inbound); inside productpage, the call to details (1.4 ms outbound, 1.1 ms inbound) comes first, then the call to reviews (4.4 ms outbound, 4.1 ms inbound); inside reviews, the call to ratings (0.9 ms outbound, 0.5 ms inbound). The gap between each pair is network and proxy time.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.svc{font-size:13px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.note{font-size:13px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.tick{font-family:Menlo,monospace;font-size:12px;fill:#526579}
+			.band{fill:#fff;stroke:#c9d4de;stroke-width:1}
+			.grid{fill:none;stroke:#dfe6ec;stroke-width:1}
+			.axis{fill:none;stroke:#283541;stroke-width:1.5}
+			.out{fill:#fff;stroke:#283541;stroke-width:2}
+			.in{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+		</style>
+	</defs>
+	<rect width="760" height="424" fill="#fff"/>
+
+	<!-- Zone -->
+	<rect x="16" y="16" width="728" height="356" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">ONE PAGE LOAD: 9 SPANS, 5 SERVICES</text>
+
+	<!-- Legend -->
+	<rect x="424" y="30" width="22" height="12" rx="3" class="out"/>
+	<text x="452" y="40" class="detail">caller side, outbound</text>
+	<rect x="584" y="30" width="22" height="12" rx="3" class="in"/>
+	<text x="612" y="40" class="detail">callee side, inbound</text>
+
+	<!-- Time axis: 0 to 10 ms at 34 px per ms -->
+	<path d="M300 74H640" class="axis"/>
+	<path d="M300 74v6M368 74v6M436 74v6M504 74v6M572 74v6M640 74v6" class="axis"/>
+	<text y="66" text-anchor="middle" class="tick"><tspan x="300">0</tspan><tspan x="368">2</tspan><tspan x="436">4</tspan><tspan x="504">6</tspan><tspan x="572">8</tspan><tspan x="640">10</tspan></text>
+	<text x="652" y="66" class="tick">ms</text>
+
+	<!-- Bands: the root span, then one band per call (caller span over callee span) -->
+	<rect x="24" y="86" width="712" height="28" rx="10" class="band"/>
+	<rect x="24" y="122" width="712" height="54" rx="10" class="band"/>
+	<rect x="24" y="184" width="712" height="54" rx="10" class="band"/>
+	<rect x="24" y="246" width="712" height="54" rx="10" class="band"/>
+	<rect x="24" y="308" width="712" height="54" rx="10" class="band"/>
+	<path d="M300 82V362M368 82V362M436 82V362M504 82V362M572 82V362M640 82V362" class="grid"/>
+
+	<!-- Spans -->
+	<text x="36" y="104.5"><tspan class="svc">istio-ingressgateway</tspan><tspan class="detail" dx="6">/productpage</tspan></text>
+	<rect x="300.0" y="92" width="340.0" height="16" rx="4" class="in"/>
+	<text x="728" y="104.5" text-anchor="end" class="mono">10.0 ms</text>
+	<text x="46" y="140.5"><tspan class="svc">istio-ingressgateway</tspan><tspan class="detail" dx="6">→ productpage</tspan></text>
+	<rect x="300.0" y="128" width="340.0" height="16" rx="4" class="out"/>
+	<text x="728" y="140.5" text-anchor="end" class="mono">10.0 ms</text>
+	<text x="46" y="166.5"><tspan class="svc">productpage</tspan><tspan class="detail" dx="6">inbound</tspan></text>
+	<rect x="305.1" y="154" width="329.8" height="16" rx="4" class="in"/>
+	<text x="728" y="166.5" text-anchor="end" class="mono">9.7 ms</text>
+	<text x="56" y="202.5"><tspan class="svc">productpage</tspan><tspan class="detail" dx="6">→ details</tspan></text>
+	<rect x="334.0" y="190" width="47.6" height="16" rx="4" class="out"/>
+	<text x="728" y="202.5" text-anchor="end" class="mono">1.4 ms</text>
+	<text x="56" y="228.5"><tspan class="svc">details</tspan><tspan class="detail" dx="6">inbound</tspan></text>
+	<rect x="339.1" y="216" width="37.4" height="16" rx="4" class="in"/>
+	<text x="728" y="228.5" text-anchor="end" class="mono">1.1 ms</text>
+	<text x="56" y="264.5"><tspan class="svc">productpage</tspan><tspan class="detail" dx="6">→ reviews</tspan></text>
+	<rect x="395.2" y="252" width="149.6" height="16" rx="4" class="out"/>
+	<text x="728" y="264.5" text-anchor="end" class="mono">4.4 ms</text>
+	<text x="56" y="290.5"><tspan class="svc">reviews</tspan><tspan class="detail" dx="6">inbound</tspan></text>
+	<rect x="400.3" y="278" width="139.4" height="16" rx="4" class="in"/>
+	<text x="728" y="290.5" text-anchor="end" class="mono">4.1 ms</text>
+	<text x="66" y="326.5"><tspan class="svc">reviews</tspan><tspan class="detail" dx="6">→ ratings</tspan></text>
+	<rect x="456.4" y="314" width="30.6" height="16" rx="4" class="out"/>
+	<text x="728" y="326.5" text-anchor="end" class="mono">0.9 ms</text>
+	<text x="66" y="352.5"><tspan class="svc">ratings</tspan><tspan class="detail" dx="6">inbound</tspan></text>
+	<rect x="463.2" y="340" width="17.0" height="16" rx="4" class="in"/>
+	<text x="728" y="352.5" text-anchor="end" class="mono">0.5 ms</text>
+
+	<!-- Footer -->
+	<text x="380" y="402" text-anchor="middle" class="note">Each call appears twice; the gap between the pair is network and proxy time.</text>
+</svg>

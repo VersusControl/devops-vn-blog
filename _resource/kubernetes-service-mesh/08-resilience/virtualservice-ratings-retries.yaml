@@ -1,0 +1,20 @@
+# Step 3: cut each attempt at 0.5 s and try again, up to 3 attempts in total.
+# A slow answer is replaced by a fresh attempt instead of waited for.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  hosts:
+    - ratings
+  http:
+    - route:
+        - destination:
+            host: ratings
+            subset: v-delayed
+      timeout: 2s              # the whole call, all attempts included
+      retries:
+        attempts: 2            # retries after the first attempt (3 attempts at most)
+        perTryTimeout: 500ms   # each attempt
+        retryOn: 5xx,reset,connect-failure

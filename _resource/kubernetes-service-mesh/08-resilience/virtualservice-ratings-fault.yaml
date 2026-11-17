@@ -1,0 +1,31 @@
+# Step 4: test the slow-ratings case on purpose, for the QA user only.
+# ratings is back on the stable v1. For requests from qa-team, the caller's sidecar
+# waits 7 s before sending the request (delay) - nobody else is affected.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  hosts:
+    - ratings
+  http:
+    - name: qa-team-delay
+      match:
+        - headers:
+            end-user:
+              exact: qa-team
+      fault:
+        delay:
+          percentage:
+            value: 100
+          fixedDelay: 7s
+      route:
+        - destination:
+            host: ratings
+            subset: v1
+    - name: default
+      route:
+        - destination:
+            host: ratings
+            subset: v1

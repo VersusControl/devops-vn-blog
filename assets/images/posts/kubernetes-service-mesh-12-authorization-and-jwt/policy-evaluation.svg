@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="688" viewBox="0 0 760 688" role="img" aria-label="How the sidecar or gateway of a workload evaluates each request it receives, in order. First, CUSTOM policies, which ask an external authorizer; none are configured in this series. Second, DENY policies: if any rule matches, the request is denied with 403. Third, ALLOW policies: if any rule matches, the request is allowed and reaches the app. Fourth, if nothing matched, does the workload have any ALLOW policy at all? If yes, the request is denied with 403 and the access log shows rbac_access_denied_matched_policy[none]. If no, the request is allowed because there is nothing to enforce. Default deny uses the yes branch: allow-nothing is an ALLOW policy with spec {} that matches nothing, so every workload has an ALLOW policy.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.note{font-size:13px;fill:#526579}
+			.label{font-size:12px;font-style:italic;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.num{font-size:13px;font-weight:700;fill:#17212b}
+			.off-title{font-size:15px;font-weight:700;fill:#8a99a8}
+			.off-detail{font-size:12px;fill:#8a99a8}
+			.off-num{font-size:13px;font-weight:700;fill:#8a99a8}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.off{fill:#f5f7f9;stroke:#aab9c7;stroke-width:2;stroke-dasharray:6 4}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.chip-light{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.chip-off{fill:#fff;stroke:#aab9c7;stroke-width:1.5}
+			.card{fill:#f5f7f9;stroke:#aab9c7;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="688" fill="#fff"/>
+
+	<!-- Zone: the checks the sidecar runs, in order -->
+	<rect x="16" y="82" width="336" height="474" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="104" class="zone">SIDECAR</text>
+
+	<!-- Connectors: every step and branch has its own shaft and head -->
+	<!-- request to CUSTOM -->
+	<path d="M184 68V96" class="flow"/>
+	<path d="M184 108L178 96H190Z" class="arrow"/>
+	<!-- CUSTOM to DENY -->
+	<path d="M184 172V208" class="flow"/>
+	<path d="M184 220L178 208H190Z" class="arrow"/>
+	<!-- DENY match to denied -->
+	<path d="M334 260H408" class="flow"/>
+	<path d="M420 260L408 254V266Z" class="arrow"/>
+	<!-- DENY no match to ALLOW -->
+	<path d="M184 292V328" class="flow"/>
+	<path d="M184 340L178 328H190Z" class="arrow"/>
+	<!-- ALLOW match to allowed -->
+	<path d="M334 380H408" class="flow"/>
+	<path d="M420 380L408 374V386Z" class="arrow"/>
+	<!-- ALLOW no match to the last check -->
+	<path d="M184 412V448" class="flow"/>
+	<path d="M184 460L178 448H190Z" class="arrow"/>
+	<!-- has an ALLOW policy: denied -->
+	<path d="M334 504H408" class="flow"/>
+	<path d="M420 504L408 498V510Z" class="arrow"/>
+	<!-- no ALLOW policy: allowed -->
+	<path d="M184 540V592" class="flow"/>
+	<path d="M184 604L178 592H190Z" class="arrow"/>
+
+	<!-- Connector labels -->
+	<text x="196" y="200" class="label">none configured</text>
+	<text x="377" y="251" text-anchor="middle" class="label">match</text>
+	<text x="196" y="320" class="label">no match</text>
+	<text x="377" y="371" text-anchor="middle" class="label">match</text>
+	<text x="196" y="440" class="label">no match</text>
+	<text x="377" y="495" text-anchor="middle" class="label">yes</text>
+	<text x="196" y="582" class="label">no</text>
+
+	<!-- Request -->
+	<rect x="34" y="16" width="300" height="52" rx="12" class="node"/>
+	<text x="50" y="38" class="title">request arrives</text>
+	<text x="50" y="56" class="detail">to a workload in the mesh</text>
+
+	<!-- 1 CUSTOM -->
+	<rect x="34" y="116" width="300" height="56" rx="12" class="off"/>
+	<rect x="50" y="132" width="24" height="24" rx="6" class="chip-off"/>
+	<text x="62" y="149" text-anchor="middle" class="off-num">1</text>
+	<text x="88" y="140" class="off-title">CUSTOM policies</text>
+	<text x="88" y="158" class="off-detail">external authorizer, not used here</text>
+
+	<!-- 2 DENY -->
+	<rect x="34" y="228" width="300" height="64" rx="12" class="node"/>
+	<rect x="50" y="248" width="24" height="24" rx="6" class="chip"/>
+	<text x="62" y="265" text-anchor="middle" class="num">2</text>
+	<text x="88" y="255" class="title">DENY policies</text>
+	<text x="88" y="274" class="detail">does any DENY rule match?</text>
+
+	<!-- 3 ALLOW -->
+	<rect x="34" y="348" width="300" height="64" rx="12" class="node"/>
+	<rect x="50" y="368" width="24" height="24" rx="6" class="chip"/>
+	<text x="62" y="385" text-anchor="middle" class="num">3</text>
+	<text x="88" y="375" class="title">ALLOW policies</text>
+	<text x="88" y="394" class="detail">does any ALLOW rule match?</text>
+
+	<!-- 4 the rule that surprises people -->
+	<rect x="34" y="468" width="300" height="72" rx="12" class="primary"/>
+	<rect x="50" y="492" width="24" height="24" rx="6" class="chip-light"/>
+	<text x="62" y="509" text-anchor="middle" class="num">4</text>
+	<text x="88" y="499" class="title">any ALLOW policy at all?</text>
+	<text x="88" y="518" class="detail">on this workload, matched or not</text>
+
+	<!-- Final allowed -->
+	<rect x="34" y="612" width="300" height="56" rx="12" class="node"/>
+	<text x="50" y="636" class="title">allowed</text>
+	<text x="50" y="655" class="detail">no ALLOW policy, nothing to enforce</text>
+
+	<!-- Outcomes -->
+	<rect x="428" y="228" width="316" height="64" rx="12" class="node"/>
+	<text x="444" y="255" class="title">403 denied</text>
+	<text x="444" y="274" class="detail">a DENY rule matched</text>
+
+	<rect x="428" y="348" width="316" height="64" rx="12" class="node"/>
+	<text x="444" y="375" class="title">allowed</text>
+	<text x="444" y="394" class="detail">the request reaches the app</text>
+
+	<rect x="428" y="468" width="316" height="72" rx="12" class="node"/>
+	<text x="444" y="492" class="title">403 denied</text>
+	<text x="444" y="510" class="detail">access log shows</text>
+	<text x="444" y="528" class="mono">rbac_access_denied_matched_policy[none]</text>
+
+	<!-- Default deny note -->
+	<rect x="428" y="568" width="316" height="100" rx="12" class="card"/>
+	<text x="444" y="592" class="zone">DEFAULT DENY</text>
+	<text x="444" y="613" class="note">an ALLOW policy that matches nothing,</text>
+	<text x="444" y="631" class="note">so every workload answers yes</text>
+	<text x="444" y="652" class="note"><tspan class="mono">spec: {}</tspan> in policy <tspan class="mono">allow-nothing</tspan></text>
+</svg>

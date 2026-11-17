@@ -1,0 +1,16 @@
+# Step 2: give up on ratings after 2 seconds. reviews then answers without stars,
+# well inside productpage's 3-second limit, instead of the whole page failing.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  hosts:
+    - ratings
+  http:
+    - route:
+        - destination:
+            host: ratings
+            subset: v-delayed
+      timeout: 2s

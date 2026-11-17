@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="502" viewBox="0 0 760 502" role="img" aria-label="Istio's control plane, istiod, watches the Kubernetes API and sends configuration and certificates down to the istio-proxy Envoy sidecar inside each Book Store Pod. Each Pod holds two containers, the app and its Envoy. A request flows sideways: the productpage app, which still calls http://reviews:9080, hands it to its Envoy, which sends it to the Envoy in the reviews Pod, which passes it to the reviews app.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.config{fill:none;stroke:#456987;stroke-width:2.5;stroke-dasharray:9 6;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.config-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="760" height="502" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="20" y="16" width="720" height="134" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="36" y="40" class="zone">CONTROL PLANE</text>
+	<rect x="20" y="170" width="720" height="316" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="36" y="194" class="zone">DATA PLANE</text>
+
+	<!-- Control plane node -->
+	<rect x="170" y="50" width="420" height="86" rx="12" class="node"/>
+	<text x="380" y="80" text-anchor="middle" class="mono-title">istiod</text>
+	<text x="380" y="102" text-anchor="middle" class="detail">watches the Kubernetes API</text>
+	<text x="380" y="121" text-anchor="middle" class="detail">sends config, issues certificates</text>
+
+	<!-- Pods: each is an outer box holding two containers -->
+	<rect x="40" y="214" width="300" height="252" rx="14" class="pod"/>
+	<text x="56" y="238" class="pod-title">productpage Pod</text>
+	<text x="324" y="238" text-anchor="end" class="mono">READY 2/2</text>
+
+	<rect x="420" y="214" width="300" height="252" rx="14" class="pod"/>
+	<text x="436" y="238" class="pod-title">reviews Pod</text>
+	<text x="704" y="238" text-anchor="end" class="mono">READY 2/2</text>
+
+	<!-- Containers -->
+	<rect x="56" y="254" width="268" height="60" rx="12" class="proxy"/>
+	<text x="190" y="280" text-anchor="middle" class="mono-title">istio-proxy</text>
+	<text x="190" y="300" text-anchor="middle" class="detail">Envoy sidecar</text>
+
+	<rect x="56" y="366" width="268" height="84" rx="12" class="node"/>
+	<text x="190" y="392" text-anchor="middle" class="title">productpage</text>
+	<text x="190" y="412" text-anchor="middle" class="detail">app container</text>
+	<text x="190" y="433" text-anchor="middle"><tspan class="detail">calls</tspan><tspan class="mono" dx="5">http://reviews:9080</tspan></text>
+
+	<rect x="436" y="254" width="268" height="60" rx="12" class="proxy"/>
+	<text x="570" y="280" text-anchor="middle" class="mono-title">istio-proxy</text>
+	<text x="570" y="300" text-anchor="middle" class="detail">Envoy sidecar</text>
+
+	<rect x="436" y="366" width="268" height="84" rx="12" class="node"/>
+	<text x="570" y="392" text-anchor="middle" class="title">reviews</text>
+	<text x="570" y="412" text-anchor="middle" class="detail">app container</text>
+	<text x="570" y="433" text-anchor="middle"><tspan class="detail">listens on</tspan><tspan class="mono" dx="5">:9080</tspan></text>
+
+	<!-- Config and certificates: istiod down to each Envoy -->
+	<path d="M206 136V235" class="config"/>
+	<path d="M206 247L200 235H212Z" class="config-arrow"/>
+	<path d="M554 136V235" class="config"/>
+	<path d="M554 247L548 235H560Z" class="config-arrow"/>
+
+	<!-- Request path: app, its Envoy, the other Pod's Envoy, that app -->
+	<path d="M120 366V334" class="flow"/>
+	<path d="M120 322L114 334H126Z" class="arrow"/>
+	<path d="M324 284H416" class="flow"/>
+	<path d="M428 284L416 278V290Z" class="arrow"/>
+	<path d="M640 314V346" class="flow"/>
+	<path d="M640 358L634 346H646Z" class="arrow"/>
+
+	<!-- Connector labels -->
+	<text x="216" y="194" class="detail">config, certificates</text>
+	<text x="544" y="194" text-anchor="end" class="detail">config, certificates</text>
+	<text x="380" y="271" text-anchor="middle" class="detail">request</text>
+</svg>

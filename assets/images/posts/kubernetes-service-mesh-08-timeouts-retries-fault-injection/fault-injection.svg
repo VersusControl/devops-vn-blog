@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="456" viewBox="0 0 760 456" role="img" aria-label="Fault injection happens in the caller's sidecar. Inside the reviews v2 Pod, the reviews app sends GET ratings:9080 to its Envoy sidecar, which checks the ratings rules in order. Rule qa-team-delay matches end-user: qa-team, holds the request for 7 seconds, then forwards it to ratings v1, logged with flag DI. In the abort file, rule qa-team-abort matches the same header and answers 503 to the app itself for half of the calls, without calling ratings, logged with flag FI and upstream dash. The default rule forwards requests from all other users to ratings v1 at once. The ratings v1 Pod stays healthy throughout and answers in about 2 milliseconds.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.flag{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.pod{fill:#f8fafb;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="456" fill="#fff"/>
+
+	<!-- Zone -->
+	<rect x="16" y="16" width="728" height="424" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">FAULTS ARE INJECTED IN THE CALLER'S SIDECAR</text>
+
+	<!-- Pods -->
+	<rect x="32" y="52" width="424" height="372" rx="14" class="pod"/>
+	<text x="48" y="76" class="pod-title">reviews v2 Pod</text>
+
+	<rect x="590" y="150" width="138" height="250" rx="14" class="pod"/>
+	<text x="659" y="176" text-anchor="middle" class="pod-title">ratings v1 Pod</text>
+	<text x="659" y="282" text-anchor="middle" class="detail">healthy throughout</text>
+	<text x="659" y="300" text-anchor="middle" class="detail">answers in 2 ms</text>
+
+	<!-- Envoy sidecar -->
+	<rect x="240" y="92" width="200" height="320" rx="12" class="proxy"/>
+	<text x="340" y="116" text-anchor="middle" class="title">Envoy</text>
+	<text x="340" y="134" text-anchor="middle" class="detail">rules in order, first match wins</text>
+
+	<!-- Connectors, each with its own head -->
+	<path d="M188 186H220" class="flow"/>
+	<path d="M232 186L220 180V192Z" class="arrow"/>
+	<path d="M424 186H570" class="flow"/>
+	<path d="M582 186L570 180V192Z" class="arrow"/>
+	<path d="M256 286H208" class="flow"/>
+	<path d="M196 286L208 280V292Z" class="arrow"/>
+	<path d="M424 368H570" class="flow"/>
+	<path d="M582 368L570 362V374Z" class="arrow"/>
+
+	<!-- Connector labels -->
+	<text x="523" y="176" text-anchor="middle" class="detail">after 7 s</text>
+	<text x="523" y="358" text-anchor="middle" class="detail">at once</text>
+	<text x="215" y="276" text-anchor="middle" class="mono-b">503</text>
+	<text x="523" y="282" text-anchor="middle" class="detail">no call</text>
+	<text x="523" y="300" text-anchor="middle" class="mono">upstream "-"</text>
+
+	<!-- reviews app -->
+	<rect x="48" y="150" width="140" height="150" rx="12" class="node"/>
+	<text x="118" y="208" text-anchor="middle" class="title">reviews v2</text>
+	<text x="118" y="228" text-anchor="middle" class="detail">app container</text>
+	<text x="118" y="252" text-anchor="middle" class="mono">GET ratings:9080</text>
+
+	<!-- Rule: delay -->
+	<rect x="256" y="150" width="168" height="72" rx="10" class="node"/>
+	<text x="268" y="172" class="mono-b">qa-team-delay</text>
+	<rect x="382" y="158" width="30" height="20" rx="5" class="chip"/>
+	<text x="397" y="172" text-anchor="middle" class="flag">DI</text>
+	<text x="268" y="192" class="mono">end-user: qa-team</text>
+	<text x="268" y="210" class="detail">hold 7 s, then forward</text>
+
+	<text x="340" y="240" text-anchor="middle" class="detail">or, in the abort file</text>
+
+	<!-- Rule: abort -->
+	<rect x="256" y="250" width="168" height="72" rx="10" class="node"/>
+	<text x="268" y="272" class="mono-b">qa-team-abort</text>
+	<rect x="382" y="258" width="30" height="20" rx="5" class="chip"/>
+	<text x="397" y="272" text-anchor="middle" class="flag">FI</text>
+	<text x="268" y="292" class="mono">end-user: qa-team</text>
+	<text x="268" y="310" class="detail">50%: answer 503 itself</text>
+
+	<!-- Rule: default -->
+	<rect x="256" y="338" width="168" height="60" rx="10" class="node"/>
+	<text x="268" y="362" class="mono-b">default</text>
+	<text x="268" y="382" class="detail">all other users, no fault</text>
+</svg>

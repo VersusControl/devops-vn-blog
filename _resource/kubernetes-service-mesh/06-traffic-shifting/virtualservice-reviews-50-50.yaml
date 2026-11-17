@@ -1,0 +1,21 @@
+# Step 3: half and half.
+# A mesh-internal VirtualService: no "gateways" field, so it applies to calls made by
+# sidecars inside the mesh (here, productpage calling reviews).
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  hosts:
+    - reviews
+  http:
+    - route:
+        - destination:
+            host: reviews
+            subset: v1
+          weight: 50
+        - destination:
+            host: reviews
+            subset: v3
+          weight: 50

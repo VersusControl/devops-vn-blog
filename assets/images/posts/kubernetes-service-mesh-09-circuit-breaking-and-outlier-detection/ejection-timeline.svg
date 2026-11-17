@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="330" viewBox="0 0 760 330" role="img" aria-label="Outlier detection over 100 seconds, measured with 10 requests every 10 seconds while ratings-v-faulty answers 503 to half of its calls. The faulty Pod is already ejected when the loop starts, so the batches at 0, 10, and 20 seconds have no errors. Around 26 seconds it is back in the pool: the batches at 30 and 40 seconds have 3 and 2 ratings errors, and it is ejected again for about the same time, so the batches at 50, 60, and 70 seconds have no errors. Around 77 seconds it is back again and the batches at 80 and 90 seconds have 1 error each. Settings: consecutive5xxErrors 2, interval 5s, baseEjectionTime 30s.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.bar-title{font-size:13px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.count{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.count-zero{font-family:Menlo,monospace;font-size:13px;fill:#8a99a8}
+			.tick{font-family:Menlo,monospace;font-size:12px;fill:#526579}
+			.ejected{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.inpool{fill:#fff;stroke:#283541;stroke-width:2;stroke-dasharray:6 4}
+			.cell-ok{fill:#fff;stroke:#283541;stroke-width:1}
+			.cell-err{fill:#17212b}
+			.band{fill:#fff;stroke:#aab9c7;stroke-width:1.5;stroke-dasharray:6 4}
+			.axis{fill:none;stroke:#283541;stroke-width:1.5}
+		</style>
+	</defs>
+	<rect width="760" height="330" fill="#fff"/>
+
+	<!-- Zone -->
+	<rect x="16" y="16" width="728" height="248" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">RATINGS-V-FAULTY IN REVIEWS-V2'S POOL</text>
+
+	<!-- Lane 1: ejection periods -->
+	<rect x="38.4" y="52" width="192.0" height="36" rx="8" class="ejected"/>
+	<text x="134.4" y="75" text-anchor="middle" class="bar-title">ejected</text>
+	<rect x="234.4" y="52" width="102.8" height="36" rx="8" class="inpool"/>
+	<text x="285.8" y="75" text-anchor="middle" class="bar-title">back in pool</text>
+	<rect x="341.2" y="52" width="192.0" height="36" rx="8" class="ejected"/>
+	<text x="437.2" y="75" text-anchor="middle" class="bar-title">ejected again</text>
+	<rect x="537.2" y="52" width="166.8" height="36" rx="8" class="inpool"/>
+	<text x="620.6" y="75" text-anchor="middle" class="bar-title">back in pool</text>
+
+	<!-- Lane 2: 10 requests every 10 s -->
+	<text x="32" y="114" class="zone">RATINGS-ERROR PER 10 REQUESTS</text>
+	<rect x="557" y="105" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<text x="572" y="114" class="detail">stars</text>
+	<rect x="618" y="105" width="9" height="9" rx="1.5" class="cell-err"/>
+	<text x="633" y="114" class="detail">ratings-error</text>
+	<rect x="234.4" y="122" width="102.8" height="90" rx="8" class="band"/>
+	<rect x="537.2" y="122" width="166.8" height="90" rx="8" class="band"/>
+	<rect x="54.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="65.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="54.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="65.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="54.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="65.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="54.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="65.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="54.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="65.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="118.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="129.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="118.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="129.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="118.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="129.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="118.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="129.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="118.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="129.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="182.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="193.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="182.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="193.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="182.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="193.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="182.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="193.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="182.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="193.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="246.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="257.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="246.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="257.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="246.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="257.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="246.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="257.0" y="163" width="9" height="9" rx="1.5" class="cell-err"/>
+	<rect x="246.0" y="174" width="9" height="9" rx="1.5" class="cell-err"/>
+	<rect x="257.0" y="174" width="9" height="9" rx="1.5" class="cell-err"/>
+	<rect x="310.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="321.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="310.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="321.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="310.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="321.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="310.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="321.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="310.0" y="174" width="9" height="9" rx="1.5" class="cell-err"/>
+	<rect x="321.0" y="174" width="9" height="9" rx="1.5" class="cell-err"/>
+	<rect x="374.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="385.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="374.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="385.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="374.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="385.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="374.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="385.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="374.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="385.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="438.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="449.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="438.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="449.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="438.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="449.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="438.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="449.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="438.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="449.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="502.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="513.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="502.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="513.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="502.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="513.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="502.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="513.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="502.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="513.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="566.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="577.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="566.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="577.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="566.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="577.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="566.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="577.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="566.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="577.0" y="174" width="9" height="9" rx="1.5" class="cell-err"/>
+	<rect x="630.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="641.0" y="130" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="630.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="641.0" y="141" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="630.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="641.0" y="152" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="630.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="641.0" y="163" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="630.0" y="174" width="9" height="9" rx="1.5" class="cell-ok"/>
+	<rect x="641.0" y="174" width="9" height="9" rx="1.5" class="cell-err"/>
+	<text x="64.0" y="200" text-anchor="middle" class="count-zero">0</text>
+	<text x="128.0" y="200" text-anchor="middle" class="count-zero">0</text>
+	<text x="192.0" y="200" text-anchor="middle" class="count-zero">0</text>
+	<text x="256.0" y="200" text-anchor="middle" class="count">3</text>
+	<text x="320.0" y="200" text-anchor="middle" class="count">2</text>
+	<text x="384.0" y="200" text-anchor="middle" class="count-zero">0</text>
+	<text x="448.0" y="200" text-anchor="middle" class="count-zero">0</text>
+	<text x="512.0" y="200" text-anchor="middle" class="count-zero">0</text>
+	<text x="576.0" y="200" text-anchor="middle" class="count">1</text>
+	<text x="640.0" y="200" text-anchor="middle" class="count">1</text>
+
+	<!-- Time axis -->
+	<path d="M64 226H704" class="axis"/>
+	<path d="M64 226v6M128 226v4M192 226v6M256 226v4M320 226v6M384 226v4M448 226v6M512 226v4M576 226v6M640 226v4M704 226v6" class="axis"/>
+	<text y="248" text-anchor="middle" class="tick"><tspan x="64">0</tspan><tspan x="128">10</tspan><tspan x="192">20</tspan><tspan x="256">30</tspan><tspan x="320">40</tspan><tspan x="384">50</tspan><tspan x="448">60</tspan><tspan x="512">70</tspan><tspan x="576">80</tspan><tspan x="640">90</tspan><tspan x="704">100</tspan></text>
+	<text x="718" y="248" class="tick">s</text>
+
+	<!-- Settings -->
+	<text x="32" y="292"><tspan class="mono">consecutive5xxErrors: 2</tspan><tspan class="mono" dx="20">interval: 5s</tspan><tspan class="mono" dx="20">baseEjectionTime: 30s</tspan></text>
+	<text x="32" y="314" class="detail">Each ejection lasts about baseEjectionTime (30 s); a Pod re-ejected right after it returns can stay out longer.</text>
+</svg>

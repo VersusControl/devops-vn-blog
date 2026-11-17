@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="552" viewBox="0 0 760 552" role="img" aria-label="The circuit breaker as a queue in the caller's sidecar. The fortio Pod sends three concurrent requests to ratings through its Envoy sidecar, whose connectionPool for ratings allows maxConnections 1 and http1MaxPendingRequests 1. Request 1 takes the only connection and reaches the ratings Pod, which answers 200. Request 2 takes the only waiting slot. Request 3 finds both full and the sidecar answers it immediately with 503 and the UO flag, upstream overflow, in 0 milliseconds; it never reaches ratings. Measured with Fortio, 40 calls per run: 1 client, 40 succeed; 2 concurrent clients, 22 succeed and 18 get 503; 4 concurrent clients, 9 succeed and 31 get 503.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.slot-title{font-size:13px;font-weight:700}
+			.muted-title{font-size:13px;font-weight:700;fill:#6b7d8f}
+			.detail{font-size:12px;fill:#526579}
+			.muted{font-size:12px;fill:#6b7d8f}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.count{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.pod{fill:#f8fafb;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.slot{fill:#fff;stroke:#283541;stroke-width:2}
+			.idle{fill:#fff;stroke:#8a99a8;stroke-width:2;stroke-dasharray:6 4}
+			.bar{fill:none;stroke:#283541;stroke-width:1.5}
+			.cell-ok{fill:#fff;stroke:#283541;stroke-width:1}
+			.cell-err{fill:#17212b}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="552" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="728" height="362" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">THE LIMIT IS ENFORCED IN THE CALLER'S SIDECAR</text>
+
+	<rect x="16" y="394" width="728" height="142" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="418" class="zone">MEASURED WITH FORTIO, 40 CALLS PER RUN</text>
+	<rect x="616" y="408" width="10" height="10" rx="2" class="cell-ok"/>
+	<text x="632" y="418" class="detail">200</text>
+	<rect x="668" y="408" width="10" height="10" rx="2" class="cell-err"/>
+	<text x="684" y="418" class="detail">503</text>
+
+	<!-- fortio Pod container -->
+	<rect x="32" y="52" width="488" height="310" rx="14" class="pod"/>
+	<text x="48" y="76" class="pod-title">fortio Pod</text>
+
+	<!-- Connectors -->
+	<path d="M178 185H228" class="flow"/>
+	<path d="M240 185L228 179V191Z" class="arrow"/>
+	<path d="M178 249H228" class="flow"/>
+	<path d="M240 249L228 243V255Z" class="arrow"/>
+	<path d="M178 305H228" class="flow"/>
+	<path d="M240 305L228 299V311Z" class="arrow"/>
+	<path d="M248 323H198" class="flow"/>
+	<path d="M186 323L198 317V329Z" class="arrow"/>
+	<path d="M488 185H572" class="flow"/>
+	<path d="M584 185L572 179V191Z" class="arrow"/>
+
+	<!-- fortio app -->
+	<rect x="48" y="92" width="130" height="254" rx="12" class="node"/>
+	<text x="113" y="118" text-anchor="middle" class="title">fortio</text>
+	<text x="113" y="136" text-anchor="middle" class="detail">load client</text>
+	<text x="164" y="190" text-anchor="end" class="slot-title">request 1</text>
+	<text x="164" y="254" text-anchor="end" class="slot-title">request 2</text>
+	<text x="164" y="309" text-anchor="end" class="slot-title">request 3</text>
+	<text x="164" y="328" text-anchor="end" class="mono-b">503 UO</text>
+
+	<!-- Envoy sidecar with its connection pool -->
+	<rect x="248" y="92" width="256" height="254" rx="12" class="proxy"/>
+	<text x="376" y="118" text-anchor="middle" class="title">Envoy sidecar</text>
+	<text x="376" y="136" text-anchor="middle" class="detail">connectionPool for ratings</text>
+
+	<text x="264" y="161" class="mono">maxConnections: 1</text>
+	<rect x="264" y="168" width="224" height="34" rx="8" class="slot"/>
+	<text x="278" y="190" class="slot-title">request 1</text>
+	<text x="474" y="190" text-anchor="end" class="detail">connection in use</text>
+
+	<text x="264" y="225" class="mono">http1MaxPendingRequests: 1</text>
+	<rect x="264" y="232" width="224" height="34" rx="8" class="slot"/>
+	<text x="278" y="254" class="slot-title">request 2</text>
+	<text x="474" y="254" text-anchor="end" class="detail">waiting slot full</text>
+
+	<text x="264" y="289" class="detail">no free slot: overflow</text>
+	<rect x="264" y="296" width="224" height="34" rx="8" class="idle"/>
+	<text x="278" y="318" class="muted-title">request 3</text>
+	<text x="474" y="318" text-anchor="end"><tspan class="mono-b">503 UO</tspan><tspan class="detail" dx="6">0 ms</tspan></text>
+
+	<!-- ratings -->
+	<rect x="592" y="152" width="136" height="66" rx="12" class="node"/>
+	<text x="660" y="181" text-anchor="middle" class="pod-title">ratings Pod</text>
+	<text x="660" y="200" text-anchor="middle" class="detail">answers 200</text>
+	<text x="660" y="305" text-anchor="middle" class="muted">request 3 never</text>
+	<text x="660" y="322" text-anchor="middle" class="muted">reaches ratings</text>
+
+	<!-- Measured runs -->
+	<rect x="32" y="432" width="224" height="88" rx="12" class="node"/>
+	<text x="48" y="456" class="title">1 client</text>
+	<text x="240" y="456" text-anchor="end" class="mono">-c 1</text>
+	<rect x="48" y="466" width="192" height="18" fill="#fff"/>
+	<rect x="48" y="466" width="192" height="18" rx="3" class="bar"/>
+	<text x="48" y="506"><tspan class="count">40</tspan><tspan class="detail" dx="5">200</tspan></text>
+	<text x="240" y="506" text-anchor="end"><tspan class="count">0</tspan><tspan class="detail" dx="5">503</tspan></text>
+	<rect x="268" y="432" width="224" height="88" rx="12" class="node"/>
+	<text x="284" y="456" class="title">2 clients</text>
+	<text x="476" y="456" text-anchor="end" class="mono">-c 2</text>
+	<rect x="284" y="466" width="192" height="18" fill="#fff"/>
+	<rect x="389.6" y="466" width="86.4" height="18" class="cell-err"/>
+	<rect x="284" y="466" width="192" height="18" rx="3" class="bar"/>
+	<text x="284" y="506"><tspan class="count">22</tspan><tspan class="detail" dx="5">200</tspan></text>
+	<text x="476" y="506" text-anchor="end"><tspan class="count">18</tspan><tspan class="detail" dx="5">503</tspan></text>
+	<rect x="504" y="432" width="224" height="88" rx="12" class="node"/>
+	<text x="520" y="456" class="title">4 clients</text>
+	<text x="712" y="456" text-anchor="end" class="mono">-c 4</text>
+	<rect x="520" y="466" width="192" height="18" fill="#fff"/>
+	<rect x="563.2" y="466" width="148.8" height="18" class="cell-err"/>
+	<rect x="520" y="466" width="192" height="18" rx="3" class="bar"/>
+	<text x="520" y="506"><tspan class="count">9</tspan><tspan class="detail" dx="5">200</tspan></text>
+	<text x="712" y="506" text-anchor="end"><tspan class="count">31</tspan><tspan class="detail" dx="5">503</tspan></text>
+</svg>

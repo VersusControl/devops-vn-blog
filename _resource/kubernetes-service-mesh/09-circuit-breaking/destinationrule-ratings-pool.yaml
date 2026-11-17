@@ -1,0 +1,21 @@
+# Circuit breaker: limit how much traffic each caller's sidecar sends to ratings at once.
+# Deliberately tiny limits so a laptop can overflow them. Real values are much larger.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  host: ratings
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 1            # open connections to all ratings Pods together
+      http:
+        http1MaxPendingRequests: 1   # requests allowed to wait for a free connection
+        maxRequestsPerConnection: 1  # close each connection after one request
+    outlierDetection:
+      consecutive5xxErrors: 2
+      interval: 5s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50

@@ -1,0 +1,14 @@
+# DestinationRule still works with the Gateway API: traffic policy for the productpage
+# Service applies to every caller, including the Gateway API gateway's proxy.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: productpage
+  namespace: bookstore
+spec:
+  host: productpage
+  trafficPolicy:
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s

@@ -1,0 +1,29 @@
+# gateway.yaml plus an HTTPS listener (chapter 4 with the Gateway API).
+# certificateRefs points at a Secret in the Gateway's own namespace, bookstore,
+# not in istio-system: this Gateway's proxy runs in bookstore.
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: bookstore-gw
+  namespace: bookstore
+spec:
+  gatewayClassName: istio
+  infrastructure:
+    parametersRef:
+      group: ""
+      kind: ConfigMap
+      name: bookstore-gw-options
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      hostname: bookstore.local
+    - name: https
+      port: 443
+      protocol: HTTPS
+      hostname: bookstore.local
+      tls:
+        mode: Terminate         # Istio's SIMPLE
+        certificateRefs:
+          - kind: Secret
+            name: bookstore-local-tls

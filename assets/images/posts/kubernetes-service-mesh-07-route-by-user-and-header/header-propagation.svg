@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="628" viewBox="0 0 760 628" role="img" aria-label="Two versions of the same call chain: curl, the ingress gateway, the productpage Pod with the app and its sidecar Envoy, then reviews. On top, curl sends the header x-bookstore-preview: true; the gateway forwards it and the productpage app receives it as request 1. The app then makes a new request 2 to reviews and copies only the headers on its forward list, such as end-user, x-request-id, user-agent, cookie, authorization, and the tracing headers, so x-bookstore-preview is dropped. The sidecar sees no such header, uses the rule default, and routes to reviews-v1 with no stars. Below, curl sends the cookie bookstore-preview=true; the app copies the cookie header onto request 2, the sidecar matches the rule preview-cookie, and routes to reviews-v3 with red stars. The sidecar sees only the headers the app copies onto its new request.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.note{font-size:13px;fill:#526579}
+			.label{font-size:13px;font-weight:700;fill:#263746}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.chip-text{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.gone-text{font-family:Menlo,monospace;font-size:12px;fill:#526579}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.card{fill:#fff;stroke:#aab9c7;stroke-width:1.5}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.gone{fill:#fff;stroke:#526579;stroke-width:1.5;stroke-dasharray:4 3}
+			.strike{stroke:#17212b;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="628" fill="#fff"/>
+
+	<!-- CUSTOM HEADER, NOT FORWARDED BY THE APP -->
+	<rect x="16" y="16" width="728" height="280" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">CUSTOM HEADER, NOT FORWARDED BY THE APP</text>
+	<rect x="268" y="52" width="336" height="120" rx="14" class="pod"/>
+	<text x="284" y="74" class="pod-title">productpage Pod</text>
+
+	<path d="M120 122H140" class="flow"/>
+	<path d="M152 122L140 116V128Z" class="arrow"/>
+	<path d="M248 122H272" class="flow"/>
+	<path d="M284 122L272 116V128Z" class="arrow"/>
+	<path d="M420 122H440" class="flow"/>
+	<path d="M452 122L440 116V128Z" class="arrow"/>
+	<path d="M580 122H608" class="flow"/>
+	<path d="M620 122L608 116V128Z" class="arrow"/>
+
+	<rect x="32" y="86" width="88" height="72" rx="12" class="node"/>
+	<text x="76" y="117" text-anchor="middle" class="title">curl</text>
+	<text x="76" y="136" text-anchor="middle" class="detail">sends header</text>
+
+	<rect x="160" y="86" width="88" height="72" rx="12" class="node"/>
+	<text x="204" y="117" text-anchor="middle" class="title">gateway</text>
+	<text x="204" y="136" text-anchor="middle" class="detail">forwards it</text>
+
+	<rect x="292" y="86" width="128" height="72" rx="12" class="node"/>
+	<text x="356" y="117" text-anchor="middle" class="title">productpage</text>
+	<text x="356" y="136" text-anchor="middle" class="detail">makes a new call</text>
+
+	<rect x="460" y="86" width="120" height="72" rx="12" class="proxy"/>
+	<text x="520" y="110" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="520" y="128" text-anchor="middle" class="detail">header missing</text>
+	<text x="520" y="146" text-anchor="middle" class="mono">default</text>
+
+	<rect x="628" y="86" width="100" height="72" rx="12" class="node"/>
+	<text x="678" y="117" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="678" y="136" text-anchor="middle" class="detail">no stars</text>
+
+	<!-- Request 1: what reaches the app -->
+	<rect x="32" y="184" width="316" height="96" rx="10" class="card"/>
+	<text x="46" y="206"><tspan class="label">request 1</tspan><tspan class="detail" dx="8">curl to productpage</tspan></text>
+	<rect x="46" y="218" width="196" height="22" rx="6" class="chip"/>
+	<text x="144" y="233" text-anchor="middle" class="chip-text">x-bookstore-preview: true</text>
+	<text x="46" y="267" class="detail">reaches the productpage app</text>
+
+	<!-- Request 2: the new call the app builds -->
+	<rect x="364" y="184" width="364" height="96" rx="10" class="card"/>
+	<text x="378" y="206"><tspan class="label">request 2</tspan><tspan class="detail" dx="8">built by productpage</tspan></text>
+	<text x="378" y="227" class="mono">end-user, x-request-id, user-agent,</text>
+	<text x="378" y="244" class="mono">cookie, authorization, traceparent, …</text>
+	<rect x="378" y="252" width="152" height="22" rx="6" class="gone"/>
+	<text x="454" y="267" text-anchor="middle" class="gone-text">x-bookstore-preview</text>
+	<path d="M386 263H522" class="strike"/>
+	<text x="540" y="267" class="detail">not on the list, dropped</text>
+
+	<!-- COOKIE, FORWARDED BY THE APP -->
+	<rect x="16" y="308" width="728" height="280" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="332" class="zone">COOKIE, FORWARDED BY THE APP</text>
+	<rect x="268" y="344" width="336" height="120" rx="14" class="pod"/>
+	<text x="284" y="366" class="pod-title">productpage Pod</text>
+
+	<path d="M120 414H140" class="flow"/>
+	<path d="M152 414L140 408V420Z" class="arrow"/>
+	<path d="M248 414H272" class="flow"/>
+	<path d="M284 414L272 408V420Z" class="arrow"/>
+	<path d="M420 414H440" class="flow"/>
+	<path d="M452 414L440 408V420Z" class="arrow"/>
+	<path d="M580 414H608" class="flow"/>
+	<path d="M620 414L608 408V420Z" class="arrow"/>
+
+	<rect x="32" y="378" width="88" height="72" rx="12" class="node"/>
+	<text x="76" y="409" text-anchor="middle" class="title">curl</text>
+	<text x="76" y="428" text-anchor="middle" class="detail">sends cookie</text>
+
+	<rect x="160" y="378" width="88" height="72" rx="12" class="node"/>
+	<text x="204" y="409" text-anchor="middle" class="title">gateway</text>
+	<text x="204" y="428" text-anchor="middle" class="detail">forwards it</text>
+
+	<rect x="292" y="378" width="128" height="72" rx="12" class="node"/>
+	<text x="356" y="409" text-anchor="middle" class="title">productpage</text>
+	<text x="356" y="428" text-anchor="middle" class="detail">makes a new call</text>
+
+	<rect x="460" y="378" width="120" height="72" rx="12" class="proxy"/>
+	<text x="520" y="402" text-anchor="middle" class="title">sidecar Envoy</text>
+	<text x="520" y="420" text-anchor="middle" class="detail">cookie matches</text>
+	<text x="520" y="438" text-anchor="middle" class="mono">preview-cookie</text>
+
+	<rect x="628" y="378" width="100" height="72" rx="12" class="node"/>
+	<text x="678" y="409" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<text x="678" y="428" text-anchor="middle" class="detail">red stars</text>
+
+	<!-- Request 1: what reaches the app -->
+	<rect x="32" y="476" width="316" height="96" rx="10" class="card"/>
+	<text x="46" y="498"><tspan class="label">request 1</tspan><tspan class="detail" dx="8">curl to productpage</tspan></text>
+	<rect x="46" y="510" width="232" height="22" rx="6" class="chip"/>
+	<text x="162" y="525" text-anchor="middle" class="chip-text">cookie: bookstore-preview=true</text>
+	<text x="46" y="559" class="detail">reaches the productpage app</text>
+
+	<!-- Request 2: the new call the app builds -->
+	<rect x="364" y="476" width="364" height="96" rx="10" class="card"/>
+	<text x="378" y="498"><tspan class="label">request 2</tspan><tspan class="detail" dx="8">built by productpage</tspan></text>
+	<text x="378" y="519" class="mono">end-user, x-request-id, user-agent,</text>
+	<text x="378" y="536" class="mono">authorization, traceparent, …</text>
+	<rect x="378" y="544" width="232" height="22" rx="6" class="chip"/>
+	<text x="494" y="559" text-anchor="middle" class="chip-text">cookie: bookstore-preview=true</text>
+	<text x="622" y="559" class="detail">copied</text>
+
+	<!-- Footer note -->
+	<text x="380" y="614" text-anchor="middle" class="note">The sidecar matches request 2, so it sees only the headers the app copies onto it.</text>
+</svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="552" viewBox="0 0 760 552" role="img" aria-label="A broken trace and the fixed one. The call chain is tester, storefront, productpage, reviews, ratings. Top, with FORWARD_TRACE_HEADERS=false: the tester to storefront call is trace A with 2 spans. storefront's outgoing request to productpage carries none of the trace headers, x-b3-*, b3, traceparent, tracestate, or x-request-id, so storefront's sidecar starts a new trace B with 6 spans for storefront to productpage, reviews, and ratings. storefront appears in both traces, but nothing joins them. Bottom, with FORWARD_TRACE_HEADERS=true: storefront copies the headers from its incoming request to its outgoing one, and the whole request is one trace with 8 spans across tester, storefront, productpage, reviews, and ratings.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.tag{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#456987}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.note{font-size:13px;fill:#526579}
+			.label{font-size:13px;font-weight:700;fill:#263746}
+			.chip-text{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.gone-text{font-family:Menlo,monospace;font-size:12px;fill:#526579}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.card{fill:#fff;stroke:#aab9c7;stroke-width:1.5}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.gone{fill:#fff;stroke:#526579;stroke-width:1.5;stroke-dasharray:4 3}
+			.strike{stroke:#17212b;stroke-width:1.5}
+			.trace{fill:#fff;stroke:#283541;stroke-width:2}
+			.whole{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="552" fill="#fff"/>
+
+	<!-- HEADERS NOT COPIED -->
+	<rect x="16" y="16" width="728" height="254" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">HEADERS NOT COPIED: TWO TRACES</text>
+	<text x="728" y="40" text-anchor="end" class="tag">FORWARD_TRACE_HEADERS=false</text>
+	<!-- Calls: each hop has its own shaft and head -->
+	<path d="M116 84H142" class="flow"/>
+	<path d="M154 84L142 78V90Z" class="arrow"/>
+	<path d="M278 84H304" class="flow"/>
+	<path d="M316 84L304 78V90Z" class="arrow"/>
+	<path d="M440 84H466" class="flow"/>
+	<path d="M478 84L466 78V90Z" class="arrow"/>
+	<path d="M586 84H612" class="flow"/>
+	<path d="M624 84L612 78V90Z" class="arrow"/>
+	<rect x="32" y="56" width="84" height="56" rx="12" class="node"/>
+	<text x="74" y="80" text-anchor="middle" class="title">tester</text>
+	<text x="74" y="98" text-anchor="middle" class="detail">curl client</text>
+	<rect x="162" y="56" width="116" height="56" rx="12" class="primary"/>
+	<text x="220" y="80" text-anchor="middle" class="title">storefront</text>
+	<text x="220" y="98" text-anchor="middle" class="detail">drops headers</text>
+	<rect x="324" y="56" width="116" height="56" rx="12" class="node"/>
+	<text x="382" y="80" text-anchor="middle" class="title">productpage</text>
+	<text x="382" y="98" text-anchor="middle" class="detail">forwards headers</text>
+	<rect x="486" y="56" width="100" height="56" rx="12" class="node"/>
+	<text x="536" y="80" text-anchor="middle" class="title">reviews</text>
+	<text x="536" y="98" text-anchor="middle" class="detail">v2 or v3</text>
+	<rect x="632" y="56" width="96" height="56" rx="12" class="node"/>
+	<text x="680" y="80" text-anchor="middle" class="title">ratings</text>
+	<text x="680" y="98" text-anchor="middle" class="detail">last hop</text>
+	<!-- Traces: storefront appears in both -->
+	<rect x="32" y="126" width="246" height="22" rx="6" class="trace"/>
+	<text x="44" y="141"><tspan class="label">trace A</tspan><tspan class="detail" dx="8">2 spans</tspan></text>
+	<rect x="162" y="156" width="566" height="22" rx="6" class="trace"/>
+	<text x="174" y="171"><tspan class="label">trace B</tspan><tspan class="detail" dx="8">6 spans, starts at storefront’s outgoing call</tspan></text>
+	<rect x="32" y="192" width="696" height="62" rx="10" class="card"/>
+	<text x="46" y="212"><tspan class="label">storefront’s outgoing request</tspan><tspan class="detail" dx="8">has no trace headers, so its sidecar starts trace B</tspan></text>
+	<rect x="46" y="222" width="60" height="22" rx="6" class="gone"/>
+	<text x="76" y="237" text-anchor="middle" class="gone-text">x-b3-*</text>
+	<path d="M52 233H100" class="strike"/>
+	<rect x="114" y="222" width="30" height="22" rx="6" class="gone"/>
+	<text x="129" y="237" text-anchor="middle" class="gone-text">b3</text>
+	<path d="M120 233H138" class="strike"/>
+	<rect x="152" y="222" width="96" height="22" rx="6" class="gone"/>
+	<text x="200" y="237" text-anchor="middle" class="gone-text">traceparent</text>
+	<path d="M158 233H242" class="strike"/>
+	<rect x="256" y="222" width="88" height="22" rx="6" class="gone"/>
+	<text x="300" y="237" text-anchor="middle" class="gone-text">tracestate</text>
+	<path d="M262 233H338" class="strike"/>
+	<rect x="352" y="222" width="103" height="22" rx="6" class="gone"/>
+	<text x="403.5" y="237" text-anchor="middle" class="gone-text">x-request-id</text>
+	<path d="M358 233H449" class="strike"/>
+	<text x="467" y="237" class="detail">not copied</text>
+
+	<!-- HEADERS COPIED -->
+	<rect x="16" y="286" width="728" height="222" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="310" class="zone">HEADERS COPIED: ONE TRACE</text>
+	<text x="728" y="310" text-anchor="end" class="tag">FORWARD_TRACE_HEADERS=true</text>
+	<!-- Calls: each hop has its own shaft and head -->
+	<path d="M116 354H142" class="flow"/>
+	<path d="M154 354L142 348V360Z" class="arrow"/>
+	<path d="M278 354H304" class="flow"/>
+	<path d="M316 354L304 348V360Z" class="arrow"/>
+	<path d="M440 354H466" class="flow"/>
+	<path d="M478 354L466 348V360Z" class="arrow"/>
+	<path d="M586 354H612" class="flow"/>
+	<path d="M624 354L612 348V360Z" class="arrow"/>
+	<rect x="32" y="326" width="84" height="56" rx="12" class="node"/>
+	<text x="74" y="350" text-anchor="middle" class="title">tester</text>
+	<text x="74" y="368" text-anchor="middle" class="detail">curl client</text>
+	<rect x="162" y="326" width="116" height="56" rx="12" class="primary"/>
+	<text x="220" y="350" text-anchor="middle" class="title">storefront</text>
+	<text x="220" y="368" text-anchor="middle" class="detail">copies headers</text>
+	<rect x="324" y="326" width="116" height="56" rx="12" class="node"/>
+	<text x="382" y="350" text-anchor="middle" class="title">productpage</text>
+	<text x="382" y="368" text-anchor="middle" class="detail">forwards headers</text>
+	<rect x="486" y="326" width="100" height="56" rx="12" class="node"/>
+	<text x="536" y="350" text-anchor="middle" class="title">reviews</text>
+	<text x="536" y="368" text-anchor="middle" class="detail">v2 or v3</text>
+	<rect x="632" y="326" width="96" height="56" rx="12" class="node"/>
+	<text x="680" y="350" text-anchor="middle" class="title">ratings</text>
+	<text x="680" y="368" text-anchor="middle" class="detail">last hop</text>
+	<!-- One trace across all five services -->
+	<rect x="32" y="396" width="696" height="22" rx="6" class="whole"/>
+	<text x="44" y="411"><tspan class="label">trace A</tspan><tspan class="detail" dx="8">8 spans: tester, storefront, productpage, reviews, ratings</tspan></text>
+	<rect x="32" y="432" width="696" height="62" rx="10" class="card"/>
+	<text x="46" y="452"><tspan class="label">storefront’s outgoing request</tspan><tspan class="detail" dx="8">carries the headers from its incoming request</tspan></text>
+	<rect x="46" y="462" width="60" height="22" rx="6" class="chip"/>
+	<text x="76" y="477" text-anchor="middle" class="chip-text">x-b3-*</text>
+	<rect x="114" y="462" width="30" height="22" rx="6" class="chip"/>
+	<text x="129" y="477" text-anchor="middle" class="chip-text">b3</text>
+	<rect x="152" y="462" width="96" height="22" rx="6" class="chip"/>
+	<text x="200" y="477" text-anchor="middle" class="chip-text">traceparent</text>
+	<rect x="256" y="462" width="88" height="22" rx="6" class="chip"/>
+	<text x="300" y="477" text-anchor="middle" class="chip-text">tracestate</text>
+	<rect x="352" y="462" width="103" height="22" rx="6" class="chip"/>
+	<text x="403.5" y="477" text-anchor="middle" class="chip-text">x-request-id</text>
+	<text x="467" y="477" class="detail">copied</text>
+
+	<!-- Footer -->
+	<text x="380" y="536" text-anchor="middle" class="note">Sidecars create the spans; only the app can copy the headers from its incoming request to its outgoing one.</text>
+</svg>

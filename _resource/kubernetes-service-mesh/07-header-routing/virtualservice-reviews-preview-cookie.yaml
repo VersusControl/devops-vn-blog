@@ -1,0 +1,36 @@
+# Fix without a code change: match a header that productpage DOES forward.
+# productpage forwards the "cookie" header, so a "bookstore-preview=true" cookie reaches
+# the reviews call and its sidecar can match it.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  hosts:
+    - reviews
+  http:
+    - name: qa-team
+      match:
+        - headers:
+            end-user:
+              exact: qa-team
+      route:
+        - destination:
+            host: reviews
+            subset: v3
+    - name: preview-cookie
+      match:
+        - headers:
+            cookie:
+              # the cookie anywhere in the Cookie header: "a=1; bookstore-preview=true; b=2"
+              regex: "^(.*;\\s*)?bookstore-preview=true(;.*)?$"
+      route:
+        - destination:
+            host: reviews
+            subset: v3
+    - name: default
+      route:
+        - destination:
+            host: reviews
+            subset: v1

@@ -1,0 +1,21 @@
+# Step 2: canary. 90% of requests to v1, 10% to the new v3.
+# A mesh-internal VirtualService: no "gateways" field, so it applies to calls made by
+# sidecars inside the mesh (here, productpage calling reviews).
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  hosts:
+    - reviews
+  http:
+    - route:
+        - destination:
+            host: reviews
+            subset: v1
+          weight: 90
+        - destination:
+            host: reviews
+            subset: v3
+          weight: 10

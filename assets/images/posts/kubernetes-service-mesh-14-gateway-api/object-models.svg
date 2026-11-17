@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="706" viewBox="0 0 760 706" role="img" aria-label="Object models side by side. Istio API, chapters 3 to 6: the Deployment istio-ingressgateway is installed separately by istioctl in namespace istio-system; the Gateway bookstore-gateway in namespace bookstore selects its Pods with the label istio: ingressgateway; the VirtualService bookstore names the Gateway in its gateways field; for a canary, one DestinationRule reviews defines subsets v1 and v3. Gateway API, this chapter: the GatewayClass istio, owned by the infrastructure provider, names the controller istio.io/gateway-controller; the Gateway bookstore-gw in namespace bookstore, owned by the platform team, names the class in gatewayClassName, and Istio creates a Deployment and Service bookstore-gw-istio for it; the HTTPRoute bookstore, owned by the app team, attaches to bookstore-gw with parentRefs; for a canary, each version is its own Service, reviews-v1 and reviews-v3.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:13px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.sub{font-size:12px;fill:#526579}
+			.panel-label{font-size:11px;font-weight:700;letter-spacing:1px;fill:#526579}
+			.kind{font-size:12px;font-weight:700;fill:#526579}
+			.owner{font-size:12px;fill:#526579}
+			.inner-title{font-size:12px;font-weight:700;fill:#17212b}
+			.detail{font-size:12px;fill:#526579}
+			.caption{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.mono-inner{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.mono-link{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.divider{stroke:#aab9c7;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="706" fill="#fff"/>
+
+	<!-- Zones: one column per API -->
+	<rect x="16" y="16" width="356" height="652" rx="14" class="zone"/>
+	<text x="32" y="40" class="zone-label">ISTIO API</text>
+	<text x="32" y="58" class="sub">chapters 3 to 6</text>
+	<rect x="388" y="16" width="356" height="652" rx="14" class="zone"/>
+	<text x="404" y="40" class="zone-label">GATEWAY API</text>
+	<text x="404" y="58" class="sub">this chapter</text>
+
+	<!-- Istio API connectors: each has its own shaft and head -->
+	<path d="M120 220V172" class="flow"/>
+	<path d="M120 160L114 172H126Z" class="arrow"/>
+	<text x="136" y="183" class="mono-link">selector</text>
+	<text x="136" y="201" class="mono">istio: ingressgateway</text>
+
+	<path d="M120 438V316" class="flow"/>
+	<path d="M120 304L114 316H126Z" class="arrow"/>
+	<text x="136" y="363" class="mono-link">gateways</text>
+	<text x="136" y="381" class="mono">[bookstore-gateway]</text>
+
+	<!-- Gateway API connectors -->
+	<path d="M492 220V172" class="flow"/>
+	<path d="M492 160L486 172H498Z" class="arrow"/>
+	<text x="508" y="183" class="mono-link">gatewayClassName</text>
+	<text x="508" y="201" class="mono">istio</text>
+
+	<path d="M492 438V390" class="flow"/>
+	<path d="M492 378L486 390H498Z" class="arrow"/>
+	<text x="508" y="401" class="mono-link">parentRefs</text>
+	<text x="508" y="419" class="mono">bookstore-gw</text>
+
+	<!-- Istio API objects -->
+	<rect x="32" y="76" width="324" height="76" rx="14" class="primary"/>
+	<text x="48" y="98" class="kind">Deployment</text>
+	<text x="48" y="119" class="mono-title">istio-ingressgateway</text>
+	<text x="48" y="140"><tspan class="detail">installed by istioctl in</tspan><tspan class="mono" dx="6">istio-system</tspan></text>
+
+	<rect x="32" y="220" width="324" height="76" rx="14" class="node"/>
+	<text x="48" y="242" class="kind">Gateway</text>
+	<text x="48" y="263" class="mono-title">bookstore-gateway</text>
+	<text x="48" y="284"><tspan class="detail">namespace</tspan><tspan class="mono" dx="6">bookstore</tspan></text>
+
+	<rect x="32" y="438" width="324" height="76" rx="14" class="node"/>
+	<text x="48" y="460" class="kind">VirtualService</text>
+	<text x="48" y="481" class="mono-title">bookstore</text>
+	<text x="48" y="502" class="mono">hosts: bookstore.local</text>
+
+	<!-- Gateway API objects -->
+	<rect x="404" y="76" width="324" height="76" rx="14" class="node"/>
+	<text x="420" y="98" class="kind">GatewayClass</text>
+	<text x="712" y="98" text-anchor="end" class="owner">infrastructure provider</text>
+	<text x="420" y="119" class="mono-title">istio</text>
+	<text x="420" y="140"><tspan class="detail">controller</tspan><tspan class="mono" dx="6">istio.io/gateway-controller</tspan></text>
+
+	<rect x="404" y="220" width="324" height="150" rx="14" class="node"/>
+	<text x="420" y="242" class="kind">Gateway</text>
+	<text x="712" y="242" text-anchor="end" class="owner">platform team</text>
+	<text x="420" y="263" class="mono-title">bookstore-gw</text>
+	<text x="420" y="284"><tspan class="detail">namespace</tspan><tspan class="mono" dx="6">bookstore</tspan></text>
+	<rect x="420" y="298" width="292" height="56" rx="12" class="primary"/>
+	<text x="436" y="319" class="inner-title">Deployment + Service</text>
+	<text x="696" y="319" text-anchor="end" class="detail">created by Istio</text>
+	<text x="436" y="340" class="mono-inner">bookstore-gw-istio</text>
+
+	<rect x="404" y="438" width="324" height="76" rx="14" class="node"/>
+	<text x="420" y="460" class="kind">HTTPRoute</text>
+	<text x="712" y="460" text-anchor="end" class="owner">app team</text>
+	<text x="420" y="481" class="mono-title">bookstore</text>
+	<text x="420" y="502" class="mono">hostnames: bookstore.local</text>
+
+	<!-- Canary versions -->
+	<path d="M32 540H356" class="divider"/>
+	<text x="32" y="562" class="panel-label">CANARY VERSIONS AS SUBSETS</text>
+	<path d="M404 540H728" class="divider"/>
+	<text x="404" y="562" class="panel-label">CANARY VERSIONS AS SERVICES</text>
+
+	<rect x="32" y="576" width="324" height="76" rx="14" class="node"/>
+	<text x="48" y="598" class="kind">DestinationRule</text>
+	<text x="48" y="619" class="mono-title">reviews</text>
+	<text x="48" y="640" class="mono">subsets: v1, v3</text>
+
+	<rect x="404" y="576" width="156" height="76" rx="14" class="node"/>
+	<text x="420" y="598" class="kind">Service</text>
+	<text x="420" y="619" class="mono-title">reviews-v1</text>
+	<text x="420" y="640" class="mono">version: v1</text>
+
+	<rect x="572" y="576" width="156" height="76" rx="14" class="node"/>
+	<text x="588" y="598" class="kind">Service</text>
+	<text x="588" y="619" class="mono-title">reviews-v3</text>
+	<text x="588" y="640" class="mono">version: v3</text>
+
+	<!-- Caption -->
+	<text x="16" y="694" class="caption">The Istio Gateway configures a proxy installed separately. A Gateway API Gateway creates its own proxy.</text>
+</svg>

@@ -1,0 +1,19 @@
+# Name the versions of reviews. A subset is a group of reviews Pods picked by label.
+# The VirtualServices in this folder send traffic to these names.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  host: reviews           # the Kubernetes Service (reviews.bookstore.svc.cluster.local)
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+    - name: v2
+      labels:
+        version: v2
+    - name: v3
+      labels:
+        version: v3

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 14 cover: Kubernetes Gateway API. Two gateways side by side. With the Istio API, the ingress gateway proxy on port 8080 is installed separately; a Gateway object configures it and a VirtualService names the Gateway. With the Gateway API, a Gateway of GatewayClass istio is itself the proxy on port 9080, and an HTTPRoute attaches to it.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.card-title{font-size:28px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:20px;fill:#263746}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.cfg{fill:#fff;stroke:#456987;stroke-width:2;stroke-dasharray:10 6}
+			.config{fill:none;stroke:#456987;stroke-width:4;stroke-dasharray:9 6;stroke-linecap:butt}
+			.config-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 14</text>
+	<text x="156" y="432" class="title">Kubernetes</text>
+	<text x="156" y="522" class="title">Gateway API</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Standard routing objects,</text>
+	<text x="160" y="672" class="subtitle">next to Istio's own API</text>
+
+	<!-- Zones: one column per API -->
+	<rect x="790" y="150" width="300" height="580" rx="14" class="zone-box"/>
+	<text x="814" y="192" class="zone">ISTIO API</text>
+	<rect x="1130" y="150" width="300" height="580" rx="14" class="zone-box"/>
+	<text x="1154" y="192" class="zone">GATEWAY API</text>
+
+	<!-- Connectors: each reference has its own shaft and head -->
+	<path d="M940 410V358" class="config"/>
+	<path d="M940 338L930 358H950Z" class="config-arrow"/>
+	<path d="M940 590V538" class="config"/>
+	<path d="M940 518L930 538H950Z" class="config-arrow"/>
+	<path d="M1280 410V358" class="config"/>
+	<path d="M1280 338L1270 358H1290Z" class="config-arrow"/>
+	<path d="M1280 590V538" class="config"/>
+	<path d="M1280 518L1270 538H1290Z" class="config-arrow"/>
+
+	<!-- Istio API: a proxy installed separately, configured by two objects -->
+	<rect x="810" y="230" width="260" height="100" rx="14" class="primary"/>
+	<text x="940" y="272" text-anchor="middle" class="card-title">ingress gateway</text>
+	<text x="940" y="306" text-anchor="middle" class="mono">Envoy :8080</text>
+
+	<rect x="810" y="410" width="260" height="100" rx="14" class="cfg"/>
+	<text x="940" y="452" text-anchor="middle" class="card-title">Gateway</text>
+	<text x="940" y="486" text-anchor="middle" class="detail">port and host</text>
+
+	<rect x="810" y="590" width="260" height="100" rx="14" class="cfg"/>
+	<text x="940" y="632" text-anchor="middle" class="card-title">VirtualService</text>
+	<text x="940" y="666" text-anchor="middle" class="detail">path routes</text>
+
+	<!-- Gateway API: the Gateway is the proxy -->
+	<rect x="1150" y="230" width="260" height="100" rx="14" class="cfg"/>
+	<text x="1280" y="272" text-anchor="middle" class="card-title">GatewayClass</text>
+	<text x="1280" y="306" text-anchor="middle" class="mono">istio</text>
+
+	<rect x="1150" y="410" width="260" height="100" rx="14" class="primary"/>
+	<text x="1280" y="452" text-anchor="middle" class="card-title">Gateway</text>
+	<text x="1280" y="486" text-anchor="middle" class="mono">Envoy :9080</text>
+
+	<rect x="1150" y="590" width="260" height="100" rx="14" class="cfg"/>
+	<text x="1280" y="632" text-anchor="middle" class="card-title">HTTPRoute</text>
+	<text x="1280" y="666" text-anchor="middle" class="detail">path routes</text>
+</svg>

@@ -1,0 +1,14 @@
+# Too strict: eject a Pod after a single error, and allow every Pod to be ejected.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  host: ratings
+  trafficPolicy:
+    outlierDetection:
+      consecutive5xxErrors: 1
+      interval: 1s
+      baseEjectionTime: 60s
+      maxEjectionPercent: 100

@@ -1,0 +1,28 @@
+# ratings: reviews may read (GET); the ingress gateway may read and write (admin API).
+# Replaces the ratings policy from allow-bookstore.yaml.
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  selector:
+    matchLabels:
+      app: ratings
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            principals:
+              - cluster.local/ns/bookstore/sa/bookstore-reviews
+      to:
+        - operation:
+            methods: ["GET"]
+    - from:
+        - source:
+            principals:
+              - cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account
+      to:
+        - operation:
+            methods: ["GET", "POST"]
+            paths: ["/ratings/*"]

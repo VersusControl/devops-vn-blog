@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="450" viewBox="0 0 760 450" role="img" aria-label="Envoy's four layers in the gateway, left to right, for GET bookstore.local:8080/productpage. Listener 0.0.0.0:8080 (LDS) is produced from the servers of the Gateway bookstore-gateway and shown by istioctl proxy-config listener; when it is missing the client gets an empty reply. Route http.8080, virtual host bookstore.local, path /productpage (RDS) is produced from the http rules of the VirtualService bookstore and shown by istioctl proxy-config route; its response flag is NR. Cluster outbound|9080||productpage.bookstore.svc.cluster.local (CDS) is produced from the Service productpage plus any DestinationRule and shown by istioctl proxy-config cluster; its flag is NC. Endpoint 10.244.2.8:9080, HEALTHY (EDS) is produced from the ready Pods with label app=productpage and shown by istioctl proxy-config endpoint; its flags are UH, UF, and URX.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.section{font-size:11px;font-weight:700;letter-spacing:1px;fill:#526579}
+			.title{font-size:16px;font-weight:700}
+			.kind{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.xds{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#456987}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.flag{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.divider{stroke:#aab9c7;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="450" fill="#fff"/>
+
+	<!-- Zone -->
+	<rect x="8" y="8" width="744" height="434" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="22" y="32" class="zone">GATEWAY ENVOY</text>
+	<text x="738" y="32" text-anchor="end" class="detail">request flows left to right</text>
+
+	<!-- Connectors: one shaft and head per hop -->
+	<path d="M174 104H190" class="flow"/>
+	<path d="M202 104L190 98V110Z" class="arrow"/>
+	<path d="M362 104H378" class="flow"/>
+	<path d="M390 104L378 98V110Z" class="arrow"/>
+	<path d="M550 104H566" class="flow"/>
+	<path d="M578 104L566 98V110Z" class="arrow"/>
+
+	<!-- listener -->
+	<rect x="22" y="48" width="152" height="374" rx="14" class="node"/>
+	<text x="36" y="76" class="title">listener</text>
+	<text x="160" y="76" text-anchor="end" class="xds">LDS</text>
+	<text x="36" y="100" class="mono">0.0.0.0:8080</text>
+	<path d="M34 168H162" class="divider"/>
+	<text x="36" y="188" class="section">PRODUCED FROM</text>
+	<text x="36" y="208" class="kind">Gateway</text>
+	<text x="36" y="226" class="mono">bookstore-gateway</text>
+	<text x="36" y="244" class="mono">servers</text>
+	<path d="M34 260H162" class="divider"/>
+	<text x="36" y="280" class="section">INSPECT WITH</text>
+	<text x="36" y="300" class="mono">istioctl</text>
+	<text x="36" y="318" class="mono">proxy-config</text>
+	<text x="36" y="336" class="mono-b">listener</text>
+	<path d="M34 352H162" class="divider"/>
+	<text x="36" y="372" class="section">RESPONSE FLAG</text>
+	<text x="36" y="399" class="detail">empty reply</text>
+
+	<!-- route -->
+	<rect x="210" y="48" width="152" height="374" rx="14" class="node"/>
+	<text x="224" y="76" class="title">route</text>
+	<text x="348" y="76" text-anchor="end" class="xds">RDS</text>
+	<text x="224" y="100" class="mono">http.8080</text>
+	<text x="224" y="118" class="mono">bookstore.local</text>
+	<text x="224" y="136" class="mono">/productpage</text>
+	<path d="M222 168H350" class="divider"/>
+	<text x="224" y="188" class="section">PRODUCED FROM</text>
+	<text x="224" y="208" class="kind">VirtualService</text>
+	<text x="224" y="226" class="mono">bookstore</text>
+	<text x="224" y="244"><tspan class="mono">http</tspan><tspan class="detail" dx="4">rules</tspan></text>
+	<path d="M222 260H350" class="divider"/>
+	<text x="224" y="280" class="section">INSPECT WITH</text>
+	<text x="224" y="300" class="mono">istioctl</text>
+	<text x="224" y="318" class="mono">proxy-config</text>
+	<text x="224" y="336" class="mono-b">route</text>
+	<path d="M222 352H350" class="divider"/>
+	<text x="224" y="372" class="section">RESPONSE FLAG</text>
+	<rect x="222" y="382" width="34" height="24" rx="6" class="chip"/>
+	<text x="239" y="399" text-anchor="middle" class="flag">NR</text>
+
+	<!-- cluster -->
+	<rect x="398" y="48" width="152" height="374" rx="14" class="node"/>
+	<text x="412" y="76" class="title">cluster</text>
+	<text x="536" y="76" text-anchor="end" class="xds">CDS</text>
+	<text x="412" y="100" class="mono">outbound|9080||</text>
+	<text x="412" y="118" class="mono">productpage.</text>
+	<text x="412" y="136" class="mono">bookstore.svc.</text>
+	<text x="412" y="154" class="mono">cluster.local</text>
+	<path d="M410 168H538" class="divider"/>
+	<text x="412" y="188" class="section">PRODUCED FROM</text>
+	<text x="412" y="208" class="kind">Service</text>
+	<text x="412" y="226" class="mono">productpage</text>
+	<text x="412" y="244" class="detail">+ DestinationRule</text>
+	<path d="M410 260H538" class="divider"/>
+	<text x="412" y="280" class="section">INSPECT WITH</text>
+	<text x="412" y="300" class="mono">istioctl</text>
+	<text x="412" y="318" class="mono">proxy-config</text>
+	<text x="412" y="336" class="mono-b">cluster</text>
+	<path d="M410 352H538" class="divider"/>
+	<text x="412" y="372" class="section">RESPONSE FLAG</text>
+	<rect x="410" y="382" width="34" height="24" rx="6" class="chip"/>
+	<text x="427" y="399" text-anchor="middle" class="flag">NC</text>
+
+	<!-- endpoint -->
+	<rect x="586" y="48" width="152" height="374" rx="14" class="node"/>
+	<text x="600" y="76" class="title">endpoint</text>
+	<text x="724" y="76" text-anchor="end" class="xds">EDS</text>
+	<text x="600" y="100" class="mono">10.244.2.8:9080</text>
+	<text x="600" y="118" class="mono-b">HEALTHY</text>
+	<path d="M598 168H726" class="divider"/>
+	<text x="600" y="188" class="section">PRODUCED FROM</text>
+	<text x="600" y="208" class="kind">Pods</text>
+	<text x="600" y="226" class="mono">app=productpage</text>
+	<text x="600" y="244" class="detail">ready only</text>
+	<path d="M598 260H726" class="divider"/>
+	<text x="600" y="280" class="section">INSPECT WITH</text>
+	<text x="600" y="300" class="mono">istioctl</text>
+	<text x="600" y="318" class="mono">proxy-config</text>
+	<text x="600" y="336" class="mono-b">endpoint</text>
+	<path d="M598 352H726" class="divider"/>
+	<text x="600" y="372" class="section">RESPONSE FLAG</text>
+	<rect x="598" y="382" width="34" height="24" rx="6" class="chip"/>
+	<text x="615" y="399" text-anchor="middle" class="flag">UH</text>
+	<rect x="638" y="382" width="34" height="24" rx="6" class="chip"/>
+	<text x="655" y="399" text-anchor="middle" class="flag">UF</text>
+	<rect x="678" y="382" width="42" height="24" rx="6" class="chip"/>
+	<text x="699" y="399" text-anchor="middle" class="flag">URX</text>
+
+</svg>

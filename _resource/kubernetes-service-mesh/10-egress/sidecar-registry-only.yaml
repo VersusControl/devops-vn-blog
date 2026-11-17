@@ -1,0 +1,11 @@
+# Default Sidecar for the bookstore namespace: block outbound traffic to any host that
+# isn't in Istio's service registry (Kubernetes Services and ServiceEntries).
+# The mesh-wide equivalent is meshConfig.outboundTrafficPolicy.mode: REGISTRY_ONLY.
+apiVersion: networking.istio.io/v1
+kind: Sidecar
+metadata:
+  name: default            # "default" with no workloadSelector = every Pod in the namespace
+  namespace: bookstore
+spec:
+  outboundTrafficPolicy:
+    mode: REGISTRY_ONLY

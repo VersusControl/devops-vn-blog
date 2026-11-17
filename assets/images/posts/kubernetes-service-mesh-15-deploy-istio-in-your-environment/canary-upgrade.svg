@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="676" viewBox="0 0 760 676" role="img" aria-label="Canary control plane upgrade in three steps. Namespace labels never change: bookstore and istio-ingress keep istio.io/rev=prod throughout, and only the prod tag moves. Step 1: istiod-1-31 serves every proxy, the prod tag points at 1-31, all proxies run 1.31.4, and istiod-1-32 is not installed. Step 2: install istiod-1-32 next to it, test it with namespace upgrade-check labeled istio.io/rev=1-32, which uses the revision directly without the tag, move the prod tag to 1-32, and restart the workloads and the gateway, so the proxies run 1.32.0; istiod-1-31 keeps running with no proxies, ready for rollback. A rollback arrow leads from step 2 back to step 1: move the tag back and restart. Step 3: after every proxy runs 1.32.0, helm uninstall istiod-1-31; one control plane remains, with prod pointing at 1-32.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.step{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.small{font-size:11px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.mono-off{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#9aa9b7}
+			.detail-off{font-size:12px;fill:#9aa9b7}
+			.num{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#456987}
+			.tag-text{font-family:Menlo,monospace;font-size:14px;font-weight:700;fill:#17212b}
+			.chip-text{font-family:Menlo,monospace;font-size:12px;fill:#17212b}
+			.flow-label{font-size:12px;font-weight:700;fill:#17212b}
+			.card{fill:#fff;stroke:#283541;stroke-width:2}
+			.ns{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.off{fill:#fff;stroke:#aab9c7;stroke-width:2;stroke-dasharray:6 4}
+			.chip{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.chip-primary{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.divider{stroke:#aab9c7;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.test{fill:none;stroke:#456987;stroke-width:2.5;stroke-dasharray:7 5;stroke-linecap:butt;stroke-linejoin:round}
+			.test-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="760" height="676" fill="#fff"/>
+
+	<!-- Header: what never changes, and the revision legend -->
+	<text x="16" y="30"><tspan class="detail">Namespace labels never change:</tspan><tspan class="mono" dx="6">istio.io/rev=prod</tspan></text>
+	<rect x="474" y="20" width="16" height="12" rx="3" class="primary"/>
+	<text x="496" y="30" class="detail">serves proxies</text>
+	<rect x="594" y="20" width="16" height="12" rx="3" class="node"/>
+	<text x="616" y="30" class="detail">idle</text>
+	<rect x="650" y="20" width="16" height="12" rx="3" class="off"/>
+	<text x="672" y="30" class="detail">not installed</text>
+
+	<!-- Between steps: forward and rollback -->
+	<path d="M84 196V228" class="flow"/>
+	<path d="M84 240L78 228H90Z" class="arrow"/>
+	<text x="100" y="226" class="flow-label">upgrade</text>
+	<path d="M670 248V216" class="flow"/>
+	<path d="M670 204L664 216H676Z" class="arrow"/>
+	<text x="656" y="226" text-anchor="end"><tspan class="flow-label">rollback</tspan><tspan class="detail" dx="6">move the tag back + restart</tspan></text>
+
+	<path d="M84 460V492" class="flow"/>
+	<path d="M84 504L78 492H90Z" class="arrow"/>
+	<text x="100" y="490" class="flow-label">when every proxy runs 1.32.0</text>
+
+	<!-- STEP 1 (y 48) -->
+	<g transform="translate(0 48)">
+		<rect x="16" y="0" width="728" height="148" rx="14" class="card"/>
+		<text x="32" y="26" class="step">STEP 1</text>
+		<text x="32" y="50" class="title">1-31 serves the mesh</text>
+		<text x="32" y="74" class="detail">every proxy runs 1.31.4</text>
+		<text x="32" y="98" class="mono">istioctl tag set prod</text>
+		<text x="46" y="116" class="mono">--revision 1-31</text>
+		<path d="M252 16V132" class="divider"/>
+
+		<!-- connectors -->
+		<path d="M436 74H460" class="flow"/>
+		<path d="M472 74L460 68V80Z" class="arrow"/>
+		<path d="M548 74H572V44H592" class="flow"/>
+		<path d="M604 44L592 38V50Z" class="arrow"/>
+
+		<rect x="268" y="30" width="168" height="88" rx="12" class="ns"/>
+		<text x="352" y="52" text-anchor="middle" class="mono-b">istio.io/rev=prod</text>
+		<text x="352" y="70" text-anchor="middle" class="detail">bookstore, istio-ingress</text>
+		<rect x="290" y="82" width="124" height="24" rx="7" class="chip"/>
+		<text x="352" y="98" text-anchor="middle" class="chip-text">proxies 1.31.4</text>
+
+		<text x="514" y="52" text-anchor="middle" class="small">tag</text>
+		<rect x="480" y="60" width="68" height="28" rx="8" class="primary"/>
+		<text x="514" y="79" text-anchor="middle" class="tag-text">prod</text>
+
+		<rect x="612" y="20" width="116" height="48" rx="12" class="primary"/>
+		<text x="670" y="41" text-anchor="middle" class="mono-b">istiod-1-31</text>
+		<text x="670" y="59" text-anchor="middle" class="detail">serves proxies</text>
+		<rect x="612" y="80" width="116" height="48" rx="12" class="off"/>
+		<text x="670" y="101" text-anchor="middle" class="mono-off">istiod-1-32</text>
+		<text x="670" y="119" text-anchor="middle" class="detail-off">not installed</text>
+	</g>
+
+	<!-- STEP 2 (y 248) -->
+	<g transform="translate(0 248)">
+		<rect x="16" y="0" width="728" height="212" rx="14" class="card"/>
+		<text x="32" y="26" class="step">STEP 2</text>
+		<text x="32" y="50" class="title">Add 1-32, move the tag</text>
+		<text x="32" y="76" class="num">1</text>
+		<text x="48" y="76" class="detail">install istiod-1-32</text>
+		<text x="32" y="98" class="num">2</text>
+		<text x="48" y="98" class="detail">test with upgrade-check</text>
+		<text x="32" y="120" class="num">3</text>
+		<text x="48" y="120" class="detail">move prod to 1-32</text>
+		<text x="32" y="142" class="num">4</text>
+		<text x="48" y="142" class="detail">restart workloads and gateway</text>
+		<text x="32" y="172" class="detail">1-31 keeps running,</text>
+		<text x="32" y="190" class="detail">ready for rollback</text>
+		<path d="M252 16V196" class="divider"/>
+
+		<!-- connectors -->
+		<path d="M436 74H460" class="flow"/>
+		<path d="M472 74L460 68V80Z" class="arrow"/>
+		<path d="M548 74H572V104H592" class="flow"/>
+		<path d="M604 104L592 98V110Z" class="arrow"/>
+		<path d="M436 172H670V148" class="test"/>
+		<path d="M670 136L664 148H676Z" class="test-arrow"/>
+		<text x="452" y="192" class="detail">tests 1-32 directly, no tag</text>
+
+		<rect x="268" y="30" width="168" height="88" rx="12" class="ns"/>
+		<text x="352" y="52" text-anchor="middle" class="mono-b">istio.io/rev=prod</text>
+		<text x="352" y="70" text-anchor="middle" class="detail">bookstore, istio-ingress</text>
+		<rect x="290" y="82" width="124" height="24" rx="7" class="chip-primary"/>
+		<text x="352" y="98" text-anchor="middle" class="chip-text">proxies 1.32.0</text>
+
+		<rect x="268" y="150" width="168" height="44" rx="12" class="ns"/>
+		<text x="352" y="168" text-anchor="middle" class="mono-b">upgrade-check</text>
+		<text x="352" y="185" text-anchor="middle" class="mono">istio.io/rev=1-32</text>
+
+		<text x="514" y="52" text-anchor="middle" class="small">tag</text>
+		<rect x="480" y="60" width="68" height="28" rx="8" class="primary"/>
+		<text x="514" y="79" text-anchor="middle" class="tag-text">prod</text>
+
+		<rect x="612" y="20" width="116" height="48" rx="12" class="node"/>
+		<text x="670" y="41" text-anchor="middle" class="mono-b">istiod-1-31</text>
+		<text x="670" y="59" text-anchor="middle" class="detail">no proxies</text>
+		<rect x="612" y="80" width="116" height="48" rx="12" class="primary"/>
+		<text x="670" y="101" text-anchor="middle" class="mono-b">istiod-1-32</text>
+		<text x="670" y="119" text-anchor="middle" class="detail">serves proxies</text>
+	</g>
+
+	<!-- STEP 3 (y 512) -->
+	<g transform="translate(0 512)">
+		<rect x="16" y="0" width="728" height="148" rx="14" class="card"/>
+		<text x="32" y="26" class="step">STEP 3</text>
+		<text x="32" y="50" class="title">Remove 1-31</text>
+		<text x="32" y="74" class="detail">one control plane again</text>
+		<text x="32" y="98" class="mono">helm uninstall istiod-1-31</text>
+		<text x="32" y="122" class="detail">prod is ready for the next one</text>
+		<path d="M252 16V132" class="divider"/>
+
+		<!-- connectors -->
+		<path d="M436 74H460" class="flow"/>
+		<path d="M472 74L460 68V80Z" class="arrow"/>
+		<path d="M548 74H572V104H592" class="flow"/>
+		<path d="M604 104L592 98V110Z" class="arrow"/>
+
+		<rect x="268" y="30" width="168" height="88" rx="12" class="ns"/>
+		<text x="352" y="52" text-anchor="middle" class="mono-b">istio.io/rev=prod</text>
+		<text x="352" y="70" text-anchor="middle" class="detail">bookstore, istio-ingress</text>
+		<rect x="290" y="82" width="124" height="24" rx="7" class="chip-primary"/>
+		<text x="352" y="98" text-anchor="middle" class="chip-text">proxies 1.32.0</text>
+
+		<text x="514" y="52" text-anchor="middle" class="small">tag</text>
+		<rect x="480" y="60" width="68" height="28" rx="8" class="primary"/>
+		<text x="514" y="79" text-anchor="middle" class="tag-text">prod</text>
+
+		<rect x="612" y="20" width="116" height="48" rx="12" class="off"/>
+		<text x="670" y="41" text-anchor="middle" class="mono-off">istiod-1-31</text>
+		<text x="670" y="59" text-anchor="middle" class="detail-off">uninstalled</text>
+		<rect x="612" y="80" width="116" height="48" rx="12" class="primary"/>
+		<text x="670" y="101" text-anchor="middle" class="mono-b">istiod-1-32</text>
+		<text x="670" y="119" text-anchor="middle" class="detail">serves proxies</text>
+	</g>
+</svg>

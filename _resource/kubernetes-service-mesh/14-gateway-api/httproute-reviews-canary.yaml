@@ -1,0 +1,22 @@
+# Chapter 6's 90/10 canary with the Gateway API. parentRefs points at the reviews
+# Service, not at a Gateway: the route applies to mesh traffic sent to that Service
+# (the GAMMA pattern), and the caller's sidecar applies it, as in chapter 6.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: reviews
+  namespace: bookstore
+spec:
+  parentRefs:
+    - group: ""
+      kind: Service
+      name: reviews
+      port: 9080
+  rules:
+    - backendRefs:
+        - name: reviews-v1
+          port: 9080
+          weight: 90
+        - name: reviews-v3
+          port: 9080
+          weight: 10

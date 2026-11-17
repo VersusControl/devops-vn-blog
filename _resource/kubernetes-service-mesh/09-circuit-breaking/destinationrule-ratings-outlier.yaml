@@ -1,0 +1,16 @@
+# Outlier detection: each caller's sidecar watches every ratings Pod it sends to.
+# A Pod that returns 2 server errors (5xx) in a row is ejected from the load-balancing
+# pool for 30 s, then let back in. A Pod ejected again soon after it returns stays out longer.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  host: ratings
+  trafficPolicy:
+    outlierDetection:
+      consecutive5xxErrors: 2   # errors in a row before a Pod is ejected
+      interval: 5s              # how often the sidecar evaluates its Pods
+      baseEjectionTime: 30s     # length of an ejection (multiplied for repeated quick ejections)
+      maxEjectionPercent: 50    # never eject more than half of the Pods

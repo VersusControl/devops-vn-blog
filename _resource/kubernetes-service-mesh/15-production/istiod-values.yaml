@@ -1,0 +1,20 @@
+# Values for the istiod chart, used for every revision (1-31 and 1-32 in chapter 15).
+pilot:
+  # At least two istiod Pods. With the chart's default PodDisruptionBudget, a node drain
+  # can't take both down at once, so injection and config pushes keep working (chapter 2).
+  autoscaleMin: 2
+  autoscaleMax: 3
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+meshConfig:
+  accessLogFile: /dev/stdout        # access logs, as in chapter 2
+global:
+  proxy:
+    # Default requests for every injected sidecar. Chapter 2's default was 100m / 128Mi.
+    # Size these from your own workload's measurements.
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="588" viewBox="0 0 760 588" role="img" aria-label="Sidecar injection in four steps. 1: kubectl apply or a ReplicaSet creates a Pod with one container, productpage, and sends it to the API server. 2: because namespace bookstore has the label istio-injection=enabled, the API server sends the Pod to istiod's mutating webhook. 3: the webhook returns the Pod with two init containers added, istio-init and istio-proxy. 4: the Pod starts; istio-init runs once and completes, istio-proxy keeps running next to productpage, and the Pod shows READY 2/2. Injection runs only when a Pod is created; existing Pods keep 1/1 until a restart replaces them.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.step-title{font-size:15px;font-weight:700}
+			.title{font-size:15px;font-weight:700}
+			.label{font-size:14px;font-weight:700}
+			.detail{font-size:13px;fill:#526579}
+			.small{font-size:12px;fill:#526579}
+			.added{font-size:12px;font-weight:700;fill:#456987}
+			.done{font-size:12px;fill:#7b8b9a}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.chip-title{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.chip-done{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#7b8b9a}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.new{fill:#fff;stroke:#456987;stroke-width:2}
+			.finished{fill:#f5f7f9;stroke:#aab9c7;stroke-width:2;stroke-dasharray:6 4}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.badge{fill:#17212b}
+			.num{font-size:14px;font-weight:700;fill:#fff}
+		</style>
+	</defs>
+	<rect width="760" height="588" fill="#fff"/>
+
+	<!-- Step panels -->
+	<rect x="16" y="16" width="728" height="96" rx="14" class="zone"/>
+	<rect x="16" y="148" width="728" height="96" rx="14" class="zone"/>
+	<rect x="16" y="280" width="728" height="96" rx="14" class="zone"/>
+	<rect x="16" y="412" width="728" height="96" rx="14" class="zone"/>
+
+	<!-- Step order: one arrow between each pair of panels -->
+	<path d="M44 112V128" class="flow"/>
+	<path d="M44 140L38 128H50Z" class="arrow"/>
+	<path d="M44 244V260" class="flow"/>
+	<path d="M44 272L38 260H50Z" class="arrow"/>
+	<path d="M44 376V392" class="flow"/>
+	<path d="M44 404L38 392H50Z" class="arrow"/>
+
+	<!-- Step 1: create -->
+	<circle cx="44" cy="46" r="13" class="badge"/>
+	<text x="44" y="51" text-anchor="middle" class="num">1</text>
+	<text x="70" y="51" class="step-title">Create the Pod</text>
+	<text x="70" y="73" class="detail">kubectl apply, or a ReplicaSet,</text>
+	<text x="70" y="91" class="detail">sends the Pod to the API server</text>
+
+	<rect x="304" y="30" width="424" height="68" rx="12" class="pod"/>
+	<text x="318" y="69" class="label">Pod</text>
+	<text x="500" y="69" text-anchor="middle" class="small">1 container, no proxy</text>
+	<rect x="614" y="42" width="104" height="44" rx="8" class="node"/>
+	<text x="666" y="60" text-anchor="middle" class="chip-title">productpage</text>
+	<text x="666" y="77" text-anchor="middle" class="small">app</text>
+
+	<!-- Step 2: admission webhook -->
+	<circle cx="44" cy="178" r="13" class="badge"/>
+	<text x="44" y="183" text-anchor="middle" class="num">2</text>
+	<text x="70" y="183" class="step-title">Call the webhook</text>
+	<text x="70" y="205" class="detail">because namespace bookstore has</text>
+	<text x="70" y="224" class="mono">istio-injection=enabled</text>
+
+	<path d="M482 196H548" class="flow"/>
+	<path d="M560 196L548 190V202Z" class="arrow"/>
+	<rect x="304" y="162" width="178" height="68" rx="12" class="node"/>
+	<text x="393" y="191" text-anchor="middle" class="title">API server</text>
+	<text x="393" y="211" text-anchor="middle" class="small">Kubernetes</text>
+	<rect x="568" y="162" width="160" height="68" rx="12" class="node"/>
+	<text x="648" y="191" text-anchor="middle" class="mono-title">istiod</text>
+	<text x="648" y="211" text-anchor="middle" class="small">mutating webhook</text>
+	<text x="521" y="185" text-anchor="middle" class="small">Pod</text>
+
+	<!-- Step 3: mutated Pod returned -->
+	<circle cx="44" cy="310" r="13" class="badge"/>
+	<text x="44" y="315" text-anchor="middle" class="num">3</text>
+	<text x="70" y="315" class="step-title">Webhook returns the Pod</text>
+	<text x="70" y="337" class="detail">with two init containers added</text>
+	<text x="70" y="355" class="detail">before the Pod is saved</text>
+
+	<rect x="304" y="294" width="424" height="68" rx="12" class="pod"/>
+	<text x="318" y="333" class="label">Pod</text>
+	<rect x="394" y="306" width="104" height="44" rx="8" class="new"/>
+	<text x="446" y="324" text-anchor="middle" class="chip-title">istio-init</text>
+	<text x="446" y="341" text-anchor="middle" class="added">added</text>
+	<rect x="504" y="306" width="104" height="44" rx="8" class="proxy"/>
+	<text x="556" y="324" text-anchor="middle" class="chip-title">istio-proxy</text>
+	<text x="556" y="341" text-anchor="middle" class="added">added</text>
+	<rect x="614" y="306" width="104" height="44" rx="8" class="node"/>
+	<text x="666" y="324" text-anchor="middle" class="chip-title">productpage</text>
+	<text x="666" y="341" text-anchor="middle" class="small">app</text>
+
+	<!-- Step 4: Pod runs -->
+	<circle cx="44" cy="442" r="13" class="badge"/>
+	<text x="44" y="447" text-anchor="middle" class="num">4</text>
+	<text x="70" y="447" class="step-title">Start the Pod</text>
+	<text x="70" y="469" class="detail">istio-init runs once and exits;</text>
+	<text x="70" y="487" class="detail">istio-proxy keeps running</text>
+
+	<rect x="304" y="426" width="424" height="68" rx="12" class="pod"/>
+	<text x="318" y="456" class="label">Pod</text>
+	<text x="318" y="475" class="mono">READY 2/2</text>
+	<rect x="394" y="438" width="104" height="44" rx="8" class="finished"/>
+	<text x="446" y="456" text-anchor="middle" class="chip-done">istio-init</text>
+	<text x="446" y="473" text-anchor="middle" class="done">completed</text>
+	<rect x="504" y="438" width="104" height="44" rx="8" class="proxy"/>
+	<text x="556" y="456" text-anchor="middle" class="chip-title">istio-proxy</text>
+	<text x="556" y="473" text-anchor="middle" class="small">running</text>
+	<rect x="614" y="438" width="104" height="44" rx="8" class="node"/>
+	<text x="666" y="456" text-anchor="middle" class="chip-title">productpage</text>
+	<text x="666" y="473" text-anchor="middle" class="small">running</text>
+
+	<!-- Note: only at creation -->
+	<rect x="16" y="532" width="728" height="40" rx="12" fill="#fff" stroke="#aab9c7" stroke-width="2"/>
+	<text x="380" y="557" text-anchor="middle" class="detail"><tspan font-weight="700" fill="#17212b">Only at Pod creation.</tspan> Existing Pods are not sent to the webhook and keep 1/1 until a restart.</text>
+</svg>

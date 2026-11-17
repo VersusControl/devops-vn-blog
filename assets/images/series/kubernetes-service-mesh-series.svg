@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh series cover. An istiod control plane sends configuration down to Envoy proxies attached to the productpage, reviews, and ratings services, and traffic flows from proxy to proxy." font-family="Arial, sans-serif">
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <rect x="0" width="630" height="900" fill="#eef4f8"/>
+
+  <!-- Title block -->
+  <rect x="80" y="122" width="70" height="8" rx="4" fill="#1769aa"/>
+  <text x="80" y="176" font-size="22" fill="#52657a" font-weight="700" letter-spacing="3">DEVOPS VN</text>
+  <text x="80" y="238" font-size="30" fill="#1769aa" font-weight="700">Kubernetes Advanced</text>
+  <text x="80" y="326" font-size="72" fill="#102235" font-weight="700">Service</text>
+  <text x="80" y="410" font-size="72" fill="#102235" font-weight="700">Mesh</text>
+  <text x="80" y="472" font-size="23" fill="#52657a">Istio from gateway to production</text>
+  <line x1="80" y1="532" x2="494" y2="532" stroke="#aab9c6" stroke-width="2"/>
+  <text x="80" y="578" font-size="18" fill="#52657a" font-family="monospace">SERIES 15 CHAPTERS</text>
+  <text x="80" y="810" font-size="21" fill="#52657a">Book Store on a local Kind cluster</text>
+
+  <!-- Illustration panel -->
+  <rect x="690" y="92" width="830" height="716" rx="16" fill="#e7f0f5" stroke="#9eb3c2" stroke-width="2"/>
+  <text x="730" y="148" font-size="18" font-weight="700" fill="#52657a" letter-spacing="2">CONTROL PLANE</text>
+  <text x="730" y="772" font-size="18" font-weight="700" fill="#52657a" letter-spacing="2">DATA PLANE</text>
+
+  <g transform="translate(0 20)">
+  <!-- Control plane node -->
+  <rect x="930" y="178" width="350" height="110" rx="14" fill="#fff" stroke="#183044" stroke-width="2.5"/>
+  <text x="1105" y="227" font-size="28" font-weight="700" fill="#102235" text-anchor="middle" font-family="monospace">istiod</text>
+  <text x="1105" y="262" font-size="17" fill="#52657a" text-anchor="middle">config and certificates</text>
+
+  <!-- Service boxes (drawn before proxies so each proxy sits on its service) -->
+  <g fill="#fff" stroke="#183044" stroke-width="2.5">
+    <rect x="730" y="512" width="210" height="160" rx="14"/>
+    <rect x="1000" y="512" width="210" height="160" rx="14"/>
+    <rect x="1270" y="512" width="210" height="160" rx="14"/>
+  </g>
+  <g font-size="21" font-weight="700" fill="#102235" text-anchor="middle">
+    <text x="835" y="604">productpage</text>
+    <text x="1105" y="604">reviews</text>
+    <text x="1375" y="604">ratings</text>
+  </g>
+  <g font-size="16" fill="#52657a" text-anchor="middle">
+    <text x="835" y="636">web front end</text>
+    <text x="1105" y="636">v1  v2  v3</text>
+    <text x="1375" y="636">star scores</text>
+  </g>
+
+  <!-- Envoy proxies attached to each service -->
+  <g fill="#cfe8f3" stroke="#183044" stroke-width="2.5">
+    <rect x="760" y="472" width="150" height="66" rx="12"/>
+    <rect x="1030" y="472" width="150" height="66" rx="12"/>
+    <rect x="1300" y="472" width="150" height="66" rx="12"/>
+  </g>
+  <g font-size="19" font-weight="700" fill="#102235" text-anchor="middle">
+    <text x="835" y="512">Envoy</text>
+    <text x="1105" y="512">Envoy</text>
+    <text x="1375" y="512">Envoy</text>
+  </g>
+
+  <!-- Configuration from istiod to every proxy -->
+  <g fill="none" stroke="#1769aa" stroke-width="3" stroke-dasharray="9 7" stroke-linejoin="round">
+    <path d="M1105 288V444"/>
+    <path d="M1105 366H835V444"/>
+    <path d="M1105 366H1375V444"/>
+  </g>
+  <g fill="#1769aa">
+    <path d="M835 464l-9-20h18z"/>
+    <path d="M1105 464l-9-20h18z"/>
+    <path d="M1375 464l-9-20h18z"/>
+  </g>
+  <text x="1120" y="334" font-size="16" fill="#1769aa" font-family="monospace">config</text>
+
+  <!-- Traffic between proxies -->
+  <g fill="none" stroke="#183044" stroke-width="3.5">
+    <path d="M918 505H1002"/>
+    <path d="M1188 505H1272"/>
+  </g>
+  <g fill="#183044">
+    <path d="M1022 505l-20-9v18z"/>
+    <path d="M1292 505l-20-9v18z"/>
+  </g>
+  <g font-size="15" fill="#52657a" text-anchor="middle" font-family="monospace">
+    <text x="970" y="488">mTLS</text>
+    <text x="1240" y="488">mTLS</text>
+  </g>
+  </g>
+</svg>

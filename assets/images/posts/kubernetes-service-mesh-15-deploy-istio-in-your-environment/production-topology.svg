@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="680" viewBox="0 0 760 680" role="img" aria-label="Production topology. A cloud load balancer, created by the gateway Service of type LoadBalancer, sends traffic into the cluster to namespace istio-ingress, which runs two ingress gateway Pods in zones a and b with an HPA and a PodDisruptionBudget. The gateway forwards to the application namespaces, labeled istio.io/rev=prod, where productpage, details, reviews, and ratings each run with an Envoy sidecar. Outbound calls leave through the egress gateway to partner APIs outside the cluster. In namespace istio-system, two istiod Pods of revision 1-32, in zones a and b, with a PodDisruptionBudget, push configuration to every proxy: the ingress gateway, the sidecars, and the egress gateway. Alongside, the observability stack runs Prometheus for metrics and alerts, a tracing backend with low sampling, Grafana dashboards, and Kiali for the mesh graph.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone-label{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.chip-text{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.envoy{font-size:12px;font-weight:700}
+			.cfg-label{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#456987}
+			.cluster{fill:#fff;stroke:#526579;stroke-width:2}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.outside{fill:#fff;stroke:#aab9c7;stroke-width:2;stroke-dasharray:8 5}
+			.pod{fill:#f5f7f9;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.config{fill:none;stroke:#456987;stroke-width:2.5;stroke-dasharray:9 6;stroke-linecap:butt;stroke-linejoin:round}
+			.config-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="760" height="680" fill="#fff"/>
+
+	<!-- Cluster boundary and namespace zones -->
+	<rect x="16" y="96" width="728" height="488" rx="14" class="cluster"/>
+	<text x="32" y="118" class="zone-label">CLUSTER</text>
+	<text x="728" y="118" text-anchor="end" class="detail">Pods spread across zones a and b</text>
+
+	<rect x="32" y="130" width="408" height="120" rx="14" class="zone"/>
+	<text x="48" y="152" class="zone-label">ISTIO-INGRESS</text>
+	<rect x="500" y="130" width="228" height="120" rx="14" class="zone"/>
+	<text x="516" y="152" class="zone-label">ISTIO-SYSTEM</text>
+	<rect x="32" y="290" width="408" height="172" rx="14" class="zone"/>
+	<text x="48" y="312" class="zone-label">APP NAMESPACES</text>
+	<text x="424" y="312" text-anchor="end" class="mono">istio.io/rev=prod</text>
+	<rect x="500" y="290" width="228" height="274" rx="14" class="zone"/>
+	<text x="516" y="312" class="zone-label">OBSERVABILITY</text>
+
+	<!-- Request path: load balancer, ingress, apps, egress, partner -->
+	<path d="M236 72V110" class="flow"/>
+	<path d="M236 122L230 110H242Z" class="arrow"/>
+	<path d="M236 250V270" class="flow"/>
+	<path d="M236 282L230 270H242Z" class="arrow"/>
+	<path d="M236 462V482" class="flow"/>
+	<path d="M236 494L230 482H242Z" class="arrow"/>
+	<path d="M236 562V596" class="flow"/>
+	<path d="M236 608L230 596H242Z" class="arrow"/>
+
+	<!-- Configuration from istiod to every proxy: one branch per destination -->
+	<path d="M500 200H460" class="config"/>
+	<path d="M448 200L460 194V206Z" class="config-arrow"/>
+	<path d="M480 200V376H460" class="config"/>
+	<path d="M448 376L460 370V382Z" class="config-arrow"/>
+	<path d="M480 376V532H360" class="config"/>
+	<path d="M348 532L360 526V538Z" class="config-arrow"/>
+	<text x="490" y="275" class="cfg-label">config</text>
+
+	<!-- Cloud load balancer, outside the cluster -->
+	<rect x="126" y="16" width="220" height="56" rx="12" class="node"/>
+	<text x="236" y="39" text-anchor="middle" class="title">cloud load balancer</text>
+	<text x="236" y="59" text-anchor="middle" class="mono">type: LoadBalancer</text>
+
+	<!-- Ingress gateway: two Pods, HPA, PDB -->
+	<rect x="328" y="139" width="44" height="22" rx="6" class="chip"/>
+	<text x="350" y="154" text-anchor="middle" class="chip-text">HPA</text>
+	<rect x="380" y="139" width="44" height="22" rx="6" class="chip"/>
+	<text x="402" y="154" text-anchor="middle" class="chip-text">PDB</text>
+
+	<rect x="48" y="170" width="180" height="64" rx="12" class="proxy"/>
+	<text x="138" y="196" text-anchor="middle" class="pod-title">ingress gateway</text>
+	<text x="138" y="216" text-anchor="middle" class="detail">Envoy, zone a</text>
+	<rect x="244" y="170" width="180" height="64" rx="12" class="proxy"/>
+	<text x="334" y="196" text-anchor="middle" class="pod-title">ingress gateway</text>
+	<text x="334" y="216" text-anchor="middle" class="detail">Envoy, zone b</text>
+
+	<!-- istiod: two Pods of the current revision, PDB -->
+	<rect x="668" y="139" width="44" height="22" rx="6" class="chip"/>
+	<text x="690" y="154" text-anchor="middle" class="chip-text">PDB</text>
+
+	<rect x="516" y="170" width="92" height="64" rx="12" class="node"/>
+	<text x="562" y="192" text-anchor="middle" class="mono-b">istiod</text>
+	<text x="562" y="209" text-anchor="middle" class="mono">rev 1-32</text>
+	<text x="562" y="225" text-anchor="middle" class="detail">zone a</text>
+	<rect x="620" y="170" width="92" height="64" rx="12" class="node"/>
+	<text x="666" y="192" text-anchor="middle" class="mono-b">istiod</text>
+	<text x="666" y="209" text-anchor="middle" class="mono">rev 1-32</text>
+	<text x="666" y="225" text-anchor="middle" class="detail">zone b</text>
+
+	<!-- Application Pods, each with a sidecar -->
+	<rect x="48" y="326" width="180" height="56" rx="12" class="pod"/>
+	<text x="62" y="359" class="pod-title">productpage</text>
+	<rect x="160" y="342" width="56" height="24" rx="7" class="proxy"/>
+	<text x="188" y="358" text-anchor="middle" class="envoy">Envoy</text>
+
+	<rect x="244" y="326" width="180" height="56" rx="12" class="pod"/>
+	<text x="258" y="359" class="pod-title">details</text>
+	<rect x="356" y="342" width="56" height="24" rx="7" class="proxy"/>
+	<text x="384" y="358" text-anchor="middle" class="envoy">Envoy</text>
+
+	<rect x="48" y="394" width="180" height="56" rx="12" class="pod"/>
+	<text x="62" y="427" class="pod-title">reviews</text>
+	<rect x="160" y="410" width="56" height="24" rx="7" class="proxy"/>
+	<text x="188" y="426" text-anchor="middle" class="envoy">Envoy</text>
+
+	<rect x="244" y="394" width="180" height="56" rx="12" class="pod"/>
+	<text x="258" y="427" class="pod-title">ratings</text>
+	<rect x="356" y="410" width="56" height="24" rx="7" class="proxy"/>
+	<text x="384" y="426" text-anchor="middle" class="envoy">Envoy</text>
+
+	<!-- Egress gateway -->
+	<rect x="132" y="502" width="208" height="60" rx="12" class="proxy"/>
+	<text x="236" y="527" text-anchor="middle" class="pod-title">egress gateway</text>
+	<text x="236" y="547" text-anchor="middle" class="detail">outbound to partners</text>
+
+	<!-- Observability stack -->
+	<rect x="516" y="326" width="196" height="48" rx="12" class="node"/>
+	<text x="530" y="346" class="pod-title">Prometheus</text>
+	<text x="530" y="364" class="detail">metrics and alerts</text>
+	<rect x="516" y="384" width="196" height="48" rx="12" class="node"/>
+	<text x="530" y="404" class="pod-title">tracing backend</text>
+	<text x="530" y="422" class="detail">low sampling</text>
+	<rect x="516" y="442" width="196" height="48" rx="12" class="node"/>
+	<text x="530" y="462" class="pod-title">Grafana</text>
+	<text x="530" y="480" class="detail">dashboards</text>
+	<rect x="516" y="500" width="196" height="48" rx="12" class="node"/>
+	<text x="530" y="520" class="pod-title">Kiali</text>
+	<text x="530" y="538" class="detail">mesh graph</text>
+
+	<!-- Partner, outside the cluster -->
+	<rect x="136" y="616" width="200" height="52" rx="12" class="outside"/>
+	<text x="236" y="638" text-anchor="middle" class="pod-title">partner APIs</text>
+	<text x="236" y="657" text-anchor="middle" class="detail">outside the cluster</text>
+</svg>

@@ -1,0 +1,13 @@
+# A temporary exception: ratings accepts plain text again while the namespace stays STRICT.
+# A workload-level PeerAuthentication (with a selector) overrides the namespace default.
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: ratings-permissive
+  namespace: bookstore
+spec:
+  selector:
+    matchLabels:
+      app: ratings
+  mtls:
+    mode: PERMISSIVE

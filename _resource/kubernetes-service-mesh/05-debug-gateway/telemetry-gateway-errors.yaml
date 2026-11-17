@@ -1,0 +1,16 @@
+# Log only failed requests at the ingress gateway (status 400 and above, or no response).
+# Sidecars keep logging every request, as set by accessLogFile in cluster/istio-install.yaml.
+apiVersion: telemetry.istio.io/v1
+kind: Telemetry
+metadata:
+  name: gateway-errors-only
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  accessLogging:
+    - providers:
+        - name: envoy
+      filter:
+        expression: "response.code >= 400 || response.code == 0"

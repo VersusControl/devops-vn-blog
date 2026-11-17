@@ -23,6 +23,13 @@
   category: "Kubernetes"
   blurb: "Learn Kubernetes from the ground up with Kind: understand core resources, publish a container image to GitHub Container Registry, and deploy a working application locally."
 
+- title: "Kubernetes Advanced: Service Mesh"
+  key: "Kubernetes Advanced: Service Mesh"
+  url: /kubernetes-service-mesh-series/
+  cover: /assets/images/series/kubernetes-service-mesh-series.svg
+  category: "Kubernetes · Service Mesh"
+  blurb: "Learn Istio by running it on a local Kind cluster: gateways, traffic routing, resilience, mTLS and authorization, observability, the Gateway API, and installing Istio in your own environment."
+
 - title: "Mastering Terraform"
   key: "Terraform Series"
   url: /terraform-series/

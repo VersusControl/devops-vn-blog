@@ -1,0 +1,6 @@
+# Downloaded by cluster/install-istio.sh
+.istio/
+bin/
+# Created by scripts/make-certs.sh and scripts/make-jwt.sh
+certs/
+jwt/

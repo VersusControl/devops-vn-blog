@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 12 cover: Authorization and JWT. An admin client carries a JWT with role admin to the ingress gateway, which verifies the token at the edge of the Book Store mesh. Inside the mesh, under default deny, each service checks its allow-list: productpage allows the gateway, and reviews allows productpage with GET. A tester Pod with identity sa/default is not on any list, so its call to reviews is denied with 403.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:30px;font-weight:700}
+			.card-title{font-size:26px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.method{font-size:20px;font-weight:700;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:18px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:18px;font-weight:700;fill:#17212b}
+			.chip-text{font-size:20px;font-weight:700;fill:#17212b}
+			.blocked{font-size:22px;font-weight:700;fill:#526579}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.chip-light{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round}
+			.denied{fill:none;stroke:#6b7d8f;stroke-width:4;stroke-dasharray:12 8;stroke-linecap:butt}
+			.check{fill:none;stroke:#17212b;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+			.stop{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 12</text>
+	<text x="156" y="432" class="title">Authorization</text>
+	<text x="156" y="522" class="title">and JWT</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Allow each call by identity,</text>
+	<text x="160" y="672" class="subtitle">check tokens at the gateway</text>
+
+	<!-- Mesh boundary: the ingress gateway sits in its top edge -->
+	<rect x="795" y="315" width="660" height="485" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="1110" y="352" class="zone">BOOKSTORE MESH</text>
+	<text x="821" y="776" class="zone">DEFAULT DENY</text>
+
+	<!-- Connectors: each has its own shaft and head -->
+	<!-- admin client to the ingress gateway -->
+	<path d="M950 188V232" class="flow"/>
+	<path d="M950 252L940 232H960Z" class="arrow"/>
+	<!-- ingress gateway to productpage -->
+	<path d="M950 370V422" class="flow"/>
+	<path d="M950 442L940 422H960Z" class="arrow"/>
+	<!-- productpage to reviews -->
+	<path d="M1085 520H1137" class="flow"/>
+	<path d="M1157 520L1137 510V530Z" class="arrow"/>
+	<text x="1121" y="500" text-anchor="middle" class="method">GET</text>
+	<!-- tester to reviews: not on the allow-list -->
+	<path d="M1300 690V606" class="denied"/>
+	<rect x="1276" y="598" width="48" height="7" rx="2" class="stop"/>
+	<text x="1318" y="656" class="blocked">403</text>
+
+	<!-- Admin client with its token -->
+	<rect x="815" y="84" width="270" height="104" rx="14" class="node"/>
+	<text x="950" y="124" text-anchor="middle" class="card-title">admin client</text>
+	<rect x="855" y="142" width="190" height="34" rx="8" class="chip"/>
+	<text x="950" y="165" text-anchor="middle" class="mono-b">JWT role: admin</text>
+
+	<!-- Ingress gateway: verifies the token -->
+	<rect x="815" y="260" width="270" height="110" rx="14" class="primary"/>
+	<text x="950" y="302" text-anchor="middle" class="card-title">ingress gateway</text>
+	<rect x="856" y="320" width="188" height="34" rx="8" class="chip-light"/>
+	<path d="M875 337L882 344L894 330" class="check"/>
+	<text x="905" y="344" class="chip-text">JWT verified</text>
+
+	<!-- Services, each with its own allow-list -->
+	<rect x="815" y="450" width="270" height="140" rx="14" class="node"/>
+	<text x="950" y="506" text-anchor="middle" class="node-title">productpage</text>
+	<rect x="860" y="532" width="180" height="34" rx="8" class="chip"/>
+	<text x="950" y="555" text-anchor="middle" class="mono">allow: gateway</text>
+
+	<rect x="1165" y="450" width="270" height="140" rx="14" class="node"/>
+	<text x="1300" y="506" text-anchor="middle" class="node-title">reviews</text>
+	<rect x="1189" y="532" width="222" height="34" rx="8" class="chip"/>
+	<text x="1300" y="555" text-anchor="middle" class="mono">allow: productpage</text>
+
+	<!-- A Pod with a valid identity that no policy allows -->
+	<rect x="1165" y="690" width="270" height="90" rx="14" class="node"/>
+	<text x="1300" y="728" text-anchor="middle" class="card-title">tester</text>
+	<text x="1300" y="760" text-anchor="middle" class="mono">sa/default</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="516" viewBox="0 0 760 516" role="img" aria-label="Safe migration to STRICT mutual TLS in three steps. Step 1, PERMISSIVE, the default: every caller works, and the Prometheus query istio_requests_total with connection_security_policy equal to none lists the plain-text callers, for example ratings-v1 none 15, all from report-job. For each caller found, step 2, still PERMISSIVE: fix the caller by injecting a sidecar, with kubectl label namespace reports istio-injection=enabled and a recreated Pod that shows READY 2/2; if a caller cannot be fixed yet, add a temporary workload-level PeerAuthentication with a selector and mode PERMISSIVE. When the query returns nothing, step 3, STRICT: only mesh identities are accepted; apply PeerAuthentication default in the bookstore namespace first, then in istio-system for the whole mesh.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.step{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.chip-text{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.flow-label{font-size:12px;font-weight:700;fill:#17212b}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.chip{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.chip-primary{fill:#d8e7f2;stroke:#456987;stroke-width:1.5}
+			.output{fill:#f5f7f9;stroke:#d5dee6;stroke-width:1}
+			.divider{stroke:#aab9c7;stroke-width:1.5}
+			.soft{stroke:#d5dee6;stroke-width:1;stroke-dasharray:4 3}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="516" fill="#fff"/>
+
+	<!-- Connectors between steps -->
+	<path d="M84 140V166" class="flow"/>
+	<path d="M84 180L78 166H90Z" class="arrow"/>
+	<text x="100" y="168" class="flow-label">for each caller found</text>
+	<path d="M84 352V378" class="flow"/>
+	<path d="M84 392L78 378H90Z" class="arrow"/>
+	<text x="100" y="380" class="flow-label">when the query returns nothing</text>
+
+	<!-- STEP 1 -->
+	<rect x="16" y="16" width="728" height="124" rx="14" class="node"/>
+	<text x="32" y="42" class="step">STEP 1</text>
+	<rect x="32" y="54" width="104" height="26" rx="7" class="chip"/>
+	<text x="84" y="72" text-anchor="middle" class="chip-text">PERMISSIVE</text>
+	<text x="32" y="100" class="detail">the default</text>
+	<text x="32" y="118" class="detail">every caller works</text>
+	<path d="M212 32V124" class="divider"/>
+	<text x="232" y="42" class="title">Find plain-text callers</text>
+	<text x="232" y="62" class="detail">query Prometheus, over a few days in a real cluster</text>
+	<text x="232" y="86" class="mono">istio_requests_total{connection_security_policy="none"}</text>
+	<rect x="232" y="98" width="160" height="26" rx="6" class="output"/>
+	<text x="244" y="116" class="mono">ratings-v1 none 15</text>
+	<text x="404" y="116" class="detail">15 plain-text requests, all from report-job</text>
+
+	<!-- STEP 2 -->
+	<rect x="16" y="188" width="728" height="164" rx="14" class="node"/>
+	<text x="32" y="214" class="step">STEP 2</text>
+	<rect x="32" y="226" width="104" height="26" rx="7" class="chip"/>
+	<text x="84" y="244" text-anchor="middle" class="chip-text">PERMISSIVE</text>
+	<text x="32" y="272" class="detail">still the default</text>
+	<path d="M212 204V336" class="divider"/>
+	<text x="232" y="214" class="title">Fix each caller</text>
+	<text x="232" y="234" class="detail">inject a sidecar into its namespace, then recreate the Pod</text>
+	<text x="232" y="256" class="mono">kubectl label namespace reports istio-injection=enabled</text>
+	<rect x="232" y="264" width="160" height="22" rx="6" class="output"/>
+	<text x="244" y="280" class="mono">report-job  2/2</text>
+	<text x="404" y="280" class="detail">sidecar running, caller has an identity</text>
+	<path d="M232 298H728" class="soft"/>
+	<text x="232" y="316" class="detail">cannot fix it yet? a temporary workload-level exception:</text>
+	<text x="232" y="334"><tspan class="mono">PeerAuthentication</tspan><tspan class="detail" dx="8">with a</tspan><tspan class="mono" dx="4">selector</tspan><tspan class="detail" dx="4">and mode</tspan><tspan class="mono" dx="4">PERMISSIVE</tspan></text>
+
+	<!-- STEP 3 -->
+	<rect x="16" y="400" width="728" height="100" rx="14" class="node"/>
+	<text x="32" y="426" class="step">STEP 3</text>
+	<rect x="32" y="438" width="104" height="26" rx="7" class="chip-primary"/>
+	<text x="84" y="456" text-anchor="middle" class="chip-text">STRICT</text>
+	<text x="32" y="484" class="detail">mTLS only</text>
+	<path d="M212 416V484" class="divider"/>
+	<text x="232" y="426" class="title">Accept only mesh identities</text>
+	<text x="232" y="454" class="detail">namespace first</text>
+	<text x="352" y="454" class="mono">PeerAuthentication default -n bookstore</text>
+	<text x="232" y="478" class="detail">then the mesh</text>
+	<text x="352" y="478" class="mono">PeerAuthentication default -n istio-system</text>
+</svg>

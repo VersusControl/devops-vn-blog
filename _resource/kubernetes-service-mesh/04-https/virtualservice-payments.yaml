@@ -1,0 +1,22 @@
+# PASSTHROUGH traffic is still encrypted, so there is no HTTP path to match.
+# A "tls" route matches the host name from the TLS handshake (SNI) instead.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: payments
+  namespace: bookstore
+spec:
+  hosts:
+    - payments.bookstore.local
+  gateways:
+    - bookstore-gateway
+  tls:
+    - match:
+        - port: 443
+          sniHosts:
+            - payments.bookstore.local
+      route:
+        - destination:
+            host: payments
+            port:
+              number: 443

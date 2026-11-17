@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="616" viewBox="0 0 760 616" role="img" aria-label="Three objects, three jobs. The Deployment istio-ingressgateway in namespace istio-system is the proxy that runs: Envoy Pods with the label istio: ingressgateway. The Gateway bookstore-gateway in namespace bookstore is the door: port 80, protocol HTTP, host bookstore.local; its selector istio: ingressgateway links it to the gateway Pods in any namespace. The VirtualService bookstore in namespace bookstore is the routing table for host bookstore.local; its gateways field names bookstore-gateway. Its rules are checked in order: the home rule matches exactly / and redirects to /productpage; the productpage rule matches exact /productpage, prefix /static/, exact /login, exact /logout, and prefix /api/v1/products, and routes them to productpage port 9080.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.kind{font-size:12px;font-weight:700;fill:#526579}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-title{font-family:Menlo,monospace;font-size:15px;font-weight:700;fill:#17212b}
+			.mono-link{font-family:Menlo,monospace;font-size:13px;font-weight:700;fill:#17212b}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.divider{stroke:#aab9c7;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.thin{fill:none;stroke:#17212b;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="616" fill="#fff"/>
+
+	<!-- Links between the objects: each has its own shaft and head -->
+	<path d="M380 168V120" class="flow"/>
+	<path d="M380 108L374 120H386Z" class="arrow"/>
+	<path d="M380 320V272" class="flow"/>
+	<path d="M380 260L374 272H386Z" class="arrow"/>
+
+	<!-- Link labels -->
+	<text x="396" y="131" class="mono-link">selector</text>
+	<text x="396" y="150" class="mono">istio: ingressgateway</text>
+	<text x="364" y="131" text-anchor="end" class="detail">matches Pod labels</text>
+	<text x="364" y="150" text-anchor="end" class="detail">in any namespace</text>
+
+	<text x="396" y="283" class="mono-link">gateways</text>
+	<text x="396" y="302" class="mono">[bookstore-gateway]</text>
+	<text x="364" y="283" text-anchor="end" class="detail">names the Gateway</text>
+	<text x="364" y="302" text-anchor="end" class="detail">in the same namespace</text>
+
+	<!-- Gateway Deployment: the proxy that runs -->
+	<rect x="60" y="16" width="640" height="84" rx="14" class="proxy"/>
+	<text x="80" y="41" class="kind">Deployment</text>
+	<text x="80" y="62" class="mono-title">istio-ingressgateway</text>
+	<text x="80" y="83"><tspan class="detail">namespace</tspan><tspan class="mono" dx="6">istio-system</tspan></text>
+	<path d="M290 30V86" class="divider"/>
+	<text x="310" y="42" class="title">The proxy that runs</text>
+	<text x="310" y="62" class="detail">Envoy Pods, installed by istioctl</text>
+	<text x="310" y="83"><tspan class="detail">Pod label</tspan><tspan class="mono" dx="6">istio: ingressgateway</tspan></text>
+
+	<!-- Gateway: the door -->
+	<rect x="60" y="168" width="640" height="84" rx="14" class="node"/>
+	<text x="80" y="193" class="kind">Gateway</text>
+	<text x="80" y="214" class="mono-title">bookstore-gateway</text>
+	<text x="80" y="235"><tspan class="detail">namespace</tspan><tspan class="mono" dx="6">bookstore</tspan></text>
+	<path d="M290 182V238" class="divider"/>
+	<text x="310" y="194" class="title">The door</text>
+	<text x="310" y="214" class="mono">port: 80, protocol: HTTP</text>
+	<text x="310" y="235" class="mono">hosts: bookstore.local</text>
+
+	<!-- VirtualService: the routing table -->
+	<rect x="60" y="320" width="640" height="280" rx="14" class="node"/>
+	<text x="80" y="345" class="kind">VirtualService</text>
+	<text x="80" y="366" class="mono-title">bookstore</text>
+	<text x="80" y="387"><tspan class="detail">namespace</tspan><tspan class="mono" dx="6">bookstore</tspan></text>
+	<path d="M290 334V390" class="divider"/>
+	<text x="310" y="346" class="title">The routing table</text>
+	<text x="310" y="366" class="mono">hosts: bookstore.local</text>
+	<text x="310" y="387" class="detail">rules checked in order, first match wins</text>
+
+	<path d="M76 406H684" class="divider"/>
+	<text x="80" y="430" class="zone">RULE</text>
+	<text x="196" y="430" class="zone">MATCH</text>
+	<text x="470" y="430" class="zone">ACTION</text>
+
+	<!-- home rule -->
+	<text x="80" y="456" class="mono">home</text>
+	<text x="196" y="456" class="mono">exact /</text>
+	<path d="M262 452H446" class="thin"/>
+	<path d="M458 452L446 446V458Z" class="arrow"/>
+	<text x="470" y="456" class="mono">redirect /productpage</text>
+
+	<path d="M76 472H684" class="divider"/>
+
+	<!-- productpage rule -->
+	<text x="80" y="496" class="mono">productpage</text>
+	<text x="196" y="496" class="mono">exact /productpage</text>
+	<text x="196" y="516" class="mono">prefix /static/</text>
+	<text x="196" y="536" class="mono">exact /login</text>
+	<text x="196" y="556" class="mono">exact /logout</text>
+	<text x="196" y="576" class="mono">prefix /api/v1/products</text>
+	<path d="M372 492H382V572H372" class="thin"/>
+	<path d="M382 532H446" class="thin"/>
+	<path d="M458 532L446 526V538Z" class="arrow"/>
+	<text x="470" y="527" class="detail">route to Service</text>
+	<text x="470" y="545" class="mono" font-weight="700">productpage:9080</text>
+</svg>

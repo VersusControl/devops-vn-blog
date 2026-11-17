@@ -1,0 +1,72 @@
+# Same route as egress-gateway.yaml, with the hop from the sidecar to the egress gateway
+# encrypted and authenticated with the mesh's own certificates (ISTIO_MUTUAL).
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: partner-egress
+  namespace: bookstore
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+    - port:
+        number: 443            # the egress gateway Service's port 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - catalog.partner.example
+      tls:
+        mode: ISTIO_MUTUAL     # accept only mesh clients presenting a mesh certificate
+---
+# How sidecars connect to the egress gateway for this host: mesh mTLS, with the partner's
+# host name as SNI so the gateway can pick the right server.
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: egressgateway-for-partner
+  namespace: bookstore
+spec:
+  host: istio-egressgateway.istio-system.svc.cluster.local
+  subsets:
+    - name: partner-catalog
+      trafficPolicy:
+        portLevelSettings:
+          - port:
+              number: 443
+            tls:
+              mode: ISTIO_MUTUAL
+              sni: catalog.partner.example
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: partner-catalog
+  namespace: bookstore
+spec:
+  hosts:
+    - catalog.partner.example
+  gateways:
+    - mesh
+    - partner-egress
+  http:
+    - name: to-egress-gateway
+      match:
+        - gateways:
+            - mesh
+          port: 8080
+      route:
+        - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            subset: partner-catalog
+            port:
+              number: 443
+    - name: to-partner
+      match:
+        - gateways:
+            - partner-egress
+          port: 443
+      route:
+        - destination:
+            host: catalog.partner.example
+            port:
+              number: 8080

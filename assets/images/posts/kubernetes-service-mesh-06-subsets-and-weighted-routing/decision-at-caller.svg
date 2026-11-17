@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="560" viewBox="0 0 760 560" role="img" aria-label="Where the routing decision is made. Top, with a sidecar: in the productpage Pod, the productpage app calls reviews:9080; its Envoy sidecar holds the weighted route, v1 90 and v3 10, and sends each request directly to a reviews-v1 Pod for 90 percent or a reviews-v3 Pod for 10 percent. reviews-v2 has no route and receives nothing, and the reviews Service is not consulted for the choice: Envoy picks the Pod IPs itself. Bottom, without a sidecar: a curl Pod in namespace outside calls reviews.bookstore:9080 through the plain Kubernetes Service reviews, which ignores the VirtualService and spreads requests across all three versions: 6 of 30 to v1, 13 of 30 to v2, and 11 of 30 to v3.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.pod-title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.muted{font-size:12px;fill:#6b7d8f}
+			.muted-title{font-size:14px;font-weight:700;fill:#6b7d8f}
+			.weight{font-size:14px;font-weight:700}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.pod{fill:#f8fafb;stroke:#283541;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.proxy{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.idle{fill:#fff;stroke:#aab9c7;stroke-width:2;stroke-dasharray:6 4}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="560" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="728" height="282" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">WITH A SIDECAR: THE CALLER DECIDES</text>
+
+	<rect x="16" y="314" width="728" height="230" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="338" class="zone">NO SIDECAR: THE SERVICE SPREADS</text>
+
+	<!-- productpage Pod container -->
+	<rect x="32" y="56" width="372" height="160" rx="14" class="pod"/>
+	<text x="48" y="80" class="pod-title">productpage Pod</text>
+
+	<!-- Top connectors -->
+	<path d="M188 146H222" class="flow"/>
+	<path d="M234 146L222 140V152Z" class="arrow"/>
+	<path d="M388 128H470V81H540" class="flow"/>
+	<path d="M552 81L540 75V87Z" class="arrow"/>
+	<path d="M388 164H490V213H540" class="flow"/>
+	<path d="M552 213L540 207V219Z" class="arrow"/>
+	<text x="505" y="71" text-anchor="middle" class="weight">90%</text>
+	<text x="519" y="235" text-anchor="middle" class="weight">10%</text>
+
+	<!-- Bottom connectors -->
+	<path d="M216 443H260" class="flow"/>
+	<path d="M272 443L260 437V449Z" class="arrow"/>
+	<path d="M440 443H490V377H540" class="flow"/>
+	<path d="M552 377L540 371V383Z" class="arrow"/>
+	<path d="M440 443H540" class="flow"/>
+	<path d="M552 443L540 437V449Z" class="arrow"/>
+	<path d="M440 443H490V509H540" class="flow"/>
+	<path d="M552 509L540 503V515Z" class="arrow"/>
+
+	<!-- Top: app and sidecar -->
+	<rect x="48" y="96" width="140" height="100" rx="12" class="node"/>
+	<text x="118" y="128" text-anchor="middle" class="title">productpage</text>
+	<text x="118" y="148" text-anchor="middle" class="detail">app container</text>
+	<text x="118" y="172" text-anchor="middle" class="mono">GET reviews:9080</text>
+
+	<rect x="242" y="96" width="146" height="100" rx="12" class="proxy"/>
+	<text x="315" y="120" text-anchor="middle" class="title">Envoy</text>
+	<text x="315" y="138" text-anchor="middle" class="detail">weighted route</text>
+	<text x="315" y="162" text-anchor="middle" class="mono-b">v1  90</text>
+	<text x="315" y="181" text-anchor="middle" class="mono-b">v3  10</text>
+
+	<!-- Top: the Service is not in the path -->
+	<rect x="32" y="234" width="372" height="44" rx="12" class="idle"/>
+	<text x="218" y="261" text-anchor="middle"><tspan class="muted-title">reviews Service</tspan><tspan class="muted" dx="8">not consulted, Envoy picks Pod IPs</tspan></text>
+
+	<!-- Top: reviews Pods -->
+	<rect x="560" y="56" width="168" height="50" rx="12" class="node"/>
+	<text x="644" y="77" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="644" y="95" text-anchor="middle" class="detail">Java, no stars</text>
+
+	<rect x="560" y="122" width="168" height="50" rx="12" class="idle"/>
+	<text x="644" y="143" text-anchor="middle" class="muted-title">reviews-v2</text>
+	<text x="644" y="161" text-anchor="middle" class="muted">no route, gets nothing</text>
+
+	<rect x="560" y="188" width="168" height="50" rx="12" class="node"/>
+	<text x="644" y="209" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<text x="644" y="227" text-anchor="middle" class="detail">Java, red stars</text>
+
+	<!-- Bottom: curl Pod, plain Service, all three versions -->
+	<rect x="32" y="398" width="184" height="90" rx="14" class="pod"/>
+	<text x="124" y="424" text-anchor="middle" class="pod-title">curl Pod</text>
+	<text x="124" y="443" text-anchor="middle" class="detail">namespace outside, no sidecar</text>
+	<text x="124" y="466" text-anchor="middle" class="mono">reviews.bookstore:9080</text>
+
+	<rect x="280" y="403" width="160" height="80" rx="12" class="primary"/>
+	<text x="360" y="438" text-anchor="middle" class="title">reviews</text>
+	<text x="360" y="458" text-anchor="middle" class="detail">Kubernetes Service</text>
+
+	<text x="360" y="516" text-anchor="middle" class="detail">VirtualService ignored</text>
+
+	<rect x="560" y="352" width="168" height="50" rx="12" class="node"/>
+	<text x="644" y="373" text-anchor="middle" class="pod-title">reviews-v1</text>
+	<text x="644" y="391" text-anchor="middle" class="mono">6 of 30</text>
+
+	<rect x="560" y="418" width="168" height="50" rx="12" class="node"/>
+	<text x="644" y="439" text-anchor="middle" class="pod-title">reviews-v2</text>
+	<text x="644" y="457" text-anchor="middle" class="mono">13 of 30</text>
+
+	<rect x="560" y="484" width="168" height="50" rx="12" class="node"/>
+	<text x="644" y="505" text-anchor="middle" class="pod-title">reviews-v3</text>
+	<text x="644" y="523" text-anchor="middle" class="mono">11 of 30</text>
+</svg>

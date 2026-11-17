@@ -1,0 +1,21 @@
+# A client outside the mesh: the "reports" namespace has no injection label, so this Pod
+# has no sidecar and sends plain HTTP. It stands in for a nightly report job.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: reports
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: report-job
+  namespace: reports
+spec:
+  containers:
+    - name: report-job
+      image: docker.io/curlimages/curl:8.16.0
+      command: ["sleep", "infinity"]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi

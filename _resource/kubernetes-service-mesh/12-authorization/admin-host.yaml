@@ -1,0 +1,39 @@
+# A second host on the ingress gateway: admin.bookstore.local, the ratings admin API.
+# GET /ratings/<id> reads ratings, POST /ratings/<id> changes them.
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: bookstore-gateway
+  namespace: bookstore
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - bookstore.local
+        - admin.bookstore.local
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: bookstore-admin
+  namespace: bookstore
+spec:
+  hosts:
+    - admin.bookstore.local
+  gateways:
+    - bookstore-gateway
+  http:
+    - name: ratings-admin
+      match:
+        - uri:
+            prefix: /ratings/
+      route:
+        - destination:
+            host: ratings
+            port:
+              number: 9080

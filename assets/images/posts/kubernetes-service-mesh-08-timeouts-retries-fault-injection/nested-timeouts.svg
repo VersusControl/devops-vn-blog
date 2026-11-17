@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="418" viewBox="0 0 760 418" role="img" aria-label="Nested timeouts on a 0 to 10 second timeline for one user request. Top row, productpage calls reviews with a 3 second timeout and one retry: attempt 1 runs from 0 to 3 seconds and is cut after 3006 milliseconds with flag DC, productpage gives up; attempt 2 runs from 3 to 6 seconds and is cut after 3001 milliseconds, so the user gets HTTP 500 at about 6 seconds. Bottom row, reviews v2 calls the slow ratings build with its own 10 second timeout: call 1 runs from 0 to 7 seconds and returns 200 after 7005 milliseconds, call 2 runs from 3 to 10 seconds and returns 200 after 7007 milliseconds. Both answers arrive after productpage stopped listening, and reviews' 10 second limit is never reached. A caller's timeout must cover the callee's total time.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:13px;font-weight:700}
+			.strong{font-size:13px;font-weight:700;fill:#17212b}
+			.detail{font-size:12px;fill:#526579}
+			.muted{font-size:12px;fill:#6b7d8f}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-b{font-family:Menlo,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.tick{font-family:Menlo,monospace;font-size:12px;fill:#526579}
+			.bar{fill:#fff;stroke:#283541;stroke-width:2}
+			.cut{fill:#17212b}
+			.guide{fill:none;stroke:#456987;stroke-width:2;stroke-dasharray:6 4}
+			.limit{fill:none;stroke:#6b7d8f;stroke-width:2;stroke-dasharray:6 4}
+			.axis{fill:none;stroke:#283541;stroke-width:1.5}
+		</style>
+	</defs>
+	<rect width="760" height="418" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="16" y="16" width="728" height="146" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="40" class="zone">PRODUCTPAGE CALLS REVIEWS, 3 S TIMEOUT</text>
+
+	<rect x="16" y="176" width="728" height="142" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="32" y="200" class="zone">REVIEWS V2 CALLS RATINGS, 10 S TIMEOUT</text>
+
+	<!-- 6 s guide: the moment the user gets the 500 -->
+	<path d="M450 152V340" class="guide"/>
+
+	<!-- productpage to reviews: attempt 1, 0 to 3 s -->
+	<rect x="66" y="58" width="192" height="36" rx="8" class="bar"/>
+	<text x="80" y="81" class="title">attempt 1</text>
+	<text x="244" y="81" text-anchor="end" class="mono">3006 ms</text>
+	<rect x="256" y="52" width="4" height="48" class="cut"/>
+	<text x="272" y="81"><tspan class="mono-b">DC</tspan><tspan class="detail" dx="8">productpage gives up after 3 s</tspan></text>
+
+	<!-- productpage to reviews: attempt 2, 3 to 6 s -->
+	<rect x="258" y="110" width="192" height="36" rx="8" class="bar"/>
+	<text x="272" y="133" class="title">attempt 2</text>
+	<text x="436" y="133" text-anchor="end" class="mono">3001 ms</text>
+	<rect x="448" y="104" width="4" height="48" class="cut"/>
+	<text x="464" y="133"><tspan class="mono-b">DC</tspan><tspan class="detail" dx="8">retry cut,</tspan><tspan class="strong" dx="5">user gets HTTP 500</tspan></text>
+
+	<!-- reviews v2 to ratings: call 1, 0 to 7 s, limit 10 s -->
+	<path d="M524 236H706" class="limit"/>
+	<path d="M706 227V245" stroke="#6b7d8f" stroke-width="2"/>
+	<text x="614" y="228" text-anchor="middle" class="muted">10 s limit, never reached</text>
+	<rect x="66" y="214" width="448" height="36" rx="8" class="bar"/>
+	<text x="80" y="237" class="title">ratings call 1</text>
+	<text x="500" y="237" text-anchor="end"><tspan class="mono-b">200</tspan><tspan class="detail" dx="6">after 7005 ms, too late</tspan></text>
+
+	<!-- reviews v2 to ratings: call 2, 3 to 10 s -->
+	<rect x="258" y="266" width="448" height="36" rx="8" class="bar"/>
+	<text x="272" y="289" class="title">ratings call 2</text>
+	<text x="692" y="289" text-anchor="end"><tspan class="mono-b">200</tspan><tspan class="detail" dx="6">after 7007 ms, too late</tspan></text>
+
+	<!-- Time axis, 64 px per second -->
+	<path d="M66 340H706" class="axis"/>
+	<path d="M66 340v6M130 340v6M194 340v6M258 340v6M322 340v6M386 340v6M450 340v6M514 340v6M578 340v6M642 340v6M706 340v6" class="axis"/>
+	<text y="362" text-anchor="middle" class="tick"><tspan x="66">0</tspan><tspan x="130">1</tspan><tspan x="194">2</tspan><tspan x="258">3</tspan><tspan x="322">4</tspan><tspan x="386">5</tspan><tspan x="450">6</tspan><tspan x="514">7</tspan><tspan x="578">8</tspan><tspan x="642">9</tspan><tspan x="706">10</tspan></text>
+	<text x="724" y="362" class="tick">s</text>
+
+	<!-- Rule -->
+	<text x="16" y="400"><tspan class="strong">Rule</tspan><tspan class="detail" dx="8">a caller's timeout must cover the callee's total time, including its own waits and retries</tspan></text>
+</svg>

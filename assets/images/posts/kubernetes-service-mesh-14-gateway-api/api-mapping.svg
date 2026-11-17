@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="622" viewBox="0 0 760 622" role="img" aria-label="Mapping from Istio's API to the Gateway API. Replaced by a standard object: Gateway servers with port, protocol, and hosts map to Gateway listeners with port, protocol, and hostname; a VirtualService with gateways bookstore-gateway maps to an HTTPRoute with the Gateway in parentRefs; a VirtualService for mesh traffic, without gateways, maps to an HTTPRoute with a Service in parentRefs, called GAMMA; DestinationRule subsets plus route weights in the VirtualService map to one Service per version with weighted backendRefs in the HTTPRoute; credentialName with its Secret in istio-system, next to the proxy, maps to certificateRefs with the Secret in bookstore, next to the Gateway. Still Istio API: retries and fault injection in a VirtualService have no standard field, so keep the VirtualService for them; a DestinationRule traffic policy such as connection pools and outlier detection stays a DestinationRule, which still applies to Gateway API traffic.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.col{font-size:14px;font-weight:700;fill:#17212b}
+			.zone-label{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.mono-title{font-family:Menlo,monospace;font-size:14px;font-weight:700;fill:#17212b}
+			.zone{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.kept{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="622" fill="#fff"/>
+
+	<!-- Column headers -->
+	<text x="32" y="30" class="col">Istio API</text>
+	<text x="420" y="30" class="col">Gateway API</text>
+
+	<!-- Zones -->
+	<rect x="16" y="44" width="728" height="372" rx="14" class="zone"/>
+	<text x="32" y="67" class="zone-label">REPLACED BY A STANDARD OBJECT</text>
+	<rect x="16" y="432" width="728" height="174" rx="14" class="zone"/>
+	<text x="32" y="455" class="zone-label">STILL ISTIO API</text>
+
+	<!-- Mapping arrows: one per row -->
+	<path d="M340 108H400" class="flow"/>
+	<path d="M412 108L400 102V114Z" class="arrow"/>
+	<path d="M340 174H400" class="flow"/>
+	<path d="M412 174L400 168V180Z" class="arrow"/>
+	<path d="M340 240H400" class="flow"/>
+	<path d="M412 240L400 234V246Z" class="arrow"/>
+	<path d="M340 306H400" class="flow"/>
+	<path d="M412 306L400 300V312Z" class="arrow"/>
+	<path d="M340 372H400" class="flow"/>
+	<path d="M412 372L400 366V378Z" class="arrow"/>
+	<path d="M340 496H400" class="flow"/>
+	<path d="M412 496L400 490V502Z" class="arrow"/>
+	<path d="M340 562H400" class="flow"/>
+	<path d="M412 562L400 556V568Z" class="arrow"/>
+
+	<!-- Row 1: Gateway -->
+	<rect x="32" y="80" width="308" height="56" rx="12" class="node"/>
+	<text x="48" y="103"><tspan class="mono-title">Gateway</tspan><tspan class="title" dx="6">servers</tspan></text>
+	<text x="48" y="123" class="detail">port, protocol, hosts</text>
+	<rect x="420" y="80" width="308" height="56" rx="12" class="node"/>
+	<text x="436" y="103"><tspan class="mono-title">Gateway</tspan><tspan class="title" dx="6">listeners</tspan></text>
+	<text x="436" y="123" class="detail">port, protocol, hostname</text>
+
+	<!-- Row 2: VirtualService at the edge -->
+	<rect x="32" y="146" width="308" height="56" rx="12" class="node"/>
+	<text x="48" y="169" class="mono-title">VirtualService</text>
+	<text x="48" y="189" class="mono">gateways: [bookstore-gateway]</text>
+	<rect x="420" y="146" width="308" height="56" rx="12" class="node"/>
+	<text x="436" y="169" class="mono-title">HTTPRoute</text>
+	<text x="436" y="189"><tspan class="mono">parentRefs:</tspan><tspan class="detail" dx="6">the Gateway</tspan></text>
+
+	<!-- Row 3: VirtualService for mesh traffic -->
+	<rect x="32" y="212" width="308" height="56" rx="12" class="node"/>
+	<text x="48" y="235" class="mono-title">VirtualService</text>
+	<text x="48" y="255"><tspan class="detail">for mesh traffic, without</tspan><tspan class="mono" dx="6">gateways</tspan></text>
+	<rect x="420" y="212" width="308" height="56" rx="12" class="node"/>
+	<text x="436" y="235" class="mono-title">HTTPRoute</text>
+	<text x="436" y="255"><tspan class="mono">parentRefs:</tspan><tspan class="detail" dx="6">a Service (GAMMA)</tspan></text>
+
+	<!-- Row 4: subsets and weights -->
+	<rect x="32" y="278" width="308" height="56" rx="12" class="node"/>
+	<text x="48" y="301"><tspan class="mono-title">DestinationRule</tspan><tspan class="title" dx="6">subsets</tspan></text>
+	<text x="48" y="321" class="detail">plus route weights in the VirtualService</text>
+	<rect x="420" y="278" width="308" height="56" rx="12" class="node"/>
+	<text x="436" y="301" class="title">One Service per version</text>
+	<text x="436" y="321"><tspan class="detail">weighted</tspan><tspan class="mono" dx="6">backendRefs</tspan><tspan class="detail" dx="6">in the HTTPRoute</tspan></text>
+
+	<!-- Row 5: TLS Secret -->
+	<rect x="32" y="344" width="308" height="56" rx="12" class="node"/>
+	<text x="48" y="367" class="mono-title">credentialName</text>
+	<text x="48" y="387"><tspan class="detail">Secret in</tspan><tspan class="mono" dx="6">istio-system</tspan><tspan class="detail">, next to the proxy</tspan></text>
+	<rect x="420" y="344" width="308" height="56" rx="12" class="node"/>
+	<text x="436" y="367" class="mono-title">certificateRefs</text>
+	<text x="436" y="387"><tspan class="detail">Secret in</tspan><tspan class="mono" dx="6">bookstore</tspan><tspan class="detail">, next to the Gateway</tspan></text>
+
+	<!-- Row 6: retries and fault injection -->
+	<rect x="32" y="468" width="308" height="56" rx="12" class="node"/>
+	<text x="48" y="491"><tspan class="mono-title">retries</tspan><tspan class="title">,</tspan><tspan class="mono-title" dx="6">fault</tspan></text>
+	<text x="48" y="511"><tspan class="detail">in a</tspan><tspan class="mono" dx="6">VirtualService</tspan></text>
+	<rect x="420" y="468" width="308" height="56" rx="12" class="kept"/>
+	<text x="436" y="491" class="title">No standard field</text>
+	<text x="436" y="511"><tspan class="detail">keep the</tspan><tspan class="mono" dx="6">VirtualService</tspan><tspan class="detail" dx="6">for these</tspan></text>
+
+	<!-- Row 7: traffic policy -->
+	<rect x="32" y="534" width="308" height="56" rx="12" class="node"/>
+	<text x="48" y="557"><tspan class="mono-title">DestinationRule</tspan><tspan class="title" dx="6">traffic policy</tspan></text>
+	<text x="48" y="577" class="detail">connection pools, outlier detection</text>
+	<rect x="420" y="534" width="308" height="56" rx="12" class="kept"/>
+	<text x="436" y="557"><tspan class="title">Keep the</tspan><tspan class="mono-title" dx="6">DestinationRule</tspan></text>
+	<text x="436" y="577" class="detail">still applies to Gateway API traffic</text>
+</svg>

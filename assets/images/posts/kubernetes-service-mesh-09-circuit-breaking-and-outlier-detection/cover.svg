@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes Advanced: Service Mesh, Chapter 9 cover: Circuit Breaking. The Envoy sidecar of reviews-v2 balances ratings calls across a pool of two Pods. Every call goes to ratings-v1, whose outlier check is OK. The branch to ratings-v-faulty passes through an open breaker switch, so no traffic reaches it: the Pod is crossed out and ejected from the pool, with outlier check FAILED.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.series{font-size:28px;font-weight:700;fill:#526579}
+			.chapter{font-size:28px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:32px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.node-title{font-size:30px;font-weight:700}
+			.pod-title{font-size:26px;font-weight:700}
+			.muted-title{font-size:26px;font-weight:700;fill:#6b7d8f}
+			.detail{font-size:20px;fill:#526579}
+			.muted{font-size:20px;fill:#6b7d8f}
+			.weight{font-size:40px;font-weight:700}
+			.status{font-family:Menlo,monospace;font-size:22px;font-weight:700;fill:#17212b}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.idle{fill:#fff;stroke:#8a99a8;stroke-width:2;stroke-dasharray:10 6}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round}
+			.cut{fill:none;stroke:#8a99a8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+			.terminal{fill:#fff;stroke:#8a99a8;stroke-width:4}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="160" y="282" class="series">Kubernetes Advanced: Service Mesh</text>
+	<text x="160" y="326" class="chapter">Chapter 9</text>
+	<text x="156" y="432" class="title">Circuit</text>
+	<text x="156" y="522" class="title">Breaking</text>
+	<path d="M160 568H280" stroke="#aab9c7" stroke-width="3"/>
+	<text x="160" y="628" class="subtitle">Eject the failing Pod,</text>
+	<text x="160" y="672" class="subtitle">cap what each caller sends</text>
+
+	<!-- Zone -->
+	<rect x="800" y="120" width="650" height="660" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+	<text x="826" y="164" class="zone">LOAD-BALANCING POOL</text>
+
+	<!-- Live branch: every call to ratings-v1 -->
+	<path d="M1065 306V376H960V572" class="flow"/>
+	<path d="M960 592L950 572H970Z" class="arrow"/>
+	<text x="984" y="486" class="weight">100%</text>
+
+	<!-- Cut branch: open breaker, no traffic to ratings-v-faulty -->
+	<path d="M1185 306V376H1290V428" class="cut"/>
+	<circle cx="1290" cy="438" r="9" class="terminal"/>
+	<path d="M1290 510L1338 452" class="cut"/>
+	<circle cx="1290" cy="518" r="9" class="terminal"/>
+	<path d="M1290 528V588" class="cut"/>
+	<text x="1266" y="472" text-anchor="end" class="detail">breaker</text>
+	<text x="1266" y="498" text-anchor="end" class="detail">open</text>
+
+	<!-- Caller -->
+	<rect x="1000" y="196" width="250" height="110" rx="14" class="primary"/>
+	<text x="1125" y="244" text-anchor="middle" class="node-title">reviews-v2</text>
+	<text x="1125" y="280" text-anchor="middle" class="detail">Envoy sidecar</text>
+
+	<!-- Pool members -->
+	<rect x="825" y="600" width="270" height="140" rx="14" class="node"/>
+	<text x="960" y="648" text-anchor="middle" class="pod-title">ratings-v1</text>
+	<text x="960" y="686" text-anchor="middle" class="detail">outlier check</text>
+	<text x="960" y="718" text-anchor="middle" class="status">OK</text>
+
+	<rect x="1155" y="600" width="270" height="140" rx="14" class="idle"/>
+	<text x="1290" y="648" text-anchor="middle" class="muted-title">ratings-v-faulty</text>
+	<text x="1290" y="686" text-anchor="middle" class="muted">outlier check</text>
+	<text x="1290" y="718" text-anchor="middle" class="status">FAILED</text>
+
+	<!-- Ejected badge -->
+	<circle cx="1404" cy="600" r="22" fill="#17212b"/>
+	<path d="M1395 591L1413 609M1413 591L1395 609" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,21 @@
+# Partners get the JSON API only, not the web page.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: bookstore-api
+  namespace: bookstore
+spec:
+  hosts:
+    - api.bookstore.local
+  gateways:
+    - bookstore-gateway
+  http:
+    - name: products-api
+      match:
+        - uri:
+            prefix: /api/v1/products
+      route:
+        - destination:
+            host: productpage
+            port:
+              number: 9080

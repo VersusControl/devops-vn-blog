@@ -1,0 +1,100 @@
+# storefront: a new service from another team. It calls productpage's reviews API.
+# The sidecars create spans, but only the app can link its incoming request to the request
+# it makes next, by copying the trace headers. FORWARD_TRACE_HEADERS switches that on.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storefront
+  namespace: bookstore
+data:
+  app.py: |
+    import http.server, os, urllib.request
+
+    FORWARD = os.environ.get("FORWARD_TRACE_HEADERS") == "true"
+    # The headers Istio's sidecars use to tie spans into one trace (B3 and W3C formats).
+    TRACE_HEADERS = ["x-request-id", "traceparent", "tracestate", "b3",
+                     "x-b3-traceid", "x-b3-spanid", "x-b3-parentspanid",
+                     "x-b3-sampled", "x-b3-flags"]
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            req = urllib.request.Request("http://productpage:9080/api/v1/products/0/reviews")
+            if FORWARD:
+                for name in TRACE_HEADERS:
+                    value = self.headers.get(name)
+                    if value:
+                        req.add_header(name, value)
+            body = urllib.request.urlopen(req, timeout=5).read()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(body)
+
+    http.server.ThreadingHTTPServer(("", 8080), Handler).serve_forever()
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: storefront
+  namespace: bookstore
+  labels:
+    app: storefront
+spec:
+  selector:
+    app: storefront
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookstore-storefront
+  namespace: bookstore
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storefront-v1
+  namespace: bookstore
+  labels:
+    app: storefront
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storefront
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: storefront
+        version: v1
+    spec:
+      serviceAccountName: bookstore-storefront
+      containers:
+        - name: storefront
+          image: docker.io/library/python:3.13-alpine
+          command: ["python", "-u", "/app/app.py"]
+          env:
+            - name: FORWARD_TRACE_HEADERS
+              value: "false"
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            periodSeconds: 2
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - name: app
+              mountPath: /app
+      volumes:
+        - name: app
+          configMap:
+            name: storefront

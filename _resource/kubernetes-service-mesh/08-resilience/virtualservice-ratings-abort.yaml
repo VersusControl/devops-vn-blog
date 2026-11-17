@@ -1,0 +1,30 @@
+# Step 5: for the QA user, half of the calls to ratings fail with HTTP 503 right away,
+# without reaching ratings at all (abort). Everyone else is unaffected.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: ratings
+  namespace: bookstore
+spec:
+  hosts:
+    - ratings
+  http:
+    - name: qa-team-abort
+      match:
+        - headers:
+            end-user:
+              exact: qa-team
+      fault:
+        abort:
+          percentage:
+            value: 50
+          httpStatus: 503
+      route:
+        - destination:
+            host: ratings
+            subset: v1
+    - name: default
+      route:
+        - destination:
+            host: ratings
+            subset: v1
