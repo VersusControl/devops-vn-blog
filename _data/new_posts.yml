@@ -1,13 +1,13 @@
 # Latest posts shown on the home page. All entries link to translated
 # English posts. Update as new folders are translated.
 
-- title: "Amazon S3 Files: Mount an S3 Bucket as a Shared File System"
+- title: "Mount an S3 Bucket as a Shared File System"
   subtitle: "What S3 Files is, where it beats EFS copies or Mountpoint, and how to set it up with the AWS CLI."
   category: AWS
   image: /assets/images/posts/aws-s3-files-mount-s3-bucket-as-file-system/cover.svg
   url: /aws-s3-files-mount-s3-bucket-as-file-system/
 
-- title: "Kubernetes Advanced: Service Mesh — What a Service Mesh Solves"
+- title: "Kubernetes Advanced: Service Mesh"
   subtitle: "Run a four-service app on plain Kubernetes, find the questions Kubernetes can't answer about traffic between services, and see how a service mesh like Istio answers them."
   category: Kubernetes
   image: /assets/images/posts/kubernetes-service-mesh-01-what-a-service-mesh-solves/cover.svg
@@ -25,32 +25,26 @@
   image: /assets/images/posts/kubernetes-gateway-api-dns-to-pod/cover.svg
   url: /kubernetes-gateway-api-dns-to-pod/
 
-- title: "Docker Advanced — Docker BuildKit"
+- title: "Docker BuildKit"
   subtitle: "Use BuildKit cache and secret mounts for faster rebuilds without baking credentials into images."
   category: Docker
   image: /assets/images/posts/docker-advanced-01-buildkit/cover.svg
   url: /docker-advanced-01-buildkit/
 
-- title: "Kubernetes Basics — What Is Kubernetes?"
+- title: "What Is Kubernetes?"
   subtitle: "Meet the container orchestrator and the problems it was built to solve."
   category: Kubernetes
   image: /assets/images/posts/kubernetes-01-what-is-kubernetes/cover.svg
   url: /kubernetes-basics-01-what-is-kubernetes/
 
-- title: "ArgoCD — Getting Started"
+- title: "ArgoCD Getting Started"
   subtitle: "An intro to Argo CD and the GitOps workflow for deploying apps on Kubernetes."
   category: Kubernetes
   image: /assets/images/posts/argocd-01-getting-started/bookinfo.png
   url: /argocd-01-getting-started/
 
-- title: "Networking for DevOps — The OSI Model"
+- title: "Networking for DevOps"
   subtitle: "A shared map of how data travels across a network, one layer at a time."
   category: Networking
   image: /assets/images/posts/networking-osi-model/cover.png
   url: /networking-osi-model/
-
-- title: "The DevOps Linux Cheatsheet"
-  subtitle: "Practical terminal tricks for everyday work at the command line."
-  category: Linux
-  image: /assets/images/posts/linux-cheatsheet/cover.svg
-  url: /linux-cheatsheet/
