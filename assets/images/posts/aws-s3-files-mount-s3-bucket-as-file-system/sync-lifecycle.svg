@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="600" viewBox="0 0 760 600" role="img" aria-label="Synchronization lifecycle of one file in S3 Files. A write through the mount is stored on the high-performance storage and is durable immediately. After 60 seconds without writes it is exported to the bucket as a new object version; a delete becomes a delete marker and a rename becomes a copy and a delete of every object. A change made directly in the bucket also creates a new version and reaches the file system through an S3 event notification, which updates the file system copy. If the file is not read for 30 days, configurable from 1 to 365, its data expires from the fast layer while the metadata and the S3 object remain. If both sides change before the export, the bucket version wins and the file system version moves to .s3files-lost+found-file-system-id.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.label-b{font-size:12px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.quiet{fill:#fff;stroke:#8c9cab;stroke-width:2}
+			.divider{stroke:#aab9c7;stroke-width:1.5;stroke-dasharray:6 5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="600" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="20" y="20" width="280" height="560" rx="14" class="zone-box"/>
+	<text x="36" y="44" class="zone">FILE SYSTEM</text>
+	<rect x="460" y="20" width="280" height="560" rx="14" class="zone-box"/>
+	<text x="476" y="44" class="zone">S3 BUCKET</text>
+
+	<!-- Conflict divider -->
+	<path d="M36 410H284" class="divider"/>
+	<path d="M476 410H724" class="divider"/>
+	<text x="380" y="414" text-anchor="middle" class="zone">CONFLICT</text>
+	<text x="380" y="436" text-anchor="middle" class="detail">both sides changed</text>
+	<text x="380" y="452" text-anchor="middle" class="detail">before the export</text>
+
+	<!-- Connectors -->
+	<!-- write to high-performance storage -->
+	<path d="M160 114V144" class="flow"/>
+	<path d="M160 156L154 144H166Z" class="arrow"/>
+	<!-- direct change to new version -->
+	<path d="M600 114V144" class="flow"/>
+	<path d="M600 156L594 144H606Z" class="arrow"/>
+
+	<!-- export -->
+	<text x="380" y="168" text-anchor="middle" class="label-b">export</text>
+	<text x="380" y="184" text-anchor="middle" class="detail">after 60 s without writes</text>
+	<path d="M284 196H456" class="flow"/>
+	<path d="M468 196L456 190V202Z" class="arrow"/>
+
+	<!-- event notification -->
+	<path d="M476 236H304" class="flow"/>
+	<path d="M292 236L304 230V242Z" class="arrow"/>
+	<text x="380" y="258" text-anchor="middle" class="label-b">S3 event notification</text>
+	<text x="380" y="274" text-anchor="middle" class="detail">for direct changes</text>
+
+	<!-- expiry -->
+	<path d="M96 264V302" class="flow"/>
+	<path d="M96 314L90 302H102Z" class="arrow"/>
+	<text x="110" y="286" class="label-b">not read for 30 days</text>
+	<text x="110" y="302" class="detail">configurable, 1 to 365</text>
+
+	<!-- conflict: bucket version replaces the file system copy -->
+	<text x="380" y="490" text-anchor="middle" class="label-b">bucket version</text>
+	<text x="380" y="506" text-anchor="middle" class="detail">replaces the copy</text>
+	<path d="M476 520H304" class="flow"/>
+	<path d="M292 520L304 514V526Z" class="arrow"/>
+
+	<!-- Row 1 -->
+	<rect x="36" y="60" width="248" height="54" rx="12" class="node"/>
+	<text x="52" y="83" class="title">Write through the mount</text>
+	<text x="52" y="102" class="detail">create, edit, append, rename</text>
+
+	<rect x="476" y="60" width="248" height="54" rx="12" class="node"/>
+	<text x="492" y="83" class="title">Change made in the bucket</text>
+	<text x="492" y="102" class="detail">PUT or DELETE via the S3 API</text>
+
+	<!-- Row 2 -->
+	<rect x="36" y="164" width="248" height="100" rx="12" class="primary"/>
+	<text x="52" y="190" class="title">High-performance storage</text>
+	<text x="52" y="212" class="detail">stored, durable immediately</text>
+	<text x="52" y="232" class="detail">reads served in about 1 ms</text>
+
+	<rect x="476" y="164" width="248" height="100" rx="12" class="node"/>
+	<text x="492" y="190" class="title">New object version</text>
+	<text x="492" y="212" class="detail">delete → delete marker</text>
+	<text x="492" y="232" class="detail">rename → copy + delete</text>
+	<text x="492" y="250" class="detail">of every object</text>
+
+	<!-- Row 3 -->
+	<rect x="36" y="322" width="248" height="54" rx="12" class="node"/>
+	<text x="52" y="345" class="title">Expired from fast layer</text>
+	<text x="52" y="364" class="detail">metadata stays, file still lists</text>
+
+	<rect x="476" y="322" width="248" height="54" rx="12" class="quiet"/>
+	<text x="492" y="345" class="title">S3 object remains</text>
+	<text x="492" y="364" class="detail">next read streams from S3</text>
+
+	<!-- Row 4: conflict -->
+	<rect x="36" y="466" width="248" height="94" rx="12" class="node"/>
+	<text x="52" y="490" class="title">File system version</text>
+	<text x="52" y="510" class="detail">moved to lost and found</text>
+	<text x="52" y="530" class="mono">.s3files-lost+found-</text>
+	<text x="52" y="547" class="mono">&lt;file-system-id&gt;/</text>
+
+	<rect x="476" y="466" width="248" height="94" rx="12" class="primary"/>
+	<text x="492" y="490" class="title">Bucket version wins</text>
+	<text x="492" y="510" class="detail">stays the current object</text>
+	<text x="492" y="530" class="detail">and is what the mount shows</text>
+</svg>

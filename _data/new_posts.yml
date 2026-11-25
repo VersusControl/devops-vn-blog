@@ -1,6 +1,12 @@
 # Latest posts shown on the home page. All entries link to translated
 # English posts. Update as new folders are translated.
 
+- title: "Amazon S3 Files: Mount an S3 Bucket as a Shared File System"
+  subtitle: "What S3 Files is, where it beats EFS copies or Mountpoint, and how to set it up with the AWS CLI."
+  category: AWS
+  image: /assets/images/posts/aws-s3-files-mount-s3-bucket-as-file-system/cover.svg
+  url: /aws-s3-files-mount-s3-bucket-as-file-system/
+
 - title: "Kubernetes Advanced: Service Mesh — What a Service Mesh Solves"
   subtitle: "Run a four-service app on plain Kubernetes, find the questions Kubernetes can't answer about traffic between services, and see how a service mesh like Istio answers them."
   category: Kubernetes

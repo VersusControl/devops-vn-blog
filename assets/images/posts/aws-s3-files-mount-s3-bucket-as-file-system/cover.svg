@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Amazon S3 Files cover: an EC2 instance, an ECS or EKS container, and a Lambda function mount one S3 file system over NFS. Inside it, a folder tree with inbox/a.pdf, inbox/b.pdf, and log.txt is kept in two-way sync with an S3 bucket that holds the same keys as objects.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.kicker{font-size:24px;font-weight:700;letter-spacing:5px;fill:#526579}
+			.title{font-size:80px;font-weight:700}
+			.subtitle{font-size:34px;fill:#526579}
+			.zone{font-size:16px;font-weight:700;letter-spacing:2.5px;fill:#526579}
+			.card-title{font-size:28px;font-weight:700}
+			.client-title{font-size:26px;font-weight:700}
+			.detail{font-size:20px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:22px;fill:#263746}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.shape{fill:#fff;stroke:#283541;stroke-width:2.5;stroke-linejoin:round}
+			.fillshape{fill:#d8e7f2;stroke:#456987;stroke-width:2.5;stroke-linejoin:round}
+			.tree{fill:none;stroke:#8c9cab;stroke-width:2.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:4;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="1600" height="900" fill="#fff"/>
+
+	<!-- Title block -->
+	<text x="170" y="300" class="kicker">AWS STORAGE</text>
+	<text x="166" y="400" class="title">Amazon</text>
+	<text x="166" y="490" class="title">S3 Files</text>
+	<path d="M170 536H290" stroke="#aab9c7" stroke-width="3"/>
+	<text x="170" y="596" class="subtitle">Mount an S3 bucket</text>
+	<text x="170" y="640" class="subtitle">as a shared file system</text>
+
+	<!-- Zone: the S3 file system -->
+	<rect x="760" y="340" width="680" height="400" rx="14" class="zone-box"/>
+	<text x="786" y="374" class="zone">S3 FILE SYSTEM</text>
+
+	<!-- Connectors: each client mounts the file system -->
+	<path d="M870 262V312" class="flow"/>
+	<path d="M870 332L860 312H880Z" class="arrow"/>
+	<path d="M1100 262V312" class="flow"/>
+	<path d="M1100 332L1090 312H1110Z" class="arrow"/>
+	<path d="M1330 262V312" class="flow"/>
+	<path d="M1330 332L1320 312H1340Z" class="arrow"/>
+	<text x="985" y="306" text-anchor="middle" class="detail">NFS mount</text>
+
+	<!-- Two-way sync between the file view and the bucket -->
+	<text x="1100" y="512" text-anchor="middle" class="detail">sync</text>
+	<path d="M1063 536H1117" class="flow"/>
+	<path d="M1137 536L1117 526V546Z" class="arrow"/>
+	<path d="M1083 588H1137" class="flow"/>
+	<path d="M1063 588L1083 578V598Z" class="arrow"/>
+
+	<!-- Compute clients -->
+	<rect x="780" y="170" width="180" height="92" rx="14" class="node"/>
+	<text x="870" y="210" text-anchor="middle" class="client-title">EC2</text>
+	<text x="870" y="242" text-anchor="middle" class="detail">instance</text>
+
+	<rect x="1010" y="170" width="180" height="92" rx="14" class="node"/>
+	<text x="1100" y="210" text-anchor="middle" class="client-title">ECS / EKS</text>
+	<text x="1100" y="242" text-anchor="middle" class="detail">container</text>
+
+	<rect x="1240" y="170" width="180" height="92" rx="14" class="node"/>
+	<text x="1330" y="210" text-anchor="middle" class="client-title">Lambda</text>
+	<text x="1330" y="242" text-anchor="middle" class="detail">function</text>
+
+	<!-- File system view: folder tree -->
+	<rect x="790" y="392" width="265" height="324" rx="14" class="node"/>
+	<text x="922" y="440" text-anchor="middle" class="card-title">File system</text>
+	<text x="922" y="474" text-anchor="middle" class="mono">/mnt/s3files</text>
+	<path d="M814 496H1031" stroke="#aab9c7" stroke-width="2"/>
+
+	<!-- inbox/ folder -->
+	<path d="M818 524H832L838 530H856V552H818Z" class="fillshape"/>
+	<text x="870" y="548" class="mono">inbox/</text>
+	<!-- tree branches -->
+	<path d="M830 556V630H858M830 582H858" class="tree"/>
+	<!-- a.pdf -->
+	<path d="M866 568H882L890 576V596H866Z" class="shape"/>
+	<text x="904" y="590" class="mono">a.pdf</text>
+	<!-- b.pdf -->
+	<path d="M866 616H882L890 624V644H866Z" class="shape"/>
+	<text x="904" y="638" class="mono">b.pdf</text>
+	<!-- log.txt at the root -->
+	<path d="M822 664H838L846 672V692H822Z" class="shape"/>
+	<text x="860" y="686" class="mono">log.txt</text>
+
+	<!-- S3 bucket -->
+	<rect x="1145" y="392" width="265" height="324" rx="14" class="node"/>
+	<path d="M1234 428L1246 488A32 9 0 0 0 1310 488L1322 428" class="shape"/>
+	<ellipse cx="1278" cy="428" rx="44" ry="12" class="fillshape"/>
+	<text x="1278" y="548" text-anchor="middle" class="card-title">S3 bucket</text>
+	<text x="1278" y="596" text-anchor="middle" class="mono">inbox/a.pdf</text>
+	<text x="1278" y="636" text-anchor="middle" class="mono">inbox/b.pdf</text>
+	<text x="1278" y="676" text-anchor="middle" class="mono">log.txt</text>
+</svg>

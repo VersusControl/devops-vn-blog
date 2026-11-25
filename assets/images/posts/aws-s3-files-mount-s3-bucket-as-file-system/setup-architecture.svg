@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="546" viewBox="0 0 760 546" role="img" aria-label="Setup architecture created by the CLI scripts. From your machine, Session Manager connects to the EC2 instance without SSH. In a subnet of the default VPC, the Amazon Linux 2023 instance runs with the IAM role s3files-demo-client-role, which has AmazonS3FilesClientFullAccess, AmazonSSMManagedInstanceCore for Session Manager, and direct S3 read on the bucket, and the security group s3files-demo-client. It connects over NFS on TCP 2049 to a mount target in the same subnet, whose security group s3files-demo-mount-target allows TCP 2049 only from the client group. The mount target fronts the S3 file system, which assumes the IAM role s3files-demo-fs-role, trusted by elasticfilesystem.amazonaws.com, to read and write the versioned S3 bucket. A dashed arrow shows the instance reading large files directly from the bucket.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.label-b{font-size:12px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.subzone{fill:#f8fafb;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.rule{stroke:#c3ced8;stroke-width:1.5}
+			.rule-p{stroke:#9fb6c9;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+			.direct{fill:none;stroke:#456987;stroke-width:2.5;stroke-dasharray:8 5;stroke-linecap:butt}
+			.direct-arrow{fill:#456987}
+		</style>
+	</defs>
+	<rect width="760" height="546" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="20" y="108" width="372" height="418" rx="14" class="zone-box"/>
+	<text x="36" y="132" class="zone">DEFAULT VPC</text>
+	<rect x="36" y="144" width="340" height="366" rx="14" class="subzone"/>
+	<text x="52" y="168" class="zone">SUBNET</text>
+
+	<!-- Connectors -->
+	<!-- Session Manager -->
+	<path d="M300 76V160" class="flow"/>
+	<path d="M300 172L294 160H306Z" class="arrow"/>
+	<text x="314" y="98" class="detail">Session Manager, no SSH</text>
+
+	<!-- NFS -->
+	<path d="M210 338V380" class="flow"/>
+	<path d="M210 392L204 380H216Z" class="arrow"/>
+	<text x="224" y="370" class="detail">NFS, TCP 2049</text>
+
+	<!-- mount target to file system -->
+	<path d="M360 447H450" class="flow"/>
+	<path d="M462 447L450 441V453Z" class="arrow"/>
+
+	<!-- file system to bucket -->
+	<path d="M605 400V290" class="flow"/>
+	<path d="M605 278L599 290H611Z" class="arrow"/>
+	<text x="619" y="332" class="label-b">reads and writes</text>
+	<text x="619" y="348" class="detail">to sync both ways</text>
+
+	<!-- direct reads of large files -->
+	<path d="M360 225H450" class="direct"/>
+	<path d="M462 225L450 219V231Z" class="direct-arrow"/>
+	<text x="431" y="250" text-anchor="middle" class="detail">large-file</text>
+	<text x="431" y="264" text-anchor="middle" class="detail">reads</text>
+
+	<!-- Your machine -->
+	<rect x="220" y="20" width="160" height="56" rx="12" class="node"/>
+	<text x="300" y="43" text-anchor="middle" class="title">Your machine</text>
+	<text x="300" y="63" text-anchor="middle" class="detail">AWS CLI + SSM plugin</text>
+
+	<!-- EC2 instance -->
+	<rect x="52" y="180" width="308" height="158" rx="12" class="node"/>
+	<text x="68" y="204" class="title">EC2 instance</text>
+	<text x="344" y="204" text-anchor="end" class="detail">Amazon Linux 2023</text>
+	<path d="M68 216H344" class="rule"/>
+	<text x="68" y="240" class="detail">IAM role</text>
+	<text x="130" y="240" class="mono">s3files-demo-client-role</text>
+	<text x="68" y="262" class="detail">policies</text>
+	<text x="130" y="262" class="mono">AmazonS3FilesClientFullAccess</text>
+	<text x="130" y="282" class="mono">AmazonSSMManagedInstanceCore</text>
+	<text x="130" y="302" class="detail">+ direct S3 read on the bucket</text>
+	<text x="68" y="324" class="detail">SG</text>
+	<text x="130" y="324" class="mono">s3files-demo-client</text>
+
+	<!-- Mount target -->
+	<rect x="52" y="400" width="308" height="94" rx="12" class="node"/>
+	<text x="68" y="424" class="title">Mount target</text>
+	<text x="344" y="424" text-anchor="end" class="detail">same subnet</text>
+	<path d="M68 436H344" class="rule"/>
+	<text x="68" y="460" class="detail">SG</text>
+	<text x="130" y="460" class="mono">s3files-demo-mount-target</text>
+	<text x="68" y="480" class="detail">inbound</text>
+	<text x="130" y="480" class="detail">TCP 2049 from client SG only</text>
+
+	<!-- S3 bucket -->
+	<rect x="470" y="180" width="270" height="90" rx="12" class="node"/>
+	<text x="486" y="204" class="title">S3 bucket</text>
+	<text x="724" y="204" text-anchor="end" class="detail">versioning enabled</text>
+	<path d="M486 216H724" class="rule"/>
+	<text x="486" y="240" class="mono">s3files-demo-&lt;suffix&gt;</text>
+	<text x="486" y="258" class="detail">sample files from step 1</text>
+
+	<!-- S3 file system -->
+	<rect x="470" y="400" width="270" height="126" rx="12" class="primary"/>
+	<text x="486" y="424" class="title">S3 file system</text>
+	<path d="M486 436H724" class="rule-p"/>
+	<text x="486" y="458" class="detail">assumes IAM role</text>
+	<text x="486" y="476" class="mono">s3files-demo-fs-role</text>
+	<text x="486" y="496" class="detail">trusted principal</text>
+	<text x="486" y="514" class="mono">elasticfilesystem.amazonaws.com</text>
+</svg>

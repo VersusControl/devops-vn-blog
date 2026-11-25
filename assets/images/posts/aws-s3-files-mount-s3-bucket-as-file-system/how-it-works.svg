@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="634" viewBox="0 0 760 634" role="img" aria-label="How S3 Files works. EC2 instances, ECS or EKS containers, and Lambda functions connect over NFS v4.1 or v4.2 on TCP 2049 to a mount target. The mount target routes writes and small, random reads of active files to the high-performance storage, which is built on Amazon EFS, holds metadata and recently used data, imports files under 128 KiB by default, and answers in about 1 ms. Reads of 1 MiB or more, and files not on the fast layer, are streamed directly from the S3 bucket, which holds the authoritative copy and requires versioning. Writes are exported from the high-performance storage to the bucket once a file has had no writes for 60 seconds. Changes that other clients make directly in the bucket reach the file system through S3 event notifications, usually within seconds.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.label-b{font-size:12px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="634" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="20" y="20" width="720" height="104" rx="14" class="zone-box"/>
+	<text x="36" y="44" class="zone">COMPUTE CLIENTS</text>
+
+	<rect x="20" y="336" width="720" height="192" rx="14" class="zone-box"/>
+	<text x="36" y="514" class="zone">S3 FILE SYSTEM</text>
+
+	<!-- Connectors -->
+	<!-- clients to mount target -->
+	<path d="M380 124V156" class="flow"/>
+	<path d="M380 168L374 156H386Z" class="arrow"/>
+	<text x="394" y="152" class="detail">NFS v4.1 / v4.2, TCP 2049</text>
+
+	<!-- mount target to the high-performance storage -->
+	<path d="M380 230V256H166V344" class="flow"/>
+	<path d="M166 356L160 344H172Z" class="arrow"/>
+	<text x="180" y="284" class="label-b">writes, small random reads</text>
+	<text x="180" y="300" class="detail">of active files</text>
+
+	<!-- mount target to the bucket -->
+	<path d="M380 230V256H594V344" class="flow"/>
+	<path d="M594 356L588 344H600Z" class="arrow"/>
+	<text x="580" y="284" text-anchor="end" class="label-b">reads ≥ 1 MiB, or files</text>
+	<text x="580" y="300" text-anchor="end" class="label-b">not on the fast layer</text>
+	<text x="580" y="316" text-anchor="end" class="detail">streamed directly from S3</text>
+
+	<!-- export: high-performance storage to bucket -->
+	<text x="380" y="378" text-anchor="middle" class="label-b">export</text>
+	<text x="380" y="394" text-anchor="middle" class="detail">after 60 s</text>
+	<text x="380" y="410" text-anchor="middle" class="detail">with no writes</text>
+	<path d="M296 422H444" class="flow"/>
+	<path d="M456 422L444 416V428Z" class="arrow"/>
+
+	<!-- import: bucket to high-performance storage -->
+	<path d="M464 462H316" class="flow"/>
+	<path d="M304 462L316 456V468Z" class="arrow"/>
+	<text x="380" y="484" text-anchor="middle" class="label-b">S3 event notifications</text>
+	<text x="380" y="500" text-anchor="middle" class="detail">usually within seconds</text>
+
+	<!-- direct changes into the bucket -->
+	<path d="M594 560V512" class="flow"/>
+	<path d="M594 500L588 512H600Z" class="arrow"/>
+	<text x="580" y="548" text-anchor="end" class="detail">direct changes</text>
+
+	<!-- Client nodes -->
+	<rect x="36" y="56" width="216" height="52" rx="12" class="node"/>
+	<text x="144" y="78" text-anchor="middle" class="title">EC2</text>
+	<text x="144" y="97" text-anchor="middle" class="detail">instances</text>
+
+	<rect x="272" y="56" width="216" height="52" rx="12" class="node"/>
+	<text x="380" y="78" text-anchor="middle" class="title">ECS / EKS</text>
+	<text x="380" y="97" text-anchor="middle" class="detail">containers</text>
+
+	<rect x="508" y="56" width="216" height="52" rx="12" class="node"/>
+	<text x="616" y="78" text-anchor="middle" class="title">Lambda</text>
+	<text x="616" y="97" text-anchor="middle" class="detail">functions</text>
+
+	<!-- Mount target -->
+	<rect x="290" y="176" width="180" height="54" rx="12" class="node"/>
+	<text x="380" y="199" text-anchor="middle" class="title">Mount target</text>
+	<text x="380" y="218" text-anchor="middle" class="detail">in the client's VPC</text>
+
+	<!-- Layer 1: high-performance storage -->
+	<rect x="36" y="364" width="260" height="128" rx="12" class="primary"/>
+	<text x="52" y="390" class="title">High-performance storage</text>
+	<text x="52" y="412" class="detail">built on Amazon EFS, about 1 ms</text>
+	<text x="52" y="432" class="detail">metadata + recently used data</text>
+	<text x="52" y="452" class="detail">imports files &lt; 128 KiB (default)</text>
+	<text x="52" y="472" class="detail">writes land here first</text>
+
+	<!-- Layer 2: S3 bucket -->
+	<rect x="464" y="364" width="260" height="128" rx="12" class="node"/>
+	<text x="480" y="390" class="title">S3 bucket</text>
+	<text x="480" y="412" class="detail">authoritative copy of all data</text>
+	<text x="480" y="432" class="detail">versioning required</text>
+	<text x="480" y="452" class="detail">every change is a new version</text>
+
+	<!-- Other S3 clients -->
+	<rect x="464" y="560" width="260" height="54" rx="12" class="node"/>
+	<text x="480" y="583" class="title">Other S3 clients</text>
+	<text x="480" y="602" class="detail">PUT and DELETE through the S3 API</text>
+</svg>

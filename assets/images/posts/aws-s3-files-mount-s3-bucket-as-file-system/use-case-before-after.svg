@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="640" viewBox="0 0 760 640" role="img" aria-label="Before and after for an invoice-processing team. Before: an upload service writes scanned PDFs to the S3 bucket s3://invoices/. A sync job copies invoices into an EFS file system, three EC2 workers process them there with locks, appends, and renames, and the sync job copies results back to S3, where Athena reads them. The data exists twice and the copies drift. After: the upload service writes to the same bucket, the three EC2 workers mount it through an S3 file system and run the same tool, with one change: each worker writes one log file per batch instead of appending to a shared log. Built-in sync imports new objects and exports results about a minute after the last write, and Athena reads the same bucket. There is one copy of the data and no sync job.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.small-title{font-size:14px;font-weight:700}
+			.label-b{font-size:12px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="640" fill="#fff"/>
+
+	<!-- ================= BEFORE ================= -->
+	<rect x="20" y="20" width="720" height="290" rx="14" class="zone-box"/>
+	<text x="36" y="44" class="zone">BEFORE</text>
+	<text x="724" y="44" text-anchor="end" class="detail">EFS plus a sync job</text>
+
+	<!-- Connectors -->
+	<path d="M136 100H168" class="flow"/>
+	<path d="M180 100L168 94V106Z" class="arrow"/>
+
+	<text x="402" y="76" text-anchor="middle" class="detail">copy in</text>
+	<path d="M348 86H436" class="flow"/>
+	<path d="M448 86L436 80V92Z" class="arrow"/>
+	<text x="402" y="108" text-anchor="middle" class="label-b">sync job</text>
+	<path d="M456 122H368" class="flow"/>
+	<path d="M356 122L368 116V128Z" class="arrow"/>
+	<text x="402" y="144" text-anchor="middle" class="detail">copy back</text>
+
+	<path d="M268 140V186" class="flow"/>
+	<path d="M268 198L262 186H274Z" class="arrow"/>
+	<text x="282" y="176" class="detail">reads</text>
+
+	<path d="M496 206V160" class="flow"/>
+	<path d="M496 148L490 160H502Z" class="arrow"/>
+	<path d="M590 206V160" class="flow"/>
+	<path d="M590 148L584 160H596Z" class="arrow"/>
+	<path d="M684 206V160" class="flow"/>
+	<path d="M684 148L678 160H690Z" class="arrow"/>
+	<text x="482" y="190" text-anchor="end" class="detail">locks, appends, renames</text>
+
+	<!-- Nodes -->
+	<rect x="36" y="72" width="100" height="56" rx="12" class="node"/>
+	<text x="86" y="96" text-anchor="middle" class="title">Uploads</text>
+	<text x="86" y="115" text-anchor="middle" class="detail">scanned PDFs</text>
+
+	<rect x="188" y="60" width="160" height="80" rx="12" class="node"/>
+	<text x="268" y="86" text-anchor="middle" class="title">S3 bucket</text>
+	<text x="268" y="106" text-anchor="middle" class="mono">s3://invoices/</text>
+	<text x="268" y="126" text-anchor="middle" class="detail">copy 1</text>
+
+	<rect x="456" y="60" width="268" height="80" rx="12" class="node"/>
+	<text x="590" y="86" text-anchor="middle" class="title">EFS file system</text>
+	<text x="590" y="106" text-anchor="middle" class="detail">copy 2 of every invoice</text>
+	<text x="590" y="126" text-anchor="middle" class="detail">refreshed on a schedule</text>
+
+	<rect x="188" y="206" width="160" height="54" rx="12" class="node"/>
+	<text x="268" y="229" text-anchor="middle" class="title">Athena</text>
+	<text x="268" y="248" text-anchor="middle" class="detail">queries S3</text>
+
+	<rect x="456" y="206" width="80" height="54" rx="12" class="node"/>
+	<text x="496" y="229" text-anchor="middle" class="small-title">worker 1</text>
+	<text x="496" y="248" text-anchor="middle" class="detail">EC2</text>
+	<rect x="550" y="206" width="80" height="54" rx="12" class="node"/>
+	<text x="590" y="229" text-anchor="middle" class="small-title">worker 2</text>
+	<text x="590" y="248" text-anchor="middle" class="detail">EC2</text>
+	<rect x="644" y="206" width="80" height="54" rx="12" class="node"/>
+	<text x="684" y="229" text-anchor="middle" class="small-title">worker 3</text>
+	<text x="684" y="248" text-anchor="middle" class="detail">EC2</text>
+
+	<text x="36" y="290" class="label-b">Two copies of the data, a sync job to run, and copies that drift</text>
+
+	<!-- ================= AFTER ================= -->
+	<rect x="20" y="330" width="720" height="290" rx="14" class="zone-box"/>
+	<text x="36" y="354" class="zone">AFTER</text>
+	<text x="724" y="354" text-anchor="end" class="detail">S3 Files mount</text>
+
+	<!-- Connectors -->
+	<path d="M136 410H168" class="flow"/>
+	<path d="M180 410L168 404V416Z" class="arrow"/>
+
+	<text x="402" y="386" text-anchor="middle" class="detail">imports</text>
+	<path d="M348 396H436" class="flow"/>
+	<path d="M448 396L436 390V402Z" class="arrow"/>
+	<text x="402" y="418" text-anchor="middle" class="label-b">built-in sync</text>
+	<path d="M456 432H368" class="flow"/>
+	<path d="M356 432L368 426V438Z" class="arrow"/>
+	<text x="402" y="454" text-anchor="middle" class="detail">exports ~1 min</text>
+
+	<path d="M268 450V496" class="flow"/>
+	<path d="M268 508L262 496H274Z" class="arrow"/>
+	<text x="282" y="486" class="detail">reads</text>
+
+	<path d="M496 516V470" class="flow"/>
+	<path d="M496 458L490 470H502Z" class="arrow"/>
+	<path d="M590 516V470" class="flow"/>
+	<path d="M590 458L584 470H596Z" class="arrow"/>
+	<path d="M684 516V470" class="flow"/>
+	<path d="M684 458L678 470H690Z" class="arrow"/>
+	<text x="482" y="482" text-anchor="end" class="detail">same tool; one log file</text>
+	<text x="482" y="498" text-anchor="end" class="detail">per batch, no shared log</text>
+
+	<!-- Nodes -->
+	<rect x="36" y="382" width="100" height="56" rx="12" class="node"/>
+	<text x="86" y="406" text-anchor="middle" class="title">Uploads</text>
+	<text x="86" y="425" text-anchor="middle" class="detail">scanned PDFs</text>
+
+	<rect x="188" y="370" width="160" height="80" rx="12" class="primary"/>
+	<text x="268" y="396" text-anchor="middle" class="title">S3 bucket</text>
+	<text x="268" y="416" text-anchor="middle" class="mono">s3://invoices/</text>
+	<text x="268" y="436" text-anchor="middle" class="detail">the only copy</text>
+
+	<rect x="456" y="370" width="268" height="80" rx="12" class="node"/>
+	<text x="590" y="396" text-anchor="middle" class="title">S3 file system</text>
+	<text x="590" y="416" text-anchor="middle" class="detail">mounts the bucket over NFS</text>
+	<text x="590" y="436" text-anchor="middle" class="detail">active files only, no second copy</text>
+
+	<rect x="188" y="516" width="160" height="54" rx="12" class="node"/>
+	<text x="268" y="539" text-anchor="middle" class="title">Athena</text>
+	<text x="268" y="558" text-anchor="middle" class="detail">queries S3</text>
+
+	<rect x="456" y="516" width="80" height="54" rx="12" class="node"/>
+	<text x="496" y="539" text-anchor="middle" class="small-title">worker 1</text>
+	<text x="496" y="558" text-anchor="middle" class="detail">EC2</text>
+	<rect x="550" y="516" width="80" height="54" rx="12" class="node"/>
+	<text x="590" y="539" text-anchor="middle" class="small-title">worker 2</text>
+	<text x="590" y="558" text-anchor="middle" class="detail">EC2</text>
+	<rect x="644" y="516" width="80" height="54" rx="12" class="node"/>
+	<text x="684" y="539" text-anchor="middle" class="small-title">worker 3</text>
+	<text x="684" y="558" text-anchor="middle" class="detail">EC2</text>
+
+	<text x="36" y="600" class="label-b">One copy of the data, no sync job, results in S3 about a minute after the last write</text>
+</svg>
