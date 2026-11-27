@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="538" viewBox="0 0 760 538" role="img" aria-label="Before and after for the API edge team. Before, with self-managed Envoy on EC2 behind a Network Load Balancer, the team owns the Envoy configuration, instance sizing, scaling, AMI and OS patching, Envoy upgrades, and CVE response, and AWS runs only the NLB and the EC2 hosts. After, with ELB for Envoy, the team owns the Envoy configuration, tuning, and observability, and AWS owns scaling, availability across Availability Zones, OS patching, Envoy patch releases including CVE fixes, and qualifying new Envoy versions.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.owner{font-size:11px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.item{font-size:14px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.aws{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.rule{stroke:#aab9c7;stroke-width:1.5}
+		</style>
+	</defs>
+	<rect width="760" height="538" fill="#fff"/>
+
+	<!-- ================= BEFORE ================= -->
+	<rect x="20" y="20" width="352" height="498" rx="14" class="zone-box"/>
+	<text x="36" y="44" class="zone">BEFORE</text>
+	<text x="36" y="70" class="title">Self-managed Envoy on EC2</text>
+	<text x="36" y="88" class="detail">behind a Network Load Balancer</text>
+
+	<text x="36" y="122" class="owner">YOUR TEAM OWNS</text>
+	<path d="M174 118H356" class="rule"/>
+
+	<rect x="36" y="134" width="320" height="34" rx="10" class="node"/>
+	<text x="50" y="156" class="item">Envoy configuration</text>
+	<text x="342" y="156" text-anchor="end" class="detail">filters, Lua</text>
+
+	<rect x="36" y="176" width="320" height="34" rx="10" class="node"/>
+	<text x="50" y="198" class="item">Instance sizing</text>
+	<text x="342" y="198" text-anchor="end" class="detail">six EC2 instances</text>
+
+	<rect x="36" y="218" width="320" height="34" rx="10" class="node"/>
+	<text x="50" y="240" class="item">Scaling</text>
+	<text x="342" y="240" text-anchor="end" class="detail">Auto Scaling policy</text>
+
+	<rect x="36" y="260" width="320" height="34" rx="10" class="node"/>
+	<text x="50" y="282" class="item">AMI and OS patching</text>
+	<text x="342" y="282" text-anchor="end" class="detail">monthly AMI rebuild</text>
+
+	<rect x="36" y="302" width="320" height="34" rx="10" class="node"/>
+	<text x="50" y="324" class="item">Envoy upgrades</text>
+	<text x="342" y="324" text-anchor="end" class="detail">tested every quarter</text>
+
+	<rect x="36" y="344" width="320" height="34" rx="10" class="node"/>
+	<text x="50" y="366" class="item">CVE response</text>
+	<text x="342" y="366" text-anchor="end" class="detail">on-call page</text>
+
+	<text x="36" y="410" class="owner">AWS OWNS</text>
+	<path d="M120 406H356" class="rule"/>
+
+	<rect x="36" y="422" width="320" height="34" rx="10" class="aws"/>
+	<text x="50" y="444" class="item">Network Load Balancer</text>
+	<text x="342" y="444" text-anchor="end" class="detail">TCP entry point</text>
+
+	<rect x="36" y="464" width="320" height="34" rx="10" class="aws"/>
+	<text x="50" y="486" class="item">EC2 hosts</text>
+	<text x="342" y="486" text-anchor="end" class="detail">hardware only</text>
+
+	<!-- ================= AFTER ================= -->
+	<rect x="388" y="20" width="352" height="498" rx="14" class="zone-box"/>
+	<text x="404" y="44" class="zone">AFTER</text>
+	<text x="404" y="70" class="title">ELB for Envoy</text>
+	<text x="404" y="88" class="detail">managed proxy in your VPC</text>
+
+	<text x="404" y="122" class="owner">YOUR TEAM OWNS</text>
+	<path d="M542 118H724" class="rule"/>
+
+	<rect x="404" y="134" width="320" height="34" rx="10" class="node"/>
+	<text x="418" y="156" class="item">Envoy configuration</text>
+	<text x="710" y="156" text-anchor="end" class="detail">carried over</text>
+
+	<rect x="404" y="176" width="320" height="34" rx="10" class="node"/>
+	<text x="418" y="198" class="item">Tuning</text>
+	<text x="710" y="198" text-anchor="end" class="detail">for performance</text>
+
+	<rect x="404" y="218" width="320" height="34" rx="10" class="node"/>
+	<text x="418" y="240" class="item">Observability</text>
+	<text x="710" y="240" text-anchor="end" class="detail">access logs, dashboards</text>
+
+	<text x="404" y="284" class="owner">AWS OWNS</text>
+	<path d="M488 280H724" class="rule"/>
+
+	<rect x="404" y="296" width="320" height="34" rx="10" class="aws"/>
+	<text x="418" y="318" class="item">Scaling</text>
+	<text x="710" y="318" text-anchor="end" class="detail">follows traffic</text>
+
+	<rect x="404" y="338" width="320" height="34" rx="10" class="aws"/>
+	<text x="418" y="360" class="item">Availability across AZs</text>
+	<text x="710" y="360" text-anchor="end" class="detail">at least two</text>
+
+	<rect x="404" y="380" width="320" height="34" rx="10" class="aws"/>
+	<text x="418" y="402" class="item">OS patching</text>
+	<text x="710" y="402" text-anchor="end" class="detail">regular updates</text>
+
+	<rect x="404" y="422" width="320" height="34" rx="10" class="aws"/>
+	<text x="418" y="444" class="item">Envoy patch releases</text>
+	<text x="710" y="444" text-anchor="end" class="detail">including CVE fixes</text>
+
+	<rect x="404" y="464" width="320" height="34" rx="10" class="aws"/>
+	<text x="418" y="486" class="item">New Envoy versions</text>
+	<text x="710" y="486" text-anchor="end" class="detail">qualified before use</text>
+</svg>

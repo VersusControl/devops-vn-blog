@@ -1,6 +1,12 @@
 # Latest posts shown on the home page. All entries link to translated
 # English posts. Update as new folders are translated.
 
+- title: "AWS ELB for Envoy"
+  subtitle: "What ELB for Envoy is, why AWS built it, where it beats running Envoy yourself or using an ALB, and how to create and update a proxy with the AWS CLI."
+  category: AWS
+  image: /assets/images/posts/aws-elb-for-envoy-managed-envoy-load-balancer/cover.svg
+  url: /aws-elb-for-envoy-managed-envoy-load-balancer/
+
 - title: "Mount an S3 Bucket as a Shared File System"
   subtitle: "What S3 Files is, where it beats EFS copies or Mountpoint, and how to set it up with the AWS CLI."
   category: AWS

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="696" viewBox="0 0 760 696" role="img" aria-label="How ELB for Envoy works. Clients on the internet or in your VPC connect to the proxy DNS name, which resolves to the proxy network interfaces (ENIs) in two subnets in different Availability Zones of your VPC. Traffic passes your security groups and an optional AWS WAF web ACL, then reaches AWS-managed Envoy nodes that run your bootstrap configuration on Envoy 1.40 across the Availability Zones of your subnets. The nodes send traffic to targets in your VPC: EC2 instances, EKS pods, or target groups. Configuration comes from a static bootstrap through the CLI, console, or CloudFormation, from your own xDS control plane, or from Envoy Gateway on EKS. Logs go to CloudWatch Logs under /aws/elb-proxy/proxy-name and metrics go to CloudWatch in the AWS/ProxyELB namespace.">
+	<defs>
+		<style>
+			text{font-family:Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.label-b{font-size:12px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,monospace;font-size:12px;fill:#263746}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.optional{fill:#fff;stroke:#283541;stroke-width:2;stroke-dasharray:7 5}
+			.sg{fill:none;stroke:#7d8fa1;stroke-width:1.5;stroke-dasharray:6 4}
+			.chip{fill:#edf2f6;stroke:#aab9c7;stroke-width:1.5}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+	<rect width="760" height="696" fill="#fff"/>
+
+	<!-- Zones -->
+	<rect x="20" y="108" width="450" height="154" rx="14" class="zone-box"/>
+	<text x="36" y="130" class="zone">YOUR VPC</text>
+	<rect x="40" y="144" width="410" height="104" rx="10" class="sg"/>
+	<text x="245" y="166" text-anchor="middle" class="detail">security groups</text>
+
+	<rect x="490" y="108" width="250" height="230" rx="14" class="zone-box"/>
+	<text x="506" y="130" class="zone">CONFIGURATION</text>
+
+	<rect x="20" y="356" width="720" height="126" rx="14" class="zone-box"/>
+	<text x="36" y="378" class="zone">MANAGED BY AWS</text>
+
+	<rect x="20" y="512" width="450" height="164" rx="14" class="zone-box"/>
+	<text x="36" y="534" class="zone">YOUR VPC</text>
+
+	<rect x="490" y="512" width="250" height="164" rx="14" class="zone-box"/>
+	<text x="506" y="534" class="zone">OBSERVABILITY</text>
+
+	<!-- Connectors -->
+	<!-- clients to the proxy ENIs, one path per subnet -->
+	<path d="M245 72V92H133V164" class="flow"/>
+	<path d="M133 176L127 164H139Z" class="arrow"/>
+	<path d="M245 72V92H357V164" class="flow"/>
+	<path d="M357 176L351 164H363Z" class="arrow"/>
+	<text x="351" y="42" class="label-b">proxy DNS name</text>
+	<text x="351" y="58" class="detail">resolves to the proxy ENIs</text>
+
+	<!-- ENIs to the WAF web ACL -->
+	<path d="M133 234V270" class="flow"/>
+	<path d="M133 282L127 270H139Z" class="arrow"/>
+	<path d="M357 234V270" class="flow"/>
+	<path d="M357 282L351 270H363Z" class="arrow"/>
+
+	<!-- WAF to Envoy nodes -->
+	<path d="M245 338V370" class="flow"/>
+	<path d="M245 382L239 370H251Z" class="arrow"/>
+
+	<!-- configuration to Envoy nodes -->
+	<path d="M615 338V370" class="flow"/>
+	<path d="M615 382L609 370H621Z" class="arrow"/>
+
+	<!-- Envoy nodes to targets -->
+	<path d="M245 466V528" class="flow"/>
+	<path d="M245 540L239 528H251Z" class="arrow"/>
+
+	<!-- Envoy nodes to observability -->
+	<path d="M680 466V528" class="flow"/>
+	<path d="M680 540L674 528H686Z" class="arrow"/>
+
+	<!-- Clients -->
+	<rect x="155" y="20" width="180" height="52" rx="12" class="node"/>
+	<text x="245" y="42" text-anchor="middle" class="title">Clients</text>
+	<text x="245" y="61" text-anchor="middle" class="detail">internet or your VPC</text>
+
+	<!-- Proxy ENIs -->
+	<rect x="56" y="182" width="154" height="52" rx="12" class="node"/>
+	<text x="133" y="204" text-anchor="middle" class="title">Proxy ENIs</text>
+	<text x="133" y="223" text-anchor="middle" class="detail">subnet in AZ 1</text>
+
+	<rect x="280" y="182" width="154" height="52" rx="12" class="node"/>
+	<text x="357" y="204" text-anchor="middle" class="title">Proxy ENIs</text>
+	<text x="357" y="223" text-anchor="middle" class="detail">subnet in AZ 2</text>
+
+	<!-- AWS WAF -->
+	<rect x="56" y="290" width="378" height="48" rx="12" class="optional"/>
+	<text x="245" y="310" text-anchor="middle" class="title">AWS WAF web ACL</text>
+	<text x="245" y="328" text-anchor="middle" class="detail">optional, inspects HTTP requests</text>
+
+	<!-- Configuration inputs -->
+	<rect x="502" y="142" width="226" height="52" rx="12" class="node"/>
+	<text x="516" y="164" class="title">Static bootstrap</text>
+	<text x="516" y="183" class="detail">CLI, console, CloudFormation</text>
+
+	<rect x="502" y="204" width="226" height="52" rx="12" class="node"/>
+	<text x="516" y="226" class="title">Your xDS control plane</text>
+	<text x="516" y="245" class="detail">routes and clusters at runtime</text>
+
+	<rect x="502" y="266" width="226" height="52" rx="12" class="node"/>
+	<text x="516" y="288" class="title">Envoy Gateway on EKS</text>
+	<text x="516" y="307" class="detail">Gateway API through a controller</text>
+
+	<!-- Envoy nodes -->
+	<rect x="56" y="390" width="648" height="76" rx="12" class="primary"/>
+	<text x="380" y="414" text-anchor="middle" class="title">Envoy nodes</text>
+	<text x="380" y="434" text-anchor="middle" class="detail">run your bootstrap configuration on Envoy 1.40</text>
+	<text x="380" y="452" text-anchor="middle" class="detail">across the Availability Zones of your subnets, scaled and patched by AWS</text>
+
+	<!-- Targets -->
+	<rect x="56" y="548" width="378" height="112" rx="12" class="node"/>
+	<text x="245" y="586" text-anchor="middle" class="title">Targets</text>
+	<rect x="72" y="602" width="110" height="30" rx="8" class="chip"/>
+	<text x="127" y="622" text-anchor="middle" class="detail">EC2 instances</text>
+	<rect x="190" y="602" width="110" height="30" rx="8" class="chip"/>
+	<text x="245" y="622" text-anchor="middle" class="detail">EKS pods</text>
+	<rect x="308" y="602" width="110" height="30" rx="8" class="chip"/>
+	<text x="363" y="622" text-anchor="middle" class="detail">target groups</text>
+
+	<!-- CloudWatch -->
+	<rect x="502" y="548" width="226" height="112" rx="12" class="node"/>
+	<text x="516" y="570" class="title">Amazon CloudWatch</text>
+	<text x="516" y="592" class="label-b">Logs</text>
+	<text x="516" y="609" class="mono">/aws/elb-proxy/&lt;proxy-name&gt;</text>
+	<text x="516" y="631" class="label-b">Metrics</text>
+	<text x="516" y="648" class="mono">AWS/ProxyELB</text>
+</svg>
