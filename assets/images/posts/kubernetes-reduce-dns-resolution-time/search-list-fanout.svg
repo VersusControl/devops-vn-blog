@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="368" viewBox="0 0 760 368" role="img" aria-label="With ndots:5, one lookup of api.github.com from a Pod becomes 8 queries to CoreDNS. The resolver tries the search list first: api.github.com.default.svc.cluster.local, api.github.com.svc.cluster.local, and api.github.com.cluster.local, each with an A and an AAAA query that returns NXDOMAIN, 6 wasted queries. Only the fourth attempt, the name as written, api.github.com., gets an answer, in 2 queries.">
+	<defs>
+		<style>
+			text{font-family:'Helvetica Neue',Arial,sans-serif;fill:#17212b}
+			.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+			.title{font-size:15px;font-weight:700}
+			.detail{font-size:12px;fill:#526579}
+			.mono{font-family:Menlo,Consolas,monospace;font-size:13px;fill:#17212b}
+			.mono-s{font-family:Menlo,Consolas,monospace;font-size:12px;fill:#263746}
+			.chip-t{font-family:Menlo,Consolas,monospace;font-size:12px;font-weight:700;fill:#17212b}
+			.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+			.node{fill:#fff;stroke:#283541;stroke-width:2}
+			.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+			.chip{fill:#edf2f6;stroke:#aab9c7;stroke-width:1.5}
+			.chip-p{fill:#fff;stroke:#456987;stroke-width:1.5}
+			.num{fill:#fff;stroke:#283541;stroke-width:1.5}
+			.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linecap:butt}
+			.arrow{fill:#17212b}
+		</style>
+	</defs>
+<rect width="760" height="368" fill="#fff"/>
+<rect x="216" y="16" width="528" height="218" rx="14" class="zone-box"/>
+<text x="232" y="38" class="zone">SEARCH LIST FIRST</text>
+<text x="728" y="38" class="zone" text-anchor="end">6 WASTED QUERIES</text>
+<rect x="216" y="250" width="528" height="102" rx="14" class="zone-box"/>
+<text x="232" y="272" class="zone">NAME AS WRITTEN</text>
+<text x="728" y="272" class="zone" text-anchor="end">2 QUERIES</text>
+<rect x="16" y="108.0" width="150" height="112" rx="12" class="node"/>
+<text x="32" y="136.0" class="title">Pod</text>
+<text x="32" y="156.0" class="detail">looks up</text>
+<text x="32" y="174.0" class="mono-s">api.github.com</text>
+<path d="M 32 188.0 H 150" stroke="#d3dbe3" stroke-width="1"/>
+<text x="32" y="206.0" class="mono-s">options ndots:5</text>
+<rect x="246" y="52" width="482" height="50" rx="12" class="node"/>
+<circle cx="268" cy="77.0" r="11" class="num"/>
+<text x="268" y="81.5" font-size="13" font-weight="700" text-anchor="middle">1</text>
+<text x="292" y="74" class="mono"><tspan fill="#526579">api.github.com</tspan><tspan font-weight="700">.default.svc.cluster.local</tspan></text>
+<text x="292" y="91" class="detail">A and AAAA queries</text>
+<rect x="638.2" y="65.0" width="75.8" height="24" rx="12" class="chip"/>
+<text x="676.1" y="81.2" class="chip-t" text-anchor="middle">NXDOMAIN</text>
+<rect x="246" y="110" width="482" height="50" rx="12" class="node"/>
+<circle cx="268" cy="135.0" r="11" class="num"/>
+<text x="268" y="139.5" font-size="13" font-weight="700" text-anchor="middle">2</text>
+<text x="292" y="132" class="mono"><tspan fill="#526579">api.github.com</tspan><tspan font-weight="700">.svc.cluster.local</tspan></text>
+<text x="292" y="149" class="detail">A and AAAA queries</text>
+<rect x="638.2" y="123.0" width="75.8" height="24" rx="12" class="chip"/>
+<text x="676.1" y="139.2" class="chip-t" text-anchor="middle">NXDOMAIN</text>
+<rect x="246" y="168" width="482" height="50" rx="12" class="node"/>
+<circle cx="268" cy="193.0" r="11" class="num"/>
+<text x="268" y="197.5" font-size="13" font-weight="700" text-anchor="middle">3</text>
+<text x="292" y="190" class="mono"><tspan fill="#526579">api.github.com</tspan><tspan font-weight="700">.cluster.local</tspan></text>
+<text x="292" y="207" class="detail">A and AAAA queries</text>
+<rect x="638.2" y="181.0" width="75.8" height="24" rx="12" class="chip"/>
+<text x="676.1" y="197.2" class="chip-t" text-anchor="middle">NXDOMAIN</text>
+<rect x="246" y="286" width="482" height="50" rx="12" class="primary"/>
+<circle cx="268" cy="311.0" r="11" class="num"/>
+<text x="268" y="315.5" font-size="13" font-weight="700" text-anchor="middle">4</text>
+<text x="292" y="308" class="mono"><tspan fill="#526579">api.github.com</tspan><tspan font-weight="700">.</tspan></text>
+<text x="292" y="325" class="detail">A and AAAA: answer</text>
+<rect x="645.5" y="299.0" width="68.5" height="24" rx="12" class="chip-p"/>
+<text x="679.7" y="315.2" class="chip-t" text-anchor="middle">NOERROR</text>
+<path d="M 166 164.0 H 194" class="flow"/>
+<path d="M 194 77.0 V 311.0" class="flow" style="stroke-linecap:square"/>
+<path d="M 194 77.0 H 226" class="flow"/>
+<polygon points="238,77.0 226,71.0 226,83.0" class="arrow"/>
+<path d="M 194 135.0 H 226" class="flow"/>
+<polygon points="238,135.0 226,129.0 226,141.0" class="arrow"/>
+<path d="M 194 193.0 H 226" class="flow"/>
+<polygon points="238,193.0 226,187.0 226,199.0" class="arrow"/>
+<path d="M 194 311.0 H 226" class="flow"/>
+<polygon points="238,311.0 226,305.0 226,317.0" class="arrow"/>
+</svg>

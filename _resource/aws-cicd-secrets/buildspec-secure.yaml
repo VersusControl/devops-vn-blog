@@ -1,0 +1,20 @@
+# The CodeBuild project's IAM service role gives AWS access: no keys in this file.
+version: 0.2
+env:
+  parameter-store:
+    DB_PASSWORD: /myapp/prod/db_password        # SecureString; masked in build logs
+  secrets-manager:
+    API_TOKEN: myapp/prod/api:token              # <secret-id>:<json-key>
+phases:
+  build:
+    commands:
+      - aws s3 cp ./dist s3://my-app-site/ --recursive
+      # Deploy without SSH: run the update on the instance through Systems Manager,
+      # then wait for it, so a failed deploy fails the build.
+      - >
+        CMD_ID=$(aws ssm send-command
+        --instance-ids i-0123456789abcdef0
+        --document-name AWS-RunShellScript
+        --parameters 'commands=["/opt/app/deploy.sh"]'
+        --query Command.CommandId --output text)
+      - aws ssm wait command-executed --command-id "$CMD_ID" --instance-id i-0123456789abcdef0

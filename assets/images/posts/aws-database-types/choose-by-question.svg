@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="472" viewBox="0 0 760 472" role="img" aria-label="Three questions lead to a data model, and each data model maps to its AWS service. The questions, in order: what shape is the data, how will you read it, and what guarantees do you need. The data models and services: relational to RDS, Aurora, and Aurora DSQL; key-value to DynamoDB; document to DocumentDB; wide-column to Keyspaces; in-memory to ElastiCache and MemoryDB; search to OpenSearch Service; graph to Neptune; time series to Timestream for InfluxDB.">
+<title>Three questions lead to a data model and its AWS service</title>
+<rect width="760" height="472" fill="#ffffff"/>
+<rect x="20" y="20" width="290" height="432" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/><text x="36.0" y="46.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1.5">THREE QUESTIONS</text>
+<rect x="36" y="62.0" width="258" height="98.0" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="50.0" y="84.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1">QUESTION 1</text>
+<text x="50.0" y="106.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="start">What shape is the data?</text>
+<text x="50.0" y="126.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">related rows, whole records,</text>
+<text x="50.0" y="142.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">connections, or time-stamped values</text>
+<rect x="36" y="200.0" width="258" height="98.0" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="50.0" y="222.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1">QUESTION 2</text>
+<text x="50.0" y="244.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="start">How will you read it?</text>
+<text x="50.0" y="264.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">by a known key, ad-hoc queries,</text>
+<text x="50.0" y="280.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">free text, or relationships</text>
+<rect x="36" y="338.0" width="258" height="98.0" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="50.0" y="360.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1">QUESTION 3</text>
+<text x="50.0" y="382.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="start">What guarantees do you need?</text>
+<text x="50.0" y="402.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">ACID transactions,</text>
+<text x="50.0" y="418.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">answers in microseconds</text>
+<path d="M 165.0 160.0 L 165.0 181.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 165.0 192.0 L 159.0 180.0 L 171.0 180.0 Z" fill="#17212b"/>
+<path d="M 165.0 298.0 L 165.0 319.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 165.0 330.0 L 159.0 318.0 L 171.0 318.0 Z" fill="#17212b"/>
+<rect x="350" y="20" width="390" height="432" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+<text x="366.0" y="46.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1.5">DATA MODEL</text>
+<text x="530.0" y="46.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1.5">AWS SERVICE</text>
+<rect x="366" y="62" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="86.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">Relational</text>
+<rect x="530" y="62" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="85.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">RDS, Aurora, Aurora DSQL</text>
+<path d="M 482.0 81.0 L 511.0 81.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 81.0 L 510.0 87.0 L 510.0 75.0 Z" fill="#17212b"/>
+<rect x="366" y="110" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="134.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">Key-value</text>
+<rect x="530" y="110" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="133.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">DynamoDB</text>
+<path d="M 482.0 129.0 L 511.0 129.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 129.0 L 510.0 135.0 L 510.0 123.0 Z" fill="#17212b"/>
+<rect x="366" y="158" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="182.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">Document</text>
+<rect x="530" y="158" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="181.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">DocumentDB</text>
+<path d="M 482.0 177.0 L 511.0 177.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 177.0 L 510.0 183.0 L 510.0 171.0 Z" fill="#17212b"/>
+<rect x="366" y="206" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="230.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">Wide-column</text>
+<rect x="530" y="206" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="229.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">Keyspaces</text>
+<path d="M 482.0 225.0 L 511.0 225.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 225.0 L 510.0 231.0 L 510.0 219.0 Z" fill="#17212b"/>
+<rect x="366" y="254" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="278.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">In-memory</text>
+<rect x="530" y="254" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="277.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">ElastiCache, MemoryDB</text>
+<path d="M 482.0 273.0 L 511.0 273.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 273.0 L 510.0 279.0 L 510.0 267.0 Z" fill="#17212b"/>
+<rect x="366" y="302" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="326.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">Search</text>
+<rect x="530" y="302" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="325.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">OpenSearch Service</text>
+<path d="M 482.0 321.0 L 511.0 321.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 321.0 L 510.0 327.0 L 510.0 315.0 Z" fill="#17212b"/>
+<rect x="366" y="350" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="374.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">Graph</text>
+<rect x="530" y="350" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="373.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">Neptune</text>
+<path d="M 482.0 369.0 L 511.0 369.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 369.0 L 510.0 375.0 L 510.0 363.0 Z" fill="#17212b"/>
+<rect x="366" y="398" width="116" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="424.0" y="422.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#17212b" text-anchor="middle">Time series</text>
+<rect x="530" y="398" width="194" height="38" rx="12" fill="#ffffff" stroke="#283541" stroke-width="2"/>
+<text x="544.0" y="421.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="400" fill="#17212b" text-anchor="start">Timestream for InfluxDB</text>
+<path d="M 482.0 417.0 L 511.0 417.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 522.0 417.0 L 510.0 423.0 L 510.0 411.0 Z" fill="#17212b"/>
+<path d="M 294.0 387.0 L 331.0 387.0" fill="none" stroke="#17212b" stroke-width="2.5" stroke-linejoin="round"/><path d="M 342.0 387.0 L 330.0 393.0 L 330.0 381.0 Z" fill="#17212b"/>
+</svg>

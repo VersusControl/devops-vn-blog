@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="840" viewBox="0 0 1600 840" role="img" aria-label="Amazon S3: object storage, not a disk. In your applications, servers, containers, and a Lambda function read and write a private S3 bucket over HTTPS. A browser asks your backend for a presigned URL, then downloads the object directly from the bucket. A CloudFront distribution serves the static website and reads the private bucket through origin access control. The bucket my-app-uploads holds objects, each one data plus metadata, named by keys whose prefixes, such as uploads/2026/11/, are not real folders. Storage classes Standard, Intelligent-Tiering, and Glacier set the price by how often you read, and versioning keeps previous versions for backups.">
+<title>Amazon S3: applications, browsers through presigned URLs, and CloudFront all reach one private bucket of objects</title>
+<rect width="1600" height="840" fill="#f7f8fa"/>
+<rect x="16" y="16" width="1568" height="808" fill="none" stroke="#c9d1db" stroke-width="1.5"/>
+<text x="800.0" y="82.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="56" font-weight="700" fill="#1d2430" text-anchor="middle">Amazon S3</text>
+<rect x="629.6" y="98" width="340.8" height="4" fill="#1d2430"/>
+<text x="800.0" y="138.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="400" fill="#4a5563" text-anchor="middle">Object storage, not a disk</text>
+<rect x="168" y="168" width="500" height="198" rx="6" fill="#eceff3" stroke="#aab4bf" stroke-width="1.5"/>
+<text x="192.0" y="204.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="700" fill="#1d2430" text-anchor="start">Your applications</text>
+<rect x="192.0" y="222" width="140.0" height="128" rx="10" fill="#ffffff" stroke="#c9d1db" stroke-width="1.5"/>
+<rect x="237.9" y="248.0" width="48.2" height="19.0" rx="5" fill="#ed7100"/>
+<circle cx="245.6" cy="257.5" r="2.5" fill="#ffffff"/>
+<path d="M 256.2 257.5 H 278.4" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+<rect x="237.9" y="273.0" width="48.2" height="19.0" rx="5" fill="#ed7100"/>
+<circle cx="245.6" cy="282.5" r="2.5" fill="#ffffff"/>
+<path d="M 256.2 282.5 H 278.4" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+<text x="262.0" y="330.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="middle">Servers</text>
+<rect x="348.0" y="222" width="140.0" height="128" rx="10" fill="#ffffff" stroke="#c9d1db" stroke-width="1.5"/>
+<polygon points="404.6,267.2 417.4,274.2 417.4,288.2 404.6,295.2 391.7,288.2 391.7,274.2" fill="#2f7fd8" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+<path d="M 391.7 274.2 L 404.56 281.2 L 417.4 274.2 M 404.56 281.2 V 295.2" stroke="#ffffff" stroke-width="2" fill="none"/>
+<polygon points="431.4,267.2 444.3,274.2 444.3,288.2 431.4,295.2 418.6,288.2 418.6,274.2" fill="#2f7fd8" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+<path d="M 418.6 274.2 L 431.44 281.2 L 444.3 274.2 M 431.44 281.2 V 295.2" stroke="#ffffff" stroke-width="2" fill="none"/>
+<polygon points="418.0,244.8 430.9,251.8 430.9,265.8 418.0,272.8 405.1,265.8 405.1,251.8" fill="#2f7fd8" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+<path d="M 405.1 251.8 L 418.0 258.8 L 430.9 251.8 M 418.0 258.8 V 272.8" stroke="#ffffff" stroke-width="2" fill="none"/>
+<text x="418.0" y="330.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="middle">Containers</text>
+<rect x="504.0" y="222" width="140.0" height="128" rx="10" fill="#ffffff" stroke="#c9d1db" stroke-width="1.5"/>
+<rect x="546.0" y="242.0" width="56.0" height="56.0" rx="10" fill="#ed7100"/>
+<path d="M 561.9 255.1 H 569.3 L 583.3 284.9 H 588.9 M 573.1 266.3 L 560.9 284.9" stroke="#ffffff" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="574.0" y="330.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="middle">Lambda</text>
+<rect x="840" y="218" width="200" height="136" rx="10" fill="#ffffff" stroke="#c9d1db" stroke-width="1.5"/>
+<rect x="909.0" y="237.8" width="62.0" height="48.4" rx="7" fill="#ffffff" stroke="#2f7fd8" stroke-width="3"/>
+<path d="M 909.0 244.8 Q 909.0 237.8 916.0 237.8 H 964.0 Q 971.0 237.8 971.0 244.8 V 249.4 H 909.0 Z" fill="#2f7fd8"/>
+<circle cx="918.0" cy="243.6" r="2.6" fill="#ffffff"/>
+<circle cx="927.0" cy="243.6" r="2.6" fill="#ffffff"/>
+<circle cx="936.0" cy="243.6" r="2.6" fill="#ffffff"/>
+<rect x="917.7" y="256.2" width="22.3" height="20.3" rx="3" fill="#2f7fd8" opacity="0.35"/>
+<path d="M 945.0 259.1 H 962.3" stroke="#1d2430" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M 945.0 266.4 H 962.3" stroke="#1d2430" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M 945.0 273.6 H 962.3" stroke="#1d2430" stroke-width="2.4" stroke-linecap="round"/>
+<text x="940.0" y="318.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="middle">Browser</text>
+<text x="940.0" y="342.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="middle">your users</text>
+<path d="M 840 270 H 690" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="676,270 690,263 690,277" fill="#1d2430"/>
+<path d="M 668 302 H 818" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="832,302 818,295 818,309" fill="#1d2430"/>
+<text x="754.0" y="256.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" fill="#1d2430" text-anchor="middle">asks for URL</text>
+<text x="754.0" y="332.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" fill="#1d2430" text-anchor="middle">presigned URL</text>
+<rect x="1192" y="168" width="344" height="198" rx="6" fill="#e5f1fc" stroke="#86b6e3" stroke-width="1.5" stroke-dasharray="10 8"/>
+<text x="1216.0" y="204.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="700" fill="#1d2430" text-anchor="start">Static website</text>
+<rect x="1216" y="244" width="296" height="108" rx="10" fill="#ffffff" stroke="#c9d1db" stroke-width="1.5"/>
+<circle cx="1268" cy="298.0" r="32.0" fill="#8c4fff"/>
+<circle cx="1268" cy="298.0" r="19.8" fill="none" stroke="#ffffff" stroke-width="2.6"/>
+<ellipse cx="1268" cy="298.0" rx="8.6" ry="19.8" fill="none" stroke="#ffffff" stroke-width="2.2"/>
+<path d="M 1248.2 298.0 H 1287.8" stroke="#ffffff" stroke-width="2.2"/>
+<circle cx="1291.3" cy="311.4" r="4.2" fill="#ffffff"/>
+<circle cx="1244.7" cy="311.4" r="4.2" fill="#ffffff"/>
+<circle cx="1268.0" cy="271.1" r="4.2" fill="#ffffff"/>
+<text x="1316.0" y="292.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#1d2430" text-anchor="start">CloudFront</text>
+<text x="1316.0" y="320.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">origin access control</text>
+<path d="M 1040 298.0 H 1194" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="1208,298.0 1194,291.0 1194,305.0" fill="#1d2430"/>
+<text x="1116.0" y="284.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" fill="#1d2430" text-anchor="middle">loads site</text>
+<rect x="168" y="432" width="1368" height="344" rx="6" fill="#e5f1fc" stroke="#86b6e3" stroke-width="1.5" stroke-dasharray="10 8"/>
+<text x="192.0" y="468.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="25" font-weight="700" fill="#1d2430" text-anchor="start">Amazon S3</text>
+<rect x="192" y="484" width="1320" height="180" rx="10" fill="#ffffff" stroke="#86b6e3" stroke-width="1.5"/>
+<path d="M 418.0 366 V 462" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="418.0,476 411.0,462 425.0,462" fill="#1d2430"/>
+<text x="432.0" y="410.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" fill="#1d2430" text-anchor="start">HTTPS</text>
+<path d="M 940.0 354 V 462" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="940.0,476 933.0,462 947.0,462" fill="#1d2430"/>
+<text x="954.0" y="410.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" fill="#1d2430" text-anchor="start">downloads directly</text>
+<path d="M 1364.0 352 V 462" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="1364.0,476 1357.0,462 1371.0,462" fill="#1d2430"/>
+<text x="1378.0" y="410.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="500" fill="#1d2430" text-anchor="start">reads via OAC</text>
+<path d="M 218.4 551.6 L 230.5 602.4 A 27.5 7.2 0 0 0 285.5 602.4 L 297.6 551.6 Z" fill="#3f8624"/>
+<ellipse cx="258" cy="551.6" rx="39.6" ry="12.0" fill="#7aa116" stroke="#ffffff" stroke-width="2"/>
+<path d="M 224.0 579.5 Q 258.0 594.0 292.0 579.5" stroke="#ffffff" stroke-width="2.6" fill="none"/>
+<text x="318.0" y="548.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#1d2430" text-anchor="start">Private bucket</text>
+<text x="318.0" y="578.0" font-family="Menlo, Consolas, monospace" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start">my-app-uploads</text>
+<text x="318.0" y="606.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">public access blocked</text>
+<path d="M 590 506 V 642" stroke="#c9d1db" stroke-width="1.5"/>
+<text x="622.0" y="524.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">Objects</text>
+<text x="715.5" y="524.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">named by keys</text>
+<path d="M 623.4 574.0 H 633.4 L 638.6 579.2 V 594.0 H 623.4 Z" fill="#ffffff" stroke="#6b7785" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 633.4 574.0 V 579.2 H 638.6" fill="none" stroke="#6b7785" stroke-width="1.5"/>
+<text x="652.0" y="590.0" font-family="Menlo, Consolas, monospace" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start"><tspan fill="#2f7fd8" font-weight="700">uploads/2026/11/</tspan>avatar-42.png</text>
+<path d="M 623.4 604.0 H 633.4 L 638.6 609.2 V 624.0 H 623.4 Z" fill="#ffffff" stroke="#6b7785" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 633.4 604.0 V 609.2 H 638.6" fill="none" stroke="#6b7785" stroke-width="1.5"/>
+<text x="652.0" y="620.0" font-family="Menlo, Consolas, monospace" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start"><tspan fill="#2f7fd8" font-weight="700">uploads/2026/11/</tspan>avatar-43.png</text>
+<path d="M 623.4 634.0 H 633.4 L 638.6 639.2 V 654.0 H 623.4 Z" fill="#ffffff" stroke="#6b7785" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M 633.4 634.0 V 639.2 H 638.6" fill="none" stroke="#6b7785" stroke-width="1.5"/>
+<text x="652.0" y="650.0" font-family="Menlo, Consolas, monospace" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start"><tspan fill="#2f7fd8" font-weight="700">backups/</tspan>db-2026-11-27.sql.gz</text>
+<path d="M 652.0 566 V 558 H 821.5 V 566" stroke="#2f7fd8" stroke-width="1.8" fill="none"/>
+<text x="738.8" y="550.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="500" fill="#2f7fd8" text-anchor="middle">prefix, not a folder</text>
+<path d="M 1092 506 V 642" stroke="#c9d1db" stroke-width="1.5"/>
+<text x="1124.0" y="524.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">Each object</text>
+<rect x="1124" y="544" width="356" height="46" rx="6" fill="#eaf6e4" stroke="#7aa116" stroke-width="1.5"/>
+<text x="1140.0" y="574.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" fill="#1d2430" text-anchor="start">data</text>
+<text x="1194.2" y="574.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">the whole file</text>
+<rect x="1124" y="600" width="356" height="46" rx="6" fill="#efeafa" stroke="#b3a1dc" stroke-width="1.5"/>
+<text x="1140.0" y="630.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" fill="#1d2430" text-anchor="start">metadata</text>
+<text x="1242.4" y="630.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">type, size, tags</text>
+<text x="192.0" y="727.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">Storage classes</text>
+<rect x="379.8" y="699.0" width="122.7" height="40" rx="20" fill="#eaf6e4" stroke="#3f8624" stroke-width="1.8"/>
+<text x="441.2" y="726.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" fill="#3f8624" text-anchor="middle">Standard</text>
+<rect x="514.5" y="699.0" width="204.4" height="40" rx="20" fill="#e5f1fc" stroke="#2f7fd8" stroke-width="1.8"/>
+<text x="616.7" y="726.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" fill="#2f7fd8" text-anchor="middle">Intelligent-Tiering</text>
+<rect x="730.9" y="699.0" width="103.7" height="40" rx="20" fill="#e3f4f8" stroke="#2c7a9b" stroke-width="1.8"/>
+<text x="782.8" y="726.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" fill="#2c7a9b" text-anchor="middle">Glacier</text>
+<text x="850.7" y="726.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">by how often you read</text>
+<rect x="1150" y="682" width="362" height="74" rx="10" fill="#e8f6ee" stroke="#93cfae" stroke-width="1.5"/>
+<rect x="1186.3" y="693.7" width="25.8" height="32.2" rx="4" fill="#a3d9c9" stroke="#ffffff" stroke-width="2"/>
+<rect x="1179.9" y="700.1" width="25.8" height="32.2" rx="4" fill="#5cbfa3" stroke="#ffffff" stroke-width="2"/>
+<rect x="1173.4" y="706.6" width="25.8" height="32.2" rx="4" fill="#16a085" stroke="#ffffff" stroke-width="2"/>
+<path d="M 1178.0 718.1 H 1191.8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M 1178.0 724.1 H 1191.8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M 1178.0 730.0 H 1191.8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+<text x="1230.0" y="715.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">Versioning</text>
+<text x="1230.0" y="741.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">keeps old versions for backups</text>
+<svg x="64" y="704" width="72" height="72" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  zoomAndPan="magnify" viewBox="0 0 375 374.999991"  preserveAspectRatio="xMidYMid meet" version="1.0"><defs><g/><clipPath id="dvi-274bc868f1"><rect x="0" width="256" y="0" height="207"/></clipPath><clipPath id="dvi-39212e69f5"><path d="M 20.160156 166.308594 L 354.839844 166.308594 L 354.839844 206.523438 L 20.160156 206.523438 Z M 20.160156 166.308594 " clip-rule="nonzero"/></clipPath><clipPath id="dvi-9d392dbbdf"><path d="M 0.160156 0.308594 L 334.839844 0.308594 L 334.839844 40.523438 L 0.160156 40.523438 Z M 0.160156 0.308594 " clip-rule="nonzero"/></clipPath><clipPath id="dvi-4aaa938553"><rect x="0" width="335" y="0" height="41"/></clipPath></defs><rect x="-37.5" width="450" fill="#ffffff" y="-37.499999" height="449.999989" fill-opacity="1"/><rect x="-37.5" width="450" fill="#f2fbfa" y="-37.499999" height="449.999989" fill-opacity="1"/><g transform="matrix(1, 0, 0, 1, 55, 107)"><g clip-path="url(#dvi-274bc868f1)"><g fill="#5585ad" fill-opacity="1"><g transform="translate(0.83704, 152.616185)"><g><path d="M 8.859375 -141.65625 L 44.796875 -141.65625 C 45.035156 -138.707031 45.300781 -136.195312 45.59375 -134.125 C 45.894531 -132.0625 46.3125 -130 46.84375 -127.9375 C 47.375 -125.875 48.050781 -123.425781 48.875 -120.59375 L 80.578125 -6.203125 L 112.265625 -122.359375 C 113.210938 -125.785156 114.007812 -128.828125 114.65625 -131.484375 C 115.300781 -134.140625 115.800781 -137.53125 116.15625 -141.65625 L 123.0625 -141.65625 C 120.820312 -137.289062 119.316406 -133.835938 118.546875 -131.296875 C 117.785156 -128.765625 116.929688 -125.84375 115.984375 -122.53125 L 85.890625 -12.578125 C 85.296875 -10.097656 84.9375 -8.03125 84.8125 -6.375 C 84.695312 -4.71875 85.054688 -2.59375 85.890625 0 L 50.46875 0 L 17.171875 -120.59375 C 15.878906 -125.3125 14.640625 -129.113281 13.453125 -132 C 12.273438 -134.894531 10.742188 -138.113281 8.859375 -141.65625 Z M 8.859375 -141.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(123.900269, 152.616185)"><g><path d="M 12.390625 0 C 12.867188 -4.488281 13.253906 -8.5625 13.546875 -12.21875 C 13.835938 -15.875 14.039062 -19.707031 14.15625 -23.71875 C 14.28125 -27.738281 14.34375 -32.460938 14.34375 -37.890625 L 14.34375 -103.765625 C 14.34375 -109.316406 14.28125 -114.066406 14.15625 -118.015625 C 14.039062 -121.972656 13.835938 -125.78125 13.546875 -129.4375 C 13.253906 -133.101562 12.867188 -137.175781 12.390625 -141.65625 L 48.171875 -141.65625 L 122 -8.140625 L 122.71875 -7.96875 L 122.71875 -103.765625 C 122.71875 -109.316406 122.65625 -114.066406 122.53125 -118.015625 C 122.414062 -121.972656 122.238281 -125.78125 122 -129.4375 C 121.769531 -133.101562 121.414062 -137.175781 120.9375 -141.65625 L 127.84375 -141.65625 C 127.488281 -137.175781 127.164062 -133.101562 126.875 -129.4375 C 126.582031 -125.78125 126.375 -121.972656 126.25 -118.015625 C 126.132812 -114.066406 126.078125 -109.316406 126.078125 -103.765625 L 126.078125 -37.890625 C 126.078125 -32.460938 126.132812 -27.738281 126.25 -23.71875 C 126.375 -19.707031 126.582031 -15.875 126.875 -12.21875 C 127.164062 -8.5625 127.488281 -4.488281 127.84375 0 L 92.25 0 L 18.234375 -133.515625 L 17.53125 -133.6875 L 17.53125 -37.890625 C 17.53125 -32.460938 17.585938 -27.738281 17.703125 -23.71875 C 17.828125 -19.707031 18.035156 -15.875 18.328125 -12.21875 C 18.617188 -8.5625 19.003906 -4.488281 19.484375 0 Z M 12.390625 0 "/></g></g></g></g></g><g clip-path="url(#dvi-39212e69f5)"><g transform="matrix(1, 0, 0, 1, 20, 166)"><g clip-path="url(#dvi-4aaa938553)"><g clip-path="url(#dvi-9d392dbbdf)"><path fill="#f2fbfa" d="M 0.160156 0.308594 L 334.894531 0.308594 L 334.894531 40.523438 L 0.160156 40.523438 Z M 0.160156 0.308594 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(98.854166, 195.41908)"><g><path d="M 2.109375 -16.09375 L 8.71875 -16.09375 C 11.125 -16.09375 13.113281 -15.332031 14.6875 -13.8125 C 16.257812 -12.300781 17.046875 -10.378906 17.046875 -8.046875 C 17.046875 -5.710938 16.253906 -3.785156 14.671875 -2.265625 C 13.097656 -0.753906 11.085938 0 8.640625 0 L 2.109375 0 Z M 4.828125 -13.65625 L 4.828125 -2.4375 L 8.78125 -2.4375 C 10.363281 -2.4375 11.679688 -2.960938 12.734375 -4.015625 C 13.785156 -5.066406 14.3125 -6.40625 14.3125 -8.03125 C 14.3125 -9.65625 13.769531 -11 12.6875 -12.0625 C 11.601562 -13.125 10.265625 -13.65625 8.671875 -13.65625 Z M 4.828125 -13.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(135.073181, 195.41908)"><g><path d="M 13.609375 -13.65625 L 4.828125 -13.65625 L 4.828125 -9.3125 L 12.703125 -9.3125 L 12.703125 -6.875 L 4.828125 -6.875 L 4.828125 -2.4375 L 13.890625 -2.4375 L 13.890625 0 L 2.109375 0 L 2.109375 -16.09375 L 13.609375 -16.09375 Z M 13.609375 -13.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(168.556119, 195.41908)"><g><path d="M 9.296875 0 L 6.484375 0 L 0.0625 -16.09375 L 2.984375 -16.09375 L 7.953125 -3.015625 L 12.96875 -16.09375 L 15.796875 -16.09375 Z M 9.296875 0 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(202.820793, 195.41908)"><g><path d="M 3.234375 -13.828125 C 4.878906 -15.390625 6.90625 -16.171875 9.3125 -16.171875 C 11.71875 -16.171875 13.738281 -15.390625 15.375 -13.828125 C 17.019531 -12.273438 17.84375 -10.347656 17.84375 -8.046875 C 17.84375 -5.742188 17.019531 -3.804688 15.375 -2.234375 C 13.738281 -0.671875 11.71875 0.109375 9.3125 0.109375 C 6.90625 0.109375 4.878906 -0.671875 3.234375 -2.234375 C 1.597656 -3.804688 0.78125 -5.742188 0.78125 -8.046875 C 0.78125 -10.347656 1.597656 -12.273438 3.234375 -13.828125 Z M 9.34375 -13.734375 C 7.75 -13.734375 6.382812 -13.179688 5.25 -12.078125 C 4.113281 -10.984375 3.546875 -9.640625 3.546875 -8.046875 C 3.546875 -6.453125 4.113281 -5.097656 5.25 -3.984375 C 6.394531 -2.878906 7.753906 -2.328125 9.328125 -2.328125 C 10.910156 -2.328125 12.257812 -2.878906 13.375 -3.984375 C 14.5 -5.097656 15.0625 -6.453125 15.0625 -8.046875 C 15.0625 -9.640625 14.5 -10.984375 13.375 -12.078125 C 12.257812 -13.179688 10.914062 -13.734375 9.34375 -13.734375 Z M 9.34375 -13.734375 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(239.844533, 195.41908)"><g><path d="M 2.109375 -16.09375 L 8.53125 -16.09375 C 10.550781 -16.09375 12.117188 -15.613281 13.234375 -14.65625 C 14.347656 -13.695312 14.90625 -12.347656 14.90625 -10.609375 C 14.90625 -8.773438 14.347656 -7.359375 13.234375 -6.359375 C 12.117188 -5.359375 10.550781 -4.859375 8.53125 -4.859375 L 4.828125 -4.859375 L 4.828125 0 L 2.109375 0 Z M 4.828125 -13.65625 L 4.828125 -7.296875 L 8.421875 -7.296875 C 11.015625 -7.296875 12.3125 -8.375 12.3125 -10.53125 C 12.3125 -12.613281 11.015625 -13.65625 8.421875 -13.65625 Z M 4.828125 -13.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(273.718333, 195.41908)"><g><path d="M 7.40625 -16.21875 C 9.488281 -16.21875 11.367188 -15.664062 13.046875 -14.5625 L 11.90625 -12.171875 C 10.269531 -13.160156 8.703125 -13.65625 7.203125 -13.65625 C 6.390625 -13.65625 5.75 -13.507812 5.28125 -13.21875 C 4.8125 -12.925781 4.578125 -12.507812 4.578125 -11.96875 C 4.578125 -11.4375 4.789062 -10.984375 5.21875 -10.609375 C 5.644531 -10.234375 6.179688 -9.957031 6.828125 -9.78125 C 7.472656 -9.601562 8.171875 -9.378906 8.921875 -9.109375 C 9.671875 -8.847656 10.367188 -8.566406 11.015625 -8.265625 C 11.660156 -7.960938 12.191406 -7.492188 12.609375 -6.859375 C 13.035156 -6.222656 13.25 -5.453125 13.25 -4.546875 C 13.25 -3.140625 12.679688 -2.015625 11.546875 -1.171875 C 10.421875 -0.328125 8.960938 0.09375 7.171875 0.09375 C 5.953125 0.09375 4.765625 -0.132812 3.609375 -0.59375 C 2.460938 -1.050781 1.457031 -1.675781 0.59375 -2.46875 L 1.765625 -4.8125 C 2.578125 -4.0625 3.46875 -3.484375 4.4375 -3.078125 C 5.414062 -2.671875 6.34375 -2.46875 7.21875 -2.46875 C 8.164062 -2.46875 8.90625 -2.640625 9.4375 -2.984375 C 9.96875 -3.328125 10.234375 -3.804688 10.234375 -4.421875 C 10.234375 -4.972656 10.019531 -5.4375 9.59375 -5.8125 C 9.164062 -6.1875 8.628906 -6.460938 7.984375 -6.640625 C 7.335938 -6.816406 6.640625 -7.03125 5.890625 -7.28125 C 5.140625 -7.53125 4.441406 -7.796875 3.796875 -8.078125 C 3.148438 -8.367188 2.613281 -8.828125 2.1875 -9.453125 C 1.757812 -10.078125 1.546875 -10.835938 1.546875 -11.734375 C 1.546875 -13.097656 2.082031 -14.1875 3.15625 -15 C 4.226562 -15.8125 5.644531 -16.21875 7.40625 -16.21875 Z M 7.40625 -16.21875 "/></g></g></g></svg>
+<rect x="64" y="704" width="72" height="72" rx="8" fill="none" stroke="#c9d1db" stroke-width="1.5"/>
+</svg>

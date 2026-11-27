@@ -1,0 +1,46 @@
+# Two environments and one small app in each, so there are Pods and logs to look at.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pro
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: orders }
+  template:
+    metadata:
+      labels: { app: orders }
+    spec:
+      containers:
+      - name: orders
+        image: busybox:1.37
+        command: ["sh", "-c", "while true; do echo \"processed order $RANDOM\"; sleep 5; done"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders
+  namespace: pro
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: orders }
+  template:
+    metadata:
+      labels: { app: orders }
+    spec:
+      containers:
+      - name: orders
+        image: busybox:1.37
+        command: ["sh", "-c", "while true; do echo \"processed order $RANDOM\"; sleep 5; done"]

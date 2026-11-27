@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="478" viewBox="0 0 760 478" role="img" aria-label="The NIST cloud model from SP 800-145 has three parts. Five essential characteristics: on-demand self-service, broad network access, resource pooling, rapid elasticity, and measured service. Three service models: IaaS, PaaS, and SaaS. These two are covered in chapter 1. Four deployment models, covered in this chapter: public, private, community, and hybrid.">
+<defs><style>
+text{font-family:'Helvetica Neue', Arial, sans-serif;fill:#17212b}
+.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+.title{font-size:15px;font-weight:700}
+.item{font-size:14px;font-weight:700}
+.detail{font-size:12px;fill:#526579}
+.note{font-size:13px}
+.badge{font-size:12px;font-weight:700;fill:#ffffff}
+.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+.node{fill:#ffffff;stroke:#283541;stroke-width:2}
+.concept{fill:#ffffff;stroke:#283541;stroke-width:2;stroke-dasharray:7 5}
+.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linejoin:round}
+.arrow{fill:#17212b}
+.notebox{fill:#ffffff;stroke:#7d8fa1;stroke-width:1.5;stroke-dasharray:6 4}
+</style></defs>
+<rect width="760" height="478" fill="#ffffff"/>
+<rect x="20.0" y="124.0" width="228.0" height="334.0" rx="14" class="zone-box"/>
+<text x="36.0" y="148.0" class="zone">CHAPTER 1</text>
+<rect x="266.0" y="124.0" width="228.0" height="334.0" rx="14" class="zone-box"/>
+<text x="282.0" y="148.0" class="zone">CHAPTER 1</text>
+<rect x="512.0" y="124.0" width="228.0" height="334.0" rx="14" class="zone-box"/>
+<text x="528.0" y="148.0" class="zone">THIS CHAPTER</text>
+<path d="M380.0 74.0 L380.0 98.0 L134.0 98.0 L134.0 104.0" class="flow"/><path d="M134.0 116.0L127.5 103.0L140.5 103.0Z" class="arrow"/>
+<path d="M380.0 74.0 L380.0 104.0" class="flow"/><path d="M380.0 116.0L373.5 103.0L386.5 103.0Z" class="arrow"/>
+<path d="M380.0 74.0 L380.0 98.0 L626.0 98.0 L626.0 104.0" class="flow"/><path d="M626.0 116.0L619.5 103.0L632.5 103.0Z" class="arrow"/>
+<rect x="270.0" y="20.0" width="220.0" height="54.0" rx="12" class="node"/>
+<text x="380.0" y="44.0" class="title" text-anchor="middle">NIST cloud model</text>
+<text x="380.0" y="63.0" class="detail" text-anchor="middle">SP 800-145</text>
+<rect x="32.0" y="160.0" width="204.0" height="56.0" rx="12" class="node"/>
+<text x="134.0" y="183.0" class="title" text-anchor="middle">5 essential</text>
+<text x="134.0" y="202.0" class="title" text-anchor="middle">characteristics</text>
+<rect x="32.0" y="230.0" width="204.0" height="36.0" rx="10" class="node"/>
+<text x="46.0" y="253.0" class="item">On-demand self-service</text>
+<rect x="32.0" y="274.0" width="204.0" height="36.0" rx="10" class="node"/>
+<text x="46.0" y="297.0" class="item">Broad network access</text>
+<rect x="32.0" y="318.0" width="204.0" height="36.0" rx="10" class="node"/>
+<text x="46.0" y="341.0" class="item">Resource pooling</text>
+<rect x="32.0" y="362.0" width="204.0" height="36.0" rx="10" class="node"/>
+<text x="46.0" y="385.0" class="item">Rapid elasticity</text>
+<rect x="32.0" y="406.0" width="204.0" height="36.0" rx="10" class="node"/>
+<text x="46.0" y="429.0" class="item">Measured service</text>
+<rect x="278.0" y="160.0" width="204.0" height="56.0" rx="12" class="node"/>
+<text x="380.0" y="183.0" class="title" text-anchor="middle">3 service</text>
+<text x="380.0" y="202.0" class="title" text-anchor="middle">models</text>
+<rect x="278.0" y="230.0" width="204.0" height="46.0" rx="10" class="node"/>
+<text x="292.0" y="250.0" class="item">IaaS</text>
+<text x="292.0" y="267.0" class="detail">Infrastructure as a Service</text>
+<rect x="278.0" y="284.0" width="204.0" height="46.0" rx="10" class="node"/>
+<text x="292.0" y="304.0" class="item">PaaS</text>
+<text x="292.0" y="321.0" class="detail">Platform as a Service</text>
+<rect x="278.0" y="338.0" width="204.0" height="46.0" rx="10" class="node"/>
+<text x="292.0" y="358.0" class="item">SaaS</text>
+<text x="292.0" y="375.0" class="detail">Software as a Service</text>
+<rect x="524.0" y="160.0" width="204.0" height="56.0" rx="12" class="primary"/>
+<text x="626.0" y="183.0" class="title" text-anchor="middle">4 deployment</text>
+<text x="626.0" y="202.0" class="title" text-anchor="middle">models</text>
+<rect x="524.0" y="230.0" width="204.0" height="46.0" rx="10" class="node"/>
+<text x="538.0" y="250.0" class="item">Public</text>
+<text x="538.0" y="267.0" class="detail">anyone</text>
+<rect x="524.0" y="284.0" width="204.0" height="46.0" rx="10" class="node"/>
+<text x="538.0" y="304.0" class="item">Private</text>
+<text x="538.0" y="321.0" class="detail">one organization</text>
+<rect x="524.0" y="338.0" width="204.0" height="46.0" rx="10" class="node"/>
+<text x="538.0" y="358.0" class="item">Community</text>
+<text x="538.0" y="375.0" class="detail">a group with shared needs</text>
+<rect x="524.0" y="392.0" width="204.0" height="46.0" rx="10" class="node"/>
+<text x="538.0" y="412.0" class="item">Hybrid</text>
+<text x="538.0" y="429.0" class="detail">connected combinations</text>
+</svg>

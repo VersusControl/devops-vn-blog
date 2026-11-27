@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="476" viewBox="0 0 760 476" role="img" aria-label="A cloud as four stacked layers, from the bottom up. 1, resource pool: servers, storage, and networks, shared by many tenants through multi-tenancy, with each tenant isolated. 2, service models: IaaS for virtual machines, disks, and networks; PaaS for a platform that runs your code; SaaS for a finished application. 3, foundational services: self-service, network access, elasticity, and metering and billing. 4, management services: security, monitoring, data management, and integration.">
+<defs><style>
+text{font-family:'Helvetica Neue', Arial, sans-serif;fill:#17212b}
+.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+.title{font-size:15px;font-weight:700}
+.item{font-size:14px;font-weight:700}
+.detail{font-size:12px;fill:#526579}
+.note{font-size:13px}
+.badge{font-size:12px;font-weight:700;fill:#ffffff}
+.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+.node{fill:#ffffff;stroke:#283541;stroke-width:2}
+.concept{fill:#ffffff;stroke:#283541;stroke-width:2;stroke-dasharray:7 5}
+.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linejoin:round}
+.arrow{fill:#17212b}
+.notebox{fill:#ffffff;stroke:#7d8fa1;stroke-width:1.5;stroke-dasharray:6 4}
+</style></defs>
+<rect width="760" height="476" fill="#ffffff"/>
+<rect x="20.0" y="20.0" width="720.0" height="96.0" rx="14" class="zone-box"/>
+<circle cx="46" cy="42" r="10" fill="#283541"/>
+<text x="46.0" y="46.0" class="badge" text-anchor="middle">4</text>
+<text x="64.0" y="46.0" class="zone">MANAGEMENT SERVICES</text>
+<text x="257.4" y="46.0" class="detail">what every customer needs</text>
+<rect x="36.0" y="60.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="117.5" y="86.0" class="item" text-anchor="middle">Security</text>
+<rect x="211.0" y="60.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="292.5" y="86.0" class="item" text-anchor="middle">Monitoring</text>
+<rect x="386.0" y="60.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="467.5" y="86.0" class="item" text-anchor="middle">Data management</text>
+<rect x="561.0" y="60.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="642.5" y="86.0" class="item" text-anchor="middle">Integration</text>
+<rect x="20.0" y="128.0" width="720.0" height="96.0" rx="14" class="zone-box"/>
+<circle cx="46" cy="150" r="10" fill="#283541"/>
+<text x="46.0" y="154.0" class="badge" text-anchor="middle">3</text>
+<text x="64.0" y="154.0" class="zone">FOUNDATIONAL SERVICES</text>
+<text x="267.1" y="154.0" class="detail">what makes renting possible</text>
+<rect x="36.0" y="168.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="117.5" y="194.0" class="item" text-anchor="middle">Self-service</text>
+<rect x="211.0" y="168.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="292.5" y="194.0" class="item" text-anchor="middle">Network access</text>
+<rect x="386.0" y="168.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="467.5" y="194.0" class="item" text-anchor="middle">Elasticity</text>
+<rect x="561.0" y="168.0" width="163.0" height="42.0" rx="10" class="node"/>
+<text x="642.5" y="194.0" class="item" text-anchor="middle">Metering and billing</text>
+<rect x="20.0" y="236.0" width="720.0" height="104.0" rx="14" class="zone-box"/>
+<circle cx="46" cy="258" r="10" fill="#283541"/>
+<text x="46.0" y="262.0" class="badge" text-anchor="middle">2</text>
+<text x="64.0" y="262.0" class="zone">SERVICE MODELS</text>
+<text x="205.9" y="262.0" class="detail">what the provider rents out</text>
+<rect x="36.0" y="276.0" width="221.3" height="50.0" rx="10" class="node"/>
+<text x="146.7" y="297.0" class="item" text-anchor="middle">IaaS</text>
+<text x="146.7" y="314.0" class="detail" text-anchor="middle">virtual machines, disks, networks</text>
+<rect x="269.3" y="276.0" width="221.3" height="50.0" rx="10" class="node"/>
+<text x="380.0" y="297.0" class="item" text-anchor="middle">PaaS</text>
+<text x="380.0" y="314.0" class="detail" text-anchor="middle">a platform that runs your code</text>
+<rect x="502.7" y="276.0" width="221.3" height="50.0" rx="10" class="node"/>
+<text x="613.3" y="297.0" class="item" text-anchor="middle">SaaS</text>
+<text x="613.3" y="314.0" class="detail" text-anchor="middle">a finished application</text>
+<rect x="20.0" y="352.0" width="720.0" height="104.0" rx="14" class="zone-box"/>
+<circle cx="46" cy="374" r="10" fill="#283541"/>
+<text x="46.0" y="378.0" class="badge" text-anchor="middle">1</text>
+<text x="64.0" y="378.0" class="zone">RESOURCE POOL</text>
+<text x="202.5" y="378.0" class="detail">shared by many tenants</text>
+<rect x="36.0" y="392.0" width="163.0" height="50.0" rx="10" class="node"/>
+<text x="117.5" y="422.0" class="item" text-anchor="middle">Servers</text>
+<rect x="211.0" y="392.0" width="163.0" height="50.0" rx="10" class="node"/>
+<text x="292.5" y="422.0" class="item" text-anchor="middle">Storage</text>
+<rect x="386.0" y="392.0" width="163.0" height="50.0" rx="10" class="node"/>
+<text x="467.5" y="422.0" class="item" text-anchor="middle">Networks</text>
+<rect x="561.0" y="392.0" width="163.0" height="50.0" rx="10" class="concept"/>
+<text x="642.5" y="413.0" class="item" text-anchor="middle">Multi-tenancy</text>
+<text x="642.5" y="430.0" class="detail" text-anchor="middle">each tenant isolated</text>
+</svg>

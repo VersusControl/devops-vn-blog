@@ -1,37 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b3a5e"/>
-      <stop offset="1" stop-color="#0d1117"/>
-    </linearGradient>
-    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#e0f2fe"/>
-      <stop offset="1" stop-color="#7dd3fc"/>
-    </linearGradient>
-  </defs>
-  <rect width="1600" height="760" fill="url(#bg)"/>
-  <circle cx="1360" cy="180" r="340" fill="#38bdf8" opacity="0.13"/>
-  <circle cx="1420" cy="610" r="220" fill="#0ea5e9" opacity="0.10"/>
-
-  <!-- cloud connected to server nodes -->
-  <g transform="translate(1180 205)">
-    <path d="M70 190 a80 80 0 0 1 8 -159 a108 108 0 0 1 208 22 a70 70 0 0 1 -8 137 z"
-          fill="url(#cloud)" fill-opacity="0.92"/>
-    <g stroke="#7dd3fc" stroke-opacity="0.45" stroke-width="4">
-      <line x1="120" y1="196" x2="120" y2="300"/>
-      <line x1="200" y1="196" x2="200" y2="300"/>
-      <line x1="280" y1="196" x2="280" y2="300"/>
-    </g>
-    <g fill="#38bdf8" fill-opacity="0.85">
-      <rect x="96" y="300" width="48" height="48" rx="8"/>
-      <rect x="176" y="300" width="48" height="48" rx="8"/>
-      <rect x="256" y="300" width="48" height="48" rx="8"/>
-    </g>
-  </g>
-
-  <rect x="120" y="150" width="54" height="6" rx="3" fill="#38bdf8"/>
-  <text x="192" y="163" font-size="26" fill="#7dd3fc" font-weight="700" letter-spacing="4">DEVOPS VN · CLOUD FUNDAMENTALS</text>
-  <text x="118" y="430" font-size="102" fill="#ffffff" font-weight="800">Cloud Computing</text>
-  <text x="120" y="606" font-size="30" fill="#a9cfe6" font-weight="500">Understand the cloud from the ground up</text>
-  <text x="120" y="652" font-size="24" fill="#5f83a0" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Cloud Computing: The Ideas Under Every Cloud, series cover with three chapters. Under the providers AWS, Azure, and Google Cloud, joined by open standards, sit the service models SaaS, a finished application, PaaS, a platform for your code, and IaaS, virtual machines, disks, and networks, built on a resource pool of servers, storage, and networks shared by many tenants." font-family="'Helvetica Neue', Arial, sans-serif">
+<rect width="1600" height="900" fill="#f8fafc"/>
+<rect x="0" width="630" height="900" fill="#eef4f8"/>
+<rect x="80" y="122" width="70" height="8" rx="4" fill="#1769aa"/>
+<text x="80.0" y="176.0" font-size="22" fill="#52657a" font-weight="700" letter-spacing="3">DEVOPS VN</text>
+<text x="80.0" y="238.0" font-size="30" fill="#1769aa" font-weight="700">Cloud Fundamentals</text>
+<text x="80.0" y="326.0" font-size="72" fill="#102235" font-weight="700">Cloud</text>
+<text x="80.0" y="410.0" font-size="72" fill="#102235" font-weight="700">Computing</text>
+<text x="80.0" y="472.0" font-size="23" fill="#52657a" font-weight="400">The ideas under every cloud</text>
+<line x1="80" y1="532" x2="494" y2="532" stroke="#aab9c6" stroke-width="2"/>
+<text x="80" y="578" font-size="18" fill="#52657a" font-family="Menlo, Consolas, monospace">SERIES 03 CHAPTERS</text>
+<text x="80.0" y="810.0" font-size="21" fill="#52657a" font-weight="400">Grounded in NIST SP 800-145</text>
+<rect x="690" y="92" width="830" height="716" rx="16" fill="#e7f0f5" stroke="#9eb3c2" stroke-width="2"/>
+<text x="730.0" y="152.0" font-size="18" fill="#52657a" font-weight="700" letter-spacing="2">PROVIDERS</text>
+<rect x="730.0" y="176" width="204" height="84" rx="14" fill="#fff" stroke="#183044" stroke-width="2.5"/>
+<text x="832.0" y="226.0" font-size="24" fill="#102235" font-weight="700" text-anchor="middle">AWS</text>
+<rect x="1003.0" y="176" width="204" height="84" rx="14" fill="#fff" stroke="#183044" stroke-width="2.5"/>
+<text x="1105.0" y="226.0" font-size="24" fill="#102235" font-weight="700" text-anchor="middle">Azure</text>
+<rect x="1276.0" y="176" width="204" height="84" rx="14" fill="#fff" stroke="#183044" stroke-width="2.5"/>
+<text x="1378.0" y="226.0" font-size="24" fill="#102235" font-weight="700" text-anchor="middle">Google Cloud</text>
+<path d="M940.0 218.0H997.0" stroke="#1769aa" stroke-width="3" stroke-dasharray="9 7" fill="none"/>
+<path d="M1213.0 218.0H1270.0" stroke="#1769aa" stroke-width="3" stroke-dasharray="9 7" fill="none"/>
+<text x="1105.0" y="294.0" font-size="17" fill="#1769aa" font-weight="400" text-anchor="middle">joined by open standards</text>
+<text x="730.0" y="360.0" font-size="18" fill="#52657a" font-weight="700" letter-spacing="2">SERVICE MODELS</text>
+<rect x="785.0" y="384" width="640.0" height="58" rx="12" fill="#fff" stroke="#183044" stroke-width="2.5"/>
+<text x="813.0" y="421.0" font-size="23" fill="#102235" font-weight="700">SaaS</text>
+<text x="903.0" y="420.0" font-size="18" fill="#52657a" font-weight="400">a finished application</text>
+<rect x="755.0" y="454" width="700.0" height="58" rx="12" fill="#fff" stroke="#183044" stroke-width="2.5"/>
+<text x="783.0" y="491.0" font-size="23" fill="#102235" font-weight="700">PaaS</text>
+<text x="873.0" y="490.0" font-size="18" fill="#52657a" font-weight="400">a platform for your code</text>
+<rect x="730.0" y="524" width="750.0" height="58" rx="12" fill="#fff" stroke="#183044" stroke-width="2.5"/>
+<text x="758.0" y="561.0" font-size="23" fill="#102235" font-weight="700">IaaS</text>
+<text x="848.0" y="560.0" font-size="18" fill="#52657a" font-weight="400">virtual machines, disks, networks</text>
+<text x="730.0" y="646.0" font-size="18" fill="#52657a" font-weight="700" letter-spacing="2">RESOURCE POOL</text>
+<text x="1480.0" y="646.0" font-size="17" fill="#52657a" font-weight="400" text-anchor="end">shared by many tenants</text>
+<rect x="730.0" y="670" width="230" height="84" rx="14" fill="#cfe8f3" stroke="#183044" stroke-width="2.5"/>
+<text x="845.0" y="720.0" font-size="23" fill="#102235" font-weight="700" text-anchor="middle">Servers</text>
+<rect x="990.0" y="670" width="230" height="84" rx="14" fill="#cfe8f3" stroke="#183044" stroke-width="2.5"/>
+<text x="1105.0" y="720.0" font-size="23" fill="#102235" font-weight="700" text-anchor="middle">Storage</text>
+<rect x="1250.0" y="670" width="230" height="84" rx="14" fill="#cfe8f3" stroke="#183044" stroke-width="2.5"/>
+<text x="1365.0" y="720.0" font-size="23" fill="#102235" font-weight="700" text-anchor="middle">Networks</text>
 </svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="656" viewBox="0 0 760 656" role="img" aria-label="Before and after for a CI/CD pipeline. Before, the CodeBuild buildspec.yaml holds four secrets: an AWS access key, a DB password, an SSH key, and a server IP. The pipeline reaches AWS over the public internet: it calls AWS APIs for an S3 upload with the access key, which works from anywhere, and copies files with scp and the SSH key to an EC2 instance at a public IP with port 22 open. After, the pipeline file holds no secrets: CodeBuild or GitHub Actions assumes an IAM role, through OIDC for GitHub Actions, and gets temporary credentials, reads the password from a Parameter Store SecureString at build time, and deploys through Systems Manager Run Command to an EC2 instance with port 22 closed.">
+<title>Before and after: a pipeline with four secrets versus a pipeline with none</title>
+<rect width="760" height="656" fill="#fff"/>
+<rect x="20" y="20" width="720" height="300" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+<text x="36" y="46" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1.5">BEFORE</text>
+<text x="36" y="70" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="start">Four secrets in the pipeline file</text>
+<text x="36" y="88" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">Readable in the repository, build logs, and Git history</text>
+<rect x="36" y="108" width="160" height="192" rx="12" fill="#fff" stroke="#283541" stroke-width="2"/>
+<text x="116.0" y="132" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">CodeBuild</text>
+<text x="116.0" y="151" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">buildspec.yaml</text>
+<rect x="48" y="164" width="136" height="26" rx="8" fill="#fbeae6" stroke="#b5543c" stroke-width="1.5"/>
+<text x="116.0" y="181.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#7a2e1c" text-anchor="middle">AWS access key</text>
+<rect x="48" y="196" width="136" height="26" rx="8" fill="#fbeae6" stroke="#b5543c" stroke-width="1.5"/>
+<text x="116.0" y="213.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#7a2e1c" text-anchor="middle">DB password</text>
+<rect x="48" y="228" width="136" height="26" rx="8" fill="#fbeae6" stroke="#b5543c" stroke-width="1.5"/>
+<text x="116.0" y="245.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#7a2e1c" text-anchor="middle">SSH key</text>
+<rect x="48" y="260" width="136" height="26" rx="8" fill="#fbeae6" stroke="#b5543c" stroke-width="1.5"/>
+<text x="116.0" y="277.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#7a2e1c" text-anchor="middle">server IP</text>
+<rect x="336" y="108" width="160" height="192" rx="12" fill="#f8fafc" stroke="#aab9c7" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="416.0" y="208.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#526579" text-anchor="middle" letter-spacing="1.5">PUBLIC INTERNET</text>
+<rect x="600" y="108" width="124" height="80" rx="12" fill="#fff" stroke="#283541" stroke-width="2"/>
+<text x="662.0" y="133" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">AWS APIs</text>
+<text x="662.0" y="153" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">S3 upload</text>
+<text x="662.0" y="170" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">works anywhere</text>
+<rect x="600" y="220" width="124" height="80" rx="12" fill="#fff" stroke="#283541" stroke-width="2"/>
+<text x="662.0" y="245" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">EC2 instance</text>
+<text x="662.0" y="264" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">54.12.34.56</text>
+<text x="662.0" y="282" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#7a2e1c" text-anchor="middle">port 22 open</text>
+<path d="M196 148H579" stroke="#17212b" stroke-width="2.5" fill="none"/>
+<polygon points="592,148 579,142 579,154" fill="#17212b"/>
+<text x="266.0" y="139" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">access key</text>
+<path d="M196 260H579" stroke="#17212b" stroke-width="2.5" fill="none"/>
+<polygon points="592,260 579,254 579,266" fill="#17212b"/>
+<text x="266.0" y="251" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">scp with SSH key</text>
+<rect x="20" y="336" width="720" height="300" rx="14" fill="#edf2f6" stroke="#aab9c7" stroke-width="2"/>
+<text x="36" y="362" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#526579" text-anchor="start" letter-spacing="1.5">AFTER</text>
+<text x="36" y="386" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="start">No secrets in the pipeline file</text>
+<text x="36" y="404" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="start">A role for AWS access, Parameter Store for the password, Systems Manager to deploy</text>
+<rect x="36" y="424" width="160" height="192" rx="12" fill="#d8e7f2" stroke="#456987" stroke-width="2"/>
+<text x="116.0" y="448" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">CodeBuild</text>
+<text x="116.0" y="466" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">or GitHub Actions</text>
+<rect x="48" y="514" width="136" height="64" rx="8" fill="#fff" stroke="#456987" stroke-width="1.5"/>
+<text x="116.0" y="540" font-family="Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#17212b" text-anchor="middle">buildspec.yaml</text>
+<text x="116.0" y="559" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#2c5373" text-anchor="middle">no stored secrets</text>
+<rect x="336" y="424" width="160" height="56" rx="12" fill="#fff" stroke="#283541" stroke-width="2"/>
+<text x="416.0" y="448" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">IAM role / OIDC</text>
+<text x="416.0" y="466" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">temporary credentials</text>
+<rect x="336" y="492" width="160" height="56" rx="12" fill="#fff" stroke="#283541" stroke-width="2"/>
+<text x="416.0" y="516" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">Parameter Store</text>
+<text x="416.0" y="534" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">SecureString</text>
+<rect x="336" y="560" width="160" height="56" rx="12" fill="#fff" stroke="#283541" stroke-width="2"/>
+<text x="416.0" y="584" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">Systems Manager</text>
+<text x="416.0" y="602" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">Run Command</text>
+<rect x="600" y="560" width="124" height="56" rx="12" fill="#fff" stroke="#283541" stroke-width="2"/>
+<text x="662.0" y="584" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700" fill="#17212b" text-anchor="middle">EC2 instance</text>
+<text x="662.0" y="602" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">port 22 closed</text>
+<path d="M196 452H315" stroke="#17212b" stroke-width="2.5" fill="none"/>
+<polygon points="328,452 315,446 315,458" fill="#17212b"/>
+<text x="266.0" y="443" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">assume role</text>
+<path d="M336 520H217" stroke="#17212b" stroke-width="2.5" fill="none"/>
+<polygon points="204,520 217,514 217,526" fill="#17212b"/>
+<text x="266.0" y="511" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">read at build time</text>
+<path d="M196 588H315" stroke="#17212b" stroke-width="2.5" fill="none"/>
+<polygon points="328,588 315,582 315,594" fill="#17212b"/>
+<text x="266.0" y="579" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">deploy</text>
+<path d="M496 588H579" stroke="#17212b" stroke-width="2.5" fill="none"/>
+<polygon points="592,588 579,582 579,594" fill="#17212b"/>
+<text x="548.0" y="579" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#526579" text-anchor="middle">run command</text>
+</svg>

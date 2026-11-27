@@ -1,0 +1,47 @@
+# State worth backing up: a repository credential, a project, and an application.
+# The token is fake; the app itself uses a public repository.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: repo-private-charts
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: https://github.com/example-org/private-charts.git
+  username: deploy-bot
+  password: ghp_example_not_a_real_token
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: team-a
+  namespace: argocd
+spec:
+  description: Team A apps
+  sourceRepos: ["https://github.com/argoproj/argocd-example-apps.git"]
+  destinations:
+  - server: https://kubernetes.default.svc
+    namespace: guestbook
+  clusterResourceWhitelist:          # needed for CreateNamespace=true
+  - group: ""
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  project: team-a
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps.git
+    targetRevision: HEAD
+    path: guestbook
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook
+  syncPolicy:
+    automated: {}
+    syncOptions: ["CreateNamespace=true"]

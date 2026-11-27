@@ -1,0 +1,83 @@
+# Nightly `argocd admin export` inside the cluster.
+# The export is written to a PersistentVolumeClaim. In production, copy it to object storage
+# (for example S3 with IRSA or EKS Pod Identity) and encrypt it: it contains secrets.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argocd-backup
+  namespace: argocd
+---
+# Read-only access to what `argocd admin export` reads, in the argocd namespace only.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: argocd-backup
+  namespace: argocd
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "list"]
+- apiGroups: ["argoproj.io"]
+  resources: ["applications", "appprojects", "applicationsets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argocd-backup
+  namespace: argocd
+subjects:
+- kind: ServiceAccount
+  name: argocd-backup
+  namespace: argocd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: argocd-backup
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: argocd-backup
+  namespace: argocd
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: argocd-backup
+  namespace: argocd
+spec:
+  schedule: "0 2 * * *"          # every day at 02:00, in the controller's time zone
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          serviceAccountName: argocd-backup
+          restartPolicy: OnFailure
+          containers:
+          - name: export
+            image: quay.io/argoproj/argocd:v3.6.3   # same version as your Argo CD
+            command: ["sh", "-c"]
+            args:
+            - |
+              set -e
+              FILE="/backup/argocd-$(date +%Y%m%d-%H%M%S).yaml"
+              argocd admin export -n argocd > "$FILE"
+              echo "wrote $FILE ($(wc -c < "$FILE") bytes)"
+              ls -1t /backup/argocd-*.yaml | tail -n +8 | xargs -r rm --   # keep the newest 7
+            volumeMounts:
+            - name: backup
+              mountPath: /backup
+          volumes:
+          - name: backup
+            persistentVolumeClaim:
+              claimName: argocd-backup

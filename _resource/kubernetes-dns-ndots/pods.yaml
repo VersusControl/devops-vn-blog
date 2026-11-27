@@ -1,0 +1,24 @@
+# Two identical Pods. The only difference is the ndots option in dnsConfig.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-default          # kubelet default: ndots:5
+spec:
+  containers:
+  - name: app
+    image: python:3.13-slim  # glibc resolver, like most application images
+    command: ["sleep", "infinity"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-ndots2
+spec:
+  dnsConfig:
+    options:
+    - name: ndots
+      value: "2"             # names with 2+ dots are tried as-is first
+  containers:
+  - name: app
+    image: python:3.13-slim
+    command: ["sleep", "infinity"]

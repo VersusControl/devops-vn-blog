@@ -300,8 +300,9 @@ main {
 }
 
 .post-row-thumb {
-  width: 120px;
-  height: 80px;
+  width: 144px;
+  height: auto;
+  aspect-ratio: 16 / 9;
   flex-shrink: 0;
   border-radius: 6px;
   overflow: hidden;
@@ -311,7 +312,7 @@ main {
 .post-row-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Featured cards (Substack-style) */
@@ -1804,6 +1805,25 @@ main {
   box-shadow: var(--shadow-md);
 }
 
+/* Covers wrapped in a link: the link takes the size, the image fills it. */
+.book-covers a {
+  display: block;
+  width: 180px;
+  max-width: 44%;
+  border-radius: 6px;
+  transition: transform 0.15s ease;
+}
+
+.book-covers a:hover {
+  transform: translateY(-2px);
+}
+
+.book-covers a img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
 /* ============================================
    Topics Page
    ============================================ */
@@ -2102,8 +2122,8 @@ main {
   }
 
   .post-row-thumb {
-    width: 92px;
-    height: 66px;
+    width: 104px;
+    height: auto;
   }
 
   .hero {

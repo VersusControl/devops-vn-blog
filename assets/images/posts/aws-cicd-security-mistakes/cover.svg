@@ -1,16 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" font-family="Inter, 'Segoe UI', Arial, sans-serif">
-  <rect width="1600" height="760" fill="#111827"/>
-  <circle cx="1370" cy="180" r="360" fill="#ef4444" opacity="0.12"/>
-  <circle cx="1440" cy="600" r="240" fill="#f59e0b" opacity="0.12"/>
-  <!-- shield motif -->
-  <g transform="translate(1300,300)" stroke="#f59e0b" stroke-opacity="0.30" fill="none" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M0,-150 L150,-95 L150,55 C150,150 80,205 0,240 C-80,205 -150,150 -150,55 L-150,-95 Z"/>
-    <path d="M-58,20 L-16,64 L70,-40"/>
-  </g>
-  <rect x="120" y="150" width="54" height="6" rx="3" fill="#f59e0b"/>
-  <text x="192" y="163" font-size="26" fill="#f59e0b" font-weight="700" letter-spacing="4">AWS · CI/CD · SECURITY</text>
-  <text x="118" y="360" font-size="96" fill="#ffffff" font-weight="800">AWS CI/CD Security</text>
-  <text x="118" y="472" font-size="96" fill="#ffffff" font-weight="800">Mistakes to Avoid</text>
-  <text x="120" y="600" font-size="30" fill="#9aa4b2" font-weight="500">Common pitfalls and how to fix them</text>
-  <text x="120" y="648" font-size="24" fill="#5b6472" font-weight="600" letter-spacing="1">devopsvn.tech</text>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="840" viewBox="0 0 1600 840" role="img" aria-label="Secure AWS CI/CD overview. In your repo and CI, every commit to the Git repository is scanned by gitleaks, which fails on a leak, before it reaches the pipeline, CodeBuild or GitHub Actions. The pipeline assumes an IAM role or uses OIDC and gets temporary credentials back, reads secrets at build time from Parameter Store or Secrets Manager, and deploys through Systems Manager, which runs the command on an EC2 instance with port 22 closed. Before, the pipeline file held an AWS access key, a DB password, an SSH key, and a server IP.">
+<title>Secure AWS CI/CD: a pipeline with no stored keys, passwords, or SSH</title>
+<rect width="1600" height="840" fill="#f7f8fa"/>
+<rect x="16" y="16" width="1568" height="808" fill="none" stroke="#c9d1db" stroke-width="1.5"/>
+<text x="800.0" y="92.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="56" font-weight="700" fill="#1d2430" text-anchor="middle">Secure AWS CI/CD</text>
+<rect x="527.1" y="106" width="545.9" height="4" fill="#1d2430"/>
+<text x="800.0" y="148.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="400" fill="#4a5563" text-anchor="middle">No keys, passwords, or SSH in the pipeline</text>
+<rect x="64" y="172" width="536" height="518" rx="6" fill="#eceff3" stroke="#aab4bf" stroke-width="1.5"/>
+<text x="88.0" y="206.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="500" fill="#1d2430" text-anchor="start">Your repo and CI</text>
+<rect x="88" y="224" width="184" height="156" rx="10" fill="#fff" stroke="#aab4bf" stroke-width="1.5"/>
+<rect x="152.0" y="240.0" width="56" height="56" rx="12" fill="#f05033"/>
+<path d="M170 252V284M192 262C192 276 170 270 170 280" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+<circle cx="170" cy="252" r="5.5" fill="#fff"/>
+<circle cx="170" cy="284" r="5.5" fill="#fff"/>
+<circle cx="192" cy="262" r="5.5" fill="#fff"/>
+<text x="180.0" y="330.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="middle">Git repository</text>
+<text x="180.0" y="358.0" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#4a5563" text-anchor="middle">my-org/my-app</text>
+<rect x="88" y="500" width="184" height="166" rx="10" fill="#e8f6ee" stroke="#93cfae" stroke-width="1.5"/>
+<path d="M180 523.0L203.78 532.28V550.84C203.78 567.08 188.5608 576.36 180 581.0C171.4392 576.36 156.22 567.08 156.22 550.84V532.28Z" fill="#1e9e62"/>
+<circle cx="177" cy="549" r="9" fill="none" stroke="#fff" stroke-width="4"/>
+<path d="M183.5 555.5L191 563" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+<text x="180.0" y="614.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="middle">gitleaks</text>
+<text x="180.0" y="642.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="middle">fails on a leak</text>
+<rect x="384" y="224" width="192" height="442" rx="10" fill="#fff" stroke="#aab4bf" stroke-width="1.5"/>
+<rect x="442.0" y="252.0" width="76" height="76" rx="14" fill="#ff9900"/>
+<path d="M458 290H502" stroke="#fff" stroke-width="4"/>
+<circle cx="458" cy="290" r="8" fill="#fff" stroke="#fff" stroke-width="4"/>
+<circle cx="480" cy="290" r="8" fill="#fff" stroke="#fff" stroke-width="4"/>
+<circle cx="502" cy="290" r="8" fill="#ff9900" stroke="#fff" stroke-width="4"/>
+<path d="M454 268H506M454 312H490" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.85"/>
+<text x="480.0" y="372.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#1d2430" text-anchor="middle">Pipeline</text>
+<text x="480.0" y="404.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#4a5563" text-anchor="middle">CodeBuild</text>
+<text x="480.0" y="430.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#4a5563" text-anchor="middle">GitHub Actions</text>
+<path d="M404 516H556" stroke="#d5dbe3" stroke-width="1.5"/>
+<rect x="396" y="540" width="168" height="96" rx="8" fill="#f7f8fa" stroke="#aab4bf" stroke-width="1.5"/>
+<path d="M469 552H484L491 559V578H469Z" fill="#fff" stroke="#1d2430" stroke-width="2" stroke-linejoin="round"/>
+<path d="M474 565H486M474 571H486" stroke="#1d2430" stroke-width="1.8"/>
+<text x="480.0" y="600.0" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#1d2430" text-anchor="middle">buildspec.yaml</text>
+<text x="480.0" y="624.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="middle">no stored secrets</text>
+<rect x="800" y="172" width="350" height="518" rx="6" fill="#e5f1fc" stroke="#86b6e3" stroke-width="1.5" stroke-dasharray="10 8"/>
+<text x="824.0" y="206.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="500" fill="#1d2430" text-anchor="start">AWS services</text>
+<rect x="824" y="224" width="302" height="134" rx="10" fill="#fff" stroke="#86b6e3" stroke-width="1.5"/>
+<circle cx="874" cy="291" r="27" fill="#fff" stroke="#dd344c" stroke-width="6"/>
+<path d="M874.0 273.0L874.0 268.0" stroke="#1d2430" stroke-width="2.5"/>
+<path d="M883.0 275.4L885.5 271.1" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M889.6 282.0L893.9 279.5" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M892.0 291.0L897.0 291.0" stroke="#1d2430" stroke-width="2.5"/>
+<path d="M889.6 300.0L893.9 302.5" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M883.0 306.6L885.5 310.9" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M874.0 309.0L874.0 314.0" stroke="#1d2430" stroke-width="2.5"/>
+<path d="M865.0 306.6L862.5 310.9" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M858.4 300.0L854.1 302.5" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M856.0 291.0L851.0 291.0" stroke="#1d2430" stroke-width="2.5"/>
+<path d="M858.4 282.0L854.1 279.5" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M865.0 275.4L862.5 271.1" stroke="#1d2430" stroke-width="1.5"/>
+<path d="M874 291V274M874 291L886 297" stroke="#1d2430" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="874" cy="291" r="3.5" fill="#dd344c"/>
+<text x="922.0" y="283.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">IAM role / OIDC</text>
+<text x="922.0" y="313.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">temporary credentials</text>
+<rect x="824" y="378" width="302" height="134" rx="10" fill="#fff" stroke="#86b6e3" stroke-width="1.5"/>
+<rect x="846.0" y="415.0" width="56" height="56" rx="9" fill="#dd344c"/>
+<rect x="852.0" y="421.0" width="44" height="44" rx="5" fill="none" stroke="#fff" stroke-width="2.5" opacity="0.6"/>
+<circle cx="874" cy="443" r="12" fill="#fff"/>
+<circle cx="874" cy="443" r="4.5" fill="#dd344c"/>
+<path d="M874 431L874 426" stroke="#fff" stroke-width="3"/>
+<path d="M874 455L874 460" stroke="#fff" stroke-width="3"/>
+<path d="M862 443L857 443" stroke="#fff" stroke-width="3"/>
+<path d="M886 443L891 443" stroke="#fff" stroke-width="3"/>
+<path d="M856.0 471.0v5M892.0 471.0v5" stroke="#1d2430" stroke-width="4" stroke-linecap="round"/>
+<text x="922.0" y="423.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">Parameter Store</text>
+<text x="922.0" y="451.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">Secrets Manager</text>
+<text x="922.0" y="481.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">outside the repository</text>
+<rect x="824" y="532" width="302" height="134" rx="10" fill="#fff" stroke="#86b6e3" stroke-width="1.5"/>
+<rect x="846.0" y="571.0" width="56" height="56" rx="10" fill="#e7157b"/>
+<path d="M859.0 590.0L871.0 599L859.0 608.0" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M876.0 610.0H891.0" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+<text x="922.0" y="591.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="start">Systems Manager</text>
+<text x="922.0" y="621.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">Run Command, no SSH</text>
+<rect x="1310" y="172" width="226" height="280" rx="6" fill="#fdebe3" stroke="#eba98c" stroke-width="1.5" stroke-dasharray="10 8"/>
+<text x="1332.0" y="206.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="500" fill="#1d2430" text-anchor="start">Before</text>
+<text x="1332.0" y="232.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="start">in the pipeline file</text>
+<rect x="1332" y="248" width="182" height="38" rx="8" fill="#fff" stroke="#eba98c" stroke-width="1.5"/>
+<path d="M1343.5 260.5L1356.5 273.5M1356.5 260.5L1343.5 273.5" stroke="#d1344b" stroke-width="3.5" stroke-linecap="round"/>
+<text x="1366.0" y="273.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start">AWS access key</text>
+<rect x="1332" y="294" width="182" height="38" rx="8" fill="#fff" stroke="#eba98c" stroke-width="1.5"/>
+<path d="M1343.5 306.5L1356.5 319.5M1356.5 306.5L1343.5 319.5" stroke="#d1344b" stroke-width="3.5" stroke-linecap="round"/>
+<text x="1366.0" y="319.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start">DB password</text>
+<rect x="1332" y="340" width="182" height="38" rx="8" fill="#fff" stroke="#eba98c" stroke-width="1.5"/>
+<path d="M1343.5 352.5L1356.5 365.5M1356.5 352.5L1343.5 365.5" stroke="#d1344b" stroke-width="3.5" stroke-linecap="round"/>
+<text x="1366.0" y="365.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start">SSH key</text>
+<rect x="1332" y="386" width="182" height="38" rx="8" fill="#fff" stroke="#eba98c" stroke-width="1.5"/>
+<path d="M1343.5 398.5L1356.5 411.5M1356.5 398.5L1343.5 411.5" stroke="#d1344b" stroke-width="3.5" stroke-linecap="round"/>
+<text x="1366.0" y="411.5" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#1d2430" text-anchor="start">server IP</text>
+<rect x="1310" y="476" width="226" height="214" rx="6" fill="#eceff3" stroke="#aab4bf" stroke-width="1.5"/>
+<text x="1332.0" y="510.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="500" fill="#1d2430" text-anchor="start">Deploy target</text>
+<rect x="1332" y="532" width="182" height="134" rx="10" fill="#fff" stroke="#aab4bf" stroke-width="1.5"/>
+<path d="M1405.5 542.0V549.0M1405.5 595.0V602.0M1387.0 560.5H1394.0M1440.0 560.5H1447.0" stroke="#ff9900" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M1417.0 542.0V549.0M1417.0 595.0V602.0M1387.0 572.0H1394.0M1440.0 572.0H1447.0" stroke="#ff9900" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M1428.5 542.0V549.0M1428.5 595.0V602.0M1387.0 583.5H1394.0M1440.0 583.5H1447.0" stroke="#ff9900" stroke-width="3.5" stroke-linecap="round"/>
+<rect x="1394.0" y="549.0" width="46" height="46" rx="6" fill="#ff9900"/>
+<rect x="1406.0" y="561.0" width="22" height="22" rx="3" fill="#fff"/>
+<path d="M1434.0 585.0V578.0A8 8 0 0 1 1450.0 578.0V585.0" stroke="#1d2430" stroke-width="4" fill="none"/>
+<rect x="1428.0" y="584.0" width="28" height="23" rx="4" fill="#1d2430" stroke="#f7f8fa" stroke-width="2"/>
+<circle cx="1442.0" cy="594.0" r="3.5" fill="#fff"/><path d="M1442.0 595.0V601.0" stroke="#fff" stroke-width="3"/>
+<text x="1423.0" y="626.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2430" text-anchor="middle">EC2 instance</text>
+<text x="1423.0" y="652.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#4a5563" text-anchor="middle">port 22 closed</text>
+<path d="M180 380V478" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="180,492 173.5,478 186.5,478" fill="#1d2430"/>
+<text x="192.0" y="446.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#1d2430" text-anchor="start">every commit</text>
+<path d="M272 583H362" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="376,583 362,576.5 362,589.5" fill="#1d2430"/>
+<text x="328.0" y="571.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#1d2430" text-anchor="middle">no leaks</text>
+<path d="M576 272H802" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="816,272 802,265.5 802,278.5" fill="#1d2430"/>
+<text x="700.0" y="261.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#1d2430" text-anchor="middle">assume role</text>
+<path d="M824 312H598" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="584,312 598,305.5 598,318.5" fill="#1d2430"/>
+<text x="700.0" y="340.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#1d2430" text-anchor="middle">temp credentials</text>
+<path d="M824 445H598" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="584,445 598,438.5 598,451.5" fill="#1d2430"/>
+<text x="700.0" y="434.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#1d2430" text-anchor="middle">read at build time</text>
+<path d="M576 599H802" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="816,599 802,592.5 802,605.5" fill="#1d2430"/>
+<text x="700.0" y="588.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#1d2430" text-anchor="middle">deploy</text>
+<path d="M1126 599H1310" stroke="#1d2430" stroke-width="2.5" fill="none"/>
+<polygon points="1324,599 1310,592.5 1310,605.5" fill="#1d2430"/>
+<text x="1230.0" y="588.0" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#1d2430" text-anchor="middle">run command</text>
+<rect x="64" y="706" width="70" height="70" rx="6" fill="#fff" stroke="#c9d1db" stroke-width="1.5"/>
+<svg x="65" y="707" width="68" height="68" viewBox="0 0 375 374.999991" preserveAspectRatio="xMidYMid meet"><defs><g/><clipPath id="dvi-274bc868f1"><rect x="0" width="256" y="0" height="207"/></clipPath><clipPath id="dvi-39212e69f5"><path d="M 20.160156 166.308594 L 354.839844 166.308594 L 354.839844 206.523438 L 20.160156 206.523438 Z M 20.160156 166.308594 " clip-rule="nonzero"/></clipPath><clipPath id="dvi-9d392dbbdf"><path d="M 0.160156 0.308594 L 334.839844 0.308594 L 334.839844 40.523438 L 0.160156 40.523438 Z M 0.160156 0.308594 " clip-rule="nonzero"/></clipPath><clipPath id="dvi-4aaa938553"><rect x="0" width="335" y="0" height="41"/></clipPath></defs><rect x="-37.5" width="450" fill="#ffffff" y="-37.499999" height="449.999989" fill-opacity="1"/><rect x="-37.5" width="450" fill="#f2fbfa" y="-37.499999" height="449.999989" fill-opacity="1"/><g transform="matrix(1, 0, 0, 1, 55, 107)"><g clip-path="url(#dvi-274bc868f1)"><g fill="#5585ad" fill-opacity="1"><g transform="translate(0.83704, 152.616185)"><g><path d="M 8.859375 -141.65625 L 44.796875 -141.65625 C 45.035156 -138.707031 45.300781 -136.195312 45.59375 -134.125 C 45.894531 -132.0625 46.3125 -130 46.84375 -127.9375 C 47.375 -125.875 48.050781 -123.425781 48.875 -120.59375 L 80.578125 -6.203125 L 112.265625 -122.359375 C 113.210938 -125.785156 114.007812 -128.828125 114.65625 -131.484375 C 115.300781 -134.140625 115.800781 -137.53125 116.15625 -141.65625 L 123.0625 -141.65625 C 120.820312 -137.289062 119.316406 -133.835938 118.546875 -131.296875 C 117.785156 -128.765625 116.929688 -125.84375 115.984375 -122.53125 L 85.890625 -12.578125 C 85.296875 -10.097656 84.9375 -8.03125 84.8125 -6.375 C 84.695312 -4.71875 85.054688 -2.59375 85.890625 0 L 50.46875 0 L 17.171875 -120.59375 C 15.878906 -125.3125 14.640625 -129.113281 13.453125 -132 C 12.273438 -134.894531 10.742188 -138.113281 8.859375 -141.65625 Z M 8.859375 -141.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(123.900269, 152.616185)"><g><path d="M 12.390625 0 C 12.867188 -4.488281 13.253906 -8.5625 13.546875 -12.21875 C 13.835938 -15.875 14.039062 -19.707031 14.15625 -23.71875 C 14.28125 -27.738281 14.34375 -32.460938 14.34375 -37.890625 L 14.34375 -103.765625 C 14.34375 -109.316406 14.28125 -114.066406 14.15625 -118.015625 C 14.039062 -121.972656 13.835938 -125.78125 13.546875 -129.4375 C 13.253906 -133.101562 12.867188 -137.175781 12.390625 -141.65625 L 48.171875 -141.65625 L 122 -8.140625 L 122.71875 -7.96875 L 122.71875 -103.765625 C 122.71875 -109.316406 122.65625 -114.066406 122.53125 -118.015625 C 122.414062 -121.972656 122.238281 -125.78125 122 -129.4375 C 121.769531 -133.101562 121.414062 -137.175781 120.9375 -141.65625 L 127.84375 -141.65625 C 127.488281 -137.175781 127.164062 -133.101562 126.875 -129.4375 C 126.582031 -125.78125 126.375 -121.972656 126.25 -118.015625 C 126.132812 -114.066406 126.078125 -109.316406 126.078125 -103.765625 L 126.078125 -37.890625 C 126.078125 -32.460938 126.132812 -27.738281 126.25 -23.71875 C 126.375 -19.707031 126.582031 -15.875 126.875 -12.21875 C 127.164062 -8.5625 127.488281 -4.488281 127.84375 0 L 92.25 0 L 18.234375 -133.515625 L 17.53125 -133.6875 L 17.53125 -37.890625 C 17.53125 -32.460938 17.585938 -27.738281 17.703125 -23.71875 C 17.828125 -19.707031 18.035156 -15.875 18.328125 -12.21875 C 18.617188 -8.5625 19.003906 -4.488281 19.484375 0 Z M 12.390625 0 "/></g></g></g></g></g><g clip-path="url(#dvi-39212e69f5)"><g transform="matrix(1, 0, 0, 1, 20, 166)"><g clip-path="url(#dvi-4aaa938553)"><g clip-path="url(#dvi-9d392dbbdf)"><path fill="#f2fbfa" d="M 0.160156 0.308594 L 334.894531 0.308594 L 334.894531 40.523438 L 0.160156 40.523438 Z M 0.160156 0.308594 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(98.854166, 195.41908)"><g><path d="M 2.109375 -16.09375 L 8.71875 -16.09375 C 11.125 -16.09375 13.113281 -15.332031 14.6875 -13.8125 C 16.257812 -12.300781 17.046875 -10.378906 17.046875 -8.046875 C 17.046875 -5.710938 16.253906 -3.785156 14.671875 -2.265625 C 13.097656 -0.753906 11.085938 0 8.640625 0 L 2.109375 0 Z M 4.828125 -13.65625 L 4.828125 -2.4375 L 8.78125 -2.4375 C 10.363281 -2.4375 11.679688 -2.960938 12.734375 -4.015625 C 13.785156 -5.066406 14.3125 -6.40625 14.3125 -8.03125 C 14.3125 -9.65625 13.769531 -11 12.6875 -12.0625 C 11.601562 -13.125 10.265625 -13.65625 8.671875 -13.65625 Z M 4.828125 -13.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(135.073181, 195.41908)"><g><path d="M 13.609375 -13.65625 L 4.828125 -13.65625 L 4.828125 -9.3125 L 12.703125 -9.3125 L 12.703125 -6.875 L 4.828125 -6.875 L 4.828125 -2.4375 L 13.890625 -2.4375 L 13.890625 0 L 2.109375 0 L 2.109375 -16.09375 L 13.609375 -16.09375 Z M 13.609375 -13.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(168.556119, 195.41908)"><g><path d="M 9.296875 0 L 6.484375 0 L 0.0625 -16.09375 L 2.984375 -16.09375 L 7.953125 -3.015625 L 12.96875 -16.09375 L 15.796875 -16.09375 Z M 9.296875 0 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(202.820793, 195.41908)"><g><path d="M 3.234375 -13.828125 C 4.878906 -15.390625 6.90625 -16.171875 9.3125 -16.171875 C 11.71875 -16.171875 13.738281 -15.390625 15.375 -13.828125 C 17.019531 -12.273438 17.84375 -10.347656 17.84375 -8.046875 C 17.84375 -5.742188 17.019531 -3.804688 15.375 -2.234375 C 13.738281 -0.671875 11.71875 0.109375 9.3125 0.109375 C 6.90625 0.109375 4.878906 -0.671875 3.234375 -2.234375 C 1.597656 -3.804688 0.78125 -5.742188 0.78125 -8.046875 C 0.78125 -10.347656 1.597656 -12.273438 3.234375 -13.828125 Z M 9.34375 -13.734375 C 7.75 -13.734375 6.382812 -13.179688 5.25 -12.078125 C 4.113281 -10.984375 3.546875 -9.640625 3.546875 -8.046875 C 3.546875 -6.453125 4.113281 -5.097656 5.25 -3.984375 C 6.394531 -2.878906 7.753906 -2.328125 9.328125 -2.328125 C 10.910156 -2.328125 12.257812 -2.878906 13.375 -3.984375 C 14.5 -5.097656 15.0625 -6.453125 15.0625 -8.046875 C 15.0625 -9.640625 14.5 -10.984375 13.375 -12.078125 C 12.257812 -13.179688 10.914062 -13.734375 9.34375 -13.734375 Z M 9.34375 -13.734375 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(239.844533, 195.41908)"><g><path d="M 2.109375 -16.09375 L 8.53125 -16.09375 C 10.550781 -16.09375 12.117188 -15.613281 13.234375 -14.65625 C 14.347656 -13.695312 14.90625 -12.347656 14.90625 -10.609375 C 14.90625 -8.773438 14.347656 -7.359375 13.234375 -6.359375 C 12.117188 -5.359375 10.550781 -4.859375 8.53125 -4.859375 L 4.828125 -4.859375 L 4.828125 0 L 2.109375 0 Z M 4.828125 -13.65625 L 4.828125 -7.296875 L 8.421875 -7.296875 C 11.015625 -7.296875 12.3125 -8.375 12.3125 -10.53125 C 12.3125 -12.613281 11.015625 -13.65625 8.421875 -13.65625 Z M 4.828125 -13.65625 "/></g></g></g><g fill="#5585ad" fill-opacity="1"><g transform="translate(273.718333, 195.41908)"><g><path d="M 7.40625 -16.21875 C 9.488281 -16.21875 11.367188 -15.664062 13.046875 -14.5625 L 11.90625 -12.171875 C 10.269531 -13.160156 8.703125 -13.65625 7.203125 -13.65625 C 6.390625 -13.65625 5.75 -13.507812 5.28125 -13.21875 C 4.8125 -12.925781 4.578125 -12.507812 4.578125 -11.96875 C 4.578125 -11.4375 4.789062 -10.984375 5.21875 -10.609375 C 5.644531 -10.234375 6.179688 -9.957031 6.828125 -9.78125 C 7.472656 -9.601562 8.171875 -9.378906 8.921875 -9.109375 C 9.671875 -8.847656 10.367188 -8.566406 11.015625 -8.265625 C 11.660156 -7.960938 12.191406 -7.492188 12.609375 -6.859375 C 13.035156 -6.222656 13.25 -5.453125 13.25 -4.546875 C 13.25 -3.140625 12.679688 -2.015625 11.546875 -1.171875 C 10.421875 -0.328125 8.960938 0.09375 7.171875 0.09375 C 5.953125 0.09375 4.765625 -0.132812 3.609375 -0.59375 C 2.460938 -1.050781 1.457031 -1.675781 0.59375 -2.46875 L 1.765625 -4.8125 C 2.578125 -4.0625 3.46875 -3.484375 4.4375 -3.078125 C 5.414062 -2.671875 6.34375 -2.46875 7.21875 -2.46875 C 8.164062 -2.46875 8.90625 -2.640625 9.4375 -2.984375 C 9.96875 -3.328125 10.234375 -3.804688 10.234375 -4.421875 C 10.234375 -4.972656 10.019531 -5.4375 9.59375 -5.8125 C 9.164062 -6.1875 8.628906 -6.460938 7.984375 -6.640625 C 7.335938 -6.816406 6.640625 -7.03125 5.890625 -7.28125 C 5.140625 -7.53125 4.441406 -7.796875 3.796875 -8.078125 C 3.148438 -8.367188 2.613281 -8.828125 2.1875 -9.453125 C 1.757812 -10.078125 1.546875 -10.835938 1.546875 -11.734375 C 1.546875 -13.097656 2.082031 -14.1875 3.15625 -15 C 4.226562 -15.8125 5.644531 -16.21875 7.40625 -16.21875 Z M 7.40625 -16.21875 "/></g></g></g></svg>
 </svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="460" viewBox="0 0 760 460" role="img" aria-label="The four deployment models differ by who uses the cloud and where it runs. Public cloud: many customers, in the provider's data centers. Private cloud: one organization, in its own or a hosted data center. Community cloud: a group of organizations with the same needs. A note under public and private: multi-cloud means more than one public cloud. Hybrid cloud: two or more of these, connected; for example, a private cloud running a core banking system and a public cloud running a mobile app back end, with a private network link between them so applications and data can move both ways.">
+<defs><style>
+text{font-family:'Helvetica Neue', Arial, sans-serif;fill:#17212b}
+.zone{font-size:12px;font-weight:700;letter-spacing:1.5px;fill:#526579}
+.title{font-size:15px;font-weight:700}
+.item{font-size:14px;font-weight:700}
+.detail{font-size:12px;fill:#526579}
+.note{font-size:13px}
+.badge{font-size:12px;font-weight:700;fill:#ffffff}
+.zone-box{fill:#edf2f6;stroke:#aab9c7;stroke-width:2}
+.node{fill:#ffffff;stroke:#283541;stroke-width:2}
+.concept{fill:#ffffff;stroke:#283541;stroke-width:2;stroke-dasharray:7 5}
+.primary{fill:#d8e7f2;stroke:#456987;stroke-width:2}
+.flow{fill:none;stroke:#17212b;stroke-width:2.5;stroke-linejoin:round}
+.arrow{fill:#17212b}
+.notebox{fill:#ffffff;stroke:#7d8fa1;stroke-width:1.5;stroke-dasharray:6 4}
+</style></defs>
+<rect width="760" height="460" fill="#ffffff"/>
+<rect x="20.0" y="20.0" width="720.0" height="186.0" rx="14" class="zone-box"/>
+<text x="36.0" y="44.0" class="zone">WHO USES THE CLOUD</text>
+<rect x="20.0" y="222.0" width="720.0" height="218.0" rx="14" class="zone-box"/>
+<text x="36.0" y="246.0" class="zone">MODELS COMBINED</text>
+<rect x="36.0" y="56.0" width="221.3" height="86.0" rx="12" class="node"/>
+<text x="52.0" y="84.0" class="title">Public cloud</text>
+<text x="52.0" y="108.0" class="item">many customers</text>
+<text x="52.0" y="127.0" class="detail">in the provider's data centers</text>
+<rect x="269.3" y="56.0" width="221.3" height="86.0" rx="12" class="node"/>
+<text x="285.3" y="84.0" class="title">Private cloud</text>
+<text x="285.3" y="108.0" class="item">one organization</text>
+<text x="285.3" y="127.0" class="detail">its own or a hosted data center</text>
+<rect x="502.7" y="56.0" width="221.3" height="86.0" rx="12" class="node"/>
+<text x="518.7" y="84.0" class="title">Community cloud</text>
+<text x="518.7" y="108.0" class="item">a group of organizations</text>
+<text x="518.7" y="127.0" class="detail">with the same needs</text>
+<rect x="36.0" y="154.0" width="454.7" height="36.0" rx="10" class="notebox"/>
+<text x="141.1" y="177.0" class="note"><tspan font-weight="700">Multi-cloud</tspan> = more than one public cloud</text>
+<rect x="36.0" y="258.0" width="688.0" height="166.0" rx="12" class="node"/>
+<text x="52.0" y="286.0" class="title">Hybrid cloud</text>
+<text x="52.0" y="306.0" class="item">two or more of these, connected</text>
+<text x="708.0" y="286.0" class="detail" text-anchor="end">example: a bank</text>
+<path d="M294.0 356.0 L446.0 356.0" class="flow"/><path d="M458.0 356.0L445.0 362.5L445.0 349.5Z" class="arrow"/>
+<path d="M466.0 372.0 L314.0 372.0" class="flow"/><path d="M302.0 372.0L315.0 365.5L315.0 378.5Z" class="arrow"/>
+<text x="380.0" y="344.0" class="detail" text-anchor="middle">private network link</text>
+<text x="380.0" y="398.0" class="detail" text-anchor="middle">applications and data move</text>
+<rect x="64.0" y="336.0" width="230.0" height="56.0" rx="10" class="node"/>
+<text x="80.0" y="359.0" class="item">Private cloud</text>
+<text x="80.0" y="378.0" class="detail">core banking system</text>
+<rect x="466.0" y="336.0" width="230.0" height="56.0" rx="10" class="node"/>
+<text x="482.0" y="359.0" class="item">Public cloud</text>
+<text x="482.0" y="378.0" class="detail">mobile app back end</text>
+</svg>

@@ -1,0 +1,13 @@
+# DON'T DO THIS. Every secret here is fake, kept to show what a leak looks like.
+version: 0.2
+env:
+  variables:
+    AWS_ACCESS_KEY_ID: AKIA-NOT-A-REAL-KEY-ID
+    AWS_SECRET_ACCESS_KEY: 7Ws9xPq1Vn2bLk8Rt4Yz6Hj3Mc5Fg0Ds2Ae7Kp9Q
+    DB_USER: admin
+    DB_PASSWORD: Sup3rS3cret!
+phases:
+  build:
+    commands:
+      - aws s3 cp ./dist s3://my-app-site/ --recursive
+      - scp -i deploy.pem db.env ec2-user@54.12.34.56:/opt/app/

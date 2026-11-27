@@ -1,162 +1,164 @@
 ---
 layout: post
-title: "Components and Characteristics of the Cloud"
+title: "How a Cloud Works: Resource Pools, Service Models, and Five Characteristics"
+subtitle: "What sits under every cloud: a shared resource pool, three ways to rent it (IaaS, PaaS, SaaS), and the five characteristics that make it a cloud and not just a data center."
 series: "Cloud Computing"
 series_url: /cloud-computing-series/
 part: 1
-date: 2023-01-09
+date: 2026-11-28
 author: Quan Huynh
-tags: [aws, cloud-computing]
-image: /assets/images/posts/aws-cloud-computing-01-components-characteristics/cover.png
+tags: [cloud-computing, aws, iaas, paas, saas, fundamentals]
+image: /assets/images/posts/aws-cloud-computing-01-components-characteristics/cover.svg
 ---
 
-In the previous post we learned what cloud computing and the cloud are. In this
-post we'll look at the basic components and characteristics that a cloud must
-have.
+Two teams deploy the same Node.js website. The first creates a virtual machine, installs Node.js,
+configures Nginx, sets up a firewall, and patches the operating system every month. The second
+uploads the code to a managed platform and gets a URL back. Both are "using the cloud", but they
+rented very different things, and they carry very different amounts of work.
 
-## Components of the Cloud
+In [Chapter 0](/aws-cloud-computing-00-what-is-cloud/) we defined cloud computing and its four
+deployment models. This chapter opens the cloud up and looks at the layers inside it. By the end you
+will be able to:
 
-The diagram below shows the main components of the cloud.
+- explain the shared resource pool that every cloud is built on;
+- choose between IaaS, PaaS, and SaaS, and say what you're responsible for in each;
+- name the five characteristics that make something a cloud, and recognize them on AWS.
 
-![Main cloud components]({{ '/assets/images/posts/aws-cloud-computing-01-components-characteristics/cloud-components.png' | relative_url }})
+## The Layers of a Cloud
 
-There are four parts:
+NIST doesn't describe a cloud in layers, but layers are a useful way to picture what's inside one.
+This chapter uses four, from the bottom up:
 
-- Resource Pools
-- Cloud Models
-- Foundational Service Elements
-- Management Services
+1. **The resource pool:** physical servers, storage, and networks, shared by many customers.
+2. **The service models:** what the provider rents out from that pool: infrastructure, a platform,
+   or finished software.
+3. **The foundational services:** what makes renting possible: self-service, network access,
+   elastic scaling, and measuring usage for the bill.
+4. **The management services:** what every customer needs on top: security, monitoring, data
+   management, and integration.
 
-We'll work from the bottom up, starting with Resource Pools.
+The rest of the chapter walks up the stack one layer at a time.
 
-> Note: I'll keep the technical terms in their original English form.
+![A cloud as four stacked layers, from the bottom up: a resource pool of servers, storage, and networks shared by many tenants; service models IaaS, PaaS, and SaaS; foundational services for self-service, network access, elasticity, and metering and billing; and management services for security, monitoring, data management, and integration](/assets/images/posts/aws-cloud-computing-01-components-characteristics/cloud-layers.svg)
 
-## Resource Pools
+## The Resource Pool and Multi-Tenancy
 
-A Resource Pool is where shareable resources live — it's the most fundamental
-component of the cloud.
+At the bottom is a large pool of hardware. The provider doesn't give each customer their own
+machines. Instead, *virtualization* splits physical servers into many virtual ones, and those are
+handed out to whoever asks.
 
-Resource Pools are designed around a **multi-tenant** service architecture, a
-style of architecture that lets many users share the same computing resources
-while keeping each user's configuration and data isolated so that only they can
-access it.
+Sharing one pool between many customers is called *multi-tenancy*. Each customer is a *tenant*. The
+cloud keeps every tenant's resources and data isolated, so you can't see your neighbor's virtual
+machines or files, even when they run on the same physical server. The same idea applies to
+software: a SaaS provider usually runs one copy of its application for all tenants, instead of a
+separate installation per customer.
 
-![Multi-tenant resource pools]({{ '/assets/images/posts/aws-cloud-computing-01-components-characteristics/resource-pools.png' | relative_url }})
+Multi-tenancy is what makes the cloud cheaper and faster than buying your own hardware. The provider
+buys hardware in bulk, keeps it busy, and hands out a new server from capacity that already exists.
+It's also why isolation between tenants is the provider's first security responsibility.
 
-With a multi-tenant architecture, cloud providers don't need to copy their
-software for each individual user. Instead, all users share the same software to
-access cloud resources while still keeping their data independent from other
-users.
+## Three Ways to Rent It: IaaS, PaaS, and SaaS
 
-From these Resource Pools, cloud providers distribute their services through
-different models, called **Cloud Delivery Models**.
+The service model decides how much of the stack you rent ready-made, and how much you run yourself.
 
-## Cloud Delivery Models
-
-The common delivery models are:
-
-- Infrastructure as a Service
-- Platform as a Service
-- Software as a Service
+| | IaaS | PaaS | SaaS |
+| --- | --- | --- | --- |
+| You get | Virtual machines, disks, networks | A platform that runs your code | A finished application |
+| You manage | Operating system, runtime, application, data | Your application and data | Your data and your users |
+| The provider manages | Hardware, virtualization | Hardware, virtualization, OS, runtime, and usually scaling | Everything else |
+| AWS examples | Amazon EC2, Amazon EBS, Amazon VPC | AWS Elastic Beanstalk, AWS Lambda | Amazon Connect (contact center) |
+| Other examples | Azure Virtual Machines, Compute Engine | Azure App Service, Google App Engine | Microsoft 365, Jira Cloud |
 
 ### Infrastructure as a Service (IaaS)
 
-IaaS is a service model that provides infrastructure and computing resources to
-users over the Internet. As long as they have Internet access, they can request
-resources to use.
-
-With a public cloud, a user simply needs a credit card and an Internet
-connection — from anywhere, they can request resources from the cloud, and when
-they no longer need them, they just turn the service off.
-
-With a private cloud, users request resources from the company's IT department
-based on company policy.
+You rent the building blocks of a data center: virtual machines, disks, and networks. You choose the
+operating system and install everything on top. This is the first team in the opening example. It
+gives the most control, and the most work: patching, scaling, and backups are yours.
 
 ### Platform as a Service (PaaS)
 
-PaaS is a model that combines IaaS with a set of ready-made software services so
-users can deploy their applications as quickly as possible.
-
-For example, on AWS, deploying a website with Node.js normally requires you to:
-
-- Create an EC2 instance
-- Access the EC2 instance and install Node.js- or Docker-related software
-- Configure a web service such as Nginx and do many other things to get Node.js
-  running
-
-AWS provides a PaaS service called Elastic Beanstalk that has everything ready —
-with just a few simple actions in the Web Console, you get a website running
-Node.js.
-
-The simplest way to explain PaaS: it's IaaS where all the necessary software is
-already in place.
+You bring your code, and the platform runs it. The provider installs and patches the operating
+system and runtime, and usually scales the application for you. On AWS, Elastic Beanstalk can take a
+Node.js application and create the servers, load balancer, and scaling rules for it. AWS Lambda goes
+further: you upload a function, and there are no servers to see at all. This is the second team in
+the opening example.
 
 ### Software as a Service (SaaS)
 
-Software as a Service delivers software to users, and users pay monthly or yearly
-to use it — for example Jira Cloud, OneDrive, Terraform Cloud, and so on.
+You use an application that someone else builds and runs, and you pay per user or per month. Your
+email, your issue tracker, and your video calls are probably SaaS. You manage only your data and who
+has access.
 
-SaaS is considered the future of the software industry.
+### Choosing between them
 
-From these Cloud Delivery Models, providers build the characteristics a cloud
-must have to serve users. These are split into Foundational Services and
-Management Services.
+Start from the top: if SaaS solves the problem, don't build it. If you're building, start with PaaS
+and move down to IaaS only when you need control the platform doesn't give you: a specific operating
+system or kernel setting, special hardware, or a process that runs longer than the platform allows.
 
-## Foundational Service Elements
+The further down you go, the more of the *shared responsibility* is yours. On AWS, the
+[shared responsibility model](https://aws.amazon.com/compliance/shared-responsibility-model/) puts
+it this way: AWS is responsible for security *of* the cloud (the hardware and facilities), and you
+are responsible for security *in* the cloud (your data, access, and configuration). With IaaS, "in
+the cloud" includes the operating system. With PaaS and SaaS, it shrinks.
 
-![Foundational service elements]({{ '/assets/images/posts/aws-cloud-computing-01-components-characteristics/foundational-services.png' | relative_url }})
+## The Five Characteristics of a Cloud
 
-Let's go through two characteristics: Billing and Self-Service Provisioning.
+The foundational services layer is how a provider delivers what NIST calls the five *essential
+characteristics*. Chapter 0 mentioned them; this section explains each one. If a service is missing one,
+it isn't really a cloud, even if it runs in a modern data center.
 
-### Billing
+| Characteristic | What it means | What it looks like on AWS |
+| --- | --- | --- |
+| On-demand self-service | You get resources yourself, without asking a person | Launching an EC2 instance from the console or with `aws ec2 run-instances` |
+| Broad network access | You use the cloud over the network, from standard clients | The web console, the AWS CLI, SDKs, and the API over HTTPS |
+| Resource pooling | Many tenants share one pool; you don't know or control which machine you're on | Your instance runs somewhere in an Availability Zone you picked |
+| Rapid elasticity | You can add and remove capacity quickly, often automatically | An Auto Scaling group adding instances when traffic rises |
+| Measured service | Usage is measured, reported, and billed | Per-second billing for EC2, and Cost Explorer showing what you spent |
 
-This is a very important characteristic of the public cloud. Users consume
-computing resources when they want, and are only charged for the resources they
-actually use and the time they use them.
+Two of these change how teams work the most.
 
-To meet this requirement, a cloud provider has to design a platform that fulfills
-a user's resource request immediately and starts billing. When the user stops
-using a resource, that resource is returned to the Resource Pool so other users
-can use it, and billing stops.
+On-demand self-service replaces the ticket-and-wait process from the opening of Chapter 0. A
+developer can create a test environment in minutes and delete it the same afternoon. In a
+traditional data center, the same request could take days or weeks of approvals and installation.
 
-### Self-Service Provisioning
+Measured service is what makes pay-as-you-go possible. Because the provider measures every
+resource, it can bill you only for what you use, while you use it. When you delete a resource, it
+returns to the pool for another tenant, and its billing stops. The other side of this is a common
+first surprise on a cloud bill: a test server or disk that nobody deleted keeps billing every hour
+until someone notices. So cost monitoring becomes part of the job.
 
-This is the next important cloud characteristic. With self-service provisioning,
-users can use the provider's website to select and use the service they want in
-just a few minutes.
+## Management Services: What Every Customer Needs
 
-For example, on AWS, if you need a virtual machine, you log into the AWS Web
-Console and create an EC2 instance to run it.
+At the top are the services every customer needs, whichever provider they choose:
 
-With a traditional data center model, when you need a virtual machine the first
-thing you do is file a request with IT. After going through complex procedures
-and payments, your request is approved. Then you wait for IT to configure the
-hardware, software, and related applications. This process can take days or
-weeks. With the cloud, it takes just a few minutes.
+- **Security:** identity and access management, encryption, and network isolation. On AWS, that's
+  IAM, KMS, and VPC security groups.
+- **Monitoring:** knowing whether your resources are healthy, and getting alerts when they aren't.
+  On AWS, Amazon CloudWatch.
+- **Data management:** backups, replication, and where data is stored.
+- **Integration:** connecting cloud resources to each other and to systems outside the cloud.
 
-## Management Services
+Once your first application is running, most day-to-day cloud work happens in this layer.
 
-![Management services]({{ '/assets/images/posts/aws-cloud-computing-01-components-characteristics/management-services.png' | relative_url }})
+## Summary
 
-The highest layer of cloud architecture consists of the characteristics that
-address the basic needs users care about regardless of which cloud provider they
-use, including: Security, Service Monitoring, Data Management, and Integration.
+- Every cloud sits on a shared resource pool. Multi-tenancy lets many customers share it, while each
+  one's resources and data stay isolated.
+- The service model decides what you rent: IaaS (machines), PaaS (a platform for your code), or SaaS
+  (a finished application). The higher you go, the less you manage.
+- Under the shared responsibility model, the provider secures the cloud itself, and you secure what
+  you put in it.
+- NIST's five essential characteristics (on-demand self-service, broad network access, resource
+  pooling, rapid elasticity, and measured service) are what make it a cloud.
+- Security, monitoring, data management, and integration are the management layer every customer
+  needs.
 
-Security is always a critical characteristic because users always require their
-applications and data to be protected.
+Next: [Chapter 2](/aws-cloud-computing-02-standards-organizations/) covers what happens when you
+use more than one cloud: the standards that let applications and data move between them, and the
+organizations that write those standards.
 
-Service Monitoring gives users built-in monitoring services so they know what's
-happening with their applications.
+## Resources
 
-Data Management lets users move their data between different cloud providers and
-data centers.
-
-Finally, Integration: the cloud must provide services that help users connect
-clouds to each other and to data centers, so they can build Hybrid Cloud or
-Multi-cloud models.
-
-## Conclusion
-
-We've now covered the basic components and characteristics a cloud must have. In
-the next posts we'll talk about the standards and how to manage a cloud
-environment.
+- [NIST SP 800-145: The NIST Definition of Cloud Computing](https://csrc.nist.gov/pubs/sp/800/145/final)
+- [AWS Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
+- [Types of cloud computing](https://aws.amazon.com/types-of-cloud-computing/), AWS

@@ -23,11 +23,26 @@ engineering community. I am the author and maintainer of two open-source project
 
 ## Versus Incident
 
-Open-source incident management tool with an AI SRE agent that watches your logs,
-learns normal patterns, and auto-creates incidents — plus webhook alerts,
-multi-channel notifications, and on-call escalation.
+An open-source (MIT) self-hosted AI SRE agent. It keeps track of your services and
+systems, detects new or unexpected problems, and gives your team the evidence needed to
+investigate. Versus finds problems in three ways:
 
-→ Check it out: [github.com/VersusControl/versus-incident](https://github.com/VersusControl/versus-incident)
+- **AIOps for Kubernetes.** It reads your cluster read-only, maps workloads, changes, and
+  health, and detects broken workloads on its own. Each issue is linked to the logs and
+  changes around it, and Versus never changes anything in the cluster.
+- **AI SRE Agent.** It connects to your logs, learns what normal looks like, and opens an
+  incident only when something new or unexpected appears. No alert rules to write.
+- **Webhook alerts.** The tools you already run (Alertmanager, Grafana, Sentry, CloudWatch,
+  FluentBit) send alerts to Versus. It formats them with your template, sends them to Slack,
+  Microsoft Teams, Telegram, Viber, Email, or Lark, and escalates to on-call through AWS
+  Incident Manager, PagerDuty, ServiceNow, or incident.io.
+
+You can also ask questions about your systems in the DevOps Agent Chat. An Enterprise
+edition adds metrics and traces, Single Sign-On, high availability, and SLI/SLO auto-define.
+
+→ Docs: [docs.versusincident.com](https://docs.versusincident.com/#/)
+
+→ GitHub: [VersusControl/versus-incident](https://github.com/VersusControl/versus-incident)
 
 ## DevOps AI Guidelines & Learning Path
 
@@ -43,17 +58,21 @@ we've got comprehensive resources and proven frameworks to guide your success.
 
 ## Book Author
 
-I am also a published author. My books include *The AIOps Book* and *On-Call in
-Action* — both distilled from real-world experience running production systems
+I am also a published author. My books include [*The AIOps Book*](https://leanpub.com/the-aiops-book) and [*On-Call in
+Action*](https://a.co/d/03VWWrye) — both distilled from real-world experience running production systems
 under pressure.
 
 <div class="book-covers">
-  <img src="{{ '/assets/images/book-aiops.png' | relative_url }}" alt="The AIOps Book">
-  <img src="{{ '/assets/images/book-oncall.png' | relative_url }}" alt="On-Call in Action">
+  <a href="https://leanpub.com/the-aiops-book" target="_blank" rel="noopener" title="The AIOps Book on Leanpub">
+    <img src="{{ '/assets/images/book-aiops.png' | relative_url }}" alt="The AIOps Book">
+  </a>
+  <a href="https://a.co/d/03VWWrye" target="_blank" rel="noopener" title="On-Call in Action on Amazon">
+    <img src="{{ '/assets/images/book-oncall.png' | relative_url }}" alt="On-Call in Action">
+  </a>
 </div>
 
 Alongside my writing and open-source work, I lead the **DevOps VN** community,
-which has grown to more than 25,000 followers on Facebook. As its founder, my
+which has grown to more than 30,000 followers on [Facebook](https://www.facebook.com/clouddevopsvn). As its founder, my
 mission is to empower engineers by simplifying complex concepts and delivering
 actionable, real-world solutions. Through everything I create — code, books, and
 community — I aim to bridge the gap between theory and practice, helping others
@@ -61,5 +80,6 @@ navigate the ever-evolving landscape of modern technology.
 
 ## Connect
 
+- Facebook: [DevOps VN](https://www.facebook.com/clouddevopsvn)
 - GitHub: [hoalongnatsu](https://github.com/hoalongnatsu)
 - Open source: [VersusControl](https://github.com/VersusControl)
