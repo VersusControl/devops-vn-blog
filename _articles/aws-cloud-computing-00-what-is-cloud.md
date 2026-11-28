@@ -5,7 +5,7 @@ subtitle: "The one-sentence definition the industry uses, what it means in pract
 series: "Cloud Computing"
 series_url: /cloud-computing-series/
 part: 0
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [cloud-computing, aws, fundamentals]
 image: /assets/images/posts/aws-cloud-computing-00-what-is-cloud/cover.svg

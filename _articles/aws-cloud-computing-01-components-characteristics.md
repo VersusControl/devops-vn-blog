@@ -5,7 +5,7 @@ subtitle: "What sits under every cloud: a shared resource pool, three ways to re
 series: "Cloud Computing"
 series_url: /cloud-computing-series/
 part: 1
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [cloud-computing, aws, iaas, paas, saas, fundamentals]
 image: /assets/images/posts/aws-cloud-computing-01-components-characteristics/cover.svg

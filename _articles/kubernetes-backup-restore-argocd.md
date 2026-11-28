@@ -2,7 +2,7 @@
 layout: post
 title: "Back Up and Restore Argo CD"
 subtitle: "What Argo CD stores, how to export it with one command, restore it after the namespace is deleted, and run the backup every night."
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [kubernetes, argocd, gitops, backup]
 image: /assets/images/posts/kubernetes-backup-restore-argocd/cover.svg

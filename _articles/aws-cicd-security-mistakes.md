@@ -2,7 +2,7 @@
 layout: post
 title: "AWS CI/CD Security Mistakes to Avoid"
 subtitle: "Four kinds of secrets that end up in pipeline files, how they leak, and the AWS features that let a pipeline deploy with no stored keys, passwords, or SSH."
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [aws, ci-cd, security, codebuild, github-actions, iam]
 image: /assets/images/posts/aws-cicd-security-mistakes/cover.svg

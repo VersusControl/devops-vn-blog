@@ -2,7 +2,7 @@
 layout: post
 title: "AWS Databases: How to Choose the Right One"
 subtitle: "Eight data models, the AWS service built for each, and three questions that tell you which one your application needs."
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [aws, database, rds, aurora, dynamodb, architecture]
 image: /assets/images/posts/aws-database-types/cover.svg

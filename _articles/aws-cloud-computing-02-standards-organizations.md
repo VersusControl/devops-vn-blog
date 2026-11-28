@@ -5,7 +5,7 @@ subtitle: "Why standards decide how hard it is to move between clouds, the organ
 series: "Cloud Computing"
 series_url: /cloud-computing-series/
 part: 2
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [cloud-computing, standards, portability, security, fundamentals]
 image: /assets/images/posts/aws-cloud-computing-02-standards-organizations/cover.svg

@@ -2,7 +2,7 @@
 layout: post
 title: "Amazon S3 Explained: When Object Storage Beats a Disk"
 subtitle: "How object storage differs from a disk, when S3 should replace the uploads folder on your server, and how to keep a bucket private, fast, and affordable."
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [aws, s3, storage, object-storage]
 image: /assets/images/posts/aws-why-use-s3/cover.svg

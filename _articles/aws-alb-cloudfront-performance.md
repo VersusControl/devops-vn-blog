@@ -2,7 +2,7 @@
 layout: post
 title: "Put CloudFront in Front of Your Application Load Balancer"
 subtitle: "Why an API gets faster behind CloudFront even when nothing is cached, how to measure it with curl, and how to set it up so nobody can bypass it."
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [aws, cloudfront, alb, performance, networking]
 image: /assets/images/posts/aws-alb-cloudfront-performance/cover.svg

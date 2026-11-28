@@ -2,7 +2,7 @@
 layout: post
 title: "Kubernetes RBAC in Practice: Give Developers Read-Only Access to One Namespace"
 subtitle: "Use a ServiceAccount, a Role, and a RoleBinding so developers can read Pods and logs in one namespace, and change nothing."
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [kubernetes, rbac, security, kubectl]
 image: /assets/images/posts/kubernetes-create-and-authorize-users/cover.svg

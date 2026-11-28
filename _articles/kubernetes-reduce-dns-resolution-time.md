@@ -2,7 +2,7 @@
 layout: post
 title: "Why DNS Lookups Are Slow in Kubernetes, and How to Fix Them"
 subtitle: "Why one lookup of an external name from a Pod can cost CoreDNS eight queries instead of two, and how a trailing dot, a lower ndots, or NodeLocal DNSCache cuts that down."
-date: 2026-11-28
+date: 2026-11-27
 author: Quan Huynh
 tags: [kubernetes, dns, coredns, eks, performance]
 image: /assets/images/posts/kubernetes-reduce-dns-resolution-time/cover.svg
